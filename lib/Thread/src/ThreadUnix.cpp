@@ -28,9 +28,7 @@ bool ThreadUnix::operator()(void *(*pfonct)(void *), void *t)
 
 bool ThreadUnix::Destroy(void)
 {
-  if (pthread_cancel(this->_thread) == 0)
-    return (true);
-  return (false);
+  this->_state = OFF; // todo ?
 }
 
 bool ThreadUnix::Wait(void)

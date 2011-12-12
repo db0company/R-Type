@@ -9,7 +9,7 @@ class ThreadUnix : public IThread
 public:
   ThreadUnix(void);
   virtual ~ThreadUnix(void);
-  virtual bool Create(void *(*pfonct)(void *), void *t) = 0;
+  virtual bool Create(void *(*pfonct)(void *), void *t);
   virtual bool operator()(void *(*pfonct)(void *), void *t);
   virtual bool Destroy(void);
   virtual bool Wait(void);
