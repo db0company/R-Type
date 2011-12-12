@@ -69,7 +69,7 @@ bool		UDPServerSocketUnix::SNCreate(std::string const &host, int port)
       return (false);
     }
   this->_error = NOERRORSOCKET;
-  listen(this->_socket, 42); // todo: comm?
+  listen(this->_socket, 42);
   return (true);
 }
 
@@ -105,6 +105,53 @@ int		UDPServerSocketUnix::SNWrite(const void *msg, uint32_t size)
   this->_error = NOERRORSOCKET;
   return (ret);
 }
+
+int				SNReadClient(void *msg, unsigned int size, std::string &ip)
+{
+  int		ret;
+  socklen_t	addrsize;
+  char *str = new char[50];
+
+  addrsize = sizeof(this->_daddr);
+  if ((ret = recvfrom(this->_socket, msg, size, 0, (sockaddr *)&(this->_daddr), &addrsize)) <= 0)
+    {
+      if (ret == 0)
+	this->_error = CONNECTIONLOST;
+      else
+	this->_error = CANTREAD;
+      return (ret);
+    }
+  inet_ntop(AF_INET, &(this->_addr.sin_addr), str, 49);
+  ip = str;
+  this->_error = NOERRORSOCKET;
+  return (ret);
+}
+
+int				SNWriteClient(const void *msg, unsigned int size)
+{
+  std::map<std::string, struct sockaddr_in *>::iterator it;
+  int		ret;
+  socklen_t	socklen;
+  int		client = 0;
+  struct sockaddr_in *clientinfo = NULL;
+
+  socklen = sizeof(this->_daddr);
+	for (it = this->_contactMap.begin(); it != this->_contactMap.end(); ++it)
+	{
+	clientinfo = it->second;
+	if (clientinfo == NULL)
+			continue;
+	  if ((ret = sendto(this->_socket, msg, size, 0, ((sockaddr *)clientinfo), socklen)) <= 0)
+		{
+			this->_error = CANTWRITE;
+		}
+	  else
+		client++;
+	}
+  this->_error = NOERRORSOCKET;
+  return (client);
+}
+
 
 bool		UDPServerSocketUnix::SNClose(void)
 {

@@ -1,4 +1,7 @@
 #include <winsock2.h>
+#include <Ws2tcpip.h>
+#include <map>
+#include <iterator>
 #include "ISocket.h"
 #include "ISelector.h"
 #include "Selector.hpp"
@@ -19,7 +22,7 @@ UDPServerSocketWindows::~UDPServerSocketWindows(void)
 
 UDPServerSocketWindows::UDPServerSocketWindows(const UDPServerSocketWindows &other)
 {
-this->_socket = other._socket;
+  this->_socket = other._socket;
   this->_selector = other._selector;
   this->_host = other._host;
   this->_port = other._port;
@@ -103,6 +106,55 @@ int		UDPServerSocketWindows::SNWrite(const void *msg, unsigned int size)
 	this->_error = NOERRORSOCKET;
 	return (SendBytes);
 }
+
+int				UDPServerSocketWindows::SNReadClient(void *msg, unsigned int size, std::string &ip)
+{
+	WSABUF DataBuf;
+	DWORD BytesReceived;
+	DWORD Flags = 0;
+	int structsize;
+	char *str = new char[50];
+
+	structsize = sizeof(this->_daddr);
+	DataBuf.len = size;
+	DataBuf.buf = static_cast <char *>(msg);
+	if (WSARecvFrom(this->_socket, &DataBuf, 1, &BytesReceived, &Flags, (SOCKADDR *)&(this->_daddr), &structsize, NULL, NULL) == SOCKET_ERROR)
+	{
+		this->_error = CANTREAD;
+		return (-1);
+	}
+	this->_error = NOERRORSOCKET;
+	InetNtop(AF_INET, (void *)&(this->_daddr.sin_addr), reinterpret_cast<PSTR>(str), 49);
+	ip = str;
+	return (BytesReceived);
+}
+
+int				UDPServerSocketWindows::SNWriteClient(const void *msg, unsigned int size)
+{
+	std::map<std::string, struct sockaddr_in *>::iterator it;
+	DWORD	SendBytes;
+	WSABUF	DataBuf;
+	int client = 0;
+	DataBuf.buf = static_cast <char *> (const_cast <void *> (msg));
+	DataBuf.len = size;
+	struct sockaddr_in *clientinfo = NULL;
+
+	for (it = this->_contactMap.begin(); it != this->_contactMap.end(); ++it)
+	{
+		clientinfo = it->second;
+		if (clientinfo == NULL)
+			continue;
+		if (WSASendTo(this->_socket, &DataBuf, 1, &SendBytes, 0, ((SOCKADDR *)clientinfo), sizeof(this->_daddr), NULL, NULL) == SOCKET_ERROR)
+		{
+			this->_error = CANTWRITE;
+		}
+		else
+			client++;
+		this->_error = NOERRORSOCKET;
+	}
+	return (client);
+}
+
 
 bool		UDPServerSocketWindows::SNClose(void)
 {

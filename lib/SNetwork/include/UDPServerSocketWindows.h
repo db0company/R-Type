@@ -4,9 +4,10 @@
 #include <winsock2.h>
 #include <iostream>
 #include "ISocket.h"
+#include "AUDPServerSocket.h"
 #include "ISelector.h"
 
-class UDPServerSocketWindows : public ISocket
+class UDPServerSocketWindows : public AUDPServerSocket
 {
 private:
   UDPServerSocketWindows(void);
@@ -34,6 +35,9 @@ public:
   virtual bool		SNGetWrite(void) const;
 
   virtual char		*getIp(void) const;
+
+  virtual int				SNReadClient(void *msg, unsigned int size, std::string &ip);
+  virtual int				SNWriteClient(const void *msg, unsigned int size);
 private:
   SOCKET		_socket;
   ISelector		*_selector;

@@ -5,9 +5,10 @@
 #include <stdint.h>
 #include <arpa/inet.h>
 #include "ISocket.h"
+#include "AUDPServerSocket.h"
 #include "ISelector.h"
 
-class UDPServerSocketUnix : public ISocket
+class UDPServerSocketUnix : public AUDPServerSocket
 {
 private:
   UDPServerSocketUnix(void);
@@ -35,6 +36,9 @@ public:
   virtual bool		SNGetWrite(void) const;
 
   virtual char*		getIp(void)const;
+
+  virtual int				SNReadClient(void *msg, unsigned int size, std::string &ip);
+  virtual int				SNWriteClient(const void *msg, unsigned int size);
 private:
   int			_socket;
   ISelector		*_selector;
