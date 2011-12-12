@@ -7,13 +7,13 @@
 class MutexWindows : public IMutex
 {
 public:
-	MutexWindows(void);
-	~MutexWindows(void);
-	virtual bool Lock(void);
-	virtual bool Unlock(void);
-	virtual bool Try(void);
+  MutexWindows(void);
+  virtual ~MutexWindows(void);
+  virtual bool Lock(void);
+  virtual bool Unlock(void);
+  virtual bool Try(void);
 private:
-	CRITICAL_SECTION _section;
+  CRITICAL_SECTION _section;
 };
 
 #endif // __MUTEX_WINDOWS_HPP__
