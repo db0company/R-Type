@@ -23,7 +23,8 @@ SRCS		=	$(MAIN_DIR)main.cpp			\
 			\
 
 S_SRCS		=	$(SERV_DIR)main.cpp			\
-			$(SERV_DIR)Server.cpp
+			$(SERV_DIR)Server.cpp			\
+			$(SERV_DIR)User.cpp
 
 # objects
 OBJS		=	$(SRCS:.cpp=.o)

@@ -42,6 +42,21 @@ bool Server::init(int port)
   return (true);
 }
 
+bool	Server::addClient(ATCPClientSocket *sock)
+{
+  User	*user;
+
+  if (sock->getIp())
+    {
+      std::cout << "Info: User "<< sock->getIp() << " added to list"  << std::endl;
+      user = new User(sock, sock->getIp());
+      this->_userList.push_front(user);
+      return (true);
+    }
+  std::cerr << "Error: Can't resolve client ip adress" << std::endl;
+  return (false);
+}
+
 bool Server::getNewClient(void)
 {
   if (this->_listener->SNGetRead())
@@ -53,8 +68,51 @@ bool Server::getNewClient(void)
       newClient->SNAddWrite();
       std::cout << "New connection";
       if (newClient->getIp())
-  	std::cout << " from " << newClient->getIp();
+	{
+	  std::cout << " from " << newClient->getIp();
+	}
       std::cout << std::endl;
+      this->addClient(newClient);
+    }
+  return (true);
+}
+
+bool Server::removeClient(User *user, ATCPClientSocket *socket)
+{
+  if (socket && user)
+    {
+      std::cout << "Info: User " <<
+	socket->getIp() << " disconnected" <<
+	std::endl;
+      user->setSafe(false);
+      socket->SNDelRead();
+      socket->SNDelWrite();
+      return (true);
+    }
+  return (false);
+}
+
+//todo :removelist safely-o !
+bool Server::readFromClient(void)
+{
+  std::list<User *>::iterator	it;
+  User				*user = NULL;
+  ATCPClientSocket		*socket = NULL;
+
+  for (it = this->_userList.begin(); it != this->_userList.end(); ++it)
+    {
+      user = *it;
+      if (user && user->isSafe() && (socket = user->getSocket()))
+	{
+	  if (socket->SNGetRead() == true)
+	    {
+	      char		buff[512] = {0};
+	      if (socket->SNRead(buff, 514) <= 0)
+		this->removeClient(user, socket); // not from list !
+	      else
+		std::cout << socket->getIp() << ": " << buff;
+	    }
+	}
     }
   return (true);
 }
@@ -70,6 +128,6 @@ bool Server::run(void)
 	  return (false);
 	}
       this->getNewClient();
+      this->readFromClient();
     }
 }
-

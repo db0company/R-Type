@@ -8,6 +8,8 @@
 #include "ATCPServerSocket.h"
 #include "ISelector.h"
 
+#define DEFAULT_PORT 12348
+
 class Server
 {
 private:
@@ -16,11 +18,13 @@ private:
 public:
   Server(void);
   ~Server(void);
-  bool init(int port = 12348);
+  bool init(int port = DEFAULT_PORT);
   bool run(void);
 private:
   bool getNewClient(void);
-  bool addClient(void);
+  bool addClient(ATCPClientSocket *);
+  bool readFromClient(void);
+  bool removeClient(User *user, ATCPClientSocket *socket);
 private:
   //  std::map<std::string, User *> _usersMap;
   std::list<User *>		_userList;
