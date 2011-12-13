@@ -26,7 +26,6 @@ private:
   bool readFromClient(void);
   bool removeClient(User *user, ATCPClientSocket *socket);
 private:
-  //  std::map<std::string, User *> _usersMap;
   std::list<User *>		_userList;
   ATCPServerSocket*		_listener;
   ISelector*			_selector;

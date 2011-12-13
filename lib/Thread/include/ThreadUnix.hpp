@@ -8,6 +8,8 @@ class ThreadUnix : public IThread
 {
 public:
   ThreadUnix(void);
+  ThreadUnix(ThreadUnix const &);
+  ThreadUnix &operator=(ThreadUnix const &);
   virtual ~ThreadUnix(void);
   virtual bool Create(void *(*pfonct)(void *), void *t);
   virtual bool operator()(void *(*pfonct)(void *), void *t);

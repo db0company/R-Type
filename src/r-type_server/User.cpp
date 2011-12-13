@@ -14,15 +14,23 @@ User::~User(void)
 {
 }
 
-User& User::operator=(User const &)
+User& User::operator=(User const &other)
 {
-  //todo
+  this->_safe = other._safe;
+  this->_log = other._log;
+  this->_login = other._login;
+  this->_socket = other._socket;
+  this->_ip = other._ip;
   return (*this);
 }
 
-User::User(User const &)
+User::User(User const &other)
 {
-  //todo
+  this->_safe = other._safe;
+  this->_log = other._log;
+  this->_login = other._login;
+  this->_socket = other._socket;
+  this->_ip = other._ip;
 }
 
 bool			User::isSafe(void)const

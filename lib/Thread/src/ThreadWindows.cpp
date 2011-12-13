@@ -9,6 +9,21 @@ ThreadWindows::~ThreadWindows(void)
 {
 }
 
+ThreadWindows::ThreadWindows(ThreadWindows const &other)
+{
+  this->_threadId = other._threadId;
+  this->_handle = other._handle;
+  this->_state = other._state;
+}
+
+ThreadWindows &ThreadWindows::operator=(ThreadWindows const &other)
+{
+  this->_threadId = other._threadId;
+  this->_handle = other._handle;
+  this->_state = other._state;
+  return (*this);
+}
+
 bool ThreadWindows::Create(void *(*pfonct)(void *), void *data)
 {
 	this->_handle = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(pfonct), data, 0, &(this->_threadId));

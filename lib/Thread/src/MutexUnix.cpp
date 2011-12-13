@@ -1,6 +1,17 @@
 #include <pthread.h>
 #include "MutexUnix.hpp"
 
+MutexUnix::MutexUnix(MutexUnix const &other)
+{
+  this->_mutex = other._mutex;
+}
+
+MutexUnix &MutexUnix::operator=(MutexUnix const &other)
+{
+  this->_mutex = other._mutex;
+  return (*this);
+}
+
 MutexUnix::MutexUnix(void)
 {
   if (pthread_mutex_init(&this->_mutex, NULL) != 0)

@@ -10,6 +10,19 @@ ThreadUnix::~ThreadUnix(void)
 {
 }
 
+ThreadUnix &ThreadUnix::operator=(ThreadUnix const &other)
+{
+  this->_state = other._state;
+  this->_thread = other._state;
+  return (*this);
+}
+
+ThreadUnix::ThreadUnix(ThreadUnix const &other)
+{
+  this->_state = other._state;
+  this->_thread = other._state;
+}
+
 bool ThreadUnix::Create(void *(*pfonct)(void *), void *t)
 {
   if (pthread_create(&this->_thread, NULL, pfonct, t) != 0)

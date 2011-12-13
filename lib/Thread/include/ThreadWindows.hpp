@@ -8,6 +8,8 @@ class ThreadWindows : public IThread
 {
 public:
   ThreadWindows(void);
+  ThreadWindows(ThreadWindows const &);
+  ThreadWindows &operator=(ThreadWindows const &);
   virtual ~ThreadWindows(void);
   virtual bool Create(void *(*pfonct)(void *), void *t);
   virtual bool operator()(void *(*pfonct)(void *), void *t);
