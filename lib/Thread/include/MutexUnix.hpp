@@ -8,6 +8,8 @@ class MutexUnix : public IMutex
 {
 public:
   MutexUnix(void);
+  MutexUnix(MutexUnix const &);
+  MutexUnix &operator=(MutexUnix const &);
   virtual ~MutexUnix(void);
   virtual bool Lock(void);
   virtual bool Unlock(void);

@@ -1,4 +1,3 @@
-
 NAME		=	r-type
 S_NAME		=	$(NAME)_server
 
@@ -28,6 +27,8 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			\
 			$(PRTC_DIR)ProtocolPacketData.cpp	\
 			\
+			$(SERV_DIR)Server.cpp			\
+			$(SERV_DIR)User.cpp
 			# $(PRTC_DIR)PacketFactory.cpp		\
 			# $(PRTC_DIR)PacketManager.cpp		\
 
@@ -36,7 +37,7 @@ OBJS		=	$(SRCS:.cpp=.o)
 S_OBJS		=	$(S_SRCS:.cpp=.o)
 
 # libs
-LIB		=	
+LIB		=	-L$(LIB_DIR) -lSNetwork
 
 # functions
 RM		=	rm -f
@@ -64,4 +65,4 @@ fclean		:	clean
 re		:	fclean all
 
 .cpp.o		:
-			$(CXX) -c $(CFLAGS) $< -o $(<:.cpp=.o) -I$(INCLUDE)
+			$(CXX) -c $(CFLAGS) $< -o $(<:.cpp=.o) -I$(INCLUDE) -I$(LIB_DIR)/SNetwork/$(INCLUDE)

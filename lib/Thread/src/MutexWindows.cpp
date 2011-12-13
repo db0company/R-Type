@@ -11,6 +11,18 @@ MutexWindows::~MutexWindows(void)
 	DeleteCriticalSection(&(this->_section));
 }
 
+MutexWindows::MutexWindows(MutexWindows const &other)
+{
+  this->_section = other._section;
+}
+
+MutexWindows &MutexWindows::operator=(MutexWindows const &other)
+{
+  this->_section = other._section;
+  return (*this);
+}
+
+
 bool MutexWindows::Lock(void)
 {
 	// todo: can raise an exeption ?

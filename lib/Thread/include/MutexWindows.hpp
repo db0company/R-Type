@@ -8,6 +8,8 @@ class MutexWindows : public IMutex
 {
 public:
   MutexWindows(void);
+  MutexWindows(MutexWindows const &);
+  MutexWindows &operator=(MutexWindows const &);
   virtual ~MutexWindows(void);
   virtual bool Lock(void);
   virtual bool Unlock(void);

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 
+#define SERV_ADDR "127.0.0.1"
+
 enum	eSocketErr
   {
     SOCKETCREAT,
