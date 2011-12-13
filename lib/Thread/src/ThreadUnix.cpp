@@ -29,6 +29,7 @@ bool ThreadUnix::operator()(void *(*pfonct)(void *), void *t)
 bool ThreadUnix::Destroy(void)
 {
   this->_state = OFF; // todo ?
+  return (true);
 }
 
 bool ThreadUnix::Wait(void)
