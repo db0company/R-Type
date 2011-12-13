@@ -4,7 +4,7 @@
 #include <list>
 #include <string>
 #include "User.hpp"
-//#include "GameManager.hpp"
+#include "GameManager.hpp"
 #include "ATCPServerSocket.h"
 #include "ISelector.h"
 
@@ -29,7 +29,7 @@ private:
   std::list<User *>		_userList;
   ATCPServerSocket*		_listener;
   ISelector*			_selector;
-  //  GameManager			_gameManager;
+  GameManager			_gameManager;
   int				_port;
 };
 
