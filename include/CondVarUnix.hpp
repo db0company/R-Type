@@ -14,7 +14,7 @@ public:
   CondVarUnix(IMutex *m);
   virtual ~CondVarUnix();
 
-  virtual void wait();
+  virtual bool wait();
   virtual void signal();
   virtual void broadcast();
 };

@@ -23,11 +23,13 @@ CondVarUnix::~CondVarUnix()
     }
 }
 
-void	CondVarUnix::wait()
+bool	CondVarUnix::wait()
 {
   pthread_mutex_t	*test = (reinterpret_cast<MutexUnix *>(_m)->getMutex());
 
-  pthread_cond_wait(&this->_Cond, test);
+  if (pthread_cond_wait(&this->_Cond, test) == 0)
+	  return (true);
+  return (false);
 }
 
 void	CondVarUnix::signal()

@@ -14,6 +14,7 @@ public:
   virtual bool Lock(void);
   virtual bool Unlock(void);
   virtual bool Try(void);
+  CRITICAL_SECTION	*getCS();
 private:
   CRITICAL_SECTION _section;
 };

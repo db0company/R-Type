@@ -5,8 +5,7 @@
 class		ICondVar
 {
 public:
-  ~ICondVar() {}
-  virtual void	wait() = 0;
+  virtual bool	wait() = 0;
   virtual void	signal() = 0;
   virtual void	broadcast() = 0;
 };
