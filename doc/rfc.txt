@@ -1,0 +1,373 @@
+Network Working Group                             R-type-2014-bideau_s
+Request for Comments: nnnn                               December 2011
+Category: Informational
+
+
+                  Network Game Protocol (NGP) For R-Type
+
+Status of This Memo
+
+   This document specifies the Protocol for a Network Game R-Type.
+   It describe how is set the binary communication between a
+   R-Type Client and R-Type Server, using Transmission Control
+   Protocol (TCP) and User Datagram Protocol (UDP).
+   Distribution of this memo is unlimited.
+   This memo provides information for the Internet community. This
+   memo does not specify an Internet standard of any kind.
+   Distribution of this memo is unlimited.
+
+
+Copyright Notice
+
+   Copyright (c) R-Type-2014-bideau_s (2011). All rights reserved.
+
+Contact
+
+   To contact the RFC Editor send an email message to:
+
+         "babel2014@googlegroups.com".
+
+
+
+R-type-2014-bideau_s        Informational                        [Page 1]
+
+RFC 133742                  Network Game Protocol           December 2011
+
+
+Table of Contents
+
+   1. Introduction ....................................................2
+   2. Transfert Description ...........................................2
+      2.1 TCP .........................................................2
+      2.2 UDP .........................................................2
+   3. Data Unit Format ................................................2
+      3.1 Header ......................................................2
+      3.2 Data ........................................................2
+   4. Game Group ......................................................2
+      4.1 GetGame .....................................................2
+      4.2 GetLvl ......................................................2
+      4.3 Create ......................................................2
+      4.4 Join ........................................................2
+      4.5 Quit ........................................................2
+      4.6 EndGame .....................................................2
+      4.7 Start .......................................................2
+   5. Map Group .......................................................2
+      5.1 Get .........................................................2
+   6. Movement Group ..................................................2
+      6.1 MovePlayer ..................................................2
+      6.2 UpdatePlayer ................................................2
+      6.3 UpdateEnemy .................................................2
+      6.4 UpdateBullet ................................................2
+      6.5 NewBullet ...................................................2
+   7. Event Group .....................................................2
+      7.1 PlayerDead ..................................................2
+      7.2 Score .......................................................2
+   8. Message Exchange ................................................2
+      8.1 TCP .........................................................2
+      8.2 UDP .........................................................2
+   9. References ......................................................2
+
+1.  Introduction
+
+2.  Transfert Description
+
+3.  Data Unit Format
+
+   The Data Unit Format contains two fields: a 8 bit header that describes
+   the total length of the data unit, and the data unit.
+
+3.1.  Header
+
+ 0        1        2        3        4        5        6        7        8
+ +--------+--------+--------+--------+--------+--------+--------+--------+
+ |      magic      |      data       |      group      |   instruction   |
+ |      number     |      size       |      type       |       type      |
+ +--------+--------+--------+--------+--------+--------+--------+--------+
+
+   Magic Number (2 bytes) :
+   A magic number that worth 97463 to check if the packet is an r-type
+   packet. If the magic number is wrong, the packet is ignored.
+
+   Data Size (2 bytes) :
+   Size of the data unit.
+
+   Group Type (2 bytes) :
+   The type of Group that the packet is.  The content of this section must
+   be one of the four following :
+
+   GAMEGROUP    :   0
+   MAPGROUP     :   1
+   MOVEMENTGROUP:   2
+   EVENTGROUP   :   3
+
+   Instruction Type (2 bytes) :
+   The type of Instruction from the previous group that the packet is.
+   Differs according to group.
+
+
+3.2.  Data
+
+    Data is an array of bytes.
+    Data wil be formatting as the following :
+    There is no separator between 2 informations.
+    String Type is composed by : 2 bytes for the size and raw text,
+    without '\0' in the end.
+    For instance if the data contains an id = 42 (2 bytes) and a
+    login = "foobar" the data will have a size of 10 and will look like:
+
+
+    0     1     2     3     4     5     6     7     8     9     10
+    +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+    |    id =   |  size =   |              raw text =           |
+    |-----------|-----------|-----------------------------------|
+    |     42    |     6     | 'f' | 'o' | 'o' | 'b' | 'a' | 'r' |
+    +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+    Because the size of a string type changes, for now on, the packet's
+    diagram will no longer represent the data type string. A Data
+    containing a string named login will be represented as below:
+    ~ login ~
+
+
+4.  Game Group
+
+    The game group contains instruction to create delete and join
+    and quit a game. It also send to Client the list of game in
+    progress. TCP is used for this group. The instruction Type is one of
+    the following :
+
+    GETGAME    :   0
+    GETLVL     :   1
+    CREATE     :   2
+    JOIN       :   3
+    QUIT       :   4
+    ENDGAME    :   5
+
+4.1 GetGame Instruction (0)
+
+    4.1.1 Client to Server
+
+    When the client wants to know the list of game in progress (being
+    played but also on hold) he has to request the server by sending a
+    packet containing a simple header and the GAME group instruction
+    GETGAME. The data unit must be empty.
+
+    For this instruction, the header will always look the same:
+
+ 0        1        2        3        4        5        6        7        8
+ +--------+--------+--------+--------+--------+--------+--------+--------+
+ |      magic      |     size =      |     group =     |   instruction = |
+ |      number     |        0        |      GAME       |      GETGAME    |
+ +--------+--------+--------+--------+--------+--------+--------+--------+
+
+   And because the packet only contain a header (no data unit), the data
+   size will always be zero.
+
+   4.1.2 Server to Client
+
+   When the Server responds to the Client, it sends the almost exact header:
+   Only the size changes. He also sends a data.
+
+   The data contains datagrames.
+   A datagame contains :
+
+   id_game	2 bytes		Each game has an unique id
+   login	string		Login of the user who created this game
+   game_name	string		Name of the game
+   lvl		string		Level of the game
+   player_max	1 byte		Max number of player (1 to 4)
+   observer	1 byte		Set to 1 if the game accept client that
+   		  		dont play the game but can watch it as
+				an observer. Else, is set to 0.
+   nb_player	1 byte		Number of player that already joined the game
+
+    0     1     2    (3 strings X bytes)        N    N+1   N+2   N+3
+    +-----+-----+                               +-----+-----+-----+
+    |    id     |                               | pla-| obs-| nb  |
+    |           |  ~ login ~ game_name ~ lvl ~  | yer | erv-| pla-|
+    |   game    |                               | max | er  | yer |
+    +-----+-----+                               +-----+-----+-----+
+
+    See (Section 3.2. Data) For more information on string type.
+    with N = 2 + X
+
+//todo: add avant la list des datagame le nombre de datagame?
+
+4.2 GetLvl Instruction (1)
+
+    4.2.1 Client to Server
+
+    When a Client wants to know the level available on the server he send
+    a GETLEVEL instruction from the GAME group. The Packet contains a
+    simple header without data and will always look the same.
+
+ 0        1        2        3        4        5        6        7        8
+ +--------+--------+--------+--------+--------+--------+--------+--------+
+ |      magic      |     size =      |     group =     |   instruction = |
+ |      number     |        0        |      GAME       |      GETLVL     |
+ +--------+--------+--------+--------+--------+--------+--------+--------+
+
+    4.2.1 Server to Client (tcp)
+
+    When the Server responds to the client, he sends one header and a list
+    of strings, each one containing the lvl name. The header is the same
+    as the one sent by the client, exept for the size of the data.
+
+4.3 Create Instruction (2)
+
+    4.3.1 Client -> Server
+
+    When a Client wants to create a game, he send a Create Game Packet.
+    This instruction contains a Header and a Data. The Data contains:
+
+    login	string	      Username the Client chose for the game
+    game_name	string	      Name of the game created by the client
+    lvl		string	      Game Level (one of the level sent by
+    			      the server after a GetLvl instruction)
+			      See (Section 4.2 GetLvl Instruction)
+    player_max	1 byte	      Number of players accepted for the game
+    		  	      Between 1 and 4.
+    observer 	1 byte	      Set to 1 if the client accept clients that
+    		  	      won't play the game but be able to watch it
+			      as an observer. Else set to 0.
+
+    4.3.2 Server -> Client
+
+    The Servers responds to the client with a header and a data.
+    The data contains :
+
+    request_status	1 byte	Set to 0 if the request the client made
+    			  	failed. On success is set to different
+				than 0.
+    details (OPTIONAL)		string	details on why the request
+    				failed.
+
+    Events where the Client's request fails:
+
+    Username already exist.
+    Client has already created a game that is not finished.
+    Name of the game already exist
+    Game Lvl not supported / unknown by server
+    Number of player accepted for the game is > 4
+    Number of player accepted for the game is < 1
+    Unknown format
+
+    For instance when a Client send a Create instruction and the
+    instruction don't fail, the Server sends:
+
+    0      1      2      3      4      5      6      7      8	   9
+    +------+------+------+------+------+------+------+------+------+
+    |                        header                         | data |
+    |-------------|-------------|----------------------------------|
+    |    magic    |    size     |    group    |  instruct   |status|
+    |-------------|-------------|----------------------------------|
+    |   97463     |      1      |    GAME(0)  |  CREATE(2)  | OK(1)|
+    +------+------+------+------+------+------+------+------+------+
+
+4.4 Join Instruction (3)
+
+    4.4.1 Client -> Server
+
+    To Join a game the client must send a Join Instruction. This
+    instruction must contains:
+
+    login	string		Username the client chose for himself
+    				for the game.
+    id_game	2 bytes		The id of the game. Received from the
+    		  		response from the Server to the
+				GetGame Instruction.
+    observer	1 byte		Set to 1 if the client wants to play
+    		  		the game, 0 if he only want to watch
+
+    4.4.2 Server -> Client
+
+
+    The Servers responds to the client with a header and a data.
+    The data contains :
+
+    request_status	1 byte	Set to 0 if the request the client made
+    			  	failed. On success is set to different
+				than 0.
+    details (OPTIONAL)		string	details on why the request
+    				failed.
+
+    Events where the Client's request fails:
+
+    Username already exist.
+    Unknown Id Game
+    Unknown format
+    This Game don't accept observer.
+    This Game is full.
+
+4.5 Quit Instruction (4)
+
+    This instruction only exist Client to Server.
+    When a user properly quit, he must send a Quit instruction.
+    This instruction contains a Header but no data.
+
+4.6 EndGame Instruction (5)
+
+    This instruction only exist Server to Client.
+    When The Lvl is finished or when all Players are dead, the
+    Server Must send a EndGame instruction.
+    This instruction contains a Header but no data.
+
+4.7 Start Instruction (6)
+
+    4.7.1 Client to Server
+
+    To start the game the client must send a Start instruction.
+    But before that he must has choses some game parameters and send
+    it to the server with a Create instruction from the Game group and
+    received a success message from server.
+
+               Client                               Server
+Client chose the  |					|
+Parameters of the |					|
+Game he wants to  |					|
+create            |                                     |
+                  |     GAME(group)  CREATE(instr)      |
+                  | >>------------------------------->> |
+                  |                                     | Server check is
+                  |                                     | the game can be
+                  |                                     | created with the
+                  |                                     | client's parame-
+                  |                                     | ters.
+                  |                                     |
+                  |     GAME(group)  CREATE(instr)  OK  |
+                  | <<-------------------------------<< |
+                  |                                     |
+Here the client   |                                     |
+Can wait for more |                                     |
+users to join his |                                     |
+game.             |                                     |
+                  |                                     |
+Then he can start |                                     |
+The game          |                                     |
+                  |     GAME(group)  START(instr)       |
+                  | >>------------------------------->> |
+                  |                                     |
+                  |                                     |
+                  |                                     | The Server
+                  |                                     | inform the
+                  |     GAME(group)  START(instr)  OK   | creator and
+                  | <<-------------------------------<< | joiner the game
+		  |					|  is starting
+		  |					|
+
+    4.7.2 Server to Client
+
+
+5.  Map Group
+
+6.  Movement Group
+
+7.  Event Group
+
+8.  Message Exchange
+
+9. References
+
+
+
+
