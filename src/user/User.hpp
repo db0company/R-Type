@@ -1,30 +1,41 @@
-#ifndef _USER_HPP__
-#define _USER_HPP__
 
-#include "ATCPClientSocket.h"
-#include <string>
+#ifndef			_USER_HPP__
+# define		_USER_HPP__
 
-class User
+# include		"ATCPClientSocket.h"
+# include		<string>
+
+class			User
 {
-private:
-  User(void);
-public:
-  User(ATCPClientSocket *, std::string const &ip);
-  ~User(void);
-  User& operator=(User const &);
-  User(User const &);
-  bool			isSafe(void)const;
-  void			setSafe(bool);
-  bool			isLog(void)const;
-  void			setLog(bool);
-  ATCPClientSocket	*getSocket(void);
-  std::string const	&getIp(void)const;
-private:
+/* ************************************************************************* */
+/*                             Attributes                                    */
+/* ************************************************************************* */
+ private:
   bool			_safe;
   bool			_log;
   std::string		_login;
   ATCPClientSocket*	_socket;
   std::string		_ip;
+
+/* ************************************************************************* */
+/*                             Coplien Form                                  */
+/* ************************************************************************* */
+ public:
+  User(ATCPClientSocket *, std::string const &ip);
+  User(User const &);
+  User &		operator=(User const &);
+  ~User(void);
+
+/* ************************************************************************* */
+/*                             Member Functions                              */
+/* ************************************************************************* */
+ public:
+  bool			isSafe(void)const;
+  void			setSafe(bool);
+  bool			isLog(void)const;
+  void			setLog(bool);
+  ATCPClientSocket *	getSocket(void);
+  std::string const &	getIp(void)const;
 };
 
-#endif// _USER_HPP__
+#endif			// _USER_HPP__
