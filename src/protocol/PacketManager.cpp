@@ -48,7 +48,15 @@ PacketManager::~PacketManager(void)
 /*                             Member Functions                              */
 /* ************************************************************************* */
 
-// bool				PacketManager::send(UserNetwork & net, eGroupType group,
+bool				PacketManager::send(User * user, eProtocolPacketGroup group,
+						    ushort instruction,
+						    ProtocolPacketData & data)
+{
+  // if (!user->getSocket())
+  return (true);
+}
+
+// bool				PacketManager::send(UserNetwork & net, eProtocolPacketGroup group,
 // 						   ushort instruction, char const * data, uint size)
 // {
 //   if (!net.getsocket())
@@ -68,13 +76,13 @@ PacketManager::~PacketManager(void)
 //   return (true);
 // }
 
-// bool				PacketManager::send(UserNetwork & net, eGroupType group,
+// bool				PacketManager::send(UserNetwork & net, eProtocolPacketGroup group,
 // 				     ushort instruction, ProtocolPacketData & data)
 // {
 //   return (this->send(net, group, instruction, data.getstr(), data.getsize()));
 // }
 
-// bool				PacketManager::send(UserNetwork & net, eGroupType group,
+// bool				PacketManager::send(UserNetwork & net, eProtocolPacketGroup group,
 // 				     ushort instruction, std::string const & data)
 // {
 //   ProtocolPacketData ndata(data);
@@ -173,7 +181,7 @@ PacketManager::~PacketManager(void)
 //     }
 //   buffer[header.size] = '\0';
 //   net->sethaveHeader(false);
-//   return (this->packetfactory.createPacket(static_cast<eGroupType>(header.group),
+//   return (this->packetfactory.createPacket(static_cast<eProtocolPacketGroup>(header.group),
 // 					   header.instruction,
 // 					   buffer, header.size));
 // }

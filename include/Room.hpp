@@ -3,7 +3,7 @@
 
 #include <map>
 #include "GameParameter.hpp"
-#include "User.hpp"
+#include "user/User.hpp"
 
 //todo
 class Room

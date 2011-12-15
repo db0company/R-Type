@@ -155,6 +155,26 @@ int				UDPServerSocketWindows::SNWriteClients(const void *msg, unsigned int size
 	return (client);
 }
 
+int				UDPServerSocketWindows::SNWriteToClient(const void *msg, unsigned int size, const std::string &ip)
+{
+	struct sockaddr_in c_addr;
+	DWORD	SendBytes;
+	WSABUF	DataBuf;
+
+	DataBuf.buf = static_cast <char *> (const_cast <void *> (msg));
+	DataBuf.len = size;
+	c_addr.sin_family = AF_INET;
+	c_addr.sin_port = this->_port;
+	c_addr.sin_addr.s_addr = inet_addr(ip.c_str());
+	if (WSASendTo(this->_socket, &DataBuf, 1, &SendBytes, 0, ((SOCKADDR *)&c_addr), sizeof((c_addr)), NULL, NULL) == SOCKET_ERROR)
+		{
+			this->_error = CANTWRITE;
+		}
+	else
+	  this->_error = NOERRORSOCKET;
+	return (SendBytes);
+}
+
 
 bool		UDPServerSocketWindows::SNClose(void)
 {
