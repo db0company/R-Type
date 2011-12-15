@@ -44,3 +44,8 @@ bool MutexWindows::Try(void)
 	}
 	return (true);
 }
+
+CRITICAL_SECTION	*MutexWindows::getCS(void)
+{
+	return (&this->_section);
+}

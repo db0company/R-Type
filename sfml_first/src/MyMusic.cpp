@@ -3,11 +3,10 @@
 #include <fstream>
 #include "MyMusic.hpp"
 
-MyMusic::MyMusic(const std::string &file, bool loop)
+MyMusic::MyMusic(const std::string &file)
 {
   if (!Music.OpenFromFile(file))
     throw (std::ios_base::failure("can't load music."));
-  Music.SetLoop(loop);
   Music.SetVolume(15);
 }
 

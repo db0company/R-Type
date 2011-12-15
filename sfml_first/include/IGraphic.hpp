@@ -2,7 +2,6 @@
 #define IGRAPH_H_
 
 #include <list>
-#include "Case.hh"
 
 namespace LibGraphic
 {
