@@ -4,19 +4,20 @@
 
 # include		"types.h"
 
-# define		PACKET_MAGIC	97463
+# define		PACKET_MAGIC	9743
 
 struct			ProtocolPacketHeader
 {
   ushort		magic;
   ushort		size;
-  ushort		type;
+  ushort		group;
+  ushort		instruction;
 };
 
 struct			ProtocolPacket
 {
   ProtocolPacketHeader	header;
-  DataRawType *		data;
+  DataRawType const *	data;
 };
 
 #endif			// !PROTOCOLPACKET_H_

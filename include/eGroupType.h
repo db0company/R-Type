@@ -1,0 +1,15 @@
+
+#ifndef			PROTOCOLBABELGROUP_H_
+# define		PROTOCOLBABELGROUP_H_
+
+enum			eGroupType
+  {
+    USERMANAGER		= 0,
+    CONTACTLIST		= 1,
+    CLIENTTOCLIENT	= 2,
+    PREPARECLIENTS	= 3,
+    GROUP_ERROR,
+    GROUP_MAX
+  };
+
+#endif			// !PROTOCOLBABELGROUP_H_

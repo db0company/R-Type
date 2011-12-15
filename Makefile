@@ -28,7 +28,8 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(PRTC_DIR)ProtocolPacketData.cpp	\
 			\
 			$(SERV_DIR)Server.cpp			\
-			$(SERV_DIR)User.cpp
+			$(SERV_DIR)User.cpp			\
+			$(SERV_DIR)GameManager.cpp
 			# $(PRTC_DIR)PacketFactory.cpp		\
 			# $(PRTC_DIR)PacketManager.cpp		\
 

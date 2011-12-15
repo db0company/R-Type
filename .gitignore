@@ -4,3 +4,6 @@ a.out
 *test*
 *~
 #*#
+*.a
+*.so
+*.dll

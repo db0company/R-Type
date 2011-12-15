@@ -58,6 +58,19 @@ void			ProtocolPacketData::prettyPrint(void) const
 
 /* ************************************************************************* */
 
+DataRawType const *	ProtocolPacketData::getData(void) const
+{
+  return (NULL);
+}
+
+ushort			ProtocolPacketData::getDataSize(void) const
+{
+  return (this->data.size());
+}
+
+
+/* ************************************************************************* */
+
 std::string		ProtocolPacketData::getNextString(void)
 {
   // todo

@@ -33,6 +33,10 @@ class			ProtocolPacketData
   void			prettyPrint(void) const;
 
  public:
+  DataRawType const *	getData(void) const;
+  ushort		getDataSize(void) const;
+
+ public:
   std::string		getNextString(void);
   std::string		getRestString(void);
   char			getNextChar(void);
