@@ -149,7 +149,7 @@ bool LibGraphic::Sfml::loadMusic()
       if ((found = s.find("::")) != std::string::npos)
 	{
 	  tmp = s.substr(0, found);
-	  song = new MyMusic(s.substr(found + 2,
+	  song = new MyMusic("ressources/musics/" + s.substr(found + 2,
 				      s.size() - found + 1));
 	  std::cout << "[DEBUG] : load "
 		    << s.substr(found + 2, s.size() - found + 1)
