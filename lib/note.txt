@@ -1,1 +1,2 @@
 inet_ntop: windows: changer PWSTR en PSTR
+inet_addr: to check return value

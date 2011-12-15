@@ -38,7 +38,9 @@ public:
   virtual char*		getIp(void)const;
 
   virtual int				SNReadClient(void *msg, unsigned int size, std::string &ip);
-  virtual int				SNWriteClient(const void *msg, unsigned int size);
+  virtual int				SNWriteClients(const void *msg, unsigned int size);
+  virtual int				SNWriteToClient(const void *msg, unsigned int size, const std::string &ip);
+
 private:
   int			_socket;
   ISelector		*_selector;

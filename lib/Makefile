@@ -20,6 +20,8 @@ SRC_NETWORK	= $(NAME_NETWORK)/$(DIR_SRC)/ATCPClientSocket.cpp	\
 
 SRC_THREAD	= $(NAME_THREAD)/$(DIR_SRC)/MutexUnix.cpp		\
 		  $(NAME_THREAD)/$(DIR_SRC)/ThreadUnix.cpp		\
+		  $(NAME_THREAD)/$(DIR_SRC)/CondVarUnix.cpp		\
+		  $(NAME_THREAD)/$(DIR_SRC)/ScopedLock.cpp
 
 
 ## objects

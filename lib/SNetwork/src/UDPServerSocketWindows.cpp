@@ -129,7 +129,7 @@ int				UDPServerSocketWindows::SNReadClient(void *msg, unsigned int size, std::s
 	return (BytesReceived);
 }
 
-int				UDPServerSocketWindows::SNWriteClient(const void *msg, unsigned int size)
+int				UDPServerSocketWindows::SNWriteClients(const void *msg, unsigned int size)
 {
 	std::map<std::string, struct sockaddr_in *>::iterator it;
 	DWORD	SendBytes;
