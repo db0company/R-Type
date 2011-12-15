@@ -102,7 +102,7 @@ bool Server::readFromClient(void)
   for (it = this->_userList.begin(); it != this->_userList.end(); ++it)
     {
       user = *it;
-      if (user && user->isSafe() && (socket = user->getSocket()))
+      if (user && user->isSafe() && (socket = user->getSocketTCP()))
 	{
 	  if (socket->SNGetRead() == true)
 	    {

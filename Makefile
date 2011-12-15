@@ -34,6 +34,7 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(SERV_DIR)GameManager.cpp		\
 			\
 			$(USER_DIR)User.cpp			\
+			$(USER_DIR)UserSocket.cpp		\
 			\
 
 # objects

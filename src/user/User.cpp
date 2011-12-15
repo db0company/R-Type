@@ -9,23 +9,23 @@
 /* ************************************************************************* */
 
 User::User(ATCPClientSocket * socket, std::string const & ip)
-  : _safe(true), _log(false), _login(""), _socket(socket), _ip(ip)
+  : safe(true), log(false), login(""), ip(ip), tcp(socket)
 {}
 
 User::User(User const & other)
-  : safe(other._safe), _log(other._log), _login(other._login),
-    _socket(other._socket), _ip(other._ip)
+  : safe(other.safe), log(other.log), login(other.login),
+    ip(other.ip), tcp(other.tcp)
 {}
 
 User &			User::operator=(User const & other)
 {
   if (&other != this)
     {
-      this->_safe = other._safe;
-      this->_log = other._log;
-      this->_login = other._login;
-      this->_socket = other._socket;
-      this->_ip = other._ip;
+      this->safe = other.safe;
+      this->log = other.log;
+      this->login = other.login;
+      this->ip = other.ip;
+      this->tcp = other.tcp;
 
       // If there is a pointer to something allocated, do this :
       // if (this->SomeThingAllocated)
@@ -39,35 +39,39 @@ User::~User(void)
 {}
 
 /* ************************************************************************* */
-/*                             Member Functions                              */
+/*                             Getters/Setters                               */
 /* ************************************************************************* */
 
 bool				User::isSafe(void)const
 {
-  return (this->_safe);
+  return (this->safe);
 }
 
 void				User::setSafe(bool state)
 {
-  this->_safe = state;
+  this->safe = state;
 }
 
 bool				User::isLog(void)const
 {
-  return (this->_log);
+  return (this->log);
 }
 
 void				User::setLog(bool st)
 {
-  this->_log = st;
+  this->log = st;
 }
 
-ATCPClientSocket *		User::getSocket(void)
+ATCPClientSocket *		User::getSocketTCP(void)
 {
-  return (this->_socket);
+  return (dynamic_cast<ATCPClientSocket *>(this->tcp.getSocket()));
 }
 
 std::string const &		User::getIp(void)const
 {
-  return (this->_ip);
+  return (this->ip);
 }
+
+/* ************************************************************************* */
+/*                             Member Functions                              */
+/* ************************************************************************* */
