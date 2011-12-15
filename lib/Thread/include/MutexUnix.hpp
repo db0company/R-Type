@@ -14,6 +14,7 @@ public:
   virtual bool Lock(void);
   virtual bool Unlock(void);
   virtual bool Try(void);
+  pthread_mutex_t	*getMutex();
 private:
   pthread_mutex_t _mutex;
 };

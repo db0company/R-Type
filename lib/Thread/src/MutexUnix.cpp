@@ -60,3 +60,8 @@ bool MutexUnix::Try(void)
     return (false);
   return (true);
 }
+
+pthread_mutex_t	*MutexUnix::getMutex()
+{
+  return (&this->_mutex);
+}
