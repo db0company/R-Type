@@ -1,8 +1,8 @@
 NAME_DEBUG	=	TEST
 NAME_RELEASE	=	GRAPHIC
 
-SRC_DIR		=	src/
-INCLUDE_DIR	=	include/
+SRC_DIR		=	src
+INCLUDE_DIR	=	include
 
 SRCS		=	$(SRC_DIR)/main.cpp			\
 			$(SRC_DIR)/DirectoryManagerUnix.cpp	\

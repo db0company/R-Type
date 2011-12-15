@@ -1,5 +1,7 @@
+#include <cstdlib>
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include <fstream>
+#include <sstream>
 #include "Sfml.hpp"
 
 LibGraphic::Sfml::Sfml(void)
@@ -16,9 +18,12 @@ bool LibGraphic::Sfml::init()
   if (!getenv("DISPLAY"))
     return false;
   #endif
-  this->App.Create(sf::VideoMode::GetMode(0), WINDOWNAME, sf::Style::Fullscreen);
-  if (!this->App.IsOpened())
+  this->_app.Create(sf::VideoMode::GetMode(0), WINDOWNAME, sf::Style::Fullscreen);
+  if (!this->_app.IsOpened())
     return false;
+  this->_width = sf::VideoMode::GetMode(0).Width;
+  this->_height = sf::VideoMode::GetMode(0).Height;
+  this->loadRessources();
   return true;
 }
 
@@ -26,14 +31,15 @@ LibGraphic::Event LibGraphic::Sfml::getEvent()
 {
   sf::Event Event;
 
-  while (App.GetEvent(Event))
+  while (this->_app.GetEvent(Event))
     {
       if (Event.Type == sf::Event::KeyPressed)
 	{
 	  switch (Event.Key.Code)
 	    {
 	    case sf::Key::Escape:
-	      return LibGraphic::__EVENT_QUIT;
+	      //return LibGraphic::__EVENT_QUIT;
+	      exit(EXIT_SUCCESS);
 	    default:
 	      break;
 	    }
@@ -44,23 +50,124 @@ LibGraphic::Event LibGraphic::Sfml::getEvent()
 
 void LibGraphic::Sfml::quit()
 {
-  this->App.Close();
+  this->_app.Close();
 }
 
 void LibGraphic::Sfml::clean()
 {
-  this->App.Clear();
+  this->_app.Clear();
+  this->_app.Draw((*this->_ressourcesSprite.find("StartBackground")).second->_sprite);
+
+  MyMusic * song = this->_ressourcesPlayList["StartBackground"];
+  if (song->GetMusicState() == sf::Music::Stopped ||
+      song->GetMusicState() == sf::Music::Paused)
+    song->PlayMusic();
 }
 
 void LibGraphic::Sfml::draw()
 {
-  this->App.Display();
+  this->_app.Display();
 }
 
-extern "C"
+bool LibGraphic::Sfml::loadRessources()
 {
-  LibGraphic::IGraphic * getLib()
-  {
-    return new LibGraphic::Sfml();
-  }
+  if (this->loadSprite() && this->loadMusic())
+    return true;
+  return false;
+}
+
+bool LibGraphic::Sfml::loadSprite()
+{
+  std::fstream ressourceFile;
+  std::string s;
+  unsigned int found;
+  unsigned int rfound;
+  LibGraphic::GraphicRessource * img;
+  std::string tmp;
+  std::string tmpImagePath;
+
+  ressourceFile.open("ressources/.ressources_images");
+  if (!ressourceFile.is_open())
+    {
+      std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " <<"ressources/.ressources_images" << std::endl;
+      // throw
+      return false;
+    }
+  while (ressourceFile.good())
+    {
+      getline(ressourceFile, s);
+      if ((found = s.find("::")) != std::string::npos &&
+	  (rfound = s.rfind("::")) != std::string::npos)
+	{
+	  tmp = s.substr(0, found);
+	  img = new LibGraphic::GraphicRessource;
+	  tmpImagePath = "ressources/images/" +
+	    s.substr(found + 2, rfound - (found + 2));
+	  if (!img->_image.LoadFromFile(tmpImagePath))
+	    {
+	      std::cerr <<
+		"[EXEPTION][Sfml.cpp] : Fail to load " <<
+		tmpImagePath << std::endl;
+	      // throw
+	    }
+	  img->_sprite.SetImage(img->_image);
+	  if (isFullscreen(s.substr(rfound + 2, 1)))
+	    {
+	      img->_isFullScreen = true;
+	      img->_sprite.Resize(this->_width,
+				  this->_height);
+	    }
+	  this->_ressourcesSprite[tmp] = img;
+	}
+    }
+  return true;
+}
+
+bool LibGraphic::Sfml::loadSound()
+{
+  return true;
+}
+
+bool LibGraphic::Sfml::loadMusic()
+{
+  std::fstream ressourceFile;
+  std::string s;
+  unsigned int found;
+  std::string tmp;
+  MyMusic * song;
+
+  ressourceFile.open("ressources/.ressources_musics");
+  if (!ressourceFile.is_open())
+    {
+      std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " <<"ressources/.ressources_musics" << std::endl;
+      // throw
+      return false;
+    }
+  while (ressourceFile.good())
+    {
+      getline(ressourceFile, s);
+      if ((found = s.find("::")) != std::string::npos)
+	{
+	  tmp = s.substr(0, found);
+	  song = new MyMusic(s.substr(found + 2,
+				      s.size() - found + 1));
+	  std::cout << "[DEBUG] : load "
+		    << s.substr(found + 2, s.size() - found + 1)
+		    << std::endl;
+	}
+      this->_ressourcesPlayList[tmp] = song;
+    }
+  return true;
+}
+
+inline bool LibGraphic::Sfml::isFullscreen(std::string s)
+{
+  std::stringstream ss;
+  int tmp;
+
+  ss << s;
+  ss >> tmp;
+  if (tmp)
+    return true;
+  return false;
 }

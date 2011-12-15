@@ -9,13 +9,12 @@ class MyMusic
 private:
   sf::Music Music;
 public:
-  MyMusic(const std::string &file, bool loop);
+  MyMusic(const std::string &file);
   ~MyMusic();
   void PlayMusic();
   void PauseMusic();
   void StopMusic();
   sf::Music::Status GetMusicState()const;
-
 };
 
 # endif
