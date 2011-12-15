@@ -3,7 +3,7 @@
 
 #include <list>
 #include <string>
-#include "User.hpp"
+#include "user/User.hpp"
 #include "GameManager.hpp"
 #include "ATCPServerSocket.h"
 #include "ISelector.h"

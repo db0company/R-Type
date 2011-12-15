@@ -5,7 +5,7 @@ S_NAME		=	$(NAME)_server
 SRC_DIR		=	src/
 LIB_DIR		=	lib/
 BIN_DIR		=	bin/
-INCLUDE		=	include/
+INCLUDE		=	include
 
 MAIN_DIR	=	$(SRC_DIR)$(NAME)/
 INIT_DIR	=	$(SRC_DIR)init/
@@ -13,6 +13,7 @@ INIT_DIR	=	$(SRC_DIR)init/
 SERV_DIR	=	$(SRC_DIR)$(S_NAME)/
 
 PRTC_DIR	=	$(SRC_DIR)protocol/
+USER_DIR	=	$(SRC_DIR)user/
 
 TOOL_DIR	=	$(SRC_DIR)tools/
 ERR_DIR		=	$(SRC_DIR)error/
@@ -30,8 +31,10 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(PRTC_DIR)PacketManager.cpp		\
 			\
 			$(SERV_DIR)Server.cpp			\
-			$(SERV_DIR)User.cpp			\
-			$(SERV_DIR)GameManager.cpp
+			$(SERV_DIR)GameManager.cpp		\
+			\
+			$(USER_DIR)User.cpp			\
+			\
 
 # objects
 OBJS		=	$(SRCS:.cpp=.o)
@@ -66,4 +69,4 @@ fclean		:	clean
 re		:	fclean all
 
 .cpp.o		:
-			$(CXX) -c $(CFLAGS) $< -o $(<:.cpp=.o) -I$(INCLUDE) -I$(LIB_DIR)/SNetwork/$(INCLUDE)
+			$(CXX) -c $(CFLAGS) $< -o $(<:.cpp=.o) -I$(INCLUDE) -I$(LIB_DIR)/SNetwork/$(INCLUDE) -I$(SRC_DIR)

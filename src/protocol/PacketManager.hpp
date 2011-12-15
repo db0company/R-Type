@@ -3,6 +3,7 @@
 # define		PACKETMANAGER_H_
 
 # include		<map>
+# include		"user/User.hpp"
 # include		"PacketFactory.hpp"
 # include		"ProtocolPacketData.hpp"
 # include		"iProtocolAction.hpp"
@@ -27,19 +28,13 @@ class			PacketManager
 /* ************************************************************************* */
 /*                             Member Functions                              */
 /* ************************************************************************* */
- // public:
- //  bool				send(UserNetwork & net, eGroupType group,
- // 				     ushort instruction, char const * data, uint size);
- //  bool				send(UserNetwork & net, eGroupType group,
- // 				     ushort instruction, ProtocolPacketData & data);
- //  bool				send(UserNetwork & net, eGroupType group,
- // 				     ushort instruction, std::string const &);
+ public:
+  bool				send(User * user, eProtocolPacketGroup group,
+ 				     ushort instruction,
+				     ProtocolPacketData & data);
 
- //  bool				rcsv(UserNetwork * socket);
- //  bool				rcsv(User * user);
-
- // public:
- //  void				DeleteSocket(UserNetwork * net, User * user);
+  // bool				rcsv(UserNetwork * socket);
+  // bool				rcsv(User * user);
 
 /* ************************************************************************* */
 /*                             Private Functions                             */
