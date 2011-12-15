@@ -7,18 +7,18 @@ namespace LibGraphic
 {
   enum Event
     {
-      __EVENT_NONE,
-      __EVENT_UP,
-      __EVENT_DOWN,
-      __EVENT_LEFT,
-      __EVENT_RIGHT,
-      __EVENT_MOUSE_LEFT,
-      __EVENT_MOUSE_RIGHT,
-      __EVENT_BOOST,
-      __EVENT_SHOOT1,
-      __EVENT_SHOOT2,
-      __EVENT_KEYN,
-      __EVENT_QUIT
+      EVENT_NONE,
+      EVENT_UP,
+      EVENT_DOWN,
+      EVENT_LEFT,
+      EVENT_RIGHT,
+      EVENT_MOUSE_LEFT,
+      EVENT_MOUSE_RIGHT,
+      EVENT_BOOST,
+      EVENT_SHOOT1,
+      EVENT_SHOOT2,
+      EVENT_KEYN,
+      EVENT_QUIT
     };
 
   class IGraphic

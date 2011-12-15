@@ -39,13 +39,16 @@ LibGraphic::Event LibGraphic::Sfml::getEvent()
 	    {
 	    case sf::Key::Escape:
 	      //return LibGraphic::__EVENT_QUIT;
-	      exit(EXIT_SUCCESS);
+	      {
+		this->_app.Close();
+		exit(EXIT_SUCCESS);
+	      }
 	    default:
 	      break;
 	    }
 	}
     }
-  return LibGraphic::__EVENT_NONE;
+  return LibGraphic::EVENT_NONE;
 }
 
 void LibGraphic::Sfml::quit()
@@ -191,4 +194,13 @@ inline bool LibGraphic::Sfml::isFullscreen(std::string s)
   if (tmp)
     return true;
   return false;
+}
+
+inline std::string LibGraphic::Sfml::getNextInfoRessource(std::string & s)
+{
+  unsigned int found;
+
+  if ((found = s.find("::")) == std::string::npos)
+    return s;
+  return (s.substr(0, found));
 }

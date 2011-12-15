@@ -12,13 +12,15 @@ SRCS		=	$(SRC_DIR)/main.cpp			\
 			$(SRC_DIR)/MyMusic.cpp			\
 			$(SRC_DIR)/MySound.cpp			\
 			$(SRC_DIR)/Sfml.cpp			\
-			$(SRC_DIR)/Error.cpp
+			$(SRC_DIR)/Error.cpp			\
+			$(SRC_DIR)/Button.cpp			\
+			$(SRC_DIR)/GraphicClientState.cpp
 
 
 OBJS		=	$(SRCS:.cpp=.o)
 LIB		=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -ldl -lpthread
 CXX		=	g++
-CFLAGS		=	-Wextra -Wall
+CFLAGS		=	-Wextra -Wall -Werror
 DEBUG_OPT	=	-ggdb
 OPTI_OPT	=	-O2
 RM		=	rm -f
@@ -29,16 +31,16 @@ all		: $(NAME_DEBUG)
 info_debug	:
 		@$(ECHO) "[BUILD] Building : $(NAME_DEBUG) (DEBUG)"
 		@$(ECHO) "[BUILD] Building options :"
-		@$(ECHO) "	[BUILD] CFlags : $(CFLAGS)"
-		@$(ECHO) "	[BUILD] Debug : $(DEBUG_OPT)"
-		@$(ECHO) "	[BUILD] Linked Libraries : $(LIB)"
+		@$(ECHO) "[BUILD] Flags : $(CFLAGS)"
+		@$(ECHO) "[BUILD] Debug : $(DEBUG_OPT)"
+		@$(ECHO) "[BUILD] Linked Libraries : $(LIB)"
 
 info_release	:
 		@$(ECHO) "[BUILD] Building : $(NAME_RELEASE) (RELEASE)"
 		@$(ECHO) "[BUILD] Building options :"
-		@$(ECHO) "	[BUILD] CFlags : $(CFLAGS)"
-		@$(ECHO) "	[BUILD] Optimisation : $(OPTI_OPT)"
-		@$(ECHO) "	[BUILD] Linked Libraries : $(LIB)"
+		@$(ECHO) "[BUILD] Flags : $(CFLAGS)"
+		@$(ECHO) "[BUILD] Optimisation : $(OPTI_OPT)"
+		@$(ECHO) "[BUILD] Linked Libraries : $(LIB)"
 
 $(NAME_DEBUG)	: info_debug $(OBJS)
 		@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME_DEBUG) $(LIB) $(DEBUG_OPT)

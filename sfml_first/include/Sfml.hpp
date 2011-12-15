@@ -10,12 +10,24 @@
 
 namespace LibGraphic
 {
+  struct Size
+  {
+    unsigned int width;
+    unsigned int height;
+  };
+
+  struct Coord
+  {
+    int x;
+    int y;
+  };
 
   struct GraphicRessource
   {
     sf::Image _image;
     sf::Sprite _sprite;
     bool _isFullScreen;
+    Size _dimension;
   };
 
   class	Sfml : public IGraphic
@@ -38,14 +50,15 @@ namespace LibGraphic
     bool loadSprite();
     bool loadRessources();
     inline bool isFullscreen(std::string s);
+    inline std::string getNextInfoRessource(std::string &);
 
   private:
     int _width;
     int _height;
     sf::RenderWindow _app;
     std::map<std::string const, GraphicRessource const *> _ressourcesSprite;
-    std::map<std::string const, LibGraphic::MyMusic *> _ressourcesPlayList;
-    std::map<std::string const, LibGraphic::MySound *> _ressourcesSounds;
+    std::map<std::string const, MyMusic *> _ressourcesPlayList;
+    std::map<std::string const, MySound *> _ressourcesSounds;
   };
 
 }

@@ -1,18 +1,32 @@
-#ifndef GRAPHICCLIENTSTATE.HPP_H_
-# define GRAPHICCLIENTSTATE.HPP_H_
+#ifndef GRAPHICCLIENTSTATE_H_
+# define GRAPHICCLIENTSTATE_H_
+
+#include "Sfml.hpp"
 
 namespace LibGraphic
 {
 
   class	GraphicClientState
   {
-  public:
-    GraphicClientState.hpp(void);
-    ~GraphicClientState.hpp(void);
-    GraphicClientState.hpp(const GraphicClientState.hpp&);
-    GraphicClientState.hpp&	operator=(const GraphicClientState.hpp&);
 
   private:
+    GraphicClientState(void);
+
+    // Constructors/Destructors
+  public:
+    GraphicClientState(std::string const &);
+    ~GraphicClientState(void);
+
+    // Getters/Setters
+  public:
+    std::string const & getName() const;
+
+    // Attributes
+  private:
+    std::string const & _name;
+    std::map<std::string const, MySound *> _ressourcesSounds;
+    std::map<std::string const, MyMusic *> _ressourcesPlayList;
+    std::map<std::string const, GraphicRessource const *> _ressourcesSprite;
 
   };
 
