@@ -125,6 +125,30 @@ bool LibGraphic::Sfml::loadSprite()
 
 bool LibGraphic::Sfml::loadSound()
 {
+  std::fstream ressourceFile;
+  std::string s;
+  unsigned int found;
+  std::string tmp;
+  MySound * song;
+
+  ressourceFile.open("ressources/.ressources_sounds");
+  if (!ressourceFile.is_open())
+    {
+      std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " <<"ressources/.ressources_sounds" << std::endl;
+      // throw
+      return false;
+    }
+  while (ressourceFile.good())
+    {
+      getline(ressourceFile, s);
+      if ((found = s.find("::")) != std::string::npos)
+	{
+	  tmp = s.substr(0, found);
+	  song = new MySound("ressources/sounds/" + s.substr(found + 2,
+				      s.size() - found + 1));
+	}
+      this->_ressourcesSounds[tmp] = song;
+    }
   return true;
 }
 
@@ -151,9 +175,6 @@ bool LibGraphic::Sfml::loadMusic()
 	  tmp = s.substr(0, found);
 	  song = new MyMusic("ressources/musics/" + s.substr(found + 2,
 				      s.size() - found + 1));
-	  std::cout << "[DEBUG] : load "
-		    << s.substr(found + 2, s.size() - found + 1)
-		    << std::endl;
 	}
       this->_ressourcesPlayList[tmp] = song;
     }

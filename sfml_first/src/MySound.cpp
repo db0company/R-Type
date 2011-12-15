@@ -2,12 +2,11 @@
 #include <fstream>
 #include "MySound.hpp"
 
-MySound::MySound(const std::string &file, bool loop)
+MySound::MySound(const std::string &file)
 {
   if (!Buffer.LoadFromFile(file))
-    throw (std::ios_base::failure("Can't load music."));
+    throw (std::ios_base::failure("Can't load sound."));
   Sound.SetBuffer(Buffer);
-  Sound.SetLoop(loop);
   Sound.SetVolume(5);
 }
 

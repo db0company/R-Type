@@ -10,7 +10,7 @@ private:
   sf::SoundBuffer Buffer;
   sf::Sound Sound;
 public:
-  MySound(const std::string &file, bool loop);
+  MySound(const std::string &file);
   ~MySound();
   void PlaySound();
   void PauseSoud();

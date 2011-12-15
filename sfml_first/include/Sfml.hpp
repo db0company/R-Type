@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "MyMusic.hpp"
+#include "MySound.hpp"
 #include "IGraphic.hpp"
 
 #define WINDOWNAME "R-Type"
@@ -44,6 +45,7 @@ namespace LibGraphic
     sf::RenderWindow _app;
     std::map<std::string const, GraphicRessource const *> _ressourcesSprite;
     std::map<std::string const, MyMusic *> _ressourcesPlayList;
+    std::map<std::string const, MySound *> _ressourcesSounds;
   };
 }
 
