@@ -3,7 +3,7 @@
 #include <fstream>
 #include "MyMusic.hpp"
 
-MyMusic::MyMusic(const std::string &file)
+LibGraphic::MyMusic::MyMusic(const std::string &file)
 {
   if (!Music.OpenFromFile(file))
     throw (std::ios_base::failure("can't load music."));
@@ -11,27 +11,27 @@ MyMusic::MyMusic(const std::string &file)
 }
 
 
-MyMusic::~MyMusic()
+LibGraphic::MyMusic::~MyMusic()
 {
 
 }
 
-void MyMusic::PlayMusic()
+void LibGraphic::MyMusic::PlayMusic()
 {
   Music.Play();
 }
 
-void MyMusic::PauseMusic()
+void LibGraphic::MyMusic::PauseMusic()
 {
   Music.Pause();
 }
 
-void MyMusic::StopMusic()
+void LibGraphic::MyMusic::StopMusic()
 {
   Music.Stop();
 }
 
-sf::Music::Status MyMusic::GetMusicState()const
+sf::Music::Status LibGraphic::MyMusic::GetMusicState()const
 {
   sf::Music::Status state = Music.GetStatus();
   return (state);

@@ -2,7 +2,7 @@
 #include <fstream>
 #include "MySound.hpp"
 
-MySound::MySound(const std::string &file)
+LibGraphic::MySound::MySound(const std::string &file)
 {
   if (!Buffer.LoadFromFile(file))
     throw (std::ios_base::failure("Can't load sound."));
@@ -11,27 +11,27 @@ MySound::MySound(const std::string &file)
 }
 
 
-MySound::~MySound()
+LibGraphic::MySound::~MySound()
 {
 
 }
 
-void MySound::PlaySound()
+void LibGraphic::MySound::PlaySound()
 {
   Sound.Play();
 }
 
-void MySound::PauseSoud()
+void LibGraphic::MySound::PauseSoud()
 {
   Sound.Pause();
 }
 
-void MySound::StopSound()
+void LibGraphic::MySound::StopSound()
 {
   Sound.Stop();
 }
 
-sf::Sound::Status MySound::GetSoundState()const
+sf::Sound::Status LibGraphic::MySound::GetSoundState()const
 {
   sf::Sound::Status state = Sound.GetStatus();
   return (state);

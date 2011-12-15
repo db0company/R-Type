@@ -26,13 +26,27 @@ ECHO		= 	echo
 
 all		: $(NAME_DEBUG)
 
-$(NAME_DEBUG)	: $(OBJS)
-		@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME_DEBUG) $(LIB) $(DEBUG_OPT)
-		@$(ECHO) "[OK] Building project (DEBUG)"
+info_debug	:
+		@$(ECHO) "[BUILD] Building : $(NAME_DEBUG) (DEBUG)"
+		@$(ECHO) "[BUILD] Building options :"
+		@$(ECHO) "	[BUILD] CFlags : $(CFLAGS)"
+		@$(ECHO) "	[BUILD] Debug : $(DEBUG_OPT)"
+		@$(ECHO) "	[BUILD] Linked Libraries : $(LIB)"
 
-$(NAME_RELEASE)	: $(OBJS)
+info_release	:
+		@$(ECHO) "[BUILD] Building : $(NAME_RELEASE) (RELEASE)"
+		@$(ECHO) "[BUILD] Building options :"
+		@$(ECHO) "	[BUILD] CFlags : $(CFLAGS)"
+		@$(ECHO) "	[BUILD] Optimisation : $(OPTI_OPT)"
+		@$(ECHO) "	[BUILD] Linked Libraries : $(LIB)"
+
+$(NAME_DEBUG)	: info_debug $(OBJS)
+		@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME_DEBUG) $(LIB) $(DEBUG_OPT)
+		@$(ECHO) "[OK] Project : $(NAME_DEBUG) builded !"
+
+$(NAME_RELEASE)	: info_release $(OBJS)
 		@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME_RELEASE) $(LIB) $(OPTI_OPT)
-		@$(ECHO) "[OK] Building project (RELEASE)"
+		@$(ECHO) "[OK] Project : $(NAME_RELEASE) builded !"
 
 
 clean		:
@@ -49,4 +63,4 @@ re		: fclean all
 
 .cpp.o		:
 		@$(CXX) -c $(CFLAGS) $< -o $(<:.cpp=.o) -I$(INCLUDE_DIR)
-		@$(ECHO) "[OK] Building object file from $<."
+		@$(ECHO) "[OK] Building object file from : $<."

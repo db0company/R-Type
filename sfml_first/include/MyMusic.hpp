@@ -4,17 +4,22 @@
 #ifndef		__MYMUSIC_HPP__
 # define	__MYMUSIC_HPP__
 
-class MyMusic
+namespace LibGraphic
 {
-private:
-  sf::Music Music;
-public:
-  MyMusic(const std::string &file);
-  ~MyMusic();
-  void PlayMusic();
-  void PauseMusic();
-  void StopMusic();
-  sf::Music::Status GetMusicState()const;
-};
+
+  class MyMusic
+  {
+  private:
+    sf::Music Music;
+  public:
+    MyMusic(const std::string &file);
+    ~MyMusic();
+    void PlayMusic();
+    void PauseMusic();
+    void StopMusic();
+    sf::Music::Status GetMusicState()const;
+  };
+
+}
 
 # endif

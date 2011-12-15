@@ -44,9 +44,10 @@ namespace LibGraphic
     int _height;
     sf::RenderWindow _app;
     std::map<std::string const, GraphicRessource const *> _ressourcesSprite;
-    std::map<std::string const, MyMusic *> _ressourcesPlayList;
-    std::map<std::string const, MySound *> _ressourcesSounds;
+    std::map<std::string const, LibGraphic::MyMusic *> _ressourcesPlayList;
+    std::map<std::string const, LibGraphic::MySound *> _ressourcesSounds;
   };
+
 }
 
 #endif	// SFML_H_
