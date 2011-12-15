@@ -127,7 +127,7 @@ int		UDPServerSocketUnix::SNReadClient(void *msg, unsigned int size, std::string
   return (ret);
 }
 
-int		UDPServerSocketUnix::SNWriteClient(const void *msg, unsigned int size)
+int		UDPServerSocketUnix::SNWriteClients(const void *msg, unsigned int size)
 {
   std::map<std::string, struct sockaddr_in *>::iterator it;
   int		ret;
@@ -152,6 +152,24 @@ int		UDPServerSocketUnix::SNWriteClient(const void *msg, unsigned int size)
   return (client);
 }
 
+int		UDPServerSocketUnix::SNWriteToClient(const void *msg, unsigned int size, const std::string &ip)
+{
+  struct sockaddr_in c_addr;
+  socklen_t		socklen;
+  int			ret;
+
+  c_addr.sin_family = AF_INET;
+  c_addr.sin_port = _port;
+  c_addr.sin_addr.s_addr = inet_addr(ip.c_str());
+  socklen = sizeof(c_addr);
+  if ((ret = sendto(this->_socket, msg, size, 0, ((sockaddr *)&c_addr), socklen)) <= 0)
+    {
+      this->_error = CANTWRITE;
+      return (ret);
+    }
+  this->_error = NOERRORSOCKET;
+  return (ret);
+}
 
 bool		UDPServerSocketUnix::SNClose(void)
 {

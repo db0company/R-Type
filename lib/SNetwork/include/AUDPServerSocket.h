@@ -35,11 +35,12 @@ public:
   virtual bool		SNGetWrite(void) const = 0;
 
   virtual char		*getIp(void) const = 0;
-  
+
   bool				SNAddClient(std::string const &, int port);
   bool				SNDelClient(std::string const &);
-  virtual int				SNReadClient(void *msg, unsigned int size, std::string &ip) = 0;
-  virtual int				SNWriteClient(const void *msg, unsigned int size) = 0;
+  virtual int			SNReadClient(void *msg, unsigned int size, std::string &ip) = 0;
+  virtual int			SNWriteClients(const void *msg, unsigned int size) = 0;
+  virtual int			SNWriteToClient(const void *msg, unsigned int size, const std::string &ip) = 0;
 
 protected:
 	std::map<std::string, struct sockaddr_in *> _contactMap;
