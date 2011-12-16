@@ -14,7 +14,7 @@ class			PacketData
 /* ************************************************************************* */
  private:
   std::vector<DataRawType>	data;
-  std::vector<DataRawType>::iterator	it;
+  uint				it;
 
 /* ************************************************************************* */
 /*                             Coplien Form                                  */
@@ -46,7 +46,7 @@ class			PacketData
   UInt32		getNextUint32(void);
 
  public:
-  void			addString(char const *);
+  void			addString(char const *, uint);
   void			addString(std::string const &);
   void			addChar(char);
   void			addUChar(uchar);

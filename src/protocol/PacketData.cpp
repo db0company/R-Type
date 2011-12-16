@@ -1,5 +1,6 @@
 
 #include		<cctype>
+#include		<cstring>
 #include		<iostream>
 #include		"PacketData.hpp"
 
@@ -8,11 +9,11 @@
 /* ************************************************************************* */
 
 PacketData::PacketData(void)
-  : data(), it(data.begin())
+  : data(), it(0)
 {}
 
 PacketData::PacketData(DataRawType const * raw, ushort size)
-  : data(raw, (raw + size * sizeof(DataRawType))), it(data.begin())
+  : data(raw, (raw + size * sizeof(DataRawType))), it(0)
 {}
 
 PacketData::PacketData(PacketData const & other)
@@ -60,7 +61,11 @@ void			PacketData::prettyPrint(void) const
 
 DataRawType const *	PacketData::getData(void) const
 {
-  return (NULL);
+  // It works because vector containers have their elements stored in
+  // contiguous storage locations, which means that their elements can be
+  // accessed not only using iterators but also using offsets on regular
+  // pointers to elements.
+  return (&data[0]);
 }
 
 ushort			PacketData::getDataSize(void) const
@@ -115,38 +120,57 @@ UInt32			PacketData::getNextUint32(void)
 
 /* ************************************************************************* */
 
-void			PacketData::addString(char const *)
+void			PacketData::addString(char const * str, uint len)
 {
-  // todo
+  this->addUShort(len);
+  DataRawType tmp[len];
+  memcpy(tmp, str, len);
+  for (uint i = 0 ; i < len ; ++i)
+    this->data.push_back(tmp[i]);
 }
 
 void			PacketData::addString(std::string const & str)
 {
-  this->addString(str.c_str());
+  this->addString(str.c_str(), str.size());
 }
 
-void			PacketData::addChar(char )
+void			PacketData::addChar(char c)
 {
-  // todo
+  DataRawType tmp[sizeof(char)];
+  memcpy(tmp, &c, sizeof(char));
+  for (uint i = 0 ; i < sizeof(char) ; ++i)
+    this->data.push_back(tmp[i]);
 }
 
-void			PacketData::addUChar(uchar )
+void			PacketData::addUChar(uchar u)
 {
-  // todo
+  DataRawType tmp[sizeof(uchar)];
+  memcpy(tmp, &u, sizeof(uchar));
+  for (uint i = 0 ; i < sizeof(uchar) ; ++i)
+    this->data.push_back(tmp[i]);
 }
 
-void			PacketData::addShort(short )
+void			PacketData::addShort(short s)
 {
-  // todo
+  DataRawType tmp[sizeof(short)];
+  memcpy(tmp, &s, sizeof(short));
+  for (uint i = 0 ; i < sizeof(short) ; ++i)
+    this->data.push_back(tmp[i]);
 }
 
-void			PacketData::addUShort(ushort )
+void			PacketData::addUShort(ushort u)
 {
-  // todo
+  DataRawType tmp[sizeof(ushort)];
+  memcpy(tmp, &u, sizeof(ushort));
+  for (uint i = 0 ; i < sizeof(ushort) ; ++i)
+    this->data.push_back(tmp[i]);
 }
 
-void			PacketData::addUint32(UInt32 )
+void			PacketData::addUint32(UInt32 u)
 {
-  // todo
+  DataRawType tmp[sizeof(UInt32)];
+  memcpy(tmp, &u, sizeof(UInt32));
+  for (uint i = 0 ; i < sizeof(UInt32) ; ++i)
+    this->data.push_back(tmp[i]);
 }
 
