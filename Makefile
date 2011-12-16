@@ -36,13 +36,17 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(USER_DIR)User.cpp			\
 			$(USER_DIR)UserSocket.cpp		\
 			\
+			$(SERV_DIR)SafeQueue.cpp		\
+			$(SERV_DIR)ThreadData.cpp		\
+			$(SERV_DIR)ThreadPool.cpp		\
+			\
 
 # objects
 OBJS		=	$(SRCS:.cpp=.o)
 S_OBJS		=	$(S_SRCS:.cpp=.o)
 
 # libs
-LIB		=	-L$(LIB_DIR) -lSNetwork
+LIB		=	-L$(LIB_DIR) -lSNetwork -lThread
 
 # functions
 RM		=	rm -f
@@ -70,4 +74,5 @@ fclean		:	clean
 re		:	fclean all
 
 .cpp.o		:
-			$(CXX) -c $(CFLAGS) $< -o $(<:.cpp=.o) -I$(INCLUDE) -I$(LIB_DIR)/SNetwork/$(INCLUDE) -I$(SRC_DIR)
+			$(CXX) -c $(CFLAGS) $< -o $(<:.cpp=.o) -I$(INCLUDE) \
+			-I$(LIB_DIR)/SNetwork/$(INCLUDE) -I$(SRC_DIR) -I$(LIB_DIR)/Thread/$(INCLUDE)
