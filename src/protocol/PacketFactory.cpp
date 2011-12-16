@@ -33,7 +33,7 @@ ProtocolPacket *		PacketFactory::createPacket(eProtocolPacketGroup group, ushort
 
 ProtocolPacket *		PacketFactory::createPacket(eProtocolPacketGroup group,
 							    ushort instruction,
-							    ProtocolPacketData & data)
+							    PacketData & data)
 {
   return (PacketFactory::createPacket(group, instruction, data.getData(), data.getDataSize()));
 }
@@ -50,11 +50,11 @@ ushort				PacketFactory::getPacketInstruction(ProtocolPacket * packet)
   return (packet ? packet->header.group : 0);
 }
 
-ProtocolPacketData *		PacketFactory::getPacketData(ProtocolPacket * packet)
+PacketData *		PacketFactory::getPacketData(ProtocolPacket * packet)
 {
   if (!packet)
     return (NULL);
-  return (new ProtocolPacketData(packet->data, packet->header.size));
+  return (new PacketData(packet->data, packet->header.size));
 }
 
 ushort				PacketFactory::getPacketDataSize(ProtocolPacket * packet)

@@ -26,7 +26,7 @@ SRCS		=	$(MAIN_DIR)main.cpp			\
 S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(SERV_DIR)$(S_NAME).cpp		\
 			\
-			$(PRTC_DIR)ProtocolPacketData.cpp	\
+			$(PRTC_DIR)PacketData.cpp	\
 			$(PRTC_DIR)PacketFactory.cpp		\
 			$(PRTC_DIR)PacketManager.cpp		\
 			\

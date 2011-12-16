@@ -1,25 +1,25 @@
 
 #include		<cctype>
 #include		<iostream>
-#include		"ProtocolPacketData.hpp"
+#include		"PacketData.hpp"
 
 /* ************************************************************************* */
 /*                             Coplien Form                                  */
 /* ************************************************************************* */
 
-ProtocolPacketData::ProtocolPacketData(void)
+PacketData::PacketData(void)
   : data(), it(data.begin())
 {}
 
-ProtocolPacketData::ProtocolPacketData(DataRawType const * raw, ushort size)
+PacketData::PacketData(DataRawType const * raw, ushort size)
   : data(raw, (raw + size * sizeof(DataRawType))), it(data.begin())
 {}
 
-ProtocolPacketData::ProtocolPacketData(ProtocolPacketData const & other)
+PacketData::PacketData(PacketData const & other)
   : data(other.data), it(other.it)
 {}
 
-ProtocolPacketData &		ProtocolPacketData::operator=(ProtocolPacketData const & other)
+PacketData &		PacketData::operator=(PacketData const & other)
 {
   if (&other != this)
     {
@@ -34,7 +34,7 @@ ProtocolPacketData &		ProtocolPacketData::operator=(ProtocolPacketData const & o
   return (*this);
 }
 
-ProtocolPacketData::~ProtocolPacketData(void)
+PacketData::~PacketData(void)
 {}
 
 /* ************************************************************************* */
@@ -49,7 +49,7 @@ static void		prettyPrinter(DataRawType c)
     std::cout << '[' << (int)c << ']';
 }
 
-void			ProtocolPacketData::prettyPrint(void) const
+void			PacketData::prettyPrint(void) const
 {
   std::cout << "{<(* ~~ PrettyPrint ~~ *)>}" << std::endl;
   for_each(this->data.begin(), this->data.end(), prettyPrinter);
@@ -58,12 +58,12 @@ void			ProtocolPacketData::prettyPrint(void) const
 
 /* ************************************************************************* */
 
-DataRawType const *	ProtocolPacketData::getData(void) const
+DataRawType const *	PacketData::getData(void) const
 {
   return (NULL);
 }
 
-ushort			ProtocolPacketData::getDataSize(void) const
+ushort			PacketData::getDataSize(void) const
 {
   return (this->data.size());
 }
@@ -71,43 +71,43 @@ ushort			ProtocolPacketData::getDataSize(void) const
 
 /* ************************************************************************* */
 
-std::string		ProtocolPacketData::getNextString(void)
+std::string		PacketData::getNextString(void)
 {
   // todo
   return ("");
 }
 
-std::string		ProtocolPacketData::getRestString(void)
+std::string		PacketData::getRestString(void)
 {
   // todo
   return ("");
 }
 
-char			ProtocolPacketData::getNextChar(void)
+char			PacketData::getNextChar(void)
 {
   // todo
   return (0);
 }
 
-uchar			ProtocolPacketData::getNextUChar(void)
+uchar			PacketData::getNextUChar(void)
 {
   // todo
   return (0);
 }
 
-short			ProtocolPacketData::getNextShort(void)
+short			PacketData::getNextShort(void)
 {
   // todo
   return (0);
 }
 
-ushort			ProtocolPacketData::getNextUShort(void)
+ushort			PacketData::getNextUShort(void)
 {
   // todo
   return (0);
 }
 
-UInt32			ProtocolPacketData::getNextUint32(void)
+UInt32			PacketData::getNextUint32(void)
 {
   // todo
   return (0);
@@ -115,37 +115,37 @@ UInt32			ProtocolPacketData::getNextUint32(void)
 
 /* ************************************************************************* */
 
-void			ProtocolPacketData::addString(char const *)
+void			PacketData::addString(char const *)
 {
   // todo
 }
 
-void			ProtocolPacketData::addString(std::string const & str)
+void			PacketData::addString(std::string const & str)
 {
   this->addString(str.c_str());
 }
 
-void			ProtocolPacketData::addChar(char )
+void			PacketData::addChar(char )
 {
   // todo
 }
 
-void			ProtocolPacketData::addUChar(uchar )
+void			PacketData::addUChar(uchar )
 {
   // todo
 }
 
-void			ProtocolPacketData::addShort(short )
+void			PacketData::addShort(short )
 {
   // todo
 }
 
-void			ProtocolPacketData::addUShort(ushort )
+void			PacketData::addUShort(ushort )
 {
   // todo
 }
 
-void			ProtocolPacketData::addUint32(UInt32 )
+void			PacketData::addUint32(UInt32 )
 {
   // todo
 }

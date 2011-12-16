@@ -7,7 +7,7 @@
 # include		<algorithm>
 # include		<string>
 
-class			ProtocolPacketData
+class			PacketData
 {
 /* ************************************************************************* */
 /*                             Attributes                                    */
@@ -20,11 +20,11 @@ class			ProtocolPacketData
 /*                             Coplien Form                                  */
 /* ************************************************************************* */
  public:
-  ProtocolPacketData(void);
-  ProtocolPacketData(DataRawType const * data, ushort size);
-  ProtocolPacketData(ProtocolPacketData const &);
-  ProtocolPacketData &		operator=(ProtocolPacketData const &);
-  ~ProtocolPacketData(void);
+  PacketData(void);
+  PacketData(DataRawType const * data, ushort size);
+  PacketData(PacketData const &);
+  PacketData &		operator=(PacketData const &);
+  ~PacketData(void);
 
 /* ************************************************************************* */
 /*                             Member Functions                              */

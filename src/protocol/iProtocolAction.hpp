@@ -3,7 +3,7 @@
 # define		PROTOCOLACTION_H_
 
 # include		"types.h"
-# include		"ProtocolPacketData.hpp"
+# include		"PacketData.hpp"
 
 class			iProtocolAction
 {
@@ -17,7 +17,7 @@ class			iProtocolAction
 /*                             Interface Methods                             */
 /* ************************************************************************* */
  public:
-  virtual void		action(ushort instruction, ProtocolPacketData & data);
+  virtual void		action(ushort instruction, PacketData & data);
   // todo: add informations about the socket.
 };
 

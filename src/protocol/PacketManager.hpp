@@ -5,7 +5,7 @@
 # include		<map>
 # include		"user/User.hpp"
 # include		"PacketFactory.hpp"
-# include		"ProtocolPacketData.hpp"
+# include		"PacketData.hpp"
 # include		"iProtocolAction.hpp"
 
 class			PacketManager
@@ -31,7 +31,7 @@ class			PacketManager
  public:
   bool				send(User * user, eProtocolPacketGroup group,
  				     ushort instruction,
-				     ProtocolPacketData & data,
+				     PacketData & data,
 				     bool udp = false);
   bool				rcsv(User * user, bool udp = false);
 

@@ -51,7 +51,7 @@ PacketManager::~PacketManager(void)
 
 bool				PacketManager::send(User * user, eProtocolPacketGroup group,
 						    ushort instruction,
-						    ProtocolPacketData & data,
+						    PacketData & data,
 						    bool udp)
 {
   ISocket * socket = (udp ? /* todo: user->getSocketUDP()*/NULL : user->getSocketTCP());
@@ -78,7 +78,7 @@ bool				PacketManager::rcsv(User * user, bool udp)
   ProtocolPacket * packet = this->RcvPacket(user, udp);
   if (!packet)
     return (false);
-  // ProtocolPacketData textData(PacketFactory::getPacketData(packet),
+  // PacketData textData(PacketFactory::getPacketData(packet),
   // 			    PacketFactory::getPacketDataSize(packet));
   // if (!this->groupaction[PacketFactory::getPacketGroup(packet)])
   //   {
