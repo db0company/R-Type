@@ -1,7 +1,9 @@
 #ifndef GRAPHICCLIENTSTATE_H_
 # define GRAPHICCLIENTSTATE_H_
 
-#include "Sfml.hpp"
+#include "MySound.hpp"
+#include "MyMusic.hpp"
+#include "GraphicUtils.hpp"
 
 namespace LibGraphic
 {
@@ -10,8 +12,6 @@ namespace LibGraphic
   {
 
   private:
-    GraphicClientState(void);
-
     // Constructors/Destructors
   public:
     GraphicClientState(std::string const &);
@@ -26,7 +26,8 @@ namespace LibGraphic
     std::string const & _name;
     std::map<std::string const, MySound *> _ressourcesSounds;
     std::map<std::string const, MyMusic *> _ressourcesPlayList;
-    std::map<std::string const, GraphicRessource const *> _ressourcesSprite;
+    std::map<std::string const, const GraphicRessource *>
+    _ressourcesSprite;
 
   };
 

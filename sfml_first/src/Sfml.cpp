@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include "Sfml.hpp"
+#include "GraphicClientState.hpp"
 
 LibGraphic::Sfml::Sfml(void)
 {
@@ -18,12 +19,14 @@ bool LibGraphic::Sfml::init()
   if (!getenv("DISPLAY"))
     return false;
   #endif
-  this->_app.Create(sf::VideoMode::GetMode(0), WINDOWNAME, sf::Style::Fullscreen);
+  this->_app.Create(sf::VideoMode::GetMode(0), WINDOWNAME,
+		    sf::Style::Fullscreen);
   if (!this->_app.IsOpened())
     return false;
   this->_width = sf::VideoMode::GetMode(0).Width;
   this->_height = sf::VideoMode::GetMode(0).Height;
   this->loadRessources();
+  this->createStates();
   return true;
 }
 
@@ -182,6 +185,23 @@ bool LibGraphic::Sfml::loadMusic()
       this->_ressourcesPlayList[tmp] = song;
     }
   return true;
+}
+
+bool LibGraphic::Sfml::createStates()
+{
+  this->_statesMap[START] = this->createStateStart();
+  this->_statesMap[INGAME] = this->createStateIngame();
+  return true;
+}
+
+LibGraphic::GraphicClientState * LibGraphic::Sfml::createStateStart()
+{
+  return (new LibGraphic::GraphicClientState("Start"));
+}
+
+LibGraphic::GraphicClientState * LibGraphic::Sfml::createStateIngame()
+{
+  return (new LibGraphic::GraphicClientState("Ingame"));
 }
 
 inline bool LibGraphic::Sfml::isFullscreen(std::string s)

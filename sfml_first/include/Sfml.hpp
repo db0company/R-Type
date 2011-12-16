@@ -5,30 +5,13 @@
 #include "MyMusic.hpp"
 #include "MySound.hpp"
 #include "IGraphic.hpp"
+#include "GraphicUtils.hpp"
+#include "GraphicClientState.hpp"
 
 #define WINDOWNAME "R-Type"
 
 namespace LibGraphic
 {
-  struct Size
-  {
-    unsigned int width;
-    unsigned int height;
-  };
-
-  struct Coord
-  {
-    int x;
-    int y;
-  };
-
-  struct GraphicRessource
-  {
-    sf::Image _image;
-    sf::Sprite _sprite;
-    bool _isFullScreen;
-    Size _dimension;
-  };
 
   class	Sfml : public IGraphic
   {
@@ -49,16 +32,22 @@ namespace LibGraphic
     bool loadMusic();
     bool loadSprite();
     bool loadRessources();
+    bool createStates();
     inline bool isFullscreen(std::string s);
     inline std::string getNextInfoRessource(std::string &);
+    GraphicClientState * createStateStart();
+    GraphicClientState * createStateIngame();
 
   private:
     int _width;
     int _height;
     sf::RenderWindow _app;
+    GraphicClientState * _currentState;
+
     std::map<std::string const, GraphicRessource const *> _ressourcesSprite;
     std::map<std::string const, MyMusic *> _ressourcesPlayList;
     std::map<std::string const, MySound *> _ressourcesSounds;
+    std::map<eStates, GraphicClientState *> _statesMap;
   };
 
 }

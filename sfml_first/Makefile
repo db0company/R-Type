@@ -11,16 +11,17 @@ SRCS		=	$(SRC_DIR)/main.cpp			\
 			$(SRC_DIR)/ExtensionSo.cpp		\
 			$(SRC_DIR)/MyMusic.cpp			\
 			$(SRC_DIR)/MySound.cpp			\
+			$(SRC_DIR)/GraphicClientState.cpp	\
 			$(SRC_DIR)/Sfml.cpp			\
 			$(SRC_DIR)/Error.cpp			\
-			$(SRC_DIR)/Button.cpp			\
-			$(SRC_DIR)/GraphicClientState.cpp
+			$(SRC_DIR)/Button.cpp
+
 
 
 OBJS		=	$(SRCS:.cpp=.o)
 LIB		=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -ldl -lpthread
 CXX		=	g++
-CFLAGS		=	-Wextra -Wall -Werror
+CFLAGS		=	-Wextra -Wall
 DEBUG_OPT	=	-ggdb
 OPTI_OPT	=	-O2
 RM		=	rm -f
