@@ -29,7 +29,7 @@ class				PacketFactory
 					     PacketData & data);
   static eProtocolPacketGroup	getPacketGroup(ProtocolPacket * packet);
   static ushort			getPacketInstruction(ProtocolPacket * packet);
-  static PacketData *	getPacketData(ProtocolPacket * packet);
+  static PacketData *		getPacketData(ProtocolPacket * packet);
   static ushort			getPacketDataSize(ProtocolPacket * packet);
   static void			destroyPacket(ProtocolPacket * packet);
 };

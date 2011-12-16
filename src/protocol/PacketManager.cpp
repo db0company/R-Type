@@ -3,12 +3,7 @@
 # include		<cstdlib>
 # include		"verbose.h"
 # include		"PacketManager.hpp"
-
-//todo: vincent new objects from r-type, see RFC
-//todo: vincent create them from the model actions/ProtocolExample.*pp
-// # include		"protocol/actions/ProtocolUserManager.hpp"
-// # include		"protocol/actions/ProtocolContactList.hpp"
-// # include		"protocol/actions/ProtocolPrepareClients.hpp"
+# include		"actions/ProtocolGame.hpp"
 
 /* ************************************************************************* */
 /*                             Coplien Form                                  */
@@ -16,10 +11,7 @@
 
 PacketManager::PacketManager(void)
 {
-  // todo: vincent: the new map of new objects, new projet r-type it's a revolution !
-  // this->groupaction[USERMANAGER] = new ProtocolUserManager(usermanager, *this);
-  // this->groupaction[CONTACTLIST] = new ProtocolContactList(usermanager, *this);
-  // this->groupaction[PREPARECLIENTS] = new ProtocolPrepareClients(usermanager, *this);
+  this->groupaction[THE_GAME] = new ProtocolGame();
 }
 
 PacketManager::PacketManager(PacketManager const & other)
@@ -39,20 +31,17 @@ PacketManager &		PacketManager::operator=(PacketManager const & other)
 
 PacketManager::~PacketManager(void)
 {
-  // todo: vincent: delete r-type objects
-  // delete (this->groupaction[USERMANAGER]);
-  // delete (this->groupaction[CONTACTLIST]);
-  // delete (this->groupaction[PREPARECLIENTS]);
+  delete (this->groupaction[THE_GAME]);
 }
 
 /* ************************************************************************* */
 /*                             Member Functions                              */
 /* ************************************************************************* */
 
-bool				PacketManager::send(User * user, eProtocolPacketGroup group,
-						    ushort instruction,
-						    PacketData & data,
-						    bool udp)
+bool			PacketManager::send(User * user, eProtocolPacketGroup group,
+					    ushort instruction,
+					    PacketData & data,
+					    bool udp)
 {
   ISocket * socket = (udp ? /* todo: user->getSocketUDP()*/NULL : user->getSocketTCP());
   if (!socket)
@@ -78,18 +67,14 @@ bool				PacketManager::rcsv(User * user, bool udp)
   ProtocolPacket * packet = this->RcvPacket(user, udp);
   if (!packet)
     return (false);
-  // PacketData textData(PacketFactory::getPacketData(packet),
-  // 			    PacketFactory::getPacketDataSize(packet));
-  // if (!this->groupaction[PacketFactory::getPacketGroup(packet)])
-  //   {
-  //     this->actionError();
-  //   }
-  // else
-  //   {
-  //     this->groupaction[PacketFactory::getPacketGroup(packet)]->action
-  // 	(PacketFactory::getPacketInstruction(packet), textData, *net);
-  //   }
-  // PacketFactory::destroyPacket(packet);
+  PacketData * textData = PacketFactory::getPacketData(packet);
+  if (!this->groupaction[PacketFactory::getPacketGroup(packet)])
+    this->actionError();
+  else
+    this->groupaction[PacketFactory::getPacketGroup(packet)]->action
+      (PacketFactory::getPacketInstruction(packet), *textData/*, user*/);
+  delete textData;
+  PacketFactory::destroyPacket(packet);
   return (true);
 }
 

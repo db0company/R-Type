@@ -15,7 +15,7 @@ private:
   std::map<eProtocolPacketGame, ptr_func>	actionmap;
 
 public:
-  ProtocolGame();
+  ProtocolGame(void);
   ProtocolGame(ProtocolGame const &);
   ProtocolGame &		operator=(ProtocolGame const &);
   ~ProtocolGame(void);

@@ -1,10 +1,13 @@
 #include "Server.hpp"
 #include "Selector.hpp"
+#include "protocol/PacketManager.hpp"
 #ifndef _WIN32
 # include "TCPServerSocketUnix.h"
 #else
 # include "TCPServerSocketWindows.h"
 #endif
+
+PacketManager * pm = NULL;
 
 Server&	Server::operator=(Server const &){return *this;}
 Server::Server(Server const &){}
@@ -119,6 +122,9 @@ bool Server::readFromClient(void)
 
 bool Server::run(void)
 {
+  PacketManager pmp;
+  // todo: maybe some arguments needed by packetmanager, like gamemanager
+  pm = &pmp;
   while (true)
     {
       this->_listener->SNAddRead();
