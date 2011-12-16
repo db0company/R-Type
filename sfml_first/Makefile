@@ -59,7 +59,8 @@ clean		:
 		@$(ECHO) "[OK] Cleaning directories."
 
 fclean		: clean
-		@$(RM) $(NAME)
+		@$(RM) $(NAME_DEBUG)
+		@$(RM) $(NAME_RELEASE)
 		@$(ECHO) "[OK] Cleaning binary files."
 
 re		: fclean all

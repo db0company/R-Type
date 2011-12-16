@@ -3,6 +3,7 @@
 int main()
 {
   LibGraphic::Sfml test;
+
   test.init();
   while (true)
     {

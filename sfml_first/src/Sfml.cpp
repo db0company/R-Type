@@ -27,6 +27,7 @@ bool LibGraphic::Sfml::init()
   this->_height = sf::VideoMode::GetMode(0).Height;
   this->loadRessources();
   this->createStates();
+  this->_currentState = this->_statesMap[START];
   return true;
 }
 
@@ -62,9 +63,10 @@ void LibGraphic::Sfml::quit()
 void LibGraphic::Sfml::clean()
 {
   this->_app.Clear();
-  this->_app.Draw((*this->_ressourcesSprite.find("StartBackground")).second->_sprite);
+  this->_app.Draw(this->_currentState->getSprite("StartBackground"));
 
-  MyMusic * song = this->_ressourcesPlayList["StartBackground"];
+  MyMusic * song = this->_currentState->getMusic("StartMusic");
+  //  MyMusic * song = this->_currentState->ressourcesPlayList["StartBackground"];
   if (song->GetMusicState() == sf::Music::Stopped ||
       song->GetMusicState() == sf::Music::Paused)
     song->PlayMusic();
@@ -196,13 +198,19 @@ bool LibGraphic::Sfml::createStates()
 
 LibGraphic::GraphicClientState * LibGraphic::Sfml::createStateStart()
 {
-  return (new LibGraphic::GraphicClientState("Start"));
+  LibGraphic::GraphicClientState * ptr =
+    new LibGraphic::GraphicClientState("Start", this->_ressourcesSprite,
+				       this->_ressourcesPlayList, this->_ressourcesSounds);
+  return (ptr);
 }
 
 LibGraphic::GraphicClientState * LibGraphic::Sfml::createStateIngame()
 {
-  return (new LibGraphic::GraphicClientState("Ingame"));
+ //  LibGraphic::GraphicClientState * ptr = new LibGraphic::GraphicClientState("Ingame");
+//   return (ptr);
+  return NULL;
 }
+
 
 inline bool LibGraphic::Sfml::isFullscreen(std::string s)
 {
