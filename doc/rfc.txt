@@ -62,7 +62,7 @@ Table of Contents
    6. Map Group .......................................................2
       6.1 Get .........................................................2
    7. Movement Group ..................................................2
-      7.1 MovePlayer ..................................................2
+      7.1 Move ........................................................2
       7.2 UpdatePlayer ................................................2
       7.3 UpdateEnemy .................................................2
       7.4 UpdateBullet ................................................2
@@ -84,13 +84,13 @@ Table of Contents
 
 3.  Data Unit Format
 
-   The Data Unit Format contains two fields: a 8 bit header that describes
+   The Data Unit Format contains two fields: a 8 bytes header that describes
    the total length of the data, and the data unit.
 
         +--------+-------------------+
         | header |      data	     |
         +--------+-------------------+
-        | 8 bit  |  size determined  |
+        | 8 bytes|  size determined  |
         | 	 |     in header     |
         +--------+-------------------+
 
@@ -461,4 +461,77 @@ The game          |                                     |
      wat to do...
 // todo: reponse barbara needed sur lenum et l'ushort
 // pour le client to server.
+
+7.  Movement Group (3)
+
+    This group has a new Type: position.
+    Position is a 6 bytes data containing:
+
+    tile position x	:      1 bytes (unsiged char)
+    tile position y	:      1 bytes (unsigned char)
+    position in tile x	:      1 bytes (unsigned char)
+    position in tile y	:      1 bytes (unsigned char)
+    direction x		:      1 bytes (char)
+    direction y		:      1 bytes (char)
+
+    direction y and direction x MUST be 0, 1 or -1 depending
+    on the direction vector.
+
+
+    A Element going down and foward(right) as below
+
+                1
+
+		|
+		|
+		|
+		|
+      -1 _______|_______ 1
+		|\
+		|  \
+		|    \
+		|      \
+		|       _\|
+
+               -1
+
+    has a position with a direction x = 1
+    and a direction y = -1
+
+    0      1      2      3      4      5      6
+    +------+------+------+------+------+------+
+    |                  position               |
+    |-------------|-------------|--------------
+    |    tile     | pos in tile |  direction  |
+    |-------------|-------------|--------------
+    |  x   |  y   |  x   |  y   |  x   |  y   |
+    +------+------+------+------+------+------+
+
+//todo: descriptif pour la tile et pos in tile.
+
+7.1 Move Instruction
+
+    This instruction only exist Client to Server.
+    The client MUST send a header and a data containing
+    a position.
+    // todo here
+
+7.2 UpdatePlayer Instruction
+
+    This instruction only exist Server to Client.
+
+7.3 UpdateEnemy Instruction
+
+    This instruction only exist Server to Client.
+
+7.4 UpdateBullet Instruction
+
+    This instruction only exist Server to Client.
+
+7.5 New Bullet Instruction
+
+//todo: zarb. a voir
+
+8.  Event Group (4)
+
 
