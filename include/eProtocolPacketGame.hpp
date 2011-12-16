@@ -1,0 +1,18 @@
+#ifndef		__EPROTOCOLPACKETGAME_HPP__
+# define	__EPROTOCOLPACKETGAME_HPP__
+
+enum		eProtocolPacketGame
+  {
+    GAME_ERROR,
+    GETGAME,
+    GETLEVELGAME,
+    CREATEGAME,
+    JOINGAME,
+    QUITGAME,
+    ENDGAME,
+    SCOREGAME,
+    STARTGAME,
+    GAME_MAX,
+  };
+
+#endif		/*__EPROTOCOLPACKETGAME_HPP__*/

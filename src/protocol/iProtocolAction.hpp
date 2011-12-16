@@ -17,7 +17,7 @@ class			iProtocolAction
 /*                             Interface Methods                             */
 /* ************************************************************************* */
  public:
-  virtual void		action(ushort instruction, PacketData & data);
+  virtual void		action(ushort instruction, PacketData & data) = 0;
   // todo: add informations about the socket.
 };
 
