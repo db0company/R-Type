@@ -3,7 +3,10 @@
 # include		<cstdlib>
 # include		"verbose.h"
 # include		"PacketManager.hpp"
+
 # include		"actions/ProtocolGame.hpp"
+# include		"actions/ProtocolMap.hpp"
+# include		"actions/ProtocolPosition.hpp"
 
 /* ************************************************************************* */
 /*                             Coplien Form                                  */
@@ -12,6 +15,8 @@
 PacketManager::PacketManager(void)
 {
   this->groupaction[THE_GAME] = new ProtocolGame();
+  this->groupaction[MAP] = new ProtocolMap();
+  this->groupaction[POSITION] = new ProtocolPosition();
 }
 
 PacketManager::PacketManager(PacketManager const & other)
@@ -31,7 +36,9 @@ PacketManager &		PacketManager::operator=(PacketManager const & other)
 
 PacketManager::~PacketManager(void)
 {
-  delete (this->groupaction[THE_GAME]);
+  delete this->groupaction[THE_GAME];
+  delete this->groupaction[MAP];
+  delete this->groupaction[POSITION];
 }
 
 /* ************************************************************************* */

@@ -7,6 +7,7 @@ enum			eProtocolPacketGroup
     GROUP_ERROR,
     THE_GAME,
     MAP,
+    POSITION,
     GROUP_MAX
   };
 

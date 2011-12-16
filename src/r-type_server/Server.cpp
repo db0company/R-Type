@@ -109,11 +109,12 @@ bool Server::readFromClient(void)
 	{
 	  if (socket->SNGetRead() == true)
 	    {
-	      char		buff[512] = {0};
-	      if (socket->SNRead(buff, 514) <= 0)
-		this->removeClient(user, socket); // not from list !
-	      else
-		std::cout << socket->getIp() << ": " << buff;
+	      pm->rcsv(user);
+	      // char		buff[512] = {0};
+	      // if (socket->SNRead(buff, 514) <= 0)
+	      // 	this->removeClient(user, socket); // not from list !
+	      // else
+	      // 	std::cout << socket->getIp() << ": " << buff;
 	    }
 	}
     }
