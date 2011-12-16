@@ -1,6 +1,7 @@
 
 # include		<string.h>
 # include		<cstdlib>
+# include		"verbose.h"
 # include		"PacketManager.hpp"
 
 //todo: vincent new objects from r-type, see RFC
@@ -50,141 +51,97 @@ PacketManager::~PacketManager(void)
 
 bool				PacketManager::send(User * user, eProtocolPacketGroup group,
 						    ushort instruction,
-						    ProtocolPacketData & data)
+						    ProtocolPacketData & data,
+						    bool udp)
 {
-  // if (!user->getSocket())
+  ISocket * socket = (udp ? /* todo: user->getSocketUDP()*/NULL : user->getSocketTCP());
+  if (!socket)
+    return (false);
+  ProtocolPacket * packet = PacketFactory::createPacket(group, instruction, data);
+  if (!packet)
+    return (false);
+  DataRawType * toSend = new DataRawType[sizeof(packet->header) +
+					 PacketFactory::getPacketDataSize(packet)];
+  memcpy(toSend, &(packet->header), sizeof(packet->header));
+  memcpy(toSend + sizeof(packet->header), PacketFactory::getPacketData(packet),
+	 PacketFactory::getPacketDataSize(packet));
+  if ((socket->SNWrite(toSend, sizeof(packet->header)
+		       + PacketFactory::getPacketDataSize(packet))) < 0)
+    return (std::cerr << "[error] Send Packet Failure" << std::endl);
+  delete[] toSend;
+  PacketFactory::destroyPacket(packet);
   return (true);
 }
 
-// bool				PacketManager::send(UserNetwork & net, eProtocolPacketGroup group,
-// 						   ushort instruction, char const * data, uint size)
-// {
-//   if (!net.getsocket())
-//     return (false);
-//   ProtocolPacket * packet = this->packetfactory.createPacket(group, instruction, data, size);
-//   if (!packet)
-//     return (false);
-//   char * toSend = new char[sizeof(packet->header) + this->packetfactory.getPacketDataSize(packet)];
-//   memcpy(toSend, &(packet->header), sizeof(packet->header));
-//   memcpy(toSend + sizeof(packet->header), this->packetfactory.getPacketData(packet),
-// 	 this->packetfactory.getPacketDataSize(packet));
-//   if ((net.getsocket()->SNWrite(toSend, sizeof(packet->header)
-// 				+ this->packetfactory.getPacketDataSize(packet))) < 0)
-//     return (io.PutError("[error] Send Packet Failure"));
-//   delete[] toSend;
-//   this->packetfactory.destroyPacket(packet);
-//   return (true);
-// }
+bool				PacketManager::rcsv(User * user, bool udp)
+{
+  ProtocolPacket * packet = this->RcvPacket(user, udp);
+  if (!packet)
+    return (false);
+  // ProtocolPacketData textData(PacketFactory::getPacketData(packet),
+  // 			    PacketFactory::getPacketDataSize(packet));
+  // if (!this->groupaction[PacketFactory::getPacketGroup(packet)])
+  //   {
+  //     this->actionError();
+  //   }
+  // else
+  //   {
+  //     this->groupaction[PacketFactory::getPacketGroup(packet)]->action
+  // 	(PacketFactory::getPacketInstruction(packet), textData, *net);
+  //   }
+  // PacketFactory::destroyPacket(packet);
+  return (true);
+}
 
-// bool				PacketManager::send(UserNetwork & net, eProtocolPacketGroup group,
-// 				     ushort instruction, ProtocolPacketData & data)
-// {
-//   return (this->send(net, group, instruction, data.getstr(), data.getsize()));
-// }
+/* ************************************************************************* */
+/*                            Private Functions                              */
+/* ************************************************************************* */
 
-// bool				PacketManager::send(UserNetwork & net, eProtocolPacketGroup group,
-// 				     ushort instruction, std::string const & data)
-// {
-//   ProtocolPacketData ndata(data);
-//   return (this->send(net, group, instruction, ndata));
-// }
+void				PacketManager::actionError(void)
+{
+  if (v)
+    std::cerr << "[warning] Invalid Packet Group: Ignored" << std::endl;
+}
 
-// bool				PacketManager::rcsv(UserNetwork * net)
-// {
-//   ProtocolPacket * packet = this->RcvPacket(net);
-//   if (!packet)
-//     return (false);
-//   ProtocolPacketData textData(this->packetfactory.getPacketData(packet),
-//   			    this->packetfactory.getPacketDataSize(packet));
-//   if (!this->groupaction[this->packetfactory.getPacketGroup(packet)])
-//     {
-//       this->actionError();
-//     }
-//   else
-//     {
-//       this->groupaction[this->packetfactory.getPacketGroup(packet)]->action
-// 	(this->packetfactory.getPacketInstruction(packet), textData, *net);
-//     }
-//   this->packetfactory.destroyPacket(packet);
-//   return (true);
-// }
-
-// bool				PacketManager::rcsv(User * user)
-// {
-//   ProtocolPacket * packet = this->RcvPacket(user->getUserNetwork(), user);
-//   if (!packet)
-//     return (false);
-//   ProtocolPacketData textData(this->packetfactory.getPacketData(packet),
-//   			    this->packetfactory.getPacketDataSize(packet));
-//   if (!this->groupaction[this->packetfactory.getPacketGroup(packet)])
-//     this->actionError();
-//   else
-//     this->groupaction[this->packetfactory.getPacketGroup(packet)]->action
-//       (this->packetfactory.getPacketInstruction(packet), textData,
-//        *(user->getUserNetwork()), user);
-//   this->packetfactory.destroyPacket(packet);
-//   return (true);
-// }
-
-
-// /* ************************************************************************* */
-// /*                            Private Functions                              */
-// /* ************************************************************************* */
-
-// void				PacketManager::actionError(void)
-// {
-//   if (v)
-//     io.PutErrorEndLine("[warning] Invalid Packet Group: Ignored");
-// }
-
-// ProtocolPacket *		PacketManager::RcvPacket(UserNetwork * net,
-// 							User * user)
-// {
-//   if (!net || !(net->isConnected()))
-//     {
-//       this->DeleteSocket(net, user);
-//       return (NULL);
-//     }
-//   int size = 0;
-//   if (!(net->gethaveHeader()))
-//     {
-//       ProtocolPacketHeader & header = net->getheader();
-//       if (((size = (net->getsocket())->SNRead(&header, sizeof(header)))
-// 	   != sizeof(header)))
-// 	{
-// 	  if (size > 0 && v)
-// 	    {
-// 	      io.PutError("[error] Read: Invalid Packet Header (Size = ");
-// 	      io.Put(size);
-// 	      io.PutErrorEndLine(") -> Socket rejected");
-// 	    }
-// 	  this->DeleteSocket(net, user);
-// 	  return (NULL);
-// 	}
-//       net->sethaveHeader(true);
-//       return (NULL);
-//     }
-//   ProtocolPacketHeader & header = net->getheader();
-//   char * buffer = reinterpret_cast<char *>(malloc(header.size + 1));
-//   if (!buffer)
-//     exit(0);
-//   if ((size = (net->getsocket())->SNRead(buffer, header.size)) != header.size)
-//     {
-//       if (size > 0 && v)
-// 	{
-// 	  io.PutError("[error] Read: Invalid Packet Data (Size = ");
-// 	  io.Put(size);
-// 	  io.PutErrorEndLine(") -> Socket rejected");
-// 	}
-//       this->DeleteSocket(net, user);
-//       return (NULL);
-//     }
-//   buffer[header.size] = '\0';
-//   net->sethaveHeader(false);
-//   return (this->packetfactory.createPacket(static_cast<eProtocolPacketGroup>(header.group),
-// 					   header.instruction,
-// 					   buffer, header.size));
-// }
+ProtocolPacket *		PacketManager::RcvPacket(User * user, bool udp)
+{
+  if (!user)
+    return (NULL);
+  int size = 0;
+  ISocket * socket = (udp ? /*user->getSocketUDP()*/NULL : user->getSocketTCP());
+  UserSocket & us = /*todo : (udp ? user->udp : */user->tcp;  
+  if (!(us.getHaveHeader()))
+    {
+      ProtocolPacketHeader & header = us.getHeader();
+      if (((size = socket->SNRead(&header, sizeof(header)))
+	   != sizeof(header)))
+	{
+	  if (size > 0 && v)
+	    std::cerr << "[error] Read: Invalid Packet Header (Size = "
+		      << size << ") -> Socket rejected" << std::endl;
+	  // this->DeleteSocket(user);
+	  // todo: important ! delete user from the list
+	  return (NULL);
+	}
+      us.setHaveHeader(true);
+      return (NULL);
+    }
+  ProtocolPacketHeader & header = us.getHeader();
+  DataRawType * buffer = new DataRawType[header.size];
+  if ((size = socket->SNRead(buffer, header.size)) != header.size)
+    {
+      if (size > 0 && v)
+	    std::cerr << "[error] Read: Invalid Packet Data (Size = "
+		      << size << ") -> Socket rejected" << std::endl;
+      // this->DeleteSocket(user);
+      // todo: important ! delete user from the list
+      return (NULL);
+    }
+  us.setHaveHeader(false);
+  return (PacketFactory::createPacket(static_cast<eProtocolPacketGroup>(header.group),
+					   header.instruction,
+					   buffer, header.size));
+}
 
 // void				PacketManager::DeleteSocket(UserNetwork * net,
 // 							   User * user)

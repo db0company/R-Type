@@ -31,18 +31,16 @@ class			PacketManager
  public:
   bool				send(User * user, eProtocolPacketGroup group,
  				     ushort instruction,
-				     ProtocolPacketData & data);
-
-  // bool				rcsv(UserNetwork * socket);
-  // bool				rcsv(User * user);
+				     ProtocolPacketData & data,
+				     bool udp = false);
+  bool				rcsv(User * user, bool udp = false);
 
 /* ************************************************************************* */
 /*                             Private Functions                             */
 /* ************************************************************************* */
  // private:
- //  void				actionError();
- //  ProtocolPacket *		RcvPacket(UserNetwork * net,
- // 					  User * user = NULL);
+  void				actionError();
+  ProtocolPacket *		RcvPacket(User * user, bool);
 };
 
 #endif				// !PACKETMANAGER_H_
