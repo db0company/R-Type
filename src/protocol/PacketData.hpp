@@ -38,7 +38,6 @@ class			PacketData
 
  public:
   std::string		getNextString(void);
-  std::string		getRestString(void);
   char			getNextChar(void);
   uchar			getNextUChar(void);
   short			getNextShort(void);
@@ -46,7 +45,7 @@ class			PacketData
   UInt32		getNextUint32(void);
 
  public:
-  void			addString(char const *, uint);
+  void			addString(char const *, ushort);
   void			addString(std::string const &);
   void			addChar(char);
   void			addUChar(uchar);

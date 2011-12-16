@@ -78,49 +78,81 @@ ushort			PacketData::getDataSize(void) const
 
 std::string		PacketData::getNextString(void)
 {
-  // todo
-  return ("");
-}
-
-std::string		PacketData::getRestString(void)
-{
-  // todo
-  return ("");
+  ushort len = this->getNextUShort();
+  if ((this->data.size() - this->it) < len)
+    return ("");
+  char * c_str = new char[len + 1];
+  for (uint i = 0 ; i < len ; ++i, ++(this->it))
+    c_str[i] = this->data[this->it];
+  c_str[len] = '\0';
+  std::string str(c_str);
+  delete[] c_str;
+  return (str);
 }
 
 char			PacketData::getNextChar(void)
 {
-  // todo
-  return (0);
+  if ((this->data.size() - this->it) < sizeof(char))
+    return (0);
+  char c = 0;
+  DataRawType tmp[sizeof(char)];
+  for (uint i = 0 ; i < sizeof(char) ; ++i, ++(this->it))
+    tmp[i] = this->data[this->it];
+  memcpy(&c, tmp, sizeof(char));
+  return (c);
 }
 
 uchar			PacketData::getNextUChar(void)
 {
-  // todo
-  return (0);
+  if ((this->data.size() - this->it) < sizeof(uchar))
+    return (0);
+  uchar c = 0;
+  DataRawType tmp[sizeof(uchar)];
+  for (uint i = 0 ; i < sizeof(uchar) ; ++i, ++(this->it))
+    tmp[i] = this->data[this->it];
+  memcpy(&c, tmp, sizeof(uchar));
+  return (c);
 }
 
 short			PacketData::getNextShort(void)
 {
-  // todo
-  return (0);
+  if ((this->data.size() - this->it) < sizeof(short))
+    return (0);
+  short s = 0;
+  DataRawType tmp[sizeof(short)];
+  for (uint i = 0 ; i < sizeof(short) ; ++i, ++(this->it))
+    tmp[i] = this->data[this->it];
+  memcpy(&s, tmp, sizeof(short));
+  return (s);
 }
 
 ushort			PacketData::getNextUShort(void)
 {
-  // todo
-  return (0);
+  if ((this->data.size() - this->it) < sizeof(ushort))
+    return (0);
+  ushort s = 0;
+  DataRawType tmp[sizeof(ushort)];
+  for (uint i = 0 ; i < sizeof(ushort) ; ++i, ++(this->it))
+    tmp[i] = this->data[this->it];
+  memcpy(&s, tmp, sizeof(ushort));
+  return (s);
 }
 
 UInt32			PacketData::getNextUint32(void)
 {
-  // todo
-  return (0);
+  if ((this->data.size() - this->it) < sizeof(UInt32))
+    return (0);
+  UInt32 s = 0;
+  DataRawType tmp[sizeof(UInt32)];
+  for (uint i = 0 ; i < sizeof(UInt32) ; ++i, ++(this->it))
+    tmp[i] = this->data[this->it];
+  memcpy(&s, tmp, sizeof(UInt32));
+  return (s);
 }
 
 /* ************************************************************************* */
 
-void			PacketData::addString(char const * str, uint len)
+void			PacketData::addString(char const * str, ushort len)
 {
   this->addUShort(len);
   DataRawType tmp[len];
