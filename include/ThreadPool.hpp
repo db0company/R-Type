@@ -2,8 +2,10 @@
 #define __THREADPOLL_HPP_
 
 #include <list>
-#include "Thread.hpp"
+#include "IThread.hpp"
 #include "ThreadData.hpp"
+
+template <typename T>
 class ThreadPool
 {
 private:
@@ -11,9 +13,12 @@ private:
 public:
   ThreadPool(int nbThread);
   ~ThreadPool();
-  bool init(ThreadData *data);
-  bool addNewThread(ThreadData *data);
+  bool init(T *data);
+  bool addNewThread(T *data);
   bool endThread();
 };
+
+template <typename T>
+void		*manageThread(void *param);
 
 #endif // __THREADPOOL_HPP_

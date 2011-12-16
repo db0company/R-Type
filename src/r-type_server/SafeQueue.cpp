@@ -5,16 +5,19 @@ SafeQueue<T>::SafeQueue()
 {
 }
 
+template <typename T>
 SafeQueue<T>::SafeQueue(SafeQueue &old)
 {
   this->QueueTask = old.QueueTask;
   this->mutex = old.mutex;
 }
 
-SafeQueue &SafeQueue<T>::operator=(SafeQueue &old)
+template <typename T>
+SafeQueue<T> &SafeQueue<T>::operator=(SafeQueue &old)
 {
   this->QueueTask = old.QueueTask;
   this->mutex = old.mutex;
+  return (*this);
 }
 
 template <typename T>
@@ -26,6 +29,7 @@ template <typename T>
 bool SafeQueue<T>::push(T value)
 {
   QueueTask.push(value);
+  return (true);
 }
 
 template <typename T>
@@ -38,7 +42,7 @@ bool SafeQueue<T>::tryPop(T *elem)
       QueueTask.pop();
       return (true);
     }
-  mutex->Unlock;
+  mutex->Unlock();
   return (false);
 }
 
@@ -48,9 +52,9 @@ bool SafeQueue<T>::empty()
  mutex->Lock();
   if (QueueTask.empty())
     {
-      mutex->Unlock;
+      mutex->Unlock();
       return (true);
     }
-  mutex->Unlock;
+  mutex->Unlock();
   return (false);
 }

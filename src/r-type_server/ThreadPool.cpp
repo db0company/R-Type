@@ -1,12 +1,14 @@
 #include "ThreadData.hpp"
 #include "IThread.hpp"
+#include "ThreadPool.hpp"
 #ifdef _WIN32
 #include "ThreadWindows.hpp"
 #else
 #include "ThreadUnix.hpp"   
 #endif
 
-ThreadPool::ThreadPool(int nbThread)
+template <typename T>
+ThreadPool<T>::ThreadPool(int nbThread)
 {
 
 #ifdef _WIN32
@@ -18,18 +20,41 @@ ThreadPool::ThreadPool(int nbThread)
 #endif
 }
 
-ThreadPool::~ThreadPool()
+template <typename T>
+ThreadPool<T>::~ThreadPool()
 {
 }
 
-bool ThreadPool::init(ThreadData *data)
+template <typename T>
+bool ThreadPool<T>::init(T *data)
 {
   std::list<IThread *>::iterator it;
 
   it = listThread.begin();
   while (it != listThread.end())
     {
-      if (it->Create(&manageThread, reinterpret_cast<void *>(data)) == false)
+      if ((*it)->Create(&manageThread<T>, reinterpret_cast<void *>(data)) == false)
+	return (false);
+      it++;
+    }
+  return (true);
+}
+
+template <typename T>
+bool ThreadPool<T>::addNewThread(T *data)
+{
+  return (true);
+}
+
+template <typename T>
+bool ThreadPool<T>::endThread()
+{
+  std::list<IThread *>::iterator it;
+
+  it = listThread.begin();
+  while (it != listThread.end())
+    {
+      if ((*it)->Wait() == false)
 	return (false);
       it++;
     }
@@ -37,34 +62,16 @@ bool ThreadPool::init(ThreadData *data)
 }
 
 
-bool ThreadPool::addNewThread(ThreadData *data)
-{
-}
 
-bool ThreadPool::endThread()
-{
-  std::list<IThread *>::iterator it;
-
-  it = listThread.begin();
-  while (it != listThread.end())
-    {
-      if (it->Wait() == false)
-	return (false);
-      it++;
-    }
-  return (true);
-}
-
-
-
-
+template <typename T>
 void		*manageThread(void *param)
 {
-  ThreadData	*data;
+  T	*data;
 
-  data = reinterpret_cast<ThreadData *>(param);
+  data = reinterpret_cast<T *>(param);
   while (1)
     {
     }
- 
+
+  return (NULL); 
 }
