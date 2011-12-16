@@ -18,4 +18,5 @@ public:
 	virtual eThreadState getState(void) const = 0;
 };
 
+
 #endif // _ITHREAD_HPP__

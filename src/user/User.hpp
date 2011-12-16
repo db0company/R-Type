@@ -16,6 +16,8 @@ class			User
   bool			log;
   std::string		login;
   std::string		ip;
+
+ public:
   UserSocket		tcp;
 
 /* ************************************************************************* */
