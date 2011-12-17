@@ -1,7 +1,8 @@
 #ifndef _SERVER_RTYPE_HPP_
 #define _SERVER_RTYPE_HPP_
 
-#include <list>
+#include <map>
+#include <queue>
 #include <string>
 #include "user/User.hpp"
 #include "GameManager.hpp"
@@ -23,10 +24,14 @@ public:
 private:
   bool getNewClient(void);
   bool addClient(ATCPClientSocket *);
-  bool readFromClient(void);
+  bool readFromClients(void);
+  bool processPackets(void);
+  bool writeToClients(void);
+  bool cleanClients(void);
   bool removeClient(User *user, ATCPClientSocket *socket);
 private:
-  std::list<User *>		_userList;
+  std::map<std::string, User *>	_userMap;
+  std::queue<std::string>	_quitQueue;
   ATCPServerSocket*		_listener;
   ISelector*			_selector;
   GameManager			_gameManager;

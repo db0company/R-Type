@@ -7,7 +7,7 @@
 # include "TCPServerSocketWindows.h"
 #endif
 
-PacketManager * pm = NULL;
+//PacketManager * pm = NULL;
 
 Server&	Server::operator=(Server const &){return *this;}
 Server::Server(Server const &){}
@@ -51,10 +51,17 @@ bool	Server::addClient(ATCPClientSocket *sock)
 
   if (sock->getIp())
     {
-      std::cout << "Info: User "<< sock->getIp() << " added to list"  << std::endl;
       user = new User(sock, sock->getIp());
-      this->_userList.push_front(user);
-      return (true);
+      if (this->_userMap.find(sock->getIp()) == this->_userMap.end())
+	{
+	  std::cout << "Info: User "<< sock->getIp() << " added to list"  << std::endl;
+	  this->_userMap[sock->getIp()] = user;
+	  return (true);
+	}
+      std::cout << "User " << sock->getIp() << " is already connected" << std::endl;
+      sock->SNClose();
+      delete user;
+      return (false);
     }
   std::cerr << "Error: Can't resolve client ip adress" << std::endl;
   return (false);
@@ -88,6 +95,8 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
 	socket->getIp() << " disconnected" <<
 	std::endl;
       user->setSafe(false);
+      if (socket->getIp())
+	this->_quitQueue.push(socket->getIp());
       socket->SNDelRead();
       socket->SNDelWrite();
       return (true);
@@ -95,37 +104,72 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
   return (false);
 }
 
-//todo :removelist safely-o !
-bool Server::readFromClient(void)
+bool Server::readFromClients(void)
 {
-  std::list<User *>::iterator	it;
+  std::map<std::string, User *>::iterator	it;
   User				*user = NULL;
   ATCPClientSocket		*socket = NULL;
 
-  for (it = this->_userList.begin(); it != this->_userList.end(); ++it)
+  for (it = this->_userMap.begin(); it != this->_userMap.end(); ++it)
     {
-      user = *it;
-      if (user && user->isSafe() && (socket = user->getSocketTCP()))
+      user = it->second;
+      if (user && user->isSafe() && (socket = user->getSocketTCP()) != NULL)
 	{
 	  if (socket->SNGetRead() == true)
 	    {
-	      pm->rcsv(user);
-	      // char		buff[512] = {0};
-	      // if (socket->SNRead(buff, 514) <= 0)
-	      // 	this->removeClient(user, socket); // not from list !
-	      // else
-	      // 	std::cout << socket->getIp() << ": " << buff;
+	      //	      user->feedPacketAggregator();
+	      //pm->rcsv(user);
+	      char		buff[512] = {0};
+	      if (socket->SNRead(buff, 514) <= 0)
+	      	this->removeClient(user, socket); // not from list !
+	      else
+	      	std::cout << socket->getIp() << ": " << buff;
 	    }
 	}
     }
   return (true);
 }
 
+bool	Server::cleanClients(void)
+{
+  std::string ip;
+
+  if (this->_quitQueue.empty())
+    return (true);
+  while (!this->_quitQueue.empty())
+    {
+      ip = this->_quitQueue.front();
+      if (this->_userMap.find(ip) != this->_userMap.end())
+	this->_userMap.erase(ip);
+      this->_quitQueue.pop();
+    }
+}
+
+  // boucle client.
+  // pour chaque client concat les packet a la suite dans un buf
+  // puis fait un write de se buf (ainsi on envoi plusieurs packet)
+  // les packet concatene sont depop de la send queue.
+bool	Server::writeToClients(void)
+{
+  return (true);
+}
+
+  // boucle client
+  // depile queue de packet
+  // chaque packet-> appel pfonct de barbara.
+  // dans tes pfonct on ne fera pas des send mais des push des packet
+  // a envoyer sur la queue a send.
+bool	Server::processPackets(void)
+{
+  //  user->processPackets();
+  return (0);
+}
+
 bool Server::run(void)
 {
-  PacketManager pmp;
+  //  PacketManager pmp;
   // todo: maybe some arguments needed by packetmanager, like gamemanager
-  pm = &pmp;
+  //  pm = &pmp;
   while (true)
     {
       this->_listener->SNAddRead();
@@ -135,6 +179,9 @@ bool Server::run(void)
 	  return (false);
 	}
       this->getNewClient();
-      this->readFromClient();
+      this->readFromClients();
+      this->processPackets();
+      this->writeToClients();
+      this->cleanClients();
     }
 }
