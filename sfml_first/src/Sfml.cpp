@@ -37,26 +37,7 @@ bool LibGraphic::Sfml::init()
 
 LibGraphic::Event LibGraphic::Sfml::getEvent()
 {
-  sf::Event Event;
-
-  while (this->_app.GetEvent(Event))
-    {
-      if (Event.Type == sf::Event::KeyPressed)
-	{
-	  switch (Event.Key.Code)
-	    {
-	    case sf::Key::Escape:
-	      //return LibGraphic::__EVENT_QUIT;
-	      {
-		this->_app.Close();
-		exit(EXIT_SUCCESS);
-	      }
-	    default:
-	      break;
-	    }
-	}
-    }
-  return LibGraphic::EVENT_NONE;
+  return (this->_graphicState->getEventFromState(this->_currentState));
 }
 
 void LibGraphic::Sfml::quit()

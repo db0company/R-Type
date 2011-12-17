@@ -46,6 +46,9 @@ namespace LibGraphic
     std::map<std::string const, GraphicRessource const *> _ressourcesSprite;
     std::map<std::string const, MyMusic *> _ressourcesPlayList;
     std::map<std::string const, MySound *> _ressourcesSounds;
+
+
+
   };
 
 }
