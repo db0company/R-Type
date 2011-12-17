@@ -9,7 +9,15 @@ namespace LibGraphic
   enum eStates
     {
       START,
-      INGAME
+      ROOMLIST,
+      GAMEPARAMETER,
+      ROOM,
+      OPTIONS,
+      CREDITS,
+      RANKING,
+      INTRO,
+      INGAME,
+      UNKNOWN_STATE
     };
 
   struct Size

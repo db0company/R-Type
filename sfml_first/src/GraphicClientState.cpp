@@ -33,7 +33,57 @@ void LibGraphic::GraphicClientState::draw(eStates scene)
 	if (song->GetMusicState() == sf::Music::Stopped ||
 	    song->GetMusicState() == sf::Music::Paused)
 	  song->PlayMusic();
+	break;
+      }
+    case ROOMLIST:
+      {
+	this->_app.Draw(this->getSprite("StartMenu"));
+	MyMusic * song = this->getMusic("StartMusic");
+	if (song->GetMusicState() == sf::Music::Stopped ||
+	    song->GetMusicState() == sf::Music::Paused)
+	  song->PlayMusic();
+	break;
       }
     default: break;
     }
+}
+
+LibGraphic::Event LibGraphic::GraphicClientState::eventStart(eStates & scene)
+{
+  sf::Event Event;
+
+  while (this->_app.GetEvent(Event))
+    {
+      if (Event.Type == sf::Event::KeyPressed)
+	{
+	  switch (Event.Key.Code)
+	    {
+	    case sf::Key::Escape:
+	      //return LibGraphic::__EVENT_QUIT;
+	      {
+		this->_app.Close();
+		exit(EXIT_SUCCESS);
+	      }
+	    case sf::Key::P:
+	      {
+		scene = ROOMLIST;
+		break;
+	      }
+	    default:
+	      break;
+	    }
+	}
+    }
+  return LibGraphic::EVENT_NONE;
+}
+
+LibGraphic::Event LibGraphic::GraphicClientState::getEventFromState(__attribute__((unused)) eStates & scene)
+{
+  switch (scene)
+    {
+    case START: return this->eventStart(scene);
+    case ROOMLIST: return this->eventStart(scene);
+    default: break;
+    }
+  return LibGraphic::EVENT_NONE;
 }

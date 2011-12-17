@@ -5,6 +5,7 @@
 #include "MySound.hpp"
 #include "MyMusic.hpp"
 #include "GraphicUtils.hpp"
+#include "IGraphic.hpp"
 
 namespace LibGraphic
 {
@@ -29,6 +30,12 @@ namespace LibGraphic
   public:
 
     void draw(eStates);
+    Event getEventFromState(eStates & scene);
+
+  private:
+
+    Event eventStart(eStates & scene);
+
   private:
     std::map<std::string const, const GraphicRessource *>
     const & _ressourcesSprite;
