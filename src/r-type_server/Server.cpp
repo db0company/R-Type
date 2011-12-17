@@ -117,13 +117,16 @@ bool Server::readFromClients(void)
 	{
 	  if (socket->SNGetRead() == true)
 	    {
-	      //	      user->feedPacketAggregator();
 	      //pm->rcsv(user);
-	      char		buff[512] = {0};
-	      if (socket->SNRead(buff, 514) <= 0)
-	      	this->removeClient(user, socket); // not from list !
-	      else
-	      	std::cout << socket->getIp() << ": " << buff;
+	      if (user->feedPacketAggregator() == false)
+		{
+		  this->removeClient(user, socket);
+		}
+	      // char		buff[512] = {0};
+	      // if (socket->SNRead(buff, 514) <= 0)
+	      // 	this->removeClient(user, socket);
+	      // else
+	      // 	std::cout << socket->getIp() << ": " << buff;
 	    }
 	}
     }
@@ -143,6 +146,7 @@ bool	Server::cleanClients(void)
 	this->_userMap.erase(ip);
       this->_quitQueue.pop();
     }
+  return (true);
 }
 
   // boucle client.
@@ -151,6 +155,17 @@ bool	Server::cleanClients(void)
   // les packet concatene sont depop de la send queue.
 bool	Server::writeToClients(void)
 {
+  std::map<std::string, User *>::iterator	it;
+  User *user = NULL;
+  for (it = this->_userMap.begin(); it != this->_userMap.end(); ++it)
+    {
+      if ((user = it->second) == NULL)
+	continue;
+      //user->aggregatePacketToSend();
+      // this fonction will sncanWrite() ? if yes
+      // will call PacketAggregator.aggregatePacketToChar()
+      // and then SNWrite(); ! -> bool
+    }
   return (true);
 }
 
@@ -161,8 +176,15 @@ bool	Server::writeToClients(void)
   // a envoyer sur la queue a send.
 bool	Server::processPackets(void)
 {
-  //  user->processPackets();
-  return (0);
+  std::map<std::string, User *>::iterator	it;
+  User *user = NULL;
+  for (it = this->_userMap.begin(); it != this->_userMap.end(); ++it)
+    {
+      if ((user = it->second) == NULL)
+	continue;
+      user->processPackets();
+    }
+  return (true);
 }
 
 bool Server::run(void)

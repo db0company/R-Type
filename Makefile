@@ -42,7 +42,7 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(SERV_DIR)SafeQueue.cpp		\
 			$(SERV_DIR)ThreadData.cpp		\
 			$(SERV_DIR)ThreadPool.cpp		\
-			\
+			$(SERV_DIR)PacketAggregator.cpp
 
 # objects
 OBJS		=	$(SRCS:.cpp=.o)
@@ -78,4 +78,4 @@ re		:	fclean all
 
 .cpp.o		:
 			$(CXX) -c $(CFLAGS) $< -o $(<:.cpp=.o) -I$(INCLUDE) \
-			-I$(LIB_DIR)/SNetwork/$(INCLUDE) -I$(SRC_DIR) -I$(LIB_DIR)/Thread/$(INCLUDE)
+			-I$(LIB_DIR)/SNetwork/$(INCLUDE) -I$(SRC_DIR) -I$(LIB_DIR)/Thread/$(INCLUDE) -Isrc/protocol/

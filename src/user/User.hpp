@@ -35,6 +35,8 @@ class			User
   std::string const &	getIp(void)const;
   bool			feedPacketAggregator(void);
   bool			processPackets(void);
+  bool			aggregatePacketToSend(void);
+
  public:
 
 };

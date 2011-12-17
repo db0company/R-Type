@@ -101,7 +101,7 @@ ProtocolPacket *		PacketManager::RcvPacket(User * user, bool udp)
     return (NULL);
   int size = 0;
   ISocket * socket = (udp ? /*user->getSocketUDP()*/NULL : user->getSocketTCP());
-  UserSocket & us = /*todo : (udp ? user->udp : */user->tcp;  
+  UserSocket & us = /*todo : (udp ? user->udp : */user->tcp;
   if (!(us.getHaveHeader()))
     {
       ProtocolPacketHeader & header = us.getHeader();

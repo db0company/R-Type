@@ -75,12 +75,62 @@ std::string const &		User::getIp(void)const
 
 bool				User::feedPacketAggregator(void)
 {
-  // todo
+  char buffer[1024] = {0};
+  int  size;
+
+  if ((size = this->getSocketTCP()->SNRead(buffer, 1024)) <= 0)
+    {
+      return (false);
+    }
+  this->paRead.concat(buffer, size);
   return (true);
 }
 
+bool			User::aggregatePacketToSend(void)
+{
+  unsigned int size;
+  unsigned char	*msg;
+  int nb;
+  if (this->getSocketTCP()->SNGetWrite())
+    {
+      nb = this->paWrite.aggregatePacketToChar();
+      if (nb > 0)
+	{
+	  size = this->paWrite.getSize();
+	  msg = this->paWrite.getMsg();
+	  this->getSocketTCP()->SNWrite(msg, size);
+	  this->paWrite.erase();
+	}
+    }
+  return (false);
+}
+
+// balubala-chan ! nonoelie-chan a besoinu d'une nouvellu fonctionnu
+// danu le packetu manageru de ce genru:
+
+// void PacketManager::Process(ProtocolPacket *packet, User *user)
+// {
+//   if (!this->groupaction[PacketFactory::getPacketGroup(packet)])
+//     this->actionError();
+//   else
+//     this->groupaction[PacketFactory::getPacketGroup(packet)]->action
+//       (PacketFactory::getPacketInstruction(packet), *textData);
+// }
+
 bool				User::processPackets(void)
 {
-  // todo
+  int				nb_packet;
+  ProtocolPacket		*packet;
+
+  nb_packet = this->paRead.aggregateCharToPackets();
+  if (this->paRead.empty())
+    return (false);
+  while (!this->paRead.empty())
+    {
+      packet = this->paRead.front();
+      // ici on a le packet a executer!
+      // serai parfait : packetManager->Process(packet, this);
+      this->paRead.pop();
+    }
   return (true);
 }
