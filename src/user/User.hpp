@@ -1,16 +1,15 @@
-
 #ifndef			USERHPP
 # define		USERHPP
 
 # include		"UserSocket.hpp"
 # include		"ATCPClientSocket.h"
+# include		"PacketAggregator.hpp"
 # include		<string>
+
+#define AGGREGATE_READ_SIZE 1024
 
 class			User
 {
-/* ************************************************************************* */
-/*                             Attributes                                    */
-/* ************************************************************************* */
  private:
   bool			safe;
   bool			log;
@@ -19,19 +18,14 @@ class			User
 
  public:
   UserSocket		tcp;
-
-/* ************************************************************************* */
-/*                             Coplien Form                                  */
-/* ************************************************************************* */
+  PacketAggregator	paRead;
+  PacketAggregator	paWrite;
  public:
   User(ATCPClientSocket *, std::string const & ip);
   User(User const & other);
   User &		operator=(User const & other);
   ~User(void);
 
-/* ************************************************************************* */
-/*                             Getters/Setters                               */
-/* ************************************************************************* */
  public:
   bool			isSafe(void)const;
   void			setSafe(bool);
@@ -39,12 +33,10 @@ class			User
   void			setLog(bool);
   ATCPClientSocket *	getSocketTCP(void);
   std::string const &	getIp(void)const;
-
-/* ************************************************************************* */
-/*                             Member Functions                              */
-/* ************************************************************************* */
+  bool			feedPacketAggregator(void);
+  bool			processPackets(void);
  public:
-  
+
 };
 
 #endif			// USERHPP

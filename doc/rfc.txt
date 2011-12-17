@@ -41,10 +41,10 @@ RFC 133742                  Network Game Protocol           December 2011
 
 Table of Contents
 
-   1. Introduction ....................................................2
-   2. Transfert Description ...........................................2
-      2.1 TCP .........................................................2
-      2.2 UDP .........................................................2
+   1. Introduction ....................................................*
+   2. Transfert Description ...........................................*
+      2.1 TCP .........................................................*
+      2.2 UDP .........................................................*
    3. Data Unit Format ................................................2
       3.1 Header ......................................................2
       3.2 Data ........................................................2
@@ -59,27 +59,28 @@ Table of Contents
    5. GameDetails Group ...............................................2
       5.1 PlayerLogin .................................................2
       5.2 Score .......................................................2
-      5.3 GetMap ......................................................2
+      5.3 GetMap ......................................................* <-
+      5.4 PlayerLife ..................................................2
    6. Movement Group ..................................................2
       6.1 Move ........................................................2
       6.2 UpdatePlayer ................................................2
       6.3 UpdateEnemy .................................................2
       6.4 UpdateBullet ................................................2
       6.5 NewBullet ...................................................2
-   7. Event Group .....................................................2
-      7.1 PlayerLife ..................................................2
+   7. Lobby Group .....................................................*
+      7.1 Chat ..... ..................................................2
    8. Message Exchange ................................................2
       8.1 TCP .........................................................2
       8.2 UDP .........................................................2
-   9. References ......................................................2
+   9. References ......................................................*
 
 1.  Introduction
 
-//todo
+//todo introduction
 
 2.  Transfert Description
 
-//todo
+//todo transfert description
 
 3.  Data Unit Format
 
@@ -309,7 +310,7 @@ Table of Contents
     			  	failed. On success is set to different
 				than 0.
     The data CAN contains after :
-    details (OPTIONAL)		string	details on why the request
+    details (OPTIONAL)	string	details on why the request
     				failed.
 
     Events where the Client's request fails:
@@ -459,6 +460,7 @@ The game          |                                     |
      If the Client who sent the request for the map have not successfully
      joined a game the Server MUST send a Get instruction from the Game
      group without data. The size in the Header MUST be 0.
+
 // TODO !!!
      Otherwise... i must wait for barbara to come back because i donno
      wat to do...
@@ -576,7 +578,29 @@ The game          |                                     |
 
     the typeBullet is described above in Section 6.4.
 
-7
+7.  Lobby Group
+
+//todo descriptif of group
+7.1 Chat Instruction
+
+    7.1.1 Client to Server
+
+    When a Client is in the lobby room waiting for other players to
+    join the game / waiting for the game to start he can chat with
+    the other waiting client by sending a Chat instruction.
+    This instruction data MUST contains a single String that represent
+    what he want to say.
+
+    7.1.2 Server to Client
+
+    When the Server receive a Chat instruction he MUST check if the sender
+    of this request is in a lobby-room waiting for a game. If not he SHOULD
+    send a Chat Instruction containing no data.
+    Otherwise he MUST send to all the player in the lobby a Chat instruction
+    with a data containing:
+
+    player_name		string		username of the sender
+    message		string		message of the client
 
 8.  Message Exchange
 

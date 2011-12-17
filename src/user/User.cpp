@@ -3,6 +3,7 @@
 #include		<string>
 #include		"user/User.hpp"
 #include		"ATCPClientSocket.h"
+#include		"PacketAggregator.hpp"
 
 /* ************************************************************************* */
 /*                             Coplien Form                                  */
@@ -72,6 +73,14 @@ std::string const &		User::getIp(void)const
   return (this->ip);
 }
 
-/* ************************************************************************* */
-/*                             Member Functions                              */
-/* ************************************************************************* */
+bool				User::feedPacketAggregator(void)
+{
+  // todo
+  return (true);
+}
+
+bool				User::processPackets(void)
+{
+  // todo
+  return (true);
+}
