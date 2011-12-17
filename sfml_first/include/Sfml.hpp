@@ -28,6 +28,7 @@ namespace LibGraphic
     virtual void draw();
 
   private:
+    bool loadFont();
     bool loadSound();
     bool loadMusic();
     bool loadSprite();
@@ -46,9 +47,7 @@ namespace LibGraphic
     std::map<std::string const, GraphicRessource const *> _ressourcesSprite;
     std::map<std::string const, MyMusic *> _ressourcesPlayList;
     std::map<std::string const, MySound *> _ressourcesSounds;
-
-
-
+    std::map<std::string const, sf::Font *> _ressourcesFont;
   };
 
 }

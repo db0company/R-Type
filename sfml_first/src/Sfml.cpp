@@ -58,9 +58,40 @@ void LibGraphic::Sfml::draw()
 
 bool LibGraphic::Sfml::loadRessources()
 {
-  if (this->loadSprite() && this->loadMusic())
+  if (this->loadSprite() &&
+      this->loadMusic() &&
+      this->loadFont())
     return true;
   return false;
+}
+
+bool LibGraphic::Sfml::loadFont()
+{
+  std::fstream ressourceFile;
+  std::string s;
+  std::string tmp;
+  sf::Font * font;
+
+  ressourceFile.open("ressources/.ressources_fonts");
+  if (!ressourceFile.is_open())
+    {
+      std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " <<"ressources/.ressources_fonts" << std::endl;
+      // throw
+      return false;
+    }
+  while (ressourceFile.good())
+    {
+      getline(ressourceFile, s);
+      tmp = this->getNextInfoRessource(s);
+      font = new sf::Font;
+      if (!font->LoadFromFile("ressources/fonts/" +
+			      this->getNextInfoRessource(s)))
+	{
+	  std::cerr << "[EXEPTION][Sfml.cpp] : fail to load " << tmp << std::endl;
+	}
+      this->_ressourcesFont[tmp] = font;
+    }
+  return true;
 }
 
 bool LibGraphic::Sfml::loadSprite()
@@ -160,7 +191,10 @@ void LibGraphic::Sfml::createStates()
 {
   this->_graphicState =
     new GraphicClientState(this->_ressourcesSprite,
-			   this->_ressourcesPlayList, this->_ressourcesSounds, this->_app);
+			   this->_ressourcesPlayList,
+			   this->_ressourcesSounds,
+			   this->_ressourcesFont,
+			   this->_app);
 }
 
 inline bool LibGraphic::Sfml::isFullscreen(std::string s)

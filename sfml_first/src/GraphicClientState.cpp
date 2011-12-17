@@ -3,8 +3,11 @@
 LibGraphic::GraphicClientState::GraphicClientState(std::map<std::string const, const GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
+						   std::map<std::string const, sf::Font *> const & ressourcesFont,
 						   sf::RenderWindow & app):
-  _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList), _ressourcesSounds(ressourcesSounds), _app(app)
+  _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
+  _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
+  _app(app)
 {
 }
 
@@ -22,31 +25,92 @@ LibGraphic::MyMusic * LibGraphic::GraphicClientState::getMusic(std::string const
   return ((*this->_ressourcesPlayList.find(musicName)).second);
 }
 
+sf::Font * LibGraphic::GraphicClientState::getFont(std::string const & fontName) const
+{
+  return ((*this->_ressourcesFont.find(fontName)).second);
+}
+
 void LibGraphic::GraphicClientState::draw(eStates scene)
 {
   switch (scene)
     {
     case START:
       {
-	this->_app.Draw(this->getSprite("StartBackground"));
-	MyMusic * song = this->getMusic("StartMusic");
-	if (song->GetMusicState() == sf::Music::Stopped ||
-	    song->GetMusicState() == sf::Music::Paused)
-	  song->PlayMusic();
+	this->displayStart();
 	break;
       }
     case ROOMLIST:
       {
-	this->_app.Draw(this->getSprite("StartMenu"));
-	MyMusic * song = this->getMusic("StartMusic");
-	if (song->GetMusicState() == sf::Music::Stopped ||
-	    song->GetMusicState() == sf::Music::Paused)
-	  song->PlayMusic();
+	this->displayRoomlist();
 	break;
       }
+    case GAMEPARAMETER:
+      {
+	this->displayGameparameter();
+	break;
+      }
+    case ROOM:
+      {
+	this->displayRoom();
+	break;
+      }
+    case OPTIONS:
+      {
+	this->displayOptions();
+	break;
+      }
+    case CREDITS:
+      {
+	this->displayCredits();
+	break;
+      }
+    case RANKING:
+      {
+	this->displayRanking();
+	break;
+      }
+    case INTRO:
+      {
+	this->displayIntro();
+	break;
+      }
+    case INGAME:
+      {
+	this->displayIngame();
+	break;
+      }
+    case UNKNOWN_STATE : break;
     default: break;
     }
 }
+
+void LibGraphic::GraphicClientState::displayStart()
+{
+  this->_app.Draw(this->getSprite("StartBackground"));
+  MyMusic * song = this->getMusic("StartMusic");
+  if (song->GetMusicState() == sf::Music::Stopped ||
+      song->GetMusicState() == sf::Music::Paused)
+    song->PlayMusic();
+}
+
+void LibGraphic::GraphicClientState::displayRoomlist()
+{
+  this->_app.Draw(this->getSprite("StartMenu"));
+  this->_app.Draw(*this->getStdToSfString("Login = ", this->getFont("StartFontF")));
+  MyMusic * song = this->getMusic("StartMusic");
+  if (song->GetMusicState() == sf::Music::Stopped ||
+      song->GetMusicState() == sf::Music::Paused)
+    song->PlayMusic();
+}
+
+void LibGraphic::GraphicClientState::displayGameparameter(){}
+void LibGraphic::GraphicClientState::displayRoom(){}
+void LibGraphic::GraphicClientState::displayOptions(){}
+void LibGraphic::GraphicClientState::displayCredits(){}
+void LibGraphic::GraphicClientState::displayRanking(){}
+void LibGraphic::GraphicClientState::displayIntro(){}
+void LibGraphic::GraphicClientState::displayIngame(){}
+
 
 LibGraphic::Event LibGraphic::GraphicClientState::eventStart(eStates & scene)
 {
@@ -83,7 +147,20 @@ LibGraphic::Event LibGraphic::GraphicClientState::getEventFromState(__attribute_
     {
     case START: return this->eventStart(scene);
     case ROOMLIST: return this->eventStart(scene);
+    case GAMEPARAMETER: return this->eventStart(scene);
+    case ROOM: return this->eventStart(scene);
+    case OPTIONS: return this->eventStart(scene);
+    case CREDITS: return this->eventStart(scene);
+    case RANKING: return this->eventStart(scene);
+    case INTRO: return this->eventStart(scene);
+    case INGAME: return this->eventStart(scene);
+    case UNKNOWN_STATE: return LibGraphic::EVENT_NONE;
     default: break;
     }
   return LibGraphic::EVENT_NONE;
+}
+
+inline sf::String const * LibGraphic::GraphicClientState::getStdToSfString(std::string const & s, sf::Font * daFont)
+{
+  return (new sf::String(s, *daFont));
 }
