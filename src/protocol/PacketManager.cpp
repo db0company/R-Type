@@ -17,8 +17,8 @@ PacketManager::PacketManager(void)
 {
   this->groupaction[THE_GAME] = new ProtocolGame();
   this->groupaction[GAME_DETAILS] = new ProtocolGameDetails();
-  // this->groupaction[MOVEMENT] = new ProtocolMovement();
-  // this->groupaction[LOBBY] = new ProtocolLobby();
+  this->groupaction[MOVEMENT] = new ProtocolMovement();
+  this->groupaction[LOBBY] = new ProtocolLobby();
 }
 
 PacketManager::PacketManager(PacketManager const &)

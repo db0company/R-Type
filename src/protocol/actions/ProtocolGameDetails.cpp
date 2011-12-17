@@ -5,7 +5,7 @@ ProtocolGameDetails::ProtocolGameDetails(void)
   this->actionmap[PLAYERLOGIN]	= &ProtocolGameDetails::actionPlayerLogin;
   this->actionmap[SCORE]	= &ProtocolGameDetails::actionScore;
   this->actionmap[GETMAP]	= &ProtocolGameDetails::actionGetMap;
-    this->actionmap[PLAYERLIFE]	= &ProtocolGameDetails::actionPlayerLife;
+  this->actionmap[PLAYERLIFE]	= &ProtocolGameDetails::actionPlayerLife;
 }
 
 ProtocolGameDetails::ProtocolGameDetails(ProtocolGameDetails const &)
