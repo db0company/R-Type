@@ -105,17 +105,6 @@ bool			User::aggregatePacketToSend(void)
   return (false);
 }
 
-// balubala-chan ! nonoelie-chan a besoinu d'une nouvellu fonctionnu
-// danu le packetu manageru de ce genru:
-
-// void PacketManager::Process(ProtocolPacket *packet, User *user)
-// {
-//   if (!this->groupaction[PacketFactory::getPacketGroup(packet)])
-//     this->actionError();
-//   else
-//     this->groupaction[PacketFactory::getPacketGroup(packet)]->action
-//       (PacketFactory::getPacketInstruction(packet), *textData);
-// }
 
 bool				User::processPackets(void)
 {

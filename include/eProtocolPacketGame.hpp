@@ -3,16 +3,15 @@
 
 enum		eProtocolPacketGame
   {
-    GAME_ERROR,
-    GETGAME,
-    GETLEVELGAME,
-    CREATEGAME,
-    JOINGAME,
-    QUITGAME,
-    ENDGAME,
-    SCOREGAME,
-    STARTGAME,
-    GAME_MAX,
+    GAME_ERROR		= 99,
+    GETGAME		= 0,
+    GETLEVELGAME	= 1,
+    CREATEGAME		= 2,
+    JOINGAME		= 3,
+    QUITGAME		= 4,
+    ENDGAME		= 5,
+    STARTGAME		= 6,
+    GAME_MAX		= 7
   };
 
 #endif		/*__EPROTOCOLPACKETGAME_HPP__*/

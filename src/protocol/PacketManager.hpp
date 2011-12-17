@@ -34,7 +34,7 @@ class			PacketManager
 				     PacketData & data,
 				     bool udp = false);
   bool				rcsv(User * user, bool udp = false);
-
+  bool				Process(ProtocolPacket *packet, User *user);
 /* ************************************************************************* */
 /*                             Private Functions                             */
 /* ************************************************************************* */

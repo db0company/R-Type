@@ -5,8 +5,9 @@
 # include		"PacketManager.hpp"
 
 # include		"actions/ProtocolGame.hpp"
-# include		"actions/ProtocolMap.hpp"
-# include		"actions/ProtocolPosition.hpp"
+# include		"actions/ProtocolGameDetails.hpp"
+# include		"actions/ProtocolMovement.hpp"
+# include		"actions/ProtocolLobby.hpp"
 
 /* ************************************************************************* */
 /*                             Coplien Form                                  */
@@ -15,11 +16,12 @@
 PacketManager::PacketManager(void)
 {
   this->groupaction[THE_GAME] = new ProtocolGame();
-  this->groupaction[MAP] = new ProtocolMap();
-  this->groupaction[POSITION] = new ProtocolPosition();
+  this->groupaction[GAME_DETAILS] = new ProtocolGameDetails();
+  this->groupaction[MOVEMENT] = new ProtocolMovement();
+  this->groupaction[LOBBY] = new ProtocolLobby();
 }
 
-PacketManager::PacketManager(PacketManager const & other)
+PacketManager::PacketManager(PacketManager const &)
 {}
 
 PacketManager &		PacketManager::operator=(PacketManager const & other)
@@ -37,8 +39,6 @@ PacketManager &		PacketManager::operator=(PacketManager const & other)
 PacketManager::~PacketManager(void)
 {
   delete this->groupaction[THE_GAME];
-  delete this->groupaction[MAP];
-  delete this->groupaction[POSITION];
 }
 
 /* ************************************************************************* */
@@ -82,6 +82,25 @@ bool				PacketManager::rcsv(User * user, bool udp)
       (PacketFactory::getPacketInstruction(packet), *textData/*, user*/);
   delete textData;
   PacketFactory::destroyPacket(packet);
+  return (true);
+}
+
+// barbara j'ai besoin dune fonction qui prend un packet et un user et qui
+// va appeler tes ptrfunct associe au type du packet. comme rcsv mais sans
+// le read. Je l'ai faite la mais faut que tu vois si jai bien utiliser
+// le packet factory et si il manque pas qqch
+//
+bool				PacketManager::Process(ProtocolPacket *packet, User *)
+{
+  PacketData *textData = PacketFactory::getPacketData(packet);
+  if (!this->groupaction[PacketFactory::getPacketGroup(packet)])
+    {
+      this->actionError();
+      return (false);
+    }
+  else
+    this->groupaction[PacketFactory::getPacketGroup(packet)]->action
+      (PacketFactory::getPacketInstruction(packet), *textData);
   return (true);
 }
 
