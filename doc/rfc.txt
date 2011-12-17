@@ -115,9 +115,8 @@ Table of Contents
 
    GAMEGROUP    :   0
    GAMEDETAILS	:   1
-   MAPGROUP     :   2
-   MOVEMENTGROUP:   3
-   EVENTGROUP   :   4
+   MOVEMENTGROUP:   2
+   LOBBY	:   3
 
    Instruction Type (2 bytes) :
    The type of Instruction from the previous group that the packet is.
@@ -148,7 +147,7 @@ Table of Contents
     ~ login ~
 
 
-4.  Game Group
+4.  Game Group (0)
 
     The game group contains instruction to create delete and join
     and quit a game. It also send to Client the list of game in
@@ -161,6 +160,7 @@ Table of Contents
     JOIN       :   3
     QUIT       :   4
     ENDGAME    :   5
+    START      :   6
 
 4.1 GetGame Instruction (0)
 
@@ -398,12 +398,14 @@ The game          |                                     |
     The Client didn't successfully create a game
     The Client is not the one that created that game.
 
-5.  GameDetails Group
+5.  GameDetails Group (1)
 
     The GameDetail group's instructions Type MUST be one of the following:
 
     PLAYERLOGIN		:	0
     SCORE		:	1
+    GETMAP		:	2
+    PLAYERLIFE		:	3
 
 5.1  PlayerLogin Instruction (0)
 
@@ -467,7 +469,11 @@ The game          |                                     |
 // todo: reponse barbara needed sur lenum et l'ushort
 // pour le client to server.
 
-6.  Movement Group (3)
+5.4  PlayerLife Instruction
+
+// TODO
+
+6.  Movement Group (2)
 
     This group has a new Type: Position.
     Position is a 6 bytes data containing:
@@ -514,7 +520,15 @@ The game          |                                     |
 
 //todo: descriptif pour la tile et pos in tile.
 
-6.1 Move Instruction
+    The instruction number of this group MUST be one of the following:
+
+    MOVE	:	0
+    UPDATEPLAYER:	1
+    UPDATEENEMY :	2
+    UPDATEBULLET:	3
+    NEWBULLET	:	4
+
+6.1 Move Instruction (0)
 
     This instruction only exist Client to Server.
     The client MUST send a header and a data containing
@@ -524,7 +538,7 @@ The game          |                                     |
     He MUST send the 8 bytes header followed by the 6 bytes data
     of position (described above)
 
-6.2 UpdatePlayer Instruction
+6.2 UpdatePlayer Instruction (1)
 
     This instruction only exist Server to Client.
     This instruction MUST be sent by the server when one or more player
@@ -542,7 +556,7 @@ The game          |                                     |
     |id1|   position player1    |id2|   position player2    |
     +---+---+---+---+---+---+---+---+---+---+---+---+---+---+
 
-6.3 UpdateEnemy Instruction
+6.3 UpdateEnemy Instruction (2)
 
     This instruction only exist Server to Client.
     This instruction MUST be sent by the server. It contains a data
@@ -555,7 +569,7 @@ The game          |                                     |
     Instruction, except that instead of sending the Client id,
     the enemy Id is sent.
 
-6.4 UpdateBullet Instruction
+6.4 UpdateBullet Instruction (3)
 
     This instruction only exist Server to Client.
     This instruction MUST be sent by the Server to prevent the clients
@@ -570,7 +584,7 @@ The game          |                                     |
 
     //todo: descriptif type of bullet
 
-6.5 New Bullet Instruction
+6.5 New Bullet Instruction (4)
 
     This instruction only exitst Client to Server.
     When a client launch a bullet, he MUST send to the server a
@@ -578,10 +592,14 @@ The game          |                                     |
 
     the typeBullet is described above in Section 6.4.
 
-7.  Lobby Group
+7.  Lobby Group (3)
 
-//todo descriptif of group
-7.1 Chat Instruction
+    This group contains the Chat instruction for the lobby-Room. The
+    instruction MUST be
+
+    CHAT	:	0
+
+7.1 Chat Instruction (0)
 
     7.1.1 Client to Server
 
@@ -599,8 +617,8 @@ The game          |                                     |
     Otherwise he MUST send to all the player in the lobby a Chat instruction
     with a data containing:
 
-    player_name		string		username of the sender
-    message		string		message of the client
+    player_name		string		Sender's username
+    message		string		Sender's message
 
 8.  Message Exchange
 

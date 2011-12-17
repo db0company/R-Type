@@ -30,6 +30,7 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(PRTC_DIR)PacketFactory.cpp		\
 			$(PRTC_DIR)PacketManager.cpp		\
 			$(PRTC_DIR)actions/ProtocolGame.cpp	\
+			$(PRTC_DIR)actions/ProtocolGameDetails.cpp \
 			\
 			$(SERV_DIR)Server.cpp			\
 			$(SERV_DIR)GameManager.cpp		\

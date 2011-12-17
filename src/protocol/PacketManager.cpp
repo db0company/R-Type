@@ -5,6 +5,9 @@
 # include		"PacketManager.hpp"
 
 # include		"actions/ProtocolGame.hpp"
+# include		"actions/ProtocolGameDetails.hpp"
+# include		"actions/ProtocolMovement.hpp"
+# include		"actions/ProtocolLobby.hpp"
 
 /* ************************************************************************* */
 /*                             Coplien Form                                  */
@@ -13,6 +16,9 @@
 PacketManager::PacketManager(void)
 {
   this->groupaction[THE_GAME] = new ProtocolGame();
+  this->groupaction[GAME_DETAILS] = new ProtocolGameDetails();
+  // this->groupaction[MOVEMENT] = new ProtocolMovement();
+  // this->groupaction[LOBBY] = new ProtocolLobby();
 }
 
 PacketManager::PacketManager(PacketManager const &)
@@ -84,7 +90,7 @@ bool				PacketManager::rcsv(User * user, bool udp)
 // le read. Je l'ai faite la mais faut que tu vois si jai bien utiliser
 // le packet factory et si il manque pas qqch
 //
-bool				PacketManager::Process(ProtocolPacket *packet, User *user)
+bool				PacketManager::Process(ProtocolPacket *packet, User *)
 {
   PacketData *textData = PacketFactory::getPacketData(packet);
   if (!this->groupaction[PacketFactory::getPacketGroup(packet)])
