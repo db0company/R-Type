@@ -17,7 +17,7 @@ LibGraphic::Sfml::~Sfml(void)
 
 bool LibGraphic::Sfml::init()
 {
-  #ifndef _Win32
+  #ifndef _WIN32
   if (!getenv("DISPLAY"))
     return false;
   #endif
