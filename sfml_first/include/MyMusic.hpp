@@ -1,8 +1,9 @@
-#include <string>
-#include <SFML/Audio.hpp>
-
 #ifndef		__MYMUSIC_HPP__
 # define	__MYMUSIC_HPP__
+
+#include <string>
+#include <SFML/Audio.hpp>
+#include "AudioUtils.hpp"
 
 namespace LibGraphic
 {

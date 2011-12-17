@@ -5,6 +5,8 @@
 #include "Sfml.hpp"
 #include "GraphicClientState.hpp"
 
+extern LibGraphic::Volume gVolume;
+
 LibGraphic::Sfml::Sfml(void)
 {
 }
@@ -25,6 +27,8 @@ bool LibGraphic::Sfml::init()
     return false;
   this->_width = sf::VideoMode::GetMode(0).Width;
   this->_height = sf::VideoMode::GetMode(0).Height;
+  gVolume.musicVolume = 50;
+  gVolume.soundVolume = 50;
   this->loadRessources();
   this->createStates();
   this->_currentState = START;
@@ -141,6 +145,7 @@ bool LibGraphic::Sfml::loadSound()
 			 this->getNextInfoRessource(s));
       this->_ressourcesSounds[tmp] = song;
     }
+  gVolume.soundVolume = 10;
   return true;
 }
 
@@ -166,6 +171,7 @@ bool LibGraphic::Sfml::loadMusic()
 			     this->getNextInfoRessource(s));
       this->_ressourcesPlayList[tmp] = song;
     }
+  gVolume.musicVolume = 50;
   return true;
 }
 

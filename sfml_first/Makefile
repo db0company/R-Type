@@ -1,6 +1,8 @@
 NAME_DEBUG	=	TEST
 NAME_RELEASE	=	GRAPHIC
 
+DEBUG		=	no
+
 SRC_DIR		=	src
 INCLUDE_DIR	=	include
 
@@ -22,12 +24,19 @@ OBJS		=	$(SRCS:.cpp=.o)
 LIB		=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -ldl -lpthread
 CXX		=	g++
 CFLAGS		=	-Wextra -Wall
-DEBUG_OPT	=	-ggdb
-OPTI_OPT	=	-O2
+ifeq ($(DEBUG), yes)
+OPT		=	-ggdb
+else
+OPT		=	-Werror -O2
+endif
 RM		=	rm -f
 ECHO		= 	echo
 
+ifeq ($(DEBUG), yes)
 all		: $(NAME_DEBUG)
+else
+all		: $(NAME_RELEASE)
+endif
 
 info_debug	:
 		@$(ECHO) "[BUILD] Building : $(NAME_DEBUG) (DEBUG)"
@@ -44,11 +53,11 @@ info_release	:
 		@$(ECHO) "[BUILD] Linked Libraries : $(LIB)"
 
 $(NAME_DEBUG)	: info_debug $(OBJS)
-		@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME_DEBUG) $(LIB) $(DEBUG_OPT)
+		@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME_DEBUG) $(LIB)
 		@$(ECHO) "[OK] Project : $(NAME_DEBUG) builded !"
 
 $(NAME_RELEASE)	: info_release $(OBJS)
-		@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME_RELEASE) $(LIB) $(OPTI_OPT)
+		@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME_RELEASE) $(LIB)
 		@$(ECHO) "[OK] Project : $(NAME_RELEASE) builded !"
 
 
@@ -66,5 +75,5 @@ fclean		: clean
 re		: fclean all
 
 .cpp.o		:
-		@$(CXX) -c $(CFLAGS) $< -o $(<:.cpp=.o) -I$(INCLUDE_DIR)
-		@$(ECHO) "[OK] Building object file from : $<."
+		$(CXX) -c $(CFLAGS) $(OPT) $< -o $(<:.cpp=.o) -I$(INCLUDE_DIR)
+		@$(ECHO) "[OK] Building object file from : $<"

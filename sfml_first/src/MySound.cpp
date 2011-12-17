@@ -2,12 +2,14 @@
 #include <fstream>
 #include "MySound.hpp"
 
+extern LibGraphic::Volume gVolume;
+
 LibGraphic::MySound::MySound(const std::string &file)
 {
   if (!Buffer.LoadFromFile(file))
     throw (std::ios_base::failure("Can't load sound."));
   Sound.SetBuffer(Buffer);
-  Sound.SetVolume(5);
+  Sound.SetVolume(gVolume.soundVolume);
 }
 
 

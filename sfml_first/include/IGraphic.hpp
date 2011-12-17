@@ -1,5 +1,5 @@
 #ifndef IGRAPH_H_
-#define IGRAPH_H_
+# define IGRAPH_H_
 
 #include <list>
 

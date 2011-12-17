@@ -1,13 +1,16 @@
+#include <iostream>
 #include <string>
 #include <SFML/Audio.hpp>
 #include <fstream>
 #include "MyMusic.hpp"
 
+extern LibGraphic::Volume gVolume;
+
 LibGraphic::MyMusic::MyMusic(const std::string &file)
 {
   if (!Music.OpenFromFile(file))
     throw (std::ios_base::failure("can't load music."));
-  Music.SetVolume(15);
+  Music.SetVolume(gVolume.musicVolume);
 }
 
 

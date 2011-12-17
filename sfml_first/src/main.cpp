@@ -1,4 +1,7 @@
 #include "Sfml.hpp"
+#include "AudioUtils.hpp"
+
+LibGraphic::Volume gVolume;
 
 int main()
 {
