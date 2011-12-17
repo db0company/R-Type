@@ -32,22 +32,20 @@ namespace LibGraphic
     bool loadMusic();
     bool loadSprite();
     bool loadRessources();
-    bool createStates();
+    void createStates();
     inline bool isFullscreen(std::string s);
     inline std::string getNextInfoRessource(std::string &);
-    GraphicClientState * createStateStart();
-    GraphicClientState * createStateIngame();
 
   private:
     int _width;
     int _height;
     sf::RenderWindow _app;
-    GraphicClientState * _currentState;
+    eStates _currentState;
+    GraphicClientState * _graphicState;
 
     std::map<std::string const, GraphicRessource const *> _ressourcesSprite;
     std::map<std::string const, MyMusic *> _ressourcesPlayList;
     std::map<std::string const, MySound *> _ressourcesSounds;
-    std::map<eStates, GraphicClientState *> _statesMap;
   };
 
 }

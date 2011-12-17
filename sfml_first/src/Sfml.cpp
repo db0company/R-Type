@@ -27,7 +27,7 @@ bool LibGraphic::Sfml::init()
   this->_height = sf::VideoMode::GetMode(0).Height;
   this->loadRessources();
   this->createStates();
-  this->_currentState = this->_statesMap[START];
+  this->_currentState = START;
   return true;
 }
 
@@ -63,17 +63,11 @@ void LibGraphic::Sfml::quit()
 void LibGraphic::Sfml::clean()
 {
   this->_app.Clear();
-  this->_app.Draw(this->_currentState->getSprite("StartBackground"));
-
-  MyMusic * song = this->_currentState->getMusic("StartMusic");
-  //  MyMusic * song = this->_currentState->ressourcesPlayList["StartBackground"];
-  if (song->GetMusicState() == sf::Music::Stopped ||
-      song->GetMusicState() == sf::Music::Paused)
-    song->PlayMusic();
 }
 
 void LibGraphic::Sfml::draw()
 {
+  this->_graphicState->draw(this->_currentState);
   this->_app.Display();
 }
 
@@ -88,8 +82,6 @@ bool LibGraphic::Sfml::loadSprite()
 {
   std::fstream ressourceFile;
   std::string s;
-  unsigned int found;
-  unsigned int rfound;
   LibGraphic::GraphicRessource * img;
   std::string tmp;
   std::string tmpImagePath;
@@ -104,29 +96,25 @@ bool LibGraphic::Sfml::loadSprite()
   while (ressourceFile.good())
     {
       getline(ressourceFile, s);
-      if ((found = s.find("::")) != std::string::npos &&
-	  (rfound = s.rfind("::")) != std::string::npos)
+      tmp = this->getNextInfoRessource(s);
+      img = new LibGraphic::GraphicRessource;
+      tmpImagePath = "ressources/images/" +
+	this->getNextInfoRessource(s);
+      if (!img->_image.LoadFromFile(tmpImagePath))
 	{
-	  tmp = s.substr(0, found);
-	  img = new LibGraphic::GraphicRessource;
-	  tmpImagePath = "ressources/images/" +
-	    s.substr(found + 2, rfound - (found + 2));
-	  if (!img->_image.LoadFromFile(tmpImagePath))
-	    {
-	      std::cerr <<
-		"[EXEPTION][Sfml.cpp] : Fail to load " <<
-		tmpImagePath << std::endl;
-	      // throw
-	    }
-	  img->_sprite.SetImage(img->_image);
-	  if (isFullscreen(s.substr(rfound + 2, 1)))
-	    {
-	      img->_isFullScreen = true;
-	      img->_sprite.Resize(this->_width,
-				  this->_height);
-	    }
-	  this->_ressourcesSprite[tmp] = img;
+	  std::cerr <<
+	    "[EXEPTION][Sfml.cpp] : Fail to load " <<
+	    tmpImagePath << std::endl;
+	  // throw
 	}
+      img->_sprite.SetImage(img->_image);
+      if (isFullscreen(this->getNextInfoRessource(s)))
+	{
+	  img->_isFullScreen = true;
+	  img->_sprite.Resize(this->_width,
+			      this->_height);
+	}
+      this->_ressourcesSprite[tmp] = img;
     }
   return true;
 }
@@ -135,7 +123,6 @@ bool LibGraphic::Sfml::loadSound()
 {
   std::fstream ressourceFile;
   std::string s;
-  unsigned int found;
   std::string tmp;
   MySound * song;
 
@@ -149,12 +136,9 @@ bool LibGraphic::Sfml::loadSound()
   while (ressourceFile.good())
     {
       getline(ressourceFile, s);
-      if ((found = s.find("::")) != std::string::npos)
-	{
-	  tmp = s.substr(0, found);
-	  song = new MySound("ressources/sounds/" + s.substr(found + 2,
-				      s.size() - found + 1));
-	}
+      tmp = this->getNextInfoRessource(s);
+      song = new MySound("ressources/sounds/" +
+			 this->getNextInfoRessource(s));
       this->_ressourcesSounds[tmp] = song;
     }
   return true;
@@ -164,7 +148,6 @@ bool LibGraphic::Sfml::loadMusic()
 {
   std::fstream ressourceFile;
   std::string s;
-  unsigned int found;
   std::string tmp;
   MyMusic * song;
 
@@ -178,39 +161,20 @@ bool LibGraphic::Sfml::loadMusic()
   while (ressourceFile.good())
     {
       getline(ressourceFile, s);
-      if ((found = s.find("::")) != std::string::npos)
-	{
-	  tmp = s.substr(0, found);
-	  song = new MyMusic("ressources/musics/" + s.substr(found + 2,
-				      s.size() - found + 1));
-	}
+      tmp = this->getNextInfoRessource(s);
+	  song = new MyMusic("ressources/musics/" +
+			     this->getNextInfoRessource(s));
       this->_ressourcesPlayList[tmp] = song;
     }
   return true;
 }
 
-bool LibGraphic::Sfml::createStates()
+void LibGraphic::Sfml::createStates()
 {
-  this->_statesMap[START] = this->createStateStart();
-  this->_statesMap[INGAME] = this->createStateIngame();
-  return true;
+  this->_graphicState =
+    new GraphicClientState(this->_ressourcesSprite,
+			   this->_ressourcesPlayList, this->_ressourcesSounds, this->_app);
 }
-
-LibGraphic::GraphicClientState * LibGraphic::Sfml::createStateStart()
-{
-  LibGraphic::GraphicClientState * ptr =
-    new LibGraphic::GraphicClientState("Start", this->_ressourcesSprite,
-				       this->_ressourcesPlayList, this->_ressourcesSounds);
-  return (ptr);
-}
-
-LibGraphic::GraphicClientState * LibGraphic::Sfml::createStateIngame()
-{
- //  LibGraphic::GraphicClientState * ptr = new LibGraphic::GraphicClientState("Ingame");
-//   return (ptr);
-  return NULL;
-}
-
 
 inline bool LibGraphic::Sfml::isFullscreen(std::string s)
 {
@@ -227,8 +191,11 @@ inline bool LibGraphic::Sfml::isFullscreen(std::string s)
 inline std::string LibGraphic::Sfml::getNextInfoRessource(std::string & s)
 {
   unsigned int found;
+  std::string tmp;
 
   if ((found = s.find("::")) == std::string::npos)
     return s;
-  return (s.substr(0, found));
+  tmp = s.substr(0, found);
+  s = s.substr(found + 2, s.size());
+  return tmp;
 }
