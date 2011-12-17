@@ -15,6 +15,7 @@ ProtocolGame::ProtocolGame()
 
 ProtocolGame::ProtocolGame(ProtocolGame const & other)
 {
+  (void)other;
 }
 
 ProtocolGame &		ProtocolGame::operator=(ProtocolGame const & other)
@@ -51,34 +52,41 @@ bool			ProtocolGame::actionError(PacketData &)
 
 bool			ProtocolGame::actionGet(PacketData & data)
 {
+  (void)data;
   return (true);
 }
 
 bool			ProtocolGame::actionGetLevel(PacketData & data)
 {
+  (void)data;
     return (true);
 }
 
 bool			ProtocolGame::actionCreate(PacketData & data)
 {
+  (void)data;
   return (true);
 }
 
 bool			ProtocolGame::actionJoin(PacketData & data)
 {
+  (void)data;
   return (true);
 }
 
 bool			ProtocolGame::actionQuit(PacketData & data)
 {
+  (void)data;
   return (true);
 }
 bool			ProtocolGame::actionEnd(PacketData & data)
 {
+  (void)data;
   return (true);
 }
 
 bool			ProtocolGame::actionStart(PacketData & data)
 {
+  (void)data;
   return (true);
 }
