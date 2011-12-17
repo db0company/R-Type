@@ -31,7 +31,6 @@ private:
   bool			actionJoin(PacketData & data);
   bool			actionQuit(PacketData & data);
   bool			actionEnd(PacketData & data);
-  bool			actionScore(PacketData & data);
   bool			actionStart(PacketData & data);
 };
 

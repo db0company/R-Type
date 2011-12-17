@@ -10,7 +10,6 @@ ProtocolGame::ProtocolGame()
   this->actionmap[JOINGAME] = &ProtocolGame::actionJoin;
   this->actionmap[QUITGAME] = &ProtocolGame::actionQuit;
   this->actionmap[ENDGAME] = &ProtocolGame::actionEnd;
-  this->actionmap[SCOREGAME] = &ProtocolGame::actionScore;
   this->actionmap[STARTGAME] = &ProtocolGame::actionStart;
 }
 
@@ -75,11 +74,6 @@ bool			ProtocolGame::actionQuit(PacketData & data)
   return (true);
 }
 bool			ProtocolGame::actionEnd(PacketData & data)
-{
-  return (true);
-}
-
-bool			ProtocolGame::actionScore(PacketData & data)
 {
   return (true);
 }
