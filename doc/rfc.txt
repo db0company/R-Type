@@ -59,20 +59,19 @@ Table of Contents
    5. GameDetails Group ...............................................2
       5.1 PlayerLogin .................................................2
       5.2 Score .......................................................2
-   6. Map Group .......................................................2
-      6.1 Get .........................................................2
-   7. Movement Group ..................................................2
-      7.1 Move ........................................................2
-      7.2 UpdatePlayer ................................................2
-      7.3 UpdateEnemy .................................................2
-      7.4 UpdateBullet ................................................2
-      7.5 NewBullet ...................................................2
-   8. Event Group .....................................................2
-      8.1 PlayerDead ..................................................2
-   9. Message Exchange ................................................2
-      9.1 TCP .........................................................2
-      9.2 UDP .........................................................2
-   10. References .....................................................2
+      5.3 GetMap ......................................................2
+   6. Movement Group ..................................................2
+      6.1 Move ........................................................2
+      6.2 UpdatePlayer ................................................2
+      6.3 UpdateEnemy .................................................2
+      6.4 UpdateBullet ................................................2
+      6.5 NewBullet ...................................................2
+   7. Event Group .....................................................2
+      7.1 PlayerLife ..................................................2
+   8. Message Exchange ................................................2
+      8.1 TCP .........................................................2
+      8.2 UDP .........................................................2
+   9. References ......................................................2
 
 1.  Introduction
 
@@ -212,8 +211,6 @@ Table of Contents
 
     See (Section 3.2. Data) For more information on string type.
     with N = 2 + X
-
-//todo: add avant la list des datagame le nombre de datagame?
 
 4.2 GetLvl Instruction (1)
 
@@ -398,7 +395,7 @@ The game          |                                     |
     Events where the Client's request fails:
 
     The Client didn't successfully create a game
-//todo: trouver si il existe d'autre cas d'erreure ? intern error maybe ?
+    The Client is not the one that created that game.
 
 5.  GameDetails Group
 
@@ -424,47 +421,53 @@ The game          |                                     |
      nb_player	:	1 byte		The number of the player
      login	:	string		His username
 
-// todo: meme todo que celui de getgame/getlvl: quand on envoi une sorte
-// de "list" d'info. serai t'il plus pratique devoyer avant le nombre
-// delements dans la list?
-
      Events where the Client's request fails:
 
      The Client is not in a game.
 
 5.2  Score Instruction (1)
 
-// todo: reponse barbara needed sur lenvoi du score.
+     5.2.1 Client to Server
 
-6.  Map Group (2)
+     When a Client wants to know the score of the player of the played game
+     he MUST send a Score instruction. The score instruction MUST contain
+     a header and SHOULD NOT contains data.
 
-    This group cotains instructions about the game's map. The instruction
-    MUST BE the following:
+     5.2.0 Server to Client
 
-    GET		:	0
+     When the Server receive a Score instruction by a client playing a game
+     he MUST responds to him by sending a Score Instruction header followed
+     by a data that contains :
 
-6.1  Get Instruction (0)
+     player_nb		1 byte
+     score		2 bytes
 
-     6.1.1 Client to Server
+     Repeated by the number of player in the game.
+     If the Client is not in a game, the Server SHOULD ignore the message.
+
+5.3.  GetMap Instruction (2)
+
+     5.3.1 Client to Server
 
      When the Client wants the map of the game he joined he SHOULD send
      a Get Instruction from the MAP group. The data SHOULD be empty.
 
-     6.1.2 Server to Client
+     5.3.2 Server to Client
 
      When the Server receives a Get Instruction from the Map group he MUST
      send a response.
      If the Client who sent the request for the map have not successfully
      joined a game the Server MUST send a Get instruction from the Game
      group without data. The size in the Header MUST be 0.
+// TODO !!!
      Otherwise... i must wait for barbara to come back because i donno
      wat to do...
 // todo: reponse barbara needed sur lenum et l'ushort
 // pour le client to server.
 
-7.  Movement Group (3)
+6.  Movement Group (3)
 
-    This group has a new Type: position.
+    This group has a new Type: Position.
     Position is a 6 bytes data containing:
 
     tile position x	:      1 bytes (unsiged char)
@@ -509,29 +512,84 @@ The game          |                                     |
 
 //todo: descriptif pour la tile et pos in tile.
 
-7.1 Move Instruction
+6.1 Move Instruction
 
     This instruction only exist Client to Server.
     The client MUST send a header and a data containing
-    a position.
-    // todo here
+    a Position when he wants to change the position or
+    direction of his R-Type.
 
-7.2 UpdatePlayer Instruction
+    He MUST send the 8 bytes header followed by the 6 bytes data
+    of position (described above)
 
-    This instruction only exist Server to Client.
-
-7.3 UpdateEnemy Instruction
-
-    This instruction only exist Server to Client.
-
-7.4 UpdateBullet Instruction
+6.2 UpdatePlayer Instruction
 
     This instruction only exist Server to Client.
+    This instruction MUST be sent by the server when one or more player
+    has changed their position. It contains a data composed of the id
+    player and the data Position. Repeated by the
+    number of client that changed their position or direction.
+    The id player MUST be on 1 byte. The position is represented by
+    a 6 bytes data (described above).
 
-7.5 New Bullet Instruction
+    For instance in a game played by two players 1 and 2, the Server
+    MUST send a header followed by a 14 bytes data as bellow :
 
-//todo: zarb. a voir
+    0   1   2   3   4   5   6   7   8   9   10  11  12  13  14
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |id1|   position player1    |id2|   position player2    |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+
 
-8.  Event Group (4)
+6.3 UpdateEnemy Instruction
 
+    This instruction only exist Server to Client.
+    This instruction MUST be sent by the server. It contains a data
+    composed of the id player and the data Position. Repeated by the
+    number of client that changed their position or direction.
+    The id player MUST be on 1 byte. The position is represented by
+    a 6 bytes data (described above)
 
+    The data of this instruction is the same as the UpdatePlayer
+    Instruction, except that instead of sending the Client id,
+    the enemy Id is sent.
+
+6.4 UpdateBullet Instruction
+
+    This instruction only exist Server to Client.
+    This instruction MUST be sent by the Server to prevent the clients
+    the new bullets position.
+    The data sent MUST contains:
+
+    typeBullet		2 bytes		//todo: descriptif type bullet
+    friend		1 byte		If the bullet is friendly-fire
+    			  		or not.
+    pos			6 bytes		Represented by the 6 bytes data
+    			  		described above.
+
+    //todo: descriptif type of bullet
+
+6.5 New Bullet Instruction
+
+    This instruction only exitst Client to Server.
+    When a client launch a bullet, he MUST send to the server a
+    New-Bullet Instruction containing the typeBullet on 2 bytes.
+
+    the typeBullet is described above in Section 6.4.
+
+7
+
+8.  Message Exchange
+
+//todo
+
+8.1 TCP
+
+//todo
+
+8.2 UDP
+
+//todo
+
+9. Reference
+
+//todo
