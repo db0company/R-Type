@@ -1,6 +1,6 @@
 #include "GraphicClientState.hpp"
 
-LibGraphic::GraphicClientState::GraphicClientState(std::map<std::string const, const GraphicRessource *> const & ressourcesSprite,
+LibGraphic::GraphicClientState::GraphicClientState(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
 						   std::map<std::string const, sf::Font *> const & ressourcesFont,
@@ -15,7 +15,7 @@ LibGraphic::GraphicClientState::~GraphicClientState(void)
 {
 }
 
-sf::Sprite const & LibGraphic::GraphicClientState::getSprite(std::string const & spriteName) const
+sf::Sprite & LibGraphic::GraphicClientState::getSprite(std::string const & spriteName) const
 {
   return ((*this->_ressourcesSprite.find(spriteName)).second->_sprite);
 }
@@ -84,9 +84,27 @@ void LibGraphic::GraphicClientState::draw(eStates scene)
     }
 }
 
+// void LibGraphic::GraphicClientState::displayStart()
+// {
+//   this->_app.Draw(this->getSprite("StartBackground"));
+//   MyMusic * song = this->getMusic("StartMusic");
+//   if (song->GetMusicState() == sf::Music::Stopped ||
+//       song->GetMusicState() == sf::Music::Paused)
+//     song->PlayMusic();
+// }
+
 void LibGraphic::GraphicClientState::displayStart()
 {
-  this->_app.Draw(this->getSprite("StartBackground"));
+  sf::String *tmp;
+  this->_app.Draw(this->getSprite("StartMenuBackground"));
+  this->getSprite("StartMenu").SetPosition(450, 650);
+  this->getSprite("StartMenu").SetColor(sf::Color(255,255,255, 100));
+  this->_app.Draw(this->getSprite("StartMenu"));
+  tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
+  tmp->SetPosition(530, 750);
+  tmp->Scale(2.5, 2.5);
+  tmp->SetColor(sf::Color(255,255,255, 110));
+  this->_app.Draw(*tmp);
   MyMusic * song = this->getMusic("StartMusic");
   if (song->GetMusicState() == sf::Music::Stopped ||
       song->GetMusicState() == sf::Music::Paused)
@@ -95,8 +113,14 @@ void LibGraphic::GraphicClientState::displayStart()
 
 void LibGraphic::GraphicClientState::displayRoomlist()
 {
+  //  sf::String *tmp;
+  this->_app.Draw(this->getSprite("StartMenuBackground"));
+  //  this->getSprite("StartMenu")->SetPosition(400, 600);
   this->_app.Draw(this->getSprite("StartMenu"));
-  this->_app.Draw(*this->getStdToSfString("Login = ", this->getFont("StartFontF")));
+  // tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
+  // tmp->SetPosition(550, 720);
+  // tmp->Scale(2.3, 2.3);
+  // this->_app.Draw(*tmp);
   MyMusic * song = this->getMusic("StartMusic");
   if (song->GetMusicState() == sf::Music::Stopped ||
       song->GetMusicState() == sf::Music::Paused)
@@ -160,7 +184,7 @@ LibGraphic::Event LibGraphic::GraphicClientState::getEventFromState(__attribute_
   return LibGraphic::EVENT_NONE;
 }
 
-inline sf::String const * LibGraphic::GraphicClientState::getStdToSfString(std::string const & s, sf::Font * daFont)
+inline sf::String * LibGraphic::GraphicClientState::getStdToSfString(std::string const & s, sf::Font * daFont)
 {
   return (new sf::String(s, *daFont));
 }

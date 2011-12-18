@@ -13,7 +13,7 @@ namespace LibGraphic
   class	GraphicClientState
   {
   public:
-    GraphicClientState(std::map<std::string const, const GraphicRessource *> const &,
+    GraphicClientState(std::map<std::string const, GraphicRessource *> const &,
 		       std::map<std::string const, MyMusic *> const &,
 		       std::map<std::string const, MySound *> const &,
 		       std::map<std::string const, sf::Font *> const &,
@@ -21,7 +21,7 @@ namespace LibGraphic
     ~GraphicClientState(void);
 
   public:
-    sf::Sprite const & getSprite(std::string const &) const;
+    sf::Sprite & getSprite(std::string const &) const;
     MyMusic * getMusic(std::string const &) const;
     sf::Font * getFont(std::string const &) const;
 
@@ -31,7 +31,7 @@ namespace LibGraphic
 
   private:
     Event eventStart(eStates & scene);
-   inline sf::String const * getStdToSfString(std::string const &, sf::Font *);
+   inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
     void displayStart();
     void displayRoomlist();
@@ -44,7 +44,7 @@ namespace LibGraphic
     void displayIngame();
 
   private:
-    std::map<std::string const, const GraphicRessource *>
+    std::map<std::string const, GraphicRessource *>
     const & _ressourcesSprite;
     std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
     std::map<std::string const, MySound *> const & _ressourcesSounds;
