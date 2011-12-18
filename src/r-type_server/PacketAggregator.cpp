@@ -37,7 +37,7 @@ bool PacketAggregator::concat(char *str, int size)
 
 int  PacketAggregator::aggregatePacketToChar(void)
 {
-  int		nb_packet;
+  int		nb_packet = 0;
   ProtocolPacket *packet;
   int		 size;
 

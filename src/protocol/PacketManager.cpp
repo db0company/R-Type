@@ -63,7 +63,10 @@ bool			PacketManager::send(User * user, eProtocolPacketGroup group,
 	 PacketFactory::getPacketDataSize(packet));
   if ((socket->SNWrite(toSend, sizeof(packet->header)
 		       + PacketFactory::getPacketDataSize(packet))) < 0)
-    return (std::cerr << "[error] Send Packet Failure" << std::endl);
+  {
+    std::cerr << "[error] Send Packet Failure" << std::endl;
+	return (false);
+  }
   delete[] toSend;
   PacketFactory::destroyPacket(packet);
   return (true);

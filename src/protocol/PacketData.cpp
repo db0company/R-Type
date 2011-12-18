@@ -155,7 +155,9 @@ UInt32			PacketData::getNextUint32(void)
 void			PacketData::addString(char const * str, ushort len)
 {
   this->addUShort(len);
-  DataRawType tmp[len];
+//  DataRawType tmp[len];
+  DataRawType *tmp;
+  tmp = new DataRawType[len];
   memcpy(tmp, str, len);
   for (uint i = 0 ; i < len ; ++i)
     this->data.push_back(tmp[i]);
