@@ -130,6 +130,12 @@ bool LibGraphic::Sfml::loadSprite()
 	  img->_sprite.Resize(this->_width,
 			      this->_height);
 	}
+      else
+	{
+	  img->_isFullScreen = false;
+	  img->_dimension.width = this->getIntFromS(this->getNextInfoRessource(s));
+	  img->_dimension.height = this->getIntFromS(this->getNextInfoRessource(s));
+	}
       this->_ressourcesSprite[tmp] = img;
     }
   return true;
@@ -219,4 +225,19 @@ inline std::string LibGraphic::Sfml::getNextInfoRessource(std::string & s)
   tmp = s.substr(0, found);
   s = s.substr(found + 2, s.size());
   return tmp;
+}
+
+inline unsigned int LibGraphic::Sfml::getIntFromS(std::string s)
+{
+  unsigned int found;
+  unsigned int res;
+  std::string tmp;
+  std::stringstream ss;
+
+  found = s.find("::");
+  tmp = s.substr(0, found);
+  s = s.substr(found + 2, s.size());
+  ss << tmp;
+  ss >> res;
+  return (res);
 }

@@ -36,6 +36,7 @@ namespace LibGraphic
     void createStates();
     inline bool isFullscreen(std::string s);
     inline std::string getNextInfoRessource(std::string &);
+    inline unsigned int getIntFromS(std::string s);
 
   private:
     int _width;
