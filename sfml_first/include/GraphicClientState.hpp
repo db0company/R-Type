@@ -50,6 +50,7 @@ namespace LibGraphic
     std::map<std::string const, MySound *> const & _ressourcesSounds;
     std::map<std::string const, sf::Font *> const & _ressourcesFont;
     sf::RenderWindow & _app;
+
   };
 
 }

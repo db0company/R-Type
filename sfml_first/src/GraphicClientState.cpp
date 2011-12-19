@@ -98,12 +98,12 @@ void LibGraphic::GraphicClientState::displayStart()
   sf::String *tmp;
   this->_app.Draw(this->getSprite("StartMenuBackground"));
   this->getSprite("StartMenu").SetPosition(450, 650);
-  this->getSprite("StartMenu").SetColor(sf::Color(255,255,255, 100));
+  this->getSprite("StartMenu").SetColor(sf::Color(255,255,255, 200));
   this->_app.Draw(this->getSprite("StartMenu"));
   tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
   tmp->SetPosition(530, 750);
   tmp->Scale(2.5, 2.5);
-  tmp->SetColor(sf::Color(255,255,255, 110));
+  tmp->SetColor(sf::Color(255,255,255, 220));
   this->_app.Draw(*tmp);
   MyMusic * song = this->getMusic("StartMusic");
   if (song->GetMusicState() == sf::Music::Stopped ||

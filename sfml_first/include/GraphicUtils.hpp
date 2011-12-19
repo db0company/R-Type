@@ -40,6 +40,12 @@ namespace LibGraphic
     Size _dimension;
   };
 
+  struct SpriteCoord
+  {
+    std::string name;
+    Coord coordInFile;
+  };
+
 }
 
 #endif //GRAPHICUTILS_H_
