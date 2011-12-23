@@ -3,10 +3,10 @@
 # define		PACKETMANAGER_H_
 
 # include		<map>
-# include		"user/User.hpp"
 # include		"PacketFactory.hpp"
 # include		"PacketData.hpp"
 # include		"iProtocolAction.hpp"
+# include		"User.hpp"
 
 class			PacketManager
 {

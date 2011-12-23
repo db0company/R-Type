@@ -4,7 +4,7 @@
 #include <map>
 #include <queue>
 #include <string>
-#include "user/User.hpp"
+#include "User.hpp"
 #include "GameManager.hpp"
 #include "ATCPServerSocket.h"
 #include "ISelector.h"

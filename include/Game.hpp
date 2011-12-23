@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 #include "GameParameter.hpp"
-#include "user/User.hpp"
+#include "User.hpp"
 #include "GameNetwork.hpp"
 
 //todo

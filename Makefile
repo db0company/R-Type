@@ -1,5 +1,5 @@
-NAME		=	r-type
-S_NAME		=	$(NAME)_server
+NAME		=	client
+S_NAME		=	server
 
 # directories
 SRC_DIR		=	src/
@@ -20,26 +20,18 @@ ERR_DIR		=	$(SRC_DIR)error/
 
 # sources
 SRCS		=	$(MAIN_DIR)main.cpp			\
-			$(MAIN_DIR)$(NAME).cpp			\
-			\
 
 S_SRCS		=	$(SERV_DIR)main.cpp			\
-			$(SERV_DIR)$(S_NAME).cpp		\
-			\
-			$(PRTC_DIR)PacketData.cpp	\
+			$(PRTC_DIR)PacketData.cpp		\
 			$(PRTC_DIR)PacketFactory.cpp		\
 			$(PRTC_DIR)PacketManager.cpp		\
 			$(PRTC_DIR)actions/ProtocolGame.cpp	\
 			$(PRTC_DIR)actions/ProtocolGameDetails.cpp \
 			$(PRTC_DIR)actions/ProtocolMovement.cpp \
 			$(PRTC_DIR)actions/ProtocolLobby.cpp	\
-			\
 			$(SERV_DIR)Server.cpp			\
 			$(SERV_DIR)GameManager.cpp		\
-			\
-			$(USER_DIR)User.cpp			\
-			$(USER_DIR)UserSocket.cpp		\
-			\
+			$(SERV_DIR)User.cpp			\
 			$(SERV_DIR)SafeQueue.cpp		\
 			$(SERV_DIR)ThreadData.cpp		\
 			$(SERV_DIR)ThreadPool.cpp		\

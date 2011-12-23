@@ -6,6 +6,7 @@
 #include "GameParameter.hpp"
 #include "Game.hpp"
 #include "Room.hpp"
+#include "User.hpp"
 
 class GameManager
 {

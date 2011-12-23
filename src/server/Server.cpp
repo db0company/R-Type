@@ -7,8 +7,6 @@
 # include "TCPServerSocketWindows.h"
 #endif
 
-//PacketManager * pm = NULL;
-
 Server&	Server::operator=(Server const &){return *this;}
 Server::Server(Server const &){}
 
@@ -117,7 +115,6 @@ bool Server::readFromClients(void)
 	{
 	  if (socket->SNGetRead() == true)
 	    {
-	      //pm->rcsv(user);
 	      if (user->feedPacketAggregator() == false)
 		{
 		  this->removeClient(user, socket);
@@ -149,10 +146,6 @@ bool	Server::cleanClients(void)
   return (true);
 }
 
-  // boucle client.
-  // pour chaque client concat les packet a la suite dans un buf
-  // puis fait un write de se buf (ainsi on envoi plusieurs packet)
-  // les packet concatene sont depop de la send queue.
 bool	Server::writeToClients(void)
 {
   std::map<std::string, User *>::iterator	it;
@@ -169,11 +162,6 @@ bool	Server::writeToClients(void)
   return (true);
 }
 
-  // boucle client
-  // depile queue de packet
-  // chaque packet-> appel pfonct de barbara.
-  // dans tes pfonct on ne fera pas des send mais des push des packet
-  // a envoyer sur la queue a send.
 bool	Server::processPackets(void)
 {
   std::map<std::string, User *>::iterator	it;
@@ -189,9 +177,6 @@ bool	Server::processPackets(void)
 
 bool Server::run(void)
 {
-  //  PacketManager pmp;
-  // todo: maybe some arguments needed by packetmanager, like gamemanager
-  //  pm = &pmp;
   while (true)
     {
       this->_listener->SNAddRead();
