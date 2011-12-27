@@ -1,3 +1,4 @@
+//#include <Rect.hpp>
 #include "GraphicClientState.hpp"
 
 LibGraphic::GraphicClientState::GraphicClientState(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
@@ -84,25 +85,23 @@ void LibGraphic::GraphicClientState::draw(eStates scene)
     }
 }
 
-// void LibGraphic::GraphicClientState::displayStart()
-// {
-//   this->_app.Draw(this->getSprite("StartBackground"));
-//   MyMusic * song = this->getMusic("StartMusic");
-//   if (song->GetMusicState() == sf::Music::Stopped ||
-//       song->GetMusicState() == sf::Music::Paused)
-//     song->PlayMusic();
-// }
-
 void LibGraphic::GraphicClientState::displayStart()
 {
   sf::String *tmp;
-  this->_app.Draw(this->getSprite("StartMenuBackground"));
-  this->getSprite("StartMenu").SetPosition(450, 650);
-  this->getSprite("StartMenu").SetColor(sf::Color(255,255,255, 200));
-  this->_app.Draw(this->getSprite("StartMenu"));
+  sf::Sprite &back = this->getSprite("StartMenuBackground");
+  sf::Sprite &menu = this->getSprite("StartMenu");
+
+  menu.SetPosition(250, 350);
+  this->_app.Draw(back);
+  menu.SetColor(sf::Color(255, 255, 255, 230));
+  menu.SetSubRect(sf::IntRect(841, 311, 841 *2, 311 * 2));
+  this->_app.Draw(menu);
+  menu.SetColor(sf::Color(255, 255, 255, 110));
+  menu.SetSubRect(sf::IntRect(0, 311, 841, 311 * 2));
+  this->_app.Draw(menu);
   tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
-  tmp->SetPosition(530, 750);
-  tmp->Scale(2.5, 2.5);
+  tmp->SetPosition(320, 455);
+  tmp->Scale(2.3, 2.3);
   tmp->SetColor(sf::Color(255,255,255, 220));
   this->_app.Draw(*tmp);
   MyMusic * song = this->getMusic("StartMusic");

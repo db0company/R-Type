@@ -1,7 +1,7 @@
 NAME_DEBUG	=	TEST
 NAME_RELEASE	=	GRAPHIC
 
-DEBUG		=	no
+DEBUG		=	yes
 
 SRC_DIR		=	src
 INCLUDE_DIR	=	include
