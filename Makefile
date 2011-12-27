@@ -35,7 +35,12 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(SERV_DIR)SafeQueue.cpp		\
 			$(SERV_DIR)ThreadData.cpp		\
 			$(SERV_DIR)ThreadPool.cpp		\
-			$(SERV_DIR)PacketAggregator.cpp
+			$(SERV_DIR)PacketAggregator.cpp		\
+			$(SERV_DIR)TaskManager.cpp		\
+			$(SERV_DIR)TaskNetwork.cpp		\
+			$(SERV_DIR)PacketTask.cpp		\
+			$(SERV_DIR)Game.cpp		\
+			\
 
 # objects
 OBJS		=	$(SRCS:.cpp=.o)

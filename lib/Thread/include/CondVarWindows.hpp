@@ -8,16 +8,16 @@
 class CondVarWindows : public ICondVar
 {
 public:
-	CondVarWindows(MutexWindows *m);
-	~CondVarWindows(void);
-	CondVarWindows(CondVarWindows const &);
-	CondVarWindows &operator=(CondVarWindows const &);
-	virtual bool	wait();
-    virtual void	signal();
-    virtual void	broadcast();
+  CondVarWindows();
+  ~CondVarWindows(void);
+  CondVarWindows(CondVarWindows const &);
+  CondVarWindows &operator=(CondVarWindows const &);
+  virtual bool	wait();
+  virtual void	signal();
+  virtual void	broadcast();
 private:
-	CONDITION_VARIABLE _condvar;
-	MutexWindows	   *_m;
+  CONDITION_VARIABLE _condvar;
+  MutexWindows	   _m;
 };
 
 #endif //_CONDVAR_WINDOWS_HPP
