@@ -44,6 +44,10 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(SERV_DIR)PacketAggregator.cpp
 
 C_SRCS		=	$(CLIE_DIR)/main.cpp			\
+			$(CLIE_DIR)/ClientNetwork.cpp		\
+			$(SERV_DIR)PacketAggregator.cpp		\
+			$(PRTC_DIR)PacketData.cpp		\
+			$(PRTC_DIR)PacketFactory.cpp		\
 			$(CLIE_DIR)/DirectoryManagerUnix.cpp	\
 			$(CLIE_DIR)/Dll.cpp			\
 			$(CLIE_DIR)/DlLoader.cpp		\
@@ -62,7 +66,7 @@ C_OBJS		=	$(C_SRCS:.cpp=.o)
 
 # libs
 LIB		=	-L$(LIB_DIR) -lSNetwork -lThread
-C_LIB		=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -ldl -lpthread
+C_LIB		=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -ldl -lpthread $(LIB)
 
 # functions
 RM		=	rm -f
