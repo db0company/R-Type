@@ -217,7 +217,7 @@ inline bool LibGraphic::Sfml::isFullscreen(std::string s)
 
 inline std::string LibGraphic::Sfml::getNextInfoRessource(std::string & s)
 {
-  unsigned int found;
+  unsigned long int found;
   std::string tmp;
 
   if ((found = s.find("::")) == std::string::npos)
