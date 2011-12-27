@@ -4,8 +4,7 @@
 #include "CondVarUnix.hpp"
 
 
-CondVarUnix::CondVarUnix(IMutex *m)
-  : _m(m)
+CondVarUnix::CondVarUnix()
 {
   pthread_cond_init(&this->_Cond, NULL);
 }
@@ -25,9 +24,7 @@ CondVarUnix::~CondVarUnix()
 
 bool	CondVarUnix::wait()
 {
-  pthread_mutex_t	*test = (reinterpret_cast<MutexUnix *>(_m)->getMutex());
-
-  if (pthread_cond_wait(&this->_Cond, test) == 0)
+  if (pthread_cond_wait(&this->_Cond, _m.getMutex()) == 0)
 	  return (true);
   return (false);
 }

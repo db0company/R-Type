@@ -8,10 +8,9 @@
 class CondVarUnix : public ICondVar
 {
   pthread_cond_t	_Cond;
-  IMutex		*_m;
-
+  MutexUnix		_m;
 public:
-  CondVarUnix(IMutex *m);
+  CondVarUnix();
   virtual ~CondVarUnix();
 
   virtual bool wait();
