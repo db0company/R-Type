@@ -102,6 +102,7 @@ bool			User::aggregatePacketToSend(void)
 	  this->tcp->SNWrite(msg, size);
 	  this->paWrite.erase();
 	}
+      return (true);
     }
   return (false);
 }
