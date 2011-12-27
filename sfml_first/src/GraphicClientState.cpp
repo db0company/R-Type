@@ -165,7 +165,7 @@ LibGraphic::Event LibGraphic::GraphicClientState::eventStart(eStates & scene)
   return LibGraphic::EVENT_NONE;
 }
 
-LibGraphic::Event LibGraphic::GraphicClientState::getEventFromState(__attribute__((unused)) eStates & scene)
+LibGraphic::Event LibGraphic::GraphicClientState::getEventFromState(eStates & scene)
 {
   switch (scene)
     {
