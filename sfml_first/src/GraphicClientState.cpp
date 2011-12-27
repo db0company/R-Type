@@ -94,10 +94,10 @@ void LibGraphic::GraphicClientState::displayStart()
   menu.SetPosition(250, 350);
   this->_app.Draw(back);
   menu.SetColor(sf::Color(255, 255, 255, 230));
-  menu.SetSubRect(sf::IntRect(826, 316, 826 *2, 316 * 2));
+  menu.SetSubRect(sf::IntRect(841, 311, 841 *2, 311 * 2));
   this->_app.Draw(menu);
   menu.SetColor(sf::Color(255, 255, 255, 110));
-  menu.SetSubRect(sf::IntRect(0, 316, 826, 316 * 2));
+  menu.SetSubRect(sf::IntRect(0, 311, 841, 311 * 2));
   this->_app.Draw(menu);
   tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
   tmp->SetPosition(320, 455);
