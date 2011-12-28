@@ -7,6 +7,7 @@
 #include "IGraphic.hpp"
 #include "GraphicUtils.hpp"
 #include "GraphicClientState.hpp"
+#include "ClientNetwork.hpp"
 
 #define WINDOWNAME "R-Type"
 
@@ -15,8 +16,9 @@ namespace LibGraphic
 
   class	Sfml : public IGraphic
   {
-  public:
     Sfml(void);
+  public:
+    Sfml(ClientNetwork &);
     ~Sfml(void);
     Sfml(const Sfml&);
     Sfml&	operator=(const Sfml&);
@@ -49,6 +51,7 @@ namespace LibGraphic
     std::map<std::string const, MyMusic *> _ressourcesPlayList;
     std::map<std::string const, MySound *> _ressourcesSounds;
     std::map<std::string const, sf::Font *> _ressourcesFont;
+    ClientNetwork &_network;
   };
 
 }

@@ -45,10 +45,10 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(SERV_DIR)TaskManager.cpp		\
 			$(SERV_DIR)TaskNetwork.cpp		\
 			$(SERV_DIR)PacketTask.cpp		\
-			$(SERV_DIR)Game.cpp		\
-			\
+			$(SERV_DIR)Game.cpp
 
 C_SRCS		=	$(CLIE_DIR)/main.cpp			\
+			$(CLIE_DIR)/Client.cpp			\
 			$(CLIE_DIR)/ClientNetwork.cpp		\
 			$(SERV_DIR)PacketAggregator.cpp		\
 			$(PRTC_DIR)PacketData.cpp		\
