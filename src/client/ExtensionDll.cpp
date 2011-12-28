@@ -1,5 +1,4 @@
 #include <Windows.h>
-#include <strsafe.h>
 #include <string>
 #include <iostream>
 #include "IExtension.hpp"

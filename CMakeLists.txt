@@ -5,6 +5,47 @@ set(LIBRARY_OUTPUT_PATH lib/${CMAKE_BUILD_TYPE})
 
 include_directories(lib/SNetwork/include)
 
+if(WIN32)
+
+add_library(
+	SNetwork
+	STATIC
+	./lib/SNetwork/src/ATCPClientSocket.cpp
+	./lib/SNetwork/src/ATCPServerSocket.cpp
+	./lib/SNetwork/src/TCPClientSocketWindows.cpp
+	./lib/SNetwork/src/TCPServerSocketWindows.cpp
+	./lib/SNetwork/src/UDPServerSocketWindows.cpp
+	./lib/SNetwork/src/UDPClientSocketWindows.cpp
+)
+
+target_link_libraries(
+	SNetwork
+	Ws2_32.lib
+)
+
+
+add_library(
+	Thread
+	STATIC
+	./lib/Thread/src/MutexWindows.cpp
+	./lib/Thread/src/ThreadWindows.cpp
+	./lib/Thread/src/CondVarWindows.cpp
+	./lib/Thread/src/ScopedLock.cpp
+)
+
+
+
+include_directories(SFML-1.6/include/)
+
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/SFML-1.6/lib/vc2008/)
+
+endif(WIN32)
+
+
+
+
+if(UNIX)
+
 add_library(
 	SNetwork
 	STATIC
@@ -16,7 +57,6 @@ add_library(
 	./lib/SNetwork/src/UDPClientSocketUnix.cpp
 )
 
-include_directories(lib/Thread/include)
 
 add_library(
 	Thread
@@ -27,11 +67,20 @@ add_library(
 	./lib/Thread/src/ScopedLock.cpp
 )
 
+
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+find_package(SFML 1.6 REQUIRED system window graphics network audio)
+
+
+endif(UNIX)
+
+include_directories(lib/Thread/include)
+
 include_directories(include)
 
 SET(EXECUTABLE_NAME "server")
 
-SET(EXECUTABLE_OUTPUT_PATH ./bin)
+SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 add_executable(
 	server
 	./src/server/main.cpp
@@ -55,9 +104,6 @@ add_executable(
 	./src/server/Game.cpp
 )
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
-find_package(SFML 1.6 REQUIRED system window graphics network audio)
-
 target_link_libraries(
 	server
 	SNetwork
@@ -72,10 +118,10 @@ add_executable(
 	./src/server/PacketAggregator.cpp
 	./src/protocol/PacketData.cpp
 	./src/protocol/PacketFactory.cpp
-	./src/client/DirectoryManagerUnix.cpp
+	./src/client/DirectoryManagerWindows.cpp
 	./src/client/Dll.cpp
 	./src/client/DlLoader.cpp
-	./src/client/ExtensionSo.cpp
+	./src/client/ExtensionDll.cpp
 	./src/client/MyMusic.cpp
 	./src/client/MySound.cpp
 	./src/client/GraphicClientState.cpp
@@ -85,13 +131,31 @@ add_executable(
 )
 
 
+include_directories(SFML-1.6/include)
+
 include_directories(include)
 
+if(WIN32)
+target_link_libraries(
+	client
+	SNetwork
+	Thread
+	sfml-audio-s.lib
+	sfml-graphics-s.lib
+	sfml-main.lib
+	sfml-network-s.lib
+	sfml-system-s.lib
+	sfml-window-s.lib
+)
+
+endif(WIN32)
+
+if(UNIX)
 target_link_libraries(
 	client
 	SNetwork
 	Thread
 	dl
-	${SFML_LIBRARIES}
 )
 
+endif(UNIX)
