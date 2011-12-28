@@ -1,33 +1,30 @@
-#ifndef GRAPHICCLIENTSTATE_H_
-# define GRAPHICCLIENTSTATE_H_
+#ifndef STATESTART_H
+# define STATESTART_H
 
-#include <SFML/Graphics.hpp>
-#include "MySound.hpp"
-#include "MyMusic.hpp"
-#include "GraphicUtils.hpp"
-#include "IGraphic.hpp"
+#include "Sfml.hpp"
 #include "Istate.hpp"
 
 namespace LibGraphic
 {
 
-  class	GraphicClientState
+  class StateStart : public IState
   {
   public:
-    GraphicClientState(std::map<std::string const, GraphicRessource *> const &,
+    StateStart(std::map<std::string const, GraphicRessource *> const &,
 		       std::map<std::string const, MyMusic *> const &,
 		       std::map<std::string const, MySound *> const &,
 		       std::map<std::string const, sf::Font *> const &,
 		       sf::RenderWindow &);
-    ~GraphicClientState(void);
+    ~StateStart();
+    virtual bool init();
+    virtual void draw();
+    virtual Event gereEvent();
 
   public:
-    void draw(eStates);
-    Event getEventFromState(eStates);
-
-  private:
-    Event eventStart(eStates & scene);
-    void loadStates();
+    sf::Sprite & getSprite(std::string const &) const;
+    MyMusic * getMusic(std::string const &) const;
+    sf::Font * getFont(std::string const &) const;
+   inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
   private:
     std::map<std::string const, GraphicRessource *>
@@ -35,12 +32,12 @@ namespace LibGraphic
     std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
     std::map<std::string const, MySound *> const & _ressourcesSounds;
     std::map<std::string const, sf::Font *> const & _ressourcesFont;
-    std::map<eStates, IState *> _stateInfos;
   private:
     sf::RenderWindow & _app;
-    sf::Event _catchedEvent;
+
+
   };
 
 }
 
-#endif	// GRAPHICCLIENTSTATE.HPP_H_
+#endif //STATESTART_H

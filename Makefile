@@ -48,21 +48,22 @@ S_SRCS		=	$(SERV_DIR)main.cpp			\
 			$(SERV_DIR)Game.cpp		\
 			\
 
-C_SRCS		=	$(CLIE_DIR)/main.cpp			\
-			$(CLIE_DIR)/ClientNetwork.cpp		\
+C_SRCS		=	$(CLIE_DIR)main.cpp			\
+			$(CLIE_DIR)ClientNetwork.cpp		\
 			$(SERV_DIR)PacketAggregator.cpp		\
 			$(PRTC_DIR)PacketData.cpp		\
 			$(PRTC_DIR)PacketFactory.cpp		\
-			$(CLIE_DIR)/DirectoryManagerUnix.cpp	\
-			$(CLIE_DIR)/Dll.cpp			\
-			$(CLIE_DIR)/DlLoader.cpp		\
-			$(CLIE_DIR)/ExtensionSo.cpp		\
-			$(CLIE_DIR)/MyMusic.cpp			\
-			$(CLIE_DIR)/MySound.cpp			\
-			$(CLIE_DIR)/GraphicClientState.cpp	\
-			$(CLIE_DIR)/Sfml.cpp			\
-			$(CLIE_DIR)/Error.cpp			\
-			$(CLIE_DIR)/Button.cpp
+			$(CLIE_DIR)DirectoryManagerUnix.cpp	\
+			$(CLIE_DIR)Dll.cpp			\
+			$(CLIE_DIR)DlLoader.cpp			\
+			$(CLIE_DIR)ExtensionSo.cpp		\
+			$(CLIE_DIR)MyMusic.cpp			\
+			$(CLIE_DIR)MySound.cpp			\
+			$(CLIE_DIR)GraphicClientState.cpp	\
+			$(CLIE_DIR)Sfml.cpp			\
+			$(CLIE_DIR)Error.cpp			\
+			$(CLIE_DIR)Button.cpp			\
+			$(CLIE_DIR)StateStart.cpp
 
 # objects
 OBJS		=	$(SRCS:.cpp=.o)
