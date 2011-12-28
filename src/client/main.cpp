@@ -1,17 +1,13 @@
-#include "Sfml.hpp"
+//#include "Sfml.hpp"
 #include "AudioUtils.hpp"
+#include "Client.hpp"
 
 LibGraphic::Volume gVolume;
 
 int main()
 {
-  LibGraphic::Sfml test;
+  Client client("127.0.0.1", 12345);
 
-  test.init();
-  while (true)
-    {
-      test.getEvent();
-      test.clean();
-      test.draw();
-    }
+  if (client.init())
+    client.run();
 }

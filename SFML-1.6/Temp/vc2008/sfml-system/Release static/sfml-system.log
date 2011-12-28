@@ -1,0 +1,34 @@
+﻿Build started 28/12/2011 21:49:15.
+     1>Project "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\sfml-system.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\sfml-system.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\include" /nologo /W4 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\SFML\System\Win32\Mutex.cpp ..\..\src\SFML\System\Win32\Platform.cpp ..\..\src\SFML\System\Win32\Thread.cpp ..\..\src\SFML\System\Clock.cpp ..\..\src\SFML\System\Lock.cpp ..\..\src\SFML\System\Randomizer.cpp ..\..\src\SFML\System\Sleep.cpp ..\..\src\SFML\System\Unicode.cpp /MP 
+         Mutex.cpp
+         Platform.cpp
+         Thread.cpp
+         Clock.cpp
+         Lock.cpp
+         Randomizer.cpp
+         Sleep.cpp
+         Unicode.cpp
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\sfml-system.lib) does not match the Library's OutputFile property value (C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\lib\vc2008\sfml-system-s.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1153,5): warning MSB8012: TargetName(sfml-system) does not match the Library's OutputFile property value (sfml-system-s). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\lib\vc2008\sfml-system-s.lib" /NOLOGO "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\Mutex.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\Platform.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\Thread.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\Clock.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\Lock.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\Randomizer.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\Sleep.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\Unicode.obj"
+         sfml-system.vcxproj -> C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\sfml-system.lib
+       FinalizeBuildStatus:
+         Deleting file "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\sfml-system.unsuccessfulbuild".
+         Touching "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-system\Release static\sfml-system.lastbuildstate".
+     1>Done Building Project "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\sfml-system.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.03

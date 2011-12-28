@@ -41,8 +41,15 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *)
       return (false);
     }
   else
-    this->groupaction[PacketFactory::getPacketGroup(packet)]->action
-      (PacketFactory::getPacketInstruction(packet), *textData);
+    {
+      this->groupaction[PacketFactory::getPacketGroup(packet)]->action
+	(PacketFactory::getPacketInstruction(packet), *textData);
+      //-> debug
+      std::cout << "packet received ";
+      textData->prettyPrint();
+      std::cout << std::endl;
+      //<- end debug
+    }
   return (true);
 }
 

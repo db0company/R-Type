@@ -1,0 +1,37 @@
+﻿Build started 28/12/2011 21:49:19.
+     1>Project "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\sfml-window.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\sfml-window.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\include" /nologo /W4 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\vc100.pdb" /Gd /TP /wd4311 /wd4312 /analyze- /errorReport:prompt ..\..\src\SFML\Window\Win32\Joystick.cpp ..\..\src\SFML\Window\Win32\VideoModeSupport.cpp ..\..\src\SFML\Window\Context.cpp ..\..\src\SFML\Window\Input.cpp ..\..\src\SFML\Window\VideoMode.cpp ..\..\src\SFML\Window\Window.cpp ..\..\src\SFML\Window\WindowImpl.cpp /MP 
+         Joystick.cpp
+         VideoModeSupport.cpp
+         Context.cpp
+         Input.cpp
+         VideoMode.cpp
+         Window.cpp
+         WindowImpl.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\include" /nologo /W3 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\vc100.pdb" /Gd /TP /wd4311 /wd4312 /analyze- /errorReport:prompt ..\..\src\SFML\Window\Win32\WindowImplWin32.cpp /MP 
+         WindowImplWin32.cpp
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\sfml-window.lib) does not match the Library's OutputFile property value (C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\lib\vc2008\sfml-window-s.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1153,5): warning MSB8012: TargetName(sfml-window) does not match the Library's OutputFile property value (sfml-window-s). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\lib\vc2008\sfml-window-s.lib" opengl32.lib winmm.lib /NOLOGO "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\Joystick.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\VideoModeSupport.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\WindowImplWin32.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\Context.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\Input.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\VideoMode.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\Window.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\WindowImpl.obj"
+     1>winmm.lib(WINMM.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in opengl32.lib(OPENGL32.dll); second definition ignored
+     1>winmm.lib(WINMM.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+         sfml-window.vcxproj -> C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\sfml-window.lib
+       FinalizeBuildStatus:
+         Deleting file "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\sfml-window.unsuccessfulbuild".
+         Touching "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-window\Release static\sfml-window.lastbuildstate".
+     1>Done Building Project "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\sfml-window.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:06.27

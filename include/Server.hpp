@@ -8,6 +8,7 @@
 #include "GameManager.hpp"
 #include "ATCPServerSocket.h"
 #include "ISelector.h"
+#include "PacketManager.hpp"
 
 #define DEFAULT_PORT 12348
 
@@ -35,6 +36,7 @@ private:
   ATCPServerSocket*		_listener;
   ISelector*			_selector;
   GameManager			_gameManager;
+  PacketManager			_pm;
   int				_port;
 };
 

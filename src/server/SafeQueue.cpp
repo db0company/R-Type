@@ -1,4 +1,5 @@
 #include "SafeQueue.hpp"
+#include "ScopedLock.hpp"
 
 template <typename T>
 SafeQueue<T>::SafeQueue()
@@ -28,6 +29,8 @@ SafeQueue<T>::~SafeQueue()
 template <typename T>
 bool SafeQueue<T>::push(T value)
 {
+  ScopedLock sl(this->mutex);
+
   QueueTask.push(value);
   return (true);
 }
@@ -35,26 +38,23 @@ bool SafeQueue<T>::push(T value)
 template <typename T>
 bool SafeQueue<T>::tryPop(T *elem)
 {
-  mutex->Lock();
+  ScopedLock sl(this->mutex);
+
   if (!QueueTask.empty())
     {
       elem = QueueTask.front();
       QueueTask.pop();
       return (true);
     }
-  mutex->Unlock();
   return (false);
 }
 
 template <typename T>
 bool SafeQueue<T>::empty()
 {
- mutex->Lock();
+  ScopedLock sl(this->mutex);
+
   if (QueueTask.empty())
-    {
-      mutex->Unlock();
-      return (true);
-    }
-  mutex->Unlock();
+    return (true);
   return (false);
 }

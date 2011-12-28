@@ -1,26 +1,28 @@
-#ifndef			USERHPP
-# define		USERHPP
+#ifndef		USERHPP
+# define	USERHPP
 
-# include		"ATCPClientSocket.h"
-# include		"PacketAggregator.hpp"
-# include		<string>
+# include	"ATCPClientSocket.h"
+# include	"PacketAggregator.hpp"
+# include	"PacketManager.hpp"
+# include	<string>
 
 #define AGGREGATE_READ_SIZE 1024
 
-class			User
+class		User
 {
  private:
-  bool			safe;
-  bool			log;
-  std::string		login;
-  std::string		ip;
+  bool		safe;
+  bool		log;
+  std::string	login;
+  std::string	ip;
+  PacketManager pm;
 
  public:
   ATCPClientSocket *	tcp;
   PacketAggregator	paRead;
   PacketAggregator	paWrite;
  public:
-  User(ATCPClientSocket *, std::string const & ip);
+  User(ATCPClientSocket *, std::string const & ip, PacketManager &);
   User(User const & other);
   User &		operator=(User const & other);
   ~User(void);

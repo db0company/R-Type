@@ -19,7 +19,7 @@
 #endif
 #include "ClientNetwork.hpp"
 
-ClientNetwork::ClientNetwork(void)
+ClientNetwork::ClientNetwork(void) : _ip(""), _port(0)
 {
 #ifndef _WIN32
   this->_selector = new Selector<int>;
@@ -30,6 +30,26 @@ ClientNetwork::ClientNetwork(void)
   this->_tcp = new TCPClientSocketWindows(this->_selector);
   this->_udp = new UDPClientSocketWindows(this->_selector);
 #endif
+}
+
+
+ClientNetwork::ClientNetwork(std::string const &ip, int port) : _ip(ip), _port(port)
+{
+#ifndef _WIN32
+  this->_selector = new Selector<int>;
+  this->_tcp = new TCPClientSocketUnix(this->_selector);
+  this->_udp = new UDPClientSocketUnix(this->_selector);
+#else
+  this->_selector = new Selector<SOCKET>;
+  this->_tcp = new TCPClientSocketWindows(this->_selector);
+  this->_udp = new UDPClientSocketWindows(this->_selector);
+#endif
+}
+
+void ClientNetwork::init(std::string const &ip, int port)
+{
+  this->_ip = ip;
+  this->_port = port;
 }
 
 ClientNetwork::~ClientNetwork(void)
@@ -62,6 +82,23 @@ bool ClientNetwork::connect(std::string const &ip, int port)
     {
       std::cerr << "Error: Can't connect to server " << ip
 		<< " on port " << port << std::endl;
+      return (false);
+    }
+  this->_tcp->SNAddRead();
+  return (true);
+}
+
+bool ClientNetwork::connect(void)
+{
+  if (!this->_tcp->SNCreate(this->_ip, this->_port))
+    {
+      std::cerr << "Error: Can't create socket" << std::endl;
+      return (false);
+    }
+  if (!this->_tcp->SNConnect())
+    {
+      std::cerr << "Error: Can't connect to server " << this->_ip
+		<< " on port " << this->_port << std::endl;
       return (false);
     }
   this->_tcp->SNAddRead();

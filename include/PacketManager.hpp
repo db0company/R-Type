@@ -5,7 +5,7 @@
 # include	"PacketFactory.hpp"
 # include	"PacketData.hpp"
 # include	"iProtocolAction.hpp"
-# include	"User.hpp"
+class User;
 
 class		PacketManager
 {
