@@ -1,9 +1,35 @@
-﻿Build started 28/12/2011 21:39:41.
-     1>Project "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\sfml-network.vcxproj" on node 2 (clean target(s)).
-     1>_PrepareForClean:
-         Deleting file "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\sfml-network.lastbuildstate".
-     1>Done Building Project "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\sfml-network.vcxproj" (clean target(s)).
+﻿Build started 28/12/2011 21:49:18.
+     1>Project "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\sfml-network.vcxproj" on node 3 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\sfml-network.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\include" /nologo /W4 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D _CRT_SECURE_NO_DEPRECATE /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\SFML\Network\Win32\SocketHelper.cpp ..\..\src\SFML\Network\Ftp.cpp ..\..\src\SFML\Network\Http.cpp ..\..\src\SFML\Network\IPAddress.cpp ..\..\src\SFML\Network\Packet.cpp ..\..\src\SFML\Network\SelectorBase.cpp ..\..\src\SFML\Network\SocketTCP.cpp ..\..\src\SFML\Network\SocketUDP.cpp /MP 
+         SocketHelper.cpp
+         Ftp.cpp
+         Http.cpp
+     1>..\..\src\SFML\Network\Ftp.cpp(403): warning C4244: 'initializing' : conversion from 'std::streamoff' to 'size_t', possible loss of data
+         IPAddress.cpp
+         Packet.cpp
+         SelectorBase.cpp
+         SocketTCP.cpp
+         SocketUDP.cpp
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\sfml-network.lib) does not match the Library's OutputFile property value (C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\lib\vc2008\sfml-network-s.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1153,5): warning MSB8012: TargetName(sfml-network) does not match the Library's OutputFile property value (sfml-network-s). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\lib\vc2008\sfml-network-s.lib" ws2_32.lib /NOLOGO "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\SocketHelper.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\Ftp.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\Http.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\IPAddress.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\Packet.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\SelectorBase.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\SocketTCP.obj"
+         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\SocketUDP.obj"
+         sfml-network.vcxproj -> C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\sfml-network.lib
+       FinalizeBuildStatus:
+         Deleting file "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\sfml-network.unsuccessfulbuild".
+         Touching "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-network\Release static\sfml-network.lastbuildstate".
+     1>Done Building Project "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\sfml-network.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.01
+Time Elapsed 00:00:03.83

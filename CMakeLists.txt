@@ -114,6 +114,7 @@ target_link_libraries(
 add_executable(
 	client
 	./src/client/main.cpp
+	./src/client/Client.cpp
 	./src/client/ClientNetwork.cpp
 	./src/server/PacketAggregator.cpp
 	./src/protocol/PacketData.cpp
