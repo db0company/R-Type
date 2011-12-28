@@ -55,6 +55,7 @@ add_executable(
 	./src/client/MyMusic.cpp
 	./src/client/MySound.cpp
 	./src/client/GraphicClientState.cpp
+	./src/client/StateStart.cpp
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
 	./src/client/Button.cpp
@@ -108,6 +109,7 @@ add_executable(
 	./src/client/MyMusic.cpp
 	./src/client/MySound.cpp
 	./src/client/GraphicClientState.cpp
+	./src/client/StateStart.cpp
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
 	./src/client/Button.cpp
