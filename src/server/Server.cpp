@@ -49,7 +49,7 @@ bool	Server::addClient(ATCPClientSocket *sock)
 
   if (sock->getIp())
     {
-      user = new User(sock, sock->getIp());
+      user = new User(sock, sock->getIp(), this->_pm);
       if (this->_userMap.find(sock->getIp()) == this->_userMap.end())
 	{
 	  std::cout << "Info: User "<< sock->getIp() << " added to list"  << std::endl;

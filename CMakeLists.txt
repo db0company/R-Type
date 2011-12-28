@@ -39,6 +39,28 @@ include_directories(SFML-1.6/include/)
 
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/SFML-1.6/lib/vc2008/)
 
+
+add_executable(
+	client
+	./src/client/main.cpp
+	./src/client/Client.cpp
+	./src/client/ClientNetwork.cpp
+	./src/server/PacketAggregator.cpp
+	./src/protocol/PacketData.cpp
+	./src/protocol/PacketFactory.cpp
+	./src/client/DirectoryManagerWindows.cpp
+	./src/client/Dll.cpp
+	./src/client/DlLoader.cpp
+	./src/client/ExtensionDll.cpp
+	./src/client/MyMusic.cpp
+	./src/client/MySound.cpp
+	./src/client/GraphicClientState.cpp
+	./src/client/Sfml.cpp
+	./src/client/Error.cpp
+	./src/client/Button.cpp
+)
+
+
 endif(WIN32)
 
 
@@ -70,6 +92,27 @@ add_library(
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 find_package(SFML 1.6 REQUIRED system window graphics network audio)
+
+add_executable(
+	client
+	./src/client/main.cpp
+	./src/client/Client.cpp
+	./src/client/ClientNetwork.cpp
+	./src/server/PacketAggregator.cpp
+	./src/protocol/PacketData.cpp
+	./src/protocol/PacketFactory.cpp
+	./src/client/DirectoryManagerUnix.cpp
+	./src/client/Dll.cpp
+	./src/client/DlLoader.cpp
+	./src/client/ExtensionSo.cpp
+	./src/client/MyMusic.cpp
+	./src/client/MySound.cpp
+	./src/client/GraphicClientState.cpp
+	./src/client/Sfml.cpp
+	./src/client/Error.cpp
+	./src/client/Button.cpp
+)
+
 
 
 endif(UNIX)
@@ -111,25 +154,6 @@ target_link_libraries(
 )
 
 
-add_executable(
-	client
-	./src/client/main.cpp
-	./src/client/Client.cpp
-	./src/client/ClientNetwork.cpp
-	./src/server/PacketAggregator.cpp
-	./src/protocol/PacketData.cpp
-	./src/protocol/PacketFactory.cpp
-	./src/client/DirectoryManagerWindows.cpp
-	./src/client/Dll.cpp
-	./src/client/DlLoader.cpp
-	./src/client/ExtensionDll.cpp
-	./src/client/MyMusic.cpp
-	./src/client/MySound.cpp
-	./src/client/GraphicClientState.cpp
-	./src/client/Sfml.cpp
-	./src/client/Error.cpp
-	./src/client/Button.cpp
-)
 
 
 include_directories(SFML-1.6/include)
@@ -157,6 +181,7 @@ target_link_libraries(
 	SNetwork
 	Thread
 	dl
+	${SFML_LIBRARIES}
 )
 
 endif(UNIX)

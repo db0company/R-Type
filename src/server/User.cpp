@@ -1,21 +1,17 @@
+#include <iostream>
+#include <string>
+#include "User.hpp"
+#include "ATCPClientSocket.h"
+#include "PacketAggregator.hpp"
+#include "PacketManager.hpp"
 
-#include		<iostream>
-#include		<string>
-#include		"User.hpp"
-#include		"ATCPClientSocket.h"
-#include		"PacketAggregator.hpp"
-
-/* ************************************************************************* */
-/*                             Coplien Form                                  */
-/* ************************************************************************* */
-
-User::User(ATCPClientSocket * socket, std::string const & ip)
-  : safe(true), log(false), login(""), ip(ip), tcp(socket)
+User::User(ATCPClientSocket * socket, std::string const & ip, PacketManager &pamanager)
+  : safe(true), log(false), login(""), ip(ip), tcp(socket), pm(pamanager)
 {}
 
 User::User(User const & other)
   : safe(other.safe), log(other.log), login(other.login),
-    ip(other.ip), tcp(other.tcp)
+    ip(other.ip), tcp(other.tcp), pm(other.pm)
 {}
 
 User &			User::operator=(User const & other)
@@ -27,21 +23,12 @@ User &			User::operator=(User const & other)
       this->login = other.login;
       this->ip = other.ip;
       this->tcp = other.tcp;
-
-      // If there is a pointer to something allocated, do this :
-      // if (this->SomeThingAllocated)
-      //   delete this->SomeThingAllocated;
-      // this->SomeThingAllocated = CopyFunc(other.SomeThingAllocated);
     }
   return (*this);
 }
 
 User::~User(void)
 {}
-
-/* ************************************************************************* */
-/*                             Getters/Setters                               */
-/* ************************************************************************* */
 
 bool				User::isSafe(void)const
 {
@@ -107,7 +94,6 @@ bool			User::aggregatePacketToSend(void)
   return (false);
 }
 
-
 bool				User::processPackets(void)
 {
   int				nb_packet;
@@ -119,8 +105,7 @@ bool				User::processPackets(void)
   while (!this->paRead.empty())
     {
       packet = this->paRead.front();
-      // ici on a le packet a executer!
-      // serai parfait : packetManager->Process(packet, this);
+      this->pm.Process(packet, NULL);//null because param ignored 4 the moment
       this->paRead.pop();
     }
   return (true);
