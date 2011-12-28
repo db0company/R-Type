@@ -1,6 +1,6 @@
 #include "Server.hpp"
 #include "Selector.hpp"
-#include "protocol/PacketManager.hpp"
+#include "PacketManager.hpp"
 #ifndef _WIN32
 # include "TCPServerSocketUnix.h"
 #else

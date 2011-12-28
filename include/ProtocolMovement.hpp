@@ -2,8 +2,8 @@
 # define PROTOCOLMOVEMENT_H_
 
 # include	<map>
-# include	"protocol/iProtocolAction.hpp"
-# include	"protocol/PacketData.hpp"
+# include	"iProtocolAction.hpp"
+# include	"PacketData.hpp"
 # include	"eProtocolPacketMovement.hpp"
 
 class		ProtocolMovement : public iProtocolAction

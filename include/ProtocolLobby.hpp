@@ -2,8 +2,8 @@
 # define PROTOCOLLOBBY_H_
 
 # include	<map>
-# include	"protocol/iProtocolAction.hpp"
-# include	"protocol/PacketData.hpp"
+# include	"iProtocolAction.hpp"
+# include	"PacketData.hpp"
 # include	"eProtocolPacketLobby.hpp"
 
 class		ProtocolLobby : public iProtocolAction

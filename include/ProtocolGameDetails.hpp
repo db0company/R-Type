@@ -2,8 +2,8 @@
 #define		PROTOCOLGAMEDETAILS_HPP_
 
 # include	<map>
-# include	"protocol/iProtocolAction.hpp"
-# include	"protocol/PacketData.hpp"
+# include	"iProtocolAction.hpp"
+# include	"PacketData.hpp"
 # include	"eProtocolPacketGameDetails.hpp"
 
 class		ProtocolGameDetails : public iProtocolAction
