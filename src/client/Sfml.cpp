@@ -4,10 +4,16 @@
 #include <sstream>
 #include "Sfml.hpp"
 #include "GraphicClientState.hpp"
+#include "ClientNetwork.hpp"
 
 extern LibGraphic::Volume gVolume;
 
-LibGraphic::Sfml::Sfml(void)
+// LibGraphic::Sfml::Sfml(void)
+// {
+//}
+
+LibGraphic::Sfml::Sfml(ClientNetwork &cn) :
+  _network(cn)
 {
 }
 
