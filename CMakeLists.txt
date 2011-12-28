@@ -29,6 +29,8 @@ add_library(
 
 include_directories(include)
 
+SET(EXECUTABLE_NAME "server")
+
 SET(EXECUTABLE_OUTPUT_PATH ./bin)
 add_executable(
 	server
@@ -53,8 +55,43 @@ add_executable(
 	./src/server/Game.cpp
 )
 
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+find_package(SFML 1.6 REQUIRED system window graphics network audio)
+
 target_link_libraries(
-  server
-  SNetwork
-  Thread
+	server
+	SNetwork
+	Thread
 )
+
+
+add_executable(
+	client
+	./src/client/main.cpp
+	./src/client/ClientNetwork.cpp
+	./src/server/PacketAggregator.cpp
+	./src/protocol/PacketData.cpp
+	./src/protocol/PacketFactory.cpp
+	./src/client/DirectoryManagerUnix.cpp
+	./src/client/Dll.cpp
+	./src/client/DlLoader.cpp
+	./src/client/ExtensionSo.cpp
+	./src/client/MyMusic.cpp
+	./src/client/MySound.cpp
+	./src/client/GraphicClientState.cpp
+	./src/client/Sfml.cpp
+	./src/client/Error.cpp
+	./src/client/Button.cpp
+)
+
+
+include_directories(include)
+
+target_link_libraries(
+	client
+	SNetwork
+	Thread
+	dl
+	${SFML_LIBRARIES}
+)
+
