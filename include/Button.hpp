@@ -12,6 +12,27 @@ namespace LibGraphic
       TYPE_UNKNOWN
     };
 
+  enum eButton
+    {
+      BUTTON_PLAY,
+      BUTTON_EXIT,
+      BUTTON_CREDITS,
+      BUTTON_OPTIONS,
+      BUTTON_INTRO,
+      BUTTON_COMMAND
+    };
+
+
+  struct eButtonInfo
+  {
+    std::string buttonText;
+    float squaleW;
+    float squaleH;
+    float x;
+    float y;
+  };
+
+
   class Button
   {
 

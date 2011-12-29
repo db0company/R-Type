@@ -46,6 +46,12 @@ namespace LibGraphic
     Coord coordInFile;
   };
 
+  struct EventUtils
+  {
+    sf::Event Event;
+    sf::Input Input;
+  };
+
 }
 
 #endif //GRAPHICUTILS_H_

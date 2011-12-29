@@ -6,6 +6,7 @@
 #include "MyMusic.hpp"
 #include "GraphicUtils.hpp"
 #include "IGraphic.hpp"
+#include "Istate.hpp"
 
 namespace LibGraphic
 {
@@ -21,27 +22,12 @@ namespace LibGraphic
     ~GraphicClientState(void);
 
   public:
-    sf::Sprite & getSprite(std::string const &) const;
-    MyMusic * getMusic(std::string const &) const;
-    sf::Font * getFont(std::string const &) const;
-
-  public:
     void draw(eStates);
-    Event getEventFromState(eStates &);
+    Event getEventFromState(eStates);
 
   private:
     Event eventStart(eStates & scene);
-   inline sf::String * getStdToSfString(std::string const &, sf::Font *);
-
-    void displayStart();
-    void displayRoomlist();
-    void displayGameparameter();
-    void displayRoom();
-    void displayOptions();
-    void displayCredits();
-    void displayRanking();
-    void displayIntro();
-    void displayIngame();
+    void loadStates();
 
   private:
     std::map<std::string const, GraphicRessource *>
@@ -49,8 +35,10 @@ namespace LibGraphic
     std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
     std::map<std::string const, MySound *> const & _ressourcesSounds;
     std::map<std::string const, sf::Font *> const & _ressourcesFont;
+    std::map<eStates, IState *> _stateInfos;
+  private:
     sf::RenderWindow & _app;
-
+    sf::Event _catchedEvent;
   };
 
 }
