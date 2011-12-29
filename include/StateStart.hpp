@@ -38,7 +38,7 @@ namespace LibGraphic
 
   private:
     void drawText();
-    void cursorMenuPos();
+    void cursorMenuPos(const sf::Event &);
 
   private:
     std::map<std::string const, GraphicRessource *>
