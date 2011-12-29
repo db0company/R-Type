@@ -25,7 +25,6 @@ class		User
   PacketAggregator	paWrite;
 
   PacketAggregator	paReadUDP;
-  PacketAggregator	paWriteUDP;
  public:
   User(ATCPClientSocket *, std::string const & ip, PacketManager &);
   User(User const & other);
@@ -45,7 +44,7 @@ class		User
   bool			feedPacketAggregator(char *data, int size);
   bool			processPackets(void);
   bool			aggregatePacketToSend(void);
-  bool			aggregatePacketToSend(AUDPServerSocket*);
+  // bool			aggregatePacketToSend(AUDPServerSocket*);
 };
 
 #endif			// USERHPP

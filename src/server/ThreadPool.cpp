@@ -4,7 +4,7 @@
 #ifdef _WIN32
 #include "ThreadWindows.hpp"
 #else
-#include "ThreadUnix.hpp"   
+#include "ThreadUnix.hpp"
 #endif
 
 template <typename T>
@@ -72,6 +72,5 @@ void		*manageThread(void *param)
   while (1)
     {
     }
-
-  return (NULL); 
+  return (NULL);
 }

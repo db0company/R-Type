@@ -78,11 +78,11 @@ bool ClientNetwork::connect(std::string const &ip, int port)
       std::cerr << "Error: Can't create socket" << std::endl;
       return (false);
     }
-  // if (!this->_udp->SNCreate(ip, port))
-  //   {
-  //     std::cerr << "Error: Can't create socket udp" << std::endl;
-  //     return (false);
-  //   }
+  if (!this->_udp->SNCreate(ip, port))
+    {
+      std::cerr << "Error: Can't create socket udp" << std::endl;
+      return (false);
+    }
   if (!this->_tcp->SNConnect())
     {
       std::cerr << "Error: Can't connect to server " << ip
@@ -91,7 +91,7 @@ bool ClientNetwork::connect(std::string const &ip, int port)
     }
   std::cout << "Connected to Server" << std::endl;
   this->_tcp->SNAddRead();
-  // this->_udp->SNAddRead();
+  this->_udp->SNAddRead();
   this->_tcp->SNAddWrite();
   return (true);
 }
@@ -123,13 +123,31 @@ bool ClientNetwork::feedPacketAggregatorTCP(void)
   return (true);
 }
 
+// udp ok? todo a tester
+bool ClientNetwork::feedPacketAggregatorUDP(void)
+{
+  int size;
+  char buffer[1024] = {0};
+
+  if (this->_udp->SNGetRead())
+    {
+      if ((size = this->_udp->SNRead(buffer, 1024)) <= 0)
+	{
+	  return (false);
+	}
+      else
+	this->paReadUDP.concat(buffer, size);
+    }
+  return (true);
+}
+
 bool ClientNetwork::process(void)
 {
   int				nb_packet;
   ProtocolPacket		*packet;
 
   nb_packet = this->paRead.aggregateCharToPackets();
-  if (this->paRead.empty())
+  if (this->paRead.empty() && this->paReadUDP.empty())
     return (false);
   while (!this->paRead.empty())
     {
@@ -137,6 +155,13 @@ bool ClientNetwork::process(void)
       // ici on a le packet a executer!
       // serai parfait : packetManager->Process(packet);
       this->paRead.pop();
+    }
+  while (!this->paReadUDP.empty())
+    {
+      packet = this->paReadUDP.front();
+      // ici on a le packet a executer!
+      // serai parfait : packetManager->Process(packet);
+      this->paReadUDP.pop();
     }
   return (true);
 }
@@ -152,19 +177,33 @@ bool ClientNetwork::sendPacketToServer(void)
       nb = this->paWrite.aggregatePacketToChar();
       if (nb > 0)
 	{
-	  std::cout << nb << "packet(s) to aggregate " << std::endl;
+	  std::cout << nb << "packet(s) to aggregate (TCP)" << std::endl;
 	  size = this->paWrite.getSize();
 	  msg = this->paWrite.getMsg();
 	  this->_tcp->SNWrite(msg, size);
 	  this->paWrite.erase(); //done ? todo
 	}
-      return (true);
     }
-  return (false);
+  nb = this->paWriteUDP.aggregatePacketToChar();
+  if (nb > 0)
+    {
+      std::cout << nb << "packet(s) to aggregate (UDP)" << std::endl;
+      size = this->paWriteUDP.getSize();
+      msg = this->paWriteUDP.getMsg();
+      this->_udp->SNWrite(msg, size);
+      this->paWriteUDP.erase(); //done ? todo
+    }
+  return (true);
 }
 
 bool ClientNetwork::pushTCP(ProtocolPacket *t)
 {
   this->paWrite.push(t);
+  return (true);
+}
+
+bool ClientNetwork::pushUDP(ProtocolPacket *t)
+{
+  this->paWriteUDP.push(t);
   return (true);
 }

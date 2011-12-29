@@ -21,9 +21,11 @@ public:
   bool connect(void);
   bool select(void);
   bool feedPacketAggregatorTCP(void);
+  bool feedPacketAggregatorUDP(void);
   bool process(void);
   bool sendPacketToServer(void);
   bool pushTCP(ProtocolPacket *);
+  bool pushUDP(ProtocolPacket *);
 private:
   ATCPClientSocket *_tcp;
   ISocket	   *_udp;

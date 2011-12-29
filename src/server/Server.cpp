@@ -49,6 +49,7 @@ bool Server::init(int port)
       std::cerr << "Error: Can't listen on socket" << std::endl;
     }
   this->_listener->SNAddRead();
+  this->_udp->SNAddRead();
   return (true);
 }
 
@@ -106,7 +107,7 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
 	this->_quitQueue.push(socket->getIp());
       socket->SNDelRead();
       socket->SNDelWrite();
-      socket->SNClose(); // ?
+      socket->SNClose();
       return (true);
     }
   return (false);
@@ -132,20 +133,20 @@ bool Server::readFromClients(void)
 	    }
 	}
     }
-  // if (this->_udp->SNGetRead())
-  //   {
-  //     int size;
-  //     char msg[1024];
-  //     std::string ip;
-  //     std::cout << "udp"<< std::endl;
-  //     if ((size = this->_udp->SNReadClient(msg, 1024, ip))) // todo check si envoi bonne size
-  // 	{
-  // 	  if (this->_userMap.find(ip) != this->_userMap.end())
-  // 	    {
-  // 	      this->_userMap[ip]->feedPacketAggregator(msg, size);
-  // 	    }
-  // 	}
-  //   }
+  if (this->_udp->SNGetRead())
+    {
+      int size;
+      char msg[1024];
+      std::string ip;
+
+      if ((size = this->_udp->SNReadClient(msg, 1024, ip))) //todo check size
+  	{
+  	  if (this->_userMap.find(ip) != this->_userMap.end())
+  	    {
+	      this->_userMap[ip]->feedPacketAggregator(msg, size);
+  	    }
+  	}
+    }
   return (true);
 }
 
@@ -172,14 +173,12 @@ bool	Server::writeToClients(void)
 {
   std::map<std::string, User *>::iterator	it;
   User *user = NULL;
+
   for (it = this->_userMap.begin(); it != this->_userMap.end(); ++it)
     {
       if ((user = it->second) == NULL)
 	continue;
-      // user->aggregatePacketToSend();
-      // this fonction will sncanWrite() ? if yes
-      // will call PacketAggregator.aggregatePacketToChar()
-      // and then SNWrite(); ! -> bool
+      user->aggregatePacketToSend();
     }
   return (true);
 }
@@ -188,12 +187,11 @@ bool	Server::processPackets(void)
 {
   std::map<std::string, User *>::iterator	it;
   User *user = NULL;
+
   for (it = this->_userMap.begin(); it != this->_userMap.end(); ++it)
     {
-      // std::cout << "un user" << it->first << std::endl;
       if ((user = it->second) == NULL)
 	continue;
-      // std::cout << "je vais process" << it->first << std::endl;
       user->processPackets();
     }
   return (true);
