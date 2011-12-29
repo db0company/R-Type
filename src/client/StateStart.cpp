@@ -193,23 +193,26 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 void LibGraphic::StateStart::cursorMenuPos(const sf::Event & Event)
 {
   const sf::Input & Input = this->_app.GetInput();
-  static float save = -1;
   float JoystickPOV = Input.GetJoystickAxis(0, sf::Joy::AxisPOV);
 
-  if (save == JoystickPOV && Event.Type != sf::Event::KeyPressed)
+  std::cout << JoystickPOV << std::endl;
+  if (JoystickPOV == -1 && Event.Type != sf::Event::KeyPressed)
     return;
-  save = JoystickPOV;
+  if (Event.Key.Code == sf::Key::Up)
+    {
+      std::cout << "UP" << std::endl;
+    }
   switch (this->_currentButton)
     {
     case PLAY :
       {
-	if ((JoystickPOV >= 45 && JoystickPOV < 135) ||
+	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
 	    Event.Key.Code == sf::Key::Right)
 	  this->_currentButton = OPTIONS;
-	else if ((JoystickPOV >= 135 && JoystickPOV < 225) ||
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 Event.Key.Code == sf::Key::Down)
 	  this->_currentButton = CREDITS;
-	else if ((JoystickPOV >= 315 || JoystickPOV < 45) ||
+	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = INTRO;
 	break;
@@ -219,50 +222,50 @@ void LibGraphic::StateStart::cursorMenuPos(const sf::Event & Event)
 	if ((JoystickPOV >= 225 && JoystickPOV < 315) ||
 	    Event.Key.Code == sf::Key::Left)
 	  this->_currentButton = CREDITS;
-	else if ((JoystickPOV >= 315 || JoystickPOV <= 45) ||
+	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = OPTIONS;
 	break;
       }
     case CREDITS :
       {
-	if ((JoystickPOV >= 45 && JoystickPOV < 135) ||
+	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
 	    Event.Key.Code == sf::Key::Right)
 	  this->_currentButton = EXIT;
-	else if ((JoystickPOV >= 315 || JoystickPOV < 45) ||
+	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = PLAY;
 	break;
       }
     case OPTIONS :
       {
-	if ((JoystickPOV >= 225 && JoystickPOV < 315) ||
+	if ((JoystickPOV > 225 && JoystickPOV < 315) ||
 	    Event.Key.Code == sf::Key::Left)
 	  this->_currentButton = PLAY;
-	else if ((JoystickPOV >= 135 && JoystickPOV < 225) ||
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 Event.Key.Code == sf::Key::Down)
 	  this->_currentButton = EXIT;
-	else if ((JoystickPOV >= 315 || JoystickPOV < 45) ||
+	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = RANKING;
 	break;
       }
     case RANKING :
       {
-	if ((JoystickPOV >= 225 && JoystickPOV <= 315) ||
+	if ((JoystickPOV > 225 && JoystickPOV < 315) ||
 	    Event.Key.Code == sf::Key::Left)
 	  this->_currentButton = INTRO;
-	else if ((JoystickPOV >= 135 && JoystickPOV < 225) ||
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 Event.Key.Code == sf::Key::Down)
 	  this->_currentButton = OPTIONS;
 	break;
       }
     case INTRO :
       {
-	if ((JoystickPOV >= 45 && JoystickPOV < 135) ||
+	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
 	    Event.Key.Code == sf::Key::Right)
 	  this->_currentButton = RANKING;
-	else if ((JoystickPOV >= 135 && JoystickPOV < 225) ||
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 Event.Key.Code == sf::Key::Down)
 	  this->_currentButton = PLAY;
 	break;
