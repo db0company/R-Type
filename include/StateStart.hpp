@@ -9,6 +9,17 @@ namespace LibGraphic
 
   class StateStart : public IState
   {
+  private:
+    enum eSelectedButton
+      {
+	PLAY,
+	EXIT,
+	CREDITS,
+	OPTIONS,
+	INTRO,
+	RANKING
+      };
+
   public:
     StateStart(std::map<std::string const, GraphicRessource *> const &,
 		       std::map<std::string const, MyMusic *> const &,
@@ -19,7 +30,6 @@ namespace LibGraphic
     virtual bool init();
     virtual void draw();
     virtual Event gereEvent();
-
   public:
     sf::Sprite & getSprite(std::string const &) const;
     MyMusic * getMusic(std::string const &) const;
@@ -27,14 +37,18 @@ namespace LibGraphic
    inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
   private:
+    void drawText();
+    void cursorMenuPos();
+
+  private:
     std::map<std::string const, GraphicRessource *>
     const & _ressourcesSprite;
     std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
     std::map<std::string const, MySound *> const & _ressourcesSounds;
     std::map<std::string const, sf::Font *> const & _ressourcesFont;
-  private:
     sf::RenderWindow & _app;
-
+  private:
+    eSelectedButton _currentButton;
 
   };
 
