@@ -19,7 +19,6 @@ namespace LibGraphic
 	INTRO,
 	RANKING
       };
-
   public:
     StateStart(std::map<std::string const, GraphicRessource *> const &,
 		       std::map<std::string const, MyMusic *> const &,
@@ -49,7 +48,7 @@ namespace LibGraphic
     sf::RenderWindow & _app;
   private:
     eSelectedButton _currentButton;
-
+    sf::Clock Clock;
   };
 
 }
