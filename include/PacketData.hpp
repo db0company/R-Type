@@ -1,4 +1,3 @@
-
 #ifndef			PROTOCOLPACKETDATA_H_
 # define		PROTOCOLPACKETDATA_H_
 
@@ -55,4 +54,3 @@ class			PacketData
 };
 
 #endif			// !PROTOCOLPACKETDATA_H_
-

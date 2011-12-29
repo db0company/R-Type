@@ -3,9 +3,9 @@
 
 enum	eProtocolPacketLobby
   {
-    LOBBY_ERROR = 99,
     CHAT	= 0,
-    LOBBY_MAX	= 1
+    LOBBY_MAX	= 1,
+    LOBBY_ERROR = 99
   };
 
 #endif // __EPROTOCOLPACKET_LOBBY_HPP

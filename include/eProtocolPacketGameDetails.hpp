@@ -3,12 +3,12 @@
 
 enum		eProtocolPacketGameDetails
   {
-    GAMEDATAIL_ERROR	= 99,
     PLAYERLOGIN		= 0,
     SCORE		= 1,
     GETMAP		= 2,
     PLAYERLIFE		= 3,
-    GAME_DETAILS_MAX	= 4
+    GAME_DETAILS_MAX	= 4,
+    GAMEDATAIL_ERROR	= 99
   };
 
 #endif // __EPROTOCOLPACKET_GAME_DETAILS_HPP__

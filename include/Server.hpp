@@ -7,6 +7,7 @@
 #include "User.hpp"
 #include "GameManager.hpp"
 #include "ATCPServerSocket.h"
+#include "AUDPServerSocket.h"
 #include "ISelector.h"
 #include "PacketManager.hpp"
 
@@ -34,6 +35,7 @@ private:
   std::map<std::string, User *>	_userMap;
   std::queue<std::string>	_quitQueue;
   ATCPServerSocket*		_listener;
+  AUDPServerSocket*		_udp;
   ISelector*			_selector;
   GameManager			_gameManager;
   PacketManager			_pm;

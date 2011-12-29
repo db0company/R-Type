@@ -3,8 +3,10 @@
 #include "PacketManager.hpp"
 #ifndef _WIN32
 # include "TCPServerSocketUnix.h"
+# include "UDPServerSocketUnix.h"
 #else
 # include "TCPServerSocketWindows.h"
+# include "UDPServerSocketWindows.h"
 #endif
 
 Server&	Server::operator=(Server const &){return *this;}
@@ -15,9 +17,11 @@ Server::Server(void)
 {
 #ifndef _WIN32
   this->_selector = new Selector<int>;
+  this->_udp = new UDPServerSocketUnix(this->_selector);
   this->_listener = new TCPServerSocketUnix(this->_selector);
 #else
   this->_selector = new Selector<SOCKET>;
+  this->_udp = new UDPServerSocketWindows(this->_selector);
   this->_listener = new TCPServerSocketWindows(this->_selector);
 #endif
 }
@@ -34,8 +38,13 @@ bool Server::init(int port)
       std::cerr << "Error: Can't Create Listener Socket on port " << this->_port << std::endl;
       return (false);
     }
+  if (!(this->_udp->SNCreate(SERV_ADDR, port)))
+    {
+      std::cerr << "Error: Can't Create Udp Socket on port " << this->_port << std::endl;
+      return (false);
+    }
   std::cout << "Server Listening on port " << this->_port << std::endl;
-  if (!this->_listener->SNListen())
+ if (!this->_listener->SNListen())
     {
       std::cerr << "Error: Can't listen on socket" << std::endl;
     }
@@ -97,6 +106,7 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
 	this->_quitQueue.push(socket->getIp());
       socket->SNDelRead();
       socket->SNDelWrite();
+      socket->SNClose(); // ?
       return (true);
     }
   return (false);
@@ -119,14 +129,23 @@ bool Server::readFromClients(void)
 		{
 		  this->removeClient(user, socket);
 		}
-	      // char		buff[512] = {0};
-	      // if (socket->SNRead(buff, 514) <= 0)
-	      // 	this->removeClient(user, socket);
-	      // else
-	      // 	std::cout << socket->getIp() << ": " << buff;
 	    }
 	}
     }
+  // if (this->_udp->SNGetRead())
+  //   {
+  //     int size;
+  //     char msg[1024];
+  //     std::string ip;
+  //     std::cout << "udp"<< std::endl;
+  //     if ((size = this->_udp->SNReadClient(msg, 1024, ip))) // todo check si envoi bonne size
+  // 	{
+  // 	  if (this->_userMap.find(ip) != this->_userMap.end())
+  // 	    {
+  // 	      this->_userMap[ip]->feedPacketAggregator(msg, size);
+  // 	    }
+  // 	}
+  //   }
   return (true);
 }
 
@@ -140,7 +159,10 @@ bool	Server::cleanClients(void)
     {
       ip = this->_quitQueue.front();
       if (this->_userMap.find(ip) != this->_userMap.end())
-	this->_userMap.erase(ip);
+	{
+	  delete this->_userMap[this->_quitQueue.front()];
+	  this->_userMap.erase(ip);
+	}
       this->_quitQueue.pop();
     }
   return (true);
@@ -154,7 +176,7 @@ bool	Server::writeToClients(void)
     {
       if ((user = it->second) == NULL)
 	continue;
-      //user->aggregatePacketToSend();
+      // user->aggregatePacketToSend();
       // this fonction will sncanWrite() ? if yes
       // will call PacketAggregator.aggregatePacketToChar()
       // and then SNWrite(); ! -> bool
@@ -168,8 +190,10 @@ bool	Server::processPackets(void)
   User *user = NULL;
   for (it = this->_userMap.begin(); it != this->_userMap.end(); ++it)
     {
+      // std::cout << "un user" << it->first << std::endl;
       if ((user = it->second) == NULL)
 	continue;
+      // std::cout << "je vais process" << it->first << std::endl;
       user->processPackets();
     }
   return (true);

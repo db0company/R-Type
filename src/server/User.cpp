@@ -2,6 +2,7 @@
 #include <string>
 #include "User.hpp"
 #include "ATCPClientSocket.h"
+#include "AUDPServerSocket.h"
 #include "PacketAggregator.hpp"
 #include "PacketManager.hpp"
 
@@ -60,6 +61,7 @@ std::string const &		User::getIp(void)const
   return (this->ip);
 }
 
+//tcp
 bool				User::feedPacketAggregator(void)
 {
   char buffer[1024] = {0};
@@ -73,6 +75,14 @@ bool				User::feedPacketAggregator(void)
   return (true);
 }
 
+//udp
+bool				User::feedPacketAggregator(char *data, int size)
+{
+  this->paReadUDP.concat(data, size);
+  return (true);
+}
+
+// tcp
 bool			User::aggregatePacketToSend(void)
 {
   unsigned int size;
@@ -89,9 +99,29 @@ bool			User::aggregatePacketToSend(void)
 	  this->tcp->SNWrite(msg, size);
 	  this->paWrite.erase();
 	}
-      return (true);
     }
-  return (false);
+  return (true);
+}
+
+//udp
+bool			User::aggregatePacketToSend(AUDPServerSocket *so)
+{
+  unsigned int size;
+  unsigned char	*msg;
+  int nb;
+
+  if (so->SNGetWrite())
+    {
+      nb = this->paWriteUDP.aggregatePacketToChar();
+      if (nb > 0)
+	{
+	  size = this->paWriteUDP.getSize();
+	  msg = this->paWriteUDP.getMsg();
+	  so->SNWrite(msg, size);
+	  this->paWriteUDP.erase();
+	}
+    }
+  return (true);
 }
 
 bool				User::processPackets(void)
@@ -100,13 +130,23 @@ bool				User::processPackets(void)
   ProtocolPacket		*packet;
 
   nb_packet = this->paRead.aggregateCharToPackets();
-  if (this->paRead.empty())
-    return (false);
+  if (nb_packet > 0)
+    std::cout << "packet ds la queue read:" << nb_packet << std::endl;
+  if (this->paRead.empty() && this->paReadUDP.empty())
+    {
+      return (false);
+    }
   while (!this->paRead.empty())
     {
       packet = this->paRead.front();
       this->pm.Process(packet, NULL);//null because param ignored 4 the moment
       this->paRead.pop();
+    }
+  while (!this->paReadUDP.empty())
+    {
+      packet = this->paReadUDP.front();
+      this->pm.Process(packet, NULL);
+      this->paReadUDP.pop();
     }
   return (true);
 }

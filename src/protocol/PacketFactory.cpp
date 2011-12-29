@@ -41,7 +41,7 @@ ProtocolPacket *		PacketFactory::createPacket(eProtocolPacketGroup group,
 eProtocolPacketGroup			PacketFactory::getPacketGroup(ProtocolPacket * packet)
 {
   return (packet && packet->header.group < GROUP_MAX ?
-  	  static_cast<eProtocolPacketGroup>(packet->header.group)
+	   static_cast<eProtocolPacketGroup>(packet->header.group)
   	  : GROUP_ERROR);
 }
 

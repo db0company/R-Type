@@ -20,18 +20,20 @@ public:
   bool connect(std::string const &ip, int port);
   bool connect(void);
   bool select(void);
-  bool feedPacketAggregator(void);
+  bool feedPacketAggregatorTCP(void);
   bool process(void);
-  bool sendPackettoServer(void);
+  bool sendPacketToServer(void);
+  bool pushTCP(ProtocolPacket *);
 private:
-
   ATCPClientSocket *_tcp;
   ISocket	   *_udp;
   ISelector	   *_selector;
-  PacketAggregator	paRead;
-  PacketAggregator	paWrite;
-  std::string		_ip;
-  int			_port;
+  PacketAggregator paRead;
+  PacketAggregator paWrite;
+  PacketAggregator paReadUDP;
+  PacketAggregator paWriteUDP;
+  std::string	   _ip;
+  int		   _port;
 };
 
 #endif	// CLIENTNETWORK_H_
