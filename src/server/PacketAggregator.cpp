@@ -31,7 +31,7 @@ bool PacketAggregator::concat(char *str, int size)
   if (size + this->_index > 4096)
     return (false);
   memcpy(this->_buffer + this->_index, str, size);
-  std::cout << "concat here " << size << " index:"  << this->_index << std::endl;
+  // std::cout << "concat here " << size << " index:"  << this->_index << std::endl;
   this->_index += size;
   return (true);
 }
@@ -56,13 +56,10 @@ int  PacketAggregator::aggregatePacketToChar(void)
       memcpy(this->_buffer + this->_index, &(packet->header),
 	     sizeof(packet->header));
       this->_index += sizeof(packet->header);
+      // std::cout << "size : " << PacketFactory::getPacketDataSize(packet) << std::endl;
       memcpy(this->_buffer + this->_index,
-	     PacketFactory::getPacketData(packet),
+	     PacketFactory::getPacketData(packet)->getData(),
 	     PacketFactory::getPacketDataSize(packet));
-      // std::cout << "packettochar:" << "index " << this->_index
-      // 		<< " factorysize "
-      // << PacketFactory::getPacketDataSize(packet)
-      // << std::endl;
       this->_index += PacketFactory::getPacketDataSize(packet);
       this->_packetQueue.pop();
       nb_packet++;
@@ -86,6 +83,7 @@ int  PacketAggregator::aggregateCharToPacket(void)
 {
   ProtocolPacketHeader header;
   unsigned int next;
+  unsigned char *packet_data;
 
   next = 0;
   // std::cout << "index(" << this->_index << ") sizeof("
@@ -95,16 +93,20 @@ int  PacketAggregator::aggregateCharToPacket(void)
   memcpy(&header, this->_buffer, sizeof(ProtocolPacketHeader));
   if (this->_index - sizeof(ProtocolPacketHeader) < header.size)
     return (0);
-  ProtocolPacket * packet = PacketFactory::createPacket(static_cast<eProtocolPacketGroup>(header.group),
-                          header.instruction, this->_buffer + sizeof(ProtocolPacketHeader), header.size);
+
+  packet_data = new unsigned char[header.size];
+  // std::cout << "premier caracter ici:" << std::endl;
+  // std::cout << "||"<< (int)this->_buffer[sizeof(ProtocolPacketHeader)] <<"||" <<std::endl;
+  memcpy(packet_data, this->_buffer + sizeof(ProtocolPacketHeader), header.size);
+  // std::cout << "::"<< (int)packet_data[0] <<"::" << packet_data[0] << " size: " << header.size << std::endl;
+  ProtocolPacket * packet = PacketFactory::createPacket(static_cast<eProtocolPacketGroup>(header.group), header.instruction, packet_data, header.size);
+
+  // ProtocolPacket * packet = PacketFactory::createPacket(static_cast<eProtocolPacketGroup>(header.group), header.instruction, this->_buffer + sizeof(ProtocolPacketHeader), header.size);
   this->_packetQueue.push(packet);
-  /*
-  ** validitee packet.
-  */
   next += sizeof(ProtocolPacketHeader) + PacketFactory::getPacketDataSize(packet);
-  std::cout << "je memmove (buffer[0], buffer["<< next << "], 4096 - " << next << ") = " << 4096 - next << std::endl;
+  // std::cout << "je memmove (buffer[0], buffer["<< next << "], 4096 - " << next << ") = " << 4096 - next << std::endl;
   memmove(this->_buffer, &(this->_buffer[next]), 4096 - next);
-  std::cout << "je memset (buffer[" << next << "], 0, " << 4096 - next << ")" << std::endl;
+  // std::cout << "je memset (buffer[" << next << "], 0, " << 4096 - next << ")" << std::endl;
   memset(&(this->_buffer)[this->_index - next], 0, 4096 - (this->_index - next));
 
   // std::cout << "next ====" << next << std::endl;

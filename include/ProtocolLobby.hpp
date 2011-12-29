@@ -9,8 +9,8 @@
 class		ProtocolLobby : public iProtocolAction
 {
 private:
-  typedef bool (ProtocolLobby::*ptr_funct)(PacketData &);
-  std::map<eProtocolPacketLobby, ptr_funct>	actionmap;
+  typedef bool (ProtocolLobby::*ptr_functlobby)(PacketData &);
+  std::map<eProtocolPacketLobby, ptr_functlobby>	actionmap;
 
 public:
 

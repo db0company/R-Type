@@ -13,13 +13,14 @@ ProtocolMovement::ProtocolMovement()
 
 ProtocolMovement::ProtocolMovement(ProtocolMovement const & other)
 {
-  (void)other;
+  this->actionmap = other.actionmap;
 }
 
 ProtocolMovement &		ProtocolMovement::operator=(ProtocolMovement const & other)
 {
   if (&other != this)
     {
+      this->actionmap = other.actionmap;
     }
   return (*this);
 }
@@ -37,7 +38,10 @@ void			ProtocolMovement::action(ushort instruction,
   if (instruction >= MOVEMENT_MAX)
     (void)this->actionError(data);
   if ((it = this->actionmap.find(static_cast<eProtocolPacketMovement>(instruction))) == this->actionmap.end())
+    {
     (void)this->actionError(data);
+    return ;
+    }
   ptr = it->second;
   (this->*ptr)(data);
   //  (void)((this->*actionmap[static_cast<eProtocolContact>(instruction)]) //oldx

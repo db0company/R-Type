@@ -37,23 +37,32 @@ PacketManager::~PacketManager(void)
 
 bool				PacketManager::Process(ProtocolPacket *packet, User *)
 {
-  std::cout << "group: " << PacketFactory::getPacketGroup(packet) << std::endl;
   PacketData *textData = PacketFactory::getPacketData(packet);
-  // if (this->groupaction.find(PacketFactory::getPacketGroup(packet)) == this->groupaction.end())
   if (this->groupaction.find(PacketFactory::getPacketGroup(packet)) == this->groupaction.end())
     {
-      // std::cout << "if here" << std::endl;
       this->actionError();
       return (false);
     }
   else
     {
+      int group = PacketFactory::getPacketGroup(packet);
+      std::cout << "\033[31mGroup\033[00m(";
+      if (group == THE_GAME)
+	std::cout << "THE_GAME";
+      else if (group == GAME_DETAILS)
+	std::cout << "GAME_DETAILS";
+      else if (group == MOVEMENT)
+	std::cout << "MOVEMENT";
+      else if (group == LOBBY)
+	std::cout << "LOBBY";
+      else
+	std::cout << "ERROR@@@";
+      std::cout << ") \033[32mInst\033[00m(" <<
+	PacketFactory::getPacketInstruction(packet) << ")" << std::endl;
+      textData->prettyPrint();
+
       this->groupaction[PacketFactory::getPacketGroup(packet)]->action
       	(PacketFactory::getPacketInstruction(packet), *textData);
-      //-> debug
-      std::cout << "packet received ";
-      textData->prettyPrint();
-      //<- end debug
     }
   return (true);
 }

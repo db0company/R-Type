@@ -170,10 +170,12 @@ void			PacketData::addString(std::string const & str)
 
 void			PacketData::addChar(char c)
 {
-  DataRawType tmp[sizeof(char)];
-  memcpy(tmp, &c, sizeof(char));
-  for (uint i = 0 ; i < sizeof(char) ; ++i)
-    this->data.push_back(tmp[i]);
+  std::cout << "addChar " << c << std::endl;
+  this->data.push_back(c);
+  // DataRawType tmp[sizeof(char)];
+  // memcpy(tmp, &c, sizeof(char));
+  // for (uint i = 0 ; i < sizeof(char) ; ++i)
+  //   this->data.push_back(tmp[i]);
 }
 
 void			PacketData::addUChar(uchar u)

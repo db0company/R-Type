@@ -15,13 +15,14 @@ ProtocolGame::ProtocolGame()
 
 ProtocolGame::ProtocolGame(ProtocolGame const & other)
 {
-  (void)other;
+  this->actionmap = other.actionmap;
 }
 
 ProtocolGame &		ProtocolGame::operator=(ProtocolGame const & other)
 {
   if (&other != this)
     {
+      this->actionmap = other.actionmap;
     }
   return (*this);
 }
@@ -39,7 +40,10 @@ void			ProtocolGame::action(ushort instruction,
   if (instruction >= GAME_MAX)
     (void)this->actionError(data);
   if ((it = this->actionmap.find(static_cast<eProtocolPacketGame>(instruction))) == this->actionmap.end())
-    (void)this->actionError(data);
+    {
+      (void)this->actionError(data);
+      return ;
+    }
   ptr = it->second;
   (this->*ptr)(data);
   //  (void)((this->*actionmap[static_cast<eProtocolContact>(instruction)]) //oldx

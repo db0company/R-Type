@@ -126,21 +126,24 @@ bool			User::aggregatePacketToSend(AUDPServerSocket *so)
 
 bool				User::processPackets(void)
 {
-  int				nb_packet;
-  ProtocolPacket		*packet;
+  int				nb_packet = 0;
+  ProtocolPacket		*packet = NULL;
+  int				tmp_i = 0;
 
   nb_packet = this->paRead.aggregateCharToPackets();
   if (nb_packet > 0)
-    std::cout << "packet ds la queue read:" << nb_packet << std::endl;
+    std::cout << "TCP PacketQueue.size() == " << nb_packet << std::endl;
   if (this->paRead.empty() && this->paReadUDP.empty())
     {
       return (false);
     }
   while (!this->paRead.empty())
     {
+      std::cout << "\t\033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paRead.front();
-      this->pm.Process(packet, NULL);//null because param ignored 4 the moment
+      this->pm.Process(packet, NULL);
       this->paRead.pop();
+      ++tmp_i;
     }
   while (!this->paReadUDP.empty())
     {

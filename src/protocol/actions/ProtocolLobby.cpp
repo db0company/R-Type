@@ -1,20 +1,22 @@
+#include		<iostream>
 #include		"ProtocolLobby.hpp"
 
 ProtocolLobby::ProtocolLobby()
 {
-  this->actionmap[LOBBY_ERROR] = &ProtocolLobby::actionError;
   this->actionmap[CHAT] = &ProtocolLobby::actionChat;
+  this->actionmap[LOBBY_ERROR] = &ProtocolLobby::actionError;
 }
 
 ProtocolLobby::ProtocolLobby(ProtocolLobby const & other)
 {
-  (void)other;
+  this->actionmap = other.actionmap;
 }
 
 ProtocolLobby &		ProtocolLobby::operator=(ProtocolLobby const & other)
 {
   if (&other != this)
     {
+      this->actionmap = other.actionmap;
     }
   return (*this);
 }
@@ -26,21 +28,23 @@ ProtocolLobby::~ProtocolLobby(void)
 void			ProtocolLobby::action(ushort instruction,
 					     PacketData & data)
 {
-  std::map<eProtocolPacketLobby, ptr_funct>::iterator it;
-  ptr_funct		ptr;
+  std::map<eProtocolPacketLobby, ptr_functlobby>::iterator it;
+  ptr_functlobby	ptr;
 
   if (instruction >= LOBBY_MAX)
     (void)this->actionError(data);
   if ((it = this->actionmap.find(static_cast<eProtocolPacketLobby>(instruction))) == this->actionmap.end())
-    (void)this->actionError(data);
+    {
+      this->actionError(data);
+      return ;
+    }
   ptr = it->second;
   (this->*ptr)(data);
-  //  (void)((this->*actionmap[static_cast<eProtocolContact>(instruction)]) //oldx
 }
 
 bool			ProtocolLobby::actionError(PacketData &)
 {
-  return (true);
+  return (false);
 }
 
 bool			ProtocolLobby::actionChat(PacketData & data)

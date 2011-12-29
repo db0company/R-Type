@@ -78,41 +78,35 @@ bool ClientNetwork::connect(std::string const &ip, int port)
       std::cerr << "Error: Can't create socket" << std::endl;
       return (false);
     }
+  // if (!this->_udp->SNCreate(ip, port))
+  //   {
+  //     std::cerr << "Error: Can't create socket udp" << std::endl;
+  //     return (false);
+  //   }
   if (!this->_tcp->SNConnect())
     {
       std::cerr << "Error: Can't connect to server " << ip
 		<< " on port " << port << std::endl;
       return (false);
     }
+  std::cout << "Connected to Server" << std::endl;
   this->_tcp->SNAddRead();
-  return (true);
-}
-
-bool ClientNetwork::connect(void)
-{
-  if (!this->_tcp->SNCreate(this->_ip, this->_port))
-    {
-      std::cerr << "Error: Can't create socket" << std::endl;
-      return (false);
-    }
-  if (!this->_tcp->SNConnect())
-    {
-      std::cerr << "Error: Can't connect to server " << this->_ip
-		<< " on port " << this->_port << std::endl;
-      return (false);
-    }
-  this->_tcp->SNAddRead();
+  // this->_udp->SNAddRead();
+  this->_tcp->SNAddWrite();
   return (true);
 }
 
 bool ClientNetwork::select(void)
 {
   if (this->_selector)
-    return (this->_selector->SNSelect());
-  return (false);
+    if (!this->_selector->SNSelect())
+      {
+	return (false);
+      }
+  return (true);
 }
 
-bool ClientNetwork::feedPacketAggregator(void)
+bool ClientNetwork::feedPacketAggregatorTCP(void)
 {
   int size;
   char buffer[1024] = {0};
@@ -126,7 +120,6 @@ bool ClientNetwork::feedPacketAggregator(void)
       else
 	this->paRead.concat(buffer, size);
     }
-  //idem udp.
   return (true);
 }
 
@@ -148,7 +141,7 @@ bool ClientNetwork::process(void)
   return (true);
 }
 
-bool ClientNetwork::sendPackettoServer(void)
+bool ClientNetwork::sendPacketToServer(void)
 {
   unsigned int size;
   unsigned char	*msg;
@@ -159,6 +152,7 @@ bool ClientNetwork::sendPackettoServer(void)
       nb = this->paWrite.aggregatePacketToChar();
       if (nb > 0)
 	{
+	  std::cout << nb << "packet(s) to aggregate " << std::endl;
 	  size = this->paWrite.getSize();
 	  msg = this->paWrite.getMsg();
 	  this->_tcp->SNWrite(msg, size);
@@ -167,4 +161,10 @@ bool ClientNetwork::sendPackettoServer(void)
       return (true);
     }
   return (false);
+}
+
+bool ClientNetwork::pushTCP(ProtocolPacket *t)
+{
+  this->paWrite.push(t);
+  return (true);
 }
