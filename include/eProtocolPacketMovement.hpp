@@ -3,13 +3,13 @@
 
 enum		eProtocolPacketMovement
   {
-    MOVEMENT_ERROR	= 99,
     MOVE		= 0,
     UPDATEPLAYER	= 1,
     UPDATEENEMY		= 2,
     UPDATEBULLET	= 3,
     NEWBULLET		= 4,
-    MOVEMENT_MAX	= 5
+    MOVEMENT_MAX	= 5,
+    MOVEMENT_ERROR	= 99
   };
 
 #endif // __EPROTOCOLPACKET_MOVEMENT_HPP_

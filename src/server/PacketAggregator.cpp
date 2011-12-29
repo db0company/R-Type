@@ -31,6 +31,7 @@ bool PacketAggregator::concat(char *str, int size)
   if (size + this->_index > 4096)
     return (false);
   memcpy(this->_buffer + this->_index, str, size);
+  std::cout << "concat here " << size << " index:"  << this->_index << std::endl;
   this->_index += size;
   return (true);
 }
@@ -58,10 +59,14 @@ int  PacketAggregator::aggregatePacketToChar(void)
       memcpy(this->_buffer + this->_index,
 	     PacketFactory::getPacketData(packet),
 	     PacketFactory::getPacketDataSize(packet));
+      // std::cout << "packettochar:" << "index " << this->_index
+      // 		<< " factorysize "
+      // << PacketFactory::getPacketDataSize(packet)
+      // << std::endl;
       this->_index += PacketFactory::getPacketDataSize(packet);
       this->_packetQueue.pop();
       nb_packet++;
-   }
+    }
   return (nb_packet);
 }
 
@@ -70,7 +75,6 @@ int  PacketAggregator::aggregateCharToPackets(void)
   int	nb_packet;
 
   nb_packet = 0;
-
   while (this->aggregateCharToPacket())
     {
       ++nb_packet;
@@ -84,6 +88,8 @@ int  PacketAggregator::aggregateCharToPacket(void)
   unsigned int next;
 
   next = 0;
+  // std::cout << "index(" << this->_index << ") sizeof("
+  // 	    << sizeof(ProtocolPacketHeader) << ")" << std::endl;
   if (this->_index < sizeof(ProtocolPacketHeader))
     return (0);
   memcpy(&header, this->_buffer, sizeof(ProtocolPacketHeader));
@@ -92,10 +98,27 @@ int  PacketAggregator::aggregateCharToPacket(void)
   ProtocolPacket * packet = PacketFactory::createPacket(static_cast<eProtocolPacketGroup>(header.group),
                           header.instruction, this->_buffer + sizeof(ProtocolPacketHeader), header.size);
   this->_packetQueue.push(packet);
+  /*
+  ** validitee packet.
+  */
   next += sizeof(ProtocolPacketHeader) + PacketFactory::getPacketDataSize(packet);
-  memmove(this->_buffer, &(this->_buffer[next + 1]), 4096 - next);
-  memset(&(this->_buffer)[4096 - next], 0, next + 1);
-  this->_index -= next;
+  std::cout << "je memmove (buffer[0], buffer["<< next << "], 4096 - " << next << ") = " << 4096 - next << std::endl;
+  memmove(this->_buffer, &(this->_buffer[next]), 4096 - next);
+  std::cout << "je memset (buffer[" << next << "], 0, " << 4096 - next << ")" << std::endl;
+  memset(&(this->_buffer)[this->_index - next], 0, 4096 - (this->_index - next));
+
+  // std::cout << "next ====" << next << std::endl;
+  // std::cout << "index ====" << this->_index << std::endl;
+  if (this->_index == next)
+    {
+      // std::cout << "wtf?" << std::endl;
+    }
+  this->_index = this->_index - next;
+  if (this->_index > 1000)
+    {
+      std::cout << " ???  " << next << " " << this->_index<< std::endl;
+      exit(EXIT_FAILURE);
+    }
   return (1);
 }
 

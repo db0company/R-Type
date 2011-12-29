@@ -12,6 +12,7 @@ add_library(
 	STATIC
 	./lib/SNetwork/src/ATCPClientSocket.cpp
 	./lib/SNetwork/src/ATCPServerSocket.cpp
+	./lib/SNetwork/src/AUDPServerSocket.cpp
 	./lib/SNetwork/src/TCPClientSocketWindows.cpp
 	./lib/SNetwork/src/TCPServerSocketWindows.cpp
 	./lib/SNetwork/src/UDPServerSocketWindows.cpp
@@ -73,6 +74,7 @@ add_library(
 	SNetwork
 	STATIC
 	./lib/SNetwork/src/ATCPClientSocket.cpp
+	./lib/SNetwork/src/AUDPServerSocket.cpp
 	./lib/SNetwork/src/ATCPServerSocket.cpp
 	./lib/SNetwork/src/TCPClientSocketUnix.cpp
 	./lib/SNetwork/src/TCPServerSocketUnix.cpp

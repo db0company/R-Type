@@ -21,7 +21,7 @@ class		PacketManager
  public:
   bool				Process(ProtocolPacket *packet, User *user);
   void				actionError();
-  ProtocolPacket *		RcvPacket(User * user, bool);
+  // ProtocolPacket *		RcvPacket(User * user, bool);
 };
 
 #endif				// !PACKETMANAGER_H_

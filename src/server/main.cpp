@@ -9,7 +9,7 @@ bool		rtype_server(void)
 {
   Server	server;
 
-  if (!server.init())
+  if (!server.init(12348))
     return (false);
   return (server.run());
 }

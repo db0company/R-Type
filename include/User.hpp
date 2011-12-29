@@ -2,11 +2,13 @@
 # define	USERHPP
 
 # include	"ATCPClientSocket.h"
+# include	"AUDPServerSocket.h"
 # include	"PacketAggregator.hpp"
 # include	"PacketManager.hpp"
 # include	<string>
 
 #define AGGREGATE_READ_SIZE 1024
+
 
 class		User
 {
@@ -17,10 +19,13 @@ class		User
   std::string	ip;
   PacketManager pm;
 
- public:
   ATCPClientSocket *	tcp;
+
   PacketAggregator	paRead;
   PacketAggregator	paWrite;
+
+  PacketAggregator	paReadUDP;
+  PacketAggregator	paWriteUDP;
  public:
   User(ATCPClientSocket *, std::string const & ip, PacketManager &);
   User(User const & other);
@@ -34,9 +39,13 @@ class		User
   void			setLog(bool);
   ATCPClientSocket *	getSocketTCP(void);
   std::string const &	getIp(void)const;
+  //tcp
   bool			feedPacketAggregator(void);
+  //udp
+  bool			feedPacketAggregator(char *data, int size);
   bool			processPackets(void);
   bool			aggregatePacketToSend(void);
+  bool			aggregatePacketToSend(AUDPServerSocket*);
 };
 
 #endif			// USERHPP
