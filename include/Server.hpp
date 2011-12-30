@@ -26,6 +26,7 @@ public:
   ~Server(void);
   bool init(int port = DEFAULT_PORT);
   bool run(void);
+
 private:
   bool getNewClient(void);
   bool addClient(ATCPClientSocket *);
@@ -34,19 +35,22 @@ private:
   bool writeToClients(void);
   bool cleanClients(void);
   bool removeClient(User *user, ATCPClientSocket *socket);
+
 private:
-  GameManager			_gameManager;
-  TaskNetwork			_taskNet;
+  SafeQueue<PacketTask>			_taskQueue;
+  ICondVar*				_condVar;
+  GameManager				_gameManager;
+  TaskNetwork				_taskNet;
   TaskManager				_taskManager;
   ThreadPool<ThreadData<PacketTask> >	_threadPool;
-  std::map<std::string, User *>	_userMap;
-  std::queue<std::string>	_quitQueue;
-  ATCPServerSocket*		_listener;
-  IMutex*			_udpMutex;
-  AUDPServerSocket*		_udp;
-  ISelector*			_selector;
-  PacketManager			_pm;
-  int				_port;
+  std::map<std::string, User *>		_userMap;
+  std::queue<std::string>		_quitQueue;
+  ATCPServerSocket*			_listener;
+  IMutex*				_udpMutex;
+  AUDPServerSocket*			_udp;
+  ISelector*				_selector;
+  PacketManager				_pm;
+  int					_port;
 };
 
 #endif// _SERVER_RTYPE_HPP_

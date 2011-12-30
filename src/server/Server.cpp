@@ -21,14 +21,17 @@ Server::Server(void) :
   this->_selector = new Selector<int>;
   this->_udp = new UDPServerSocketUnix(this->_selector);
   this->_listener = new TCPServerSocketUnix(this->_selector);
+  this->_condVar = new CondVarUnix;
 #else
   this->_udpMutex = new MutexWindows;
   this->_selector = new Selector<SOCKET>;
   this->_udp = new UDPServerSocketWindows(this->_selector);
   this->_listener = new TCPServerSocketWindows(this->_selector);
+  this->_condVar = new CondVarWindows;
 #endif
   this->_taskNet.init(this->_udp, this->_udpMutex);
-  //  this->_threadPool.init(); // thread data todo
+  ThreadData<PacketTask> threadData(this->_taskQueue, this->_condVar);
+  this->_threadPool.init(&threadData); // thread data todo
 }
 
 Server::~Server(void)

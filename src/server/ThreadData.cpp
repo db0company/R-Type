@@ -1,4 +1,5 @@
 #include "ThreadData.hpp"
+#include "PacketTask.hpp"
 
 template <typename T>
 ThreadData<T>::ThreadData(SafeQueue<T> sq, ICondVar *cv)
@@ -10,3 +11,5 @@ template <typename T>
 ThreadData<T>::~ThreadData()
 {
 }
+
+template class ThreadData<PacketTask>;
