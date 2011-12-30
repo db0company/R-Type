@@ -4,26 +4,31 @@
 #ifndef _WIN32
 # include "TCPServerSocketUnix.h"
 # include "UDPServerSocketUnix.h"
+# include "MutexUnix.hpp"
+# include "CondVarUnix.hpp"
 #else
 # include "TCPServerSocketWindows.h"
 # include "UDPServerSocketWindows.h"
+# include "MutexWindows.hpp"
+# include "CondVarWindows.hpp"
 #endif
 
-Server&	Server::operator=(Server const &){return *this;}
-Server::Server(Server const &){}
-
-
-Server::Server(void)
+Server::Server(void) :
+  _taskNet(), _taskManager(_taskNet), _threadPool(POOL_NBTHREAD)
 {
 #ifndef _WIN32
+  this->_udpMutex = new MutexUnix;
   this->_selector = new Selector<int>;
   this->_udp = new UDPServerSocketUnix(this->_selector);
   this->_listener = new TCPServerSocketUnix(this->_selector);
 #else
+  this->_udpMutex = new MutexWindows;
   this->_selector = new Selector<SOCKET>;
   this->_udp = new UDPServerSocketWindows(this->_selector);
   this->_listener = new TCPServerSocketWindows(this->_selector);
 #endif
+  this->_taskNet.init(this->_udp, this->_udpMutex);
+  //  this->_threadPool.init(); // thread data todo
 }
 
 Server::~Server(void)

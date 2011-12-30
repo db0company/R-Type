@@ -155,6 +155,7 @@ target_link_libraries(
 	server
 	SNetwork
 	Thread
+	pthread
 )
 
 
