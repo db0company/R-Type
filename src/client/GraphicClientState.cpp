@@ -44,7 +44,7 @@ LibGraphic::GraphicClientState::~GraphicClientState(void)
 
 LibGraphic::eStates LibGraphic::GraphicClientState::goToNextState(eStates scene)
 {
-  this->_stateInfos[scene]->getNextState();
+  return this->_stateInfos[scene]->getNextState();
 }
 
 void LibGraphic::GraphicClientState::draw(eStates scene)

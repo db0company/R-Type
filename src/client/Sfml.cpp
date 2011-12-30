@@ -52,7 +52,7 @@ LibGraphic::Event LibGraphic::Sfml::getEvent()
       }
     default : break;
     }
-  LibGraphic::EVENT_NONE;
+  return LibGraphic::EVENT_NONE;
 }
 
 void LibGraphic::Sfml::quit()
