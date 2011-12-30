@@ -1,2 +1,10 @@
 StartMenuBackground::StartMenuBackground.bmp::1
 StartMenu::StartMenuAll.png::0
+OptionsBackground::finbleucalme2.jpg::1
+OptionsMenu::menu1-75.png::0
+OptionsMenu-haut::menu1-75-haut.png::0
+OptionsMenu-gauche::menu1-75-gauche.png::0
+OptionsMenu-droite::menu1-75-droite.png::0
+OptionsMenu-diago::menu1-75-diago.png::0
+OptionsMenu-coins::menu1-75-bitonio-noir.png::0
+OptionsMenu-bas::menu1-75-bas.png::0

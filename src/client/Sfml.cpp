@@ -120,6 +120,7 @@ bool LibGraphic::Sfml::loadSprite()
   ressourceFile.open("ressources/.ressources_images");
   if (!ressourceFile.is_open())
     {
+
       std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " <<"ressources/.ressources_images" << std::endl;
       // throw
       return false;
