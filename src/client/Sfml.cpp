@@ -67,6 +67,7 @@ void LibGraphic::Sfml::clean()
 
 void LibGraphic::Sfml::draw()
 {
+  std::cout << this->_currentState << std::endl;
   this->_graphicState->draw(this->_currentState);
   this->_app.Display();
 }
