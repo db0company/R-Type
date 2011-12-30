@@ -43,7 +43,16 @@ bool LibGraphic::Sfml::init()
 
 LibGraphic::Event LibGraphic::Sfml::getEvent()
 {
-  return (this->_graphicState->getEventFromState(this->_currentState));
+  switch (this->_graphicState->getEventFromState(this->_currentState))
+    {
+    case EVENT_CHANGE_STATE :
+      {
+	this->_currentState = this->_graphicState->goToNextState(this->_currentState);
+	break;
+      }
+    default : break;
+    }
+  LibGraphic::EVENT_NONE;
 }
 
 void LibGraphic::Sfml::quit()

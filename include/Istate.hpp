@@ -2,6 +2,7 @@
 # define ISTATE_H
 
 #include "IGraphic.hpp"
+#include "GraphicUtils.hpp"
 
 namespace LibGraphic
 {
@@ -13,6 +14,7 @@ namespace LibGraphic
     virtual bool init() = 0;
     virtual void draw() = 0;
     virtual Event gereEvent() = 0;
+    virtual eStates getNextState() = 0;
   };
 
 }

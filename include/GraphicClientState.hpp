@@ -24,6 +24,7 @@ namespace LibGraphic
   public:
     void draw(eStates);
     Event getEventFromState(eStates);
+    eStates goToNextState(eStates scene);
 
   private:
     Event eventStart(eStates & scene);

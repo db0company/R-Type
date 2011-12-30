@@ -7,17 +7,8 @@ namespace LibGraphic
 {
   enum Event
     {
+      EVENT_CHANGE_STATE,
       EVENT_NONE,
-      EVENT_UP,
-      EVENT_DOWN,
-      EVENT_LEFT,
-      EVENT_RIGHT,
-      EVENT_MOUSE_LEFT,
-      EVENT_MOUSE_RIGHT,
-      EVENT_BOOST,
-      EVENT_SHOOT1,
-      EVENT_SHOOT2,
-      EVENT_KEYN,
       EVENT_QUIT
     };
 

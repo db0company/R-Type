@@ -9,7 +9,8 @@ LibGraphic::StateStart::StateStart(std::map<std::string const, GraphicRessource 
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
   _app(app)
 {
-  this->_currentButton = PLAY;
+  this->_currentButton = BUTTON_PLAY;
+  this->_nextState = UNKNOWN_STATE;
 }
 
 LibGraphic::StateStart::~StateStart()
@@ -33,7 +34,7 @@ void LibGraphic::StateStart::draw()
 
   switch (this->_currentButton)
     {
-    case PLAY :
+    case BUTTON_PLAY :
       {
 	menu.SetSubRect(sf::IntRect(841, 311, 841 * 2, 311 * 2));
 	this->_app.Draw(menu);
@@ -48,7 +49,7 @@ void LibGraphic::StateStart::draw()
 	this->_app.Draw(*tmp);
 	break;
       }
-    case OPTIONS :
+    case BUTTON_OPTIONS :
       {
 	menu.SetSubRect(sf::IntRect(841, 311 * 4, 841 * 2, 311 * 5));
 	this->_app.Draw(menu);
@@ -63,7 +64,7 @@ void LibGraphic::StateStart::draw()
 	this->_app.Draw(*tmp);
 	break;
       }
-    case CREDITS :
+    case BUTTON_CREDITS :
       {
 	menu.SetSubRect(sf::IntRect(841, 311 * 2, 841 * 2, 311 * 3));
 	this->_app.Draw(menu);
@@ -77,7 +78,7 @@ void LibGraphic::StateStart::draw()
 	this->_app.Draw(*tmp);
 	break;
       }
-    case EXIT :
+    case BUTTON_EXIT :
       {
 	menu.SetSubRect(sf::IntRect(841, 311 * 5, 841 * 2, 311 * 6));
 	this->_app.Draw(menu);
@@ -91,7 +92,7 @@ void LibGraphic::StateStart::draw()
 	this->_app.Draw(*tmp);
 	break;
       }
-    case INTRO :
+    case BUTTON_INTRO :
       {
 	menu.SetSubRect(sf::IntRect(841, 0, 841 * 2, 311));
 	this->_app.Draw(menu);
@@ -105,7 +106,7 @@ void LibGraphic::StateStart::draw()
 	this->_app.Draw(*tmp);
 	break;
       }
-    case RANKING :
+    case BUTTON_RANKING :
       {
 	menu.SetSubRect(sf::IntRect(841, 311 * 3, 841 * 2, 311 * 4));
 	this->_app.Draw(menu);
@@ -167,7 +168,6 @@ void LibGraphic::StateStart::drawText()
 LibGraphic::Event LibGraphic::StateStart::gereEvent()
 {
   sf::Event Event;
-  const sf::Input & Input = this->_app.GetInput();
 
   while (this->_app.GetEvent(Event))
     {
@@ -181,6 +181,36 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		this->_app.Close();
 		exit(EXIT_SUCCESS);
 	      }
+	    case sf::Key::Return :
+	      {
+		if (this->_currentButton == BUTTON_OPTIONS)
+		  {
+		    this->_nextState = OPTIONS;
+		    return EVENT_CHANGE_STATE;
+		  }
+		break;
+	      }
+	    default: break;
+	    }
+	}
+      else if (Event.Type == sf::Event::JoyButtonReleased)
+	{
+	  switch (Event.JoyButton.Button)
+	    {
+	    case 0:
+	      {
+		if (this->_currentButton == BUTTON_OPTIONS)
+		  {
+		    this->_nextState = OPTIONS;
+		    return EVENT_CHANGE_STATE;
+		  }
+ 		break;
+	      }
+	    case 1:
+	      {
+		std::cout << "button 1" << std::endl;
+		break;
+	      }
 	    default: break;
 	    }
 	}
@@ -190,84 +220,84 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
   return EVENT_NONE;
 }
 
+LibGraphic::eStates LibGraphic::StateStart::getNextState()
+{
+  return this->_nextState;
+}
+
 void LibGraphic::StateStart::cursorMenuPos(const sf::Event & Event)
 {
   const sf::Input & Input = this->_app.GetInput();
   float JoystickPOV = Input.GetJoystickAxis(0, sf::Joy::AxisPOV);
 
-  std::cout << JoystickPOV << std::endl;
   if (JoystickPOV == -1 && Event.Type != sf::Event::KeyPressed)
     return;
-  if (Event.Key.Code == sf::Key::Up)
-    {
-      std::cout << "UP" << std::endl;
-    }
   switch (this->_currentButton)
     {
-    case PLAY :
+    case BUTTON_PLAY :
       {
 	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
 	    Event.Key.Code == sf::Key::Right)
-	  this->_currentButton = OPTIONS;
+	  this->_currentButton = BUTTON_OPTIONS;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 Event.Key.Code == sf::Key::Down)
-	  this->_currentButton = CREDITS;
+	  this->_currentButton = BUTTON_CREDITS;
 	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
 		 Event.Key.Code == sf::Key::Up)
-	  this->_currentButton = INTRO;
+	  this->_currentButton = BUTTON_INTRO;
 	break;
       }
-    case EXIT :
+    case BUTTON_EXIT :
       {
 	if ((JoystickPOV >= 225 && JoystickPOV < 315) ||
 	    Event.Key.Code == sf::Key::Left)
-	  this->_currentButton = CREDITS;
+	  this->_currentButton = BUTTON_CREDITS;
 	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
 		 Event.Key.Code == sf::Key::Up)
-	  this->_currentButton = OPTIONS;
+	  this->_currentButton = BUTTON_OPTIONS;
 	break;
       }
-    case CREDITS :
+    case BUTTON_CREDITS :
       {
 	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
 	    Event.Key.Code == sf::Key::Right)
-	  this->_currentButton = EXIT;
+	  this->_currentButton = BUTTON_EXIT;
 	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
 		 Event.Key.Code == sf::Key::Up)
-	  this->_currentButton = PLAY;
+	  this->_currentButton = BUTTON_PLAY;
 	break;
       }
-    case OPTIONS :
+    case BUTTON_OPTIONS :
       {
 	if ((JoystickPOV > 225 && JoystickPOV < 315) ||
 	    Event.Key.Code == sf::Key::Left)
-	  this->_currentButton = PLAY;
+	  this->_currentButton = BUTTON_PLAY;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 Event.Key.Code == sf::Key::Down)
-	  this->_currentButton = EXIT;
+	  this->_currentButton = BUTTON_EXIT;
 	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
 		 Event.Key.Code == sf::Key::Up)
-	  this->_currentButton = RANKING;
+	  this->_currentButton = BUTTON_RANKING;
 	break;
       }
-    case RANKING :
+    case BUTTON_RANKING :
       {
 	if ((JoystickPOV > 225 && JoystickPOV < 315) ||
 	    Event.Key.Code == sf::Key::Left)
-	  this->_currentButton = INTRO;
+	  this->_currentButton = BUTTON_INTRO;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 Event.Key.Code == sf::Key::Down)
-	  this->_currentButton = OPTIONS;
+	  this->_currentButton = BUTTON_OPTIONS;
 	break;
       }
-    case INTRO :
+    case BUTTON_INTRO :
       {
 	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
 	    Event.Key.Code == sf::Key::Right)
-	  this->_currentButton = RANKING;
+	  this->_currentButton = BUTTON_RANKING;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 Event.Key.Code == sf::Key::Down)
-	  this->_currentButton = PLAY;
+	  this->_currentButton = BUTTON_PLAY;
 	break;
       }
     }

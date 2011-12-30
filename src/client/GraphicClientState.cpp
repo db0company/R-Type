@@ -1,6 +1,7 @@
 //#include <Rect.hpp>
 #include <iostream>
 #include "StateStart.hpp"
+#include "StateOptions.hpp"
 #include "GraphicClientState.hpp"
 
 LibGraphic::GraphicClientState::GraphicClientState(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
@@ -25,7 +26,11 @@ void LibGraphic::GraphicClientState::loadStates(void)
   this->_stateInfos[ROOMLIST] = NULL;
   this->_stateInfos[GAMEPARAMETER] = NULL;
   this->_stateInfos[ROOM] = NULL;
-  this->_stateInfos[OPTIONS] = NULL;
+  this->_stateInfos[OPTIONS] = new StateOptions(this->_ressourcesSprite,
+					    this->_ressourcesPlayList,
+					    this->_ressourcesSounds,
+					    this->_ressourcesFont,
+					    this->_app);
   this->_stateInfos[CREDITS] = NULL;
   this->_stateInfos[RANKING] = NULL;
   this->_stateInfos[INTRO] = NULL;
@@ -35,6 +40,11 @@ void LibGraphic::GraphicClientState::loadStates(void)
 
 LibGraphic::GraphicClientState::~GraphicClientState(void)
 {
+}
+
+LibGraphic::eStates LibGraphic::GraphicClientState::goToNextState(eStates scene)
+{
+  this->_stateInfos[scene]->getNextState();
 }
 
 void LibGraphic::GraphicClientState::draw(eStates scene)

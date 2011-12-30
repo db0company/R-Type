@@ -12,12 +12,12 @@ namespace LibGraphic
   private:
     enum eSelectedButton
       {
-	PLAY,
-	EXIT,
-	CREDITS,
-	OPTIONS,
-	INTRO,
-	RANKING
+	BUTTON_PLAY,
+	BUTTON_EXIT,
+	BUTTON_CREDITS,
+	BUTTON_OPTIONS,
+	BUTTON_INTRO,
+	BUTTON_RANKING
       };
   public:
     StateStart(std::map<std::string const, GraphicRessource *> const &,
@@ -29,6 +29,7 @@ namespace LibGraphic
     virtual bool init();
     virtual void draw();
     virtual Event gereEvent();
+    virtual eStates getNextState();
   public:
     sf::Sprite & getSprite(std::string const &) const;
     MyMusic * getMusic(std::string const &) const;
@@ -49,6 +50,7 @@ namespace LibGraphic
   private:
     eSelectedButton _currentButton;
     sf::Clock Clock;
+    eStates _nextState;
   };
 
 }
