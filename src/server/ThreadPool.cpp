@@ -1,10 +1,11 @@
+#include "PacketTask.hpp"
 #include "ThreadData.hpp"
 #include "IThread.hpp"
 #include "ThreadPool.hpp"
 #ifdef _WIN32
 #include "ThreadWindows.hpp"
 #else
-#include "ThreadUnix.hpp"   
+#include "ThreadUnix.hpp"
 #endif
 
 template <typename T>
@@ -61,8 +62,6 @@ bool ThreadPool<T>::endThread()
   return (true);
 }
 
-
-
 template <typename T>
 void		*manageThread(void *param)
 {
@@ -72,6 +71,7 @@ void		*manageThread(void *param)
   while (1)
     {
     }
-
-  return (NULL); 
+  return (NULL);
 }
+
+template class ThreadPool<ThreadData<PacketTask> >;

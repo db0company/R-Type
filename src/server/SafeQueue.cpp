@@ -1,5 +1,6 @@
 #include "SafeQueue.hpp"
 #include "ScopedLock.hpp"
+#include "PacketTask.hpp"
 
 template <typename T>
 SafeQueue<T>::SafeQueue()
@@ -42,7 +43,7 @@ bool SafeQueue<T>::tryPop(T *elem)
 
   if (!QueueTask.empty())
     {
-      elem = QueueTask.front();
+      *elem = QueueTask.front();
       QueueTask.pop();
       return (true);
     }
@@ -58,3 +59,5 @@ bool SafeQueue<T>::empty()
     return (true);
   return (false);
 }
+
+template class SafeQueue<PacketTask>;

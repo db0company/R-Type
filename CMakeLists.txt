@@ -47,8 +47,8 @@ add_executable(
 	./src/client/Client.cpp
 	./src/client/ClientNetwork.cpp
 	./src/server/PacketAggregator.cpp
-	./src/protocol/PacketData.cpp
-	./src/protocol/PacketFactory.cpp
+	./src/client/protocol/PacketData.cpp
+	./src/client/protocol/PacketFactory.cpp
 	./src/client/DirectoryManagerWindows.cpp
 	./src/client/Dll.cpp
 	./src/client/DlLoader.cpp
@@ -102,8 +102,8 @@ add_executable(
 	./src/client/Client.cpp
 	./src/client/ClientNetwork.cpp
 	./src/server/PacketAggregator.cpp
-	./src/protocol/PacketData.cpp
-	./src/protocol/PacketFactory.cpp
+	./src/client/protocol/PacketData.cpp
+	./src/client/protocol/PacketFactory.cpp
 	./src/client/DirectoryManagerUnix.cpp
 	./src/client/Dll.cpp
 	./src/client/DlLoader.cpp
@@ -132,13 +132,13 @@ SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 add_executable(
 	server
 	./src/server/main.cpp
-	./src/protocol/PacketData.cpp
-	./src/protocol/PacketFactory.cpp
-	./src/protocol/PacketManager.cpp
-	./src/protocol/actions/ProtocolGame.cpp
-	./src/protocol/actions/ProtocolGameDetails.cpp
-	./src/protocol/actions/ProtocolMovement.cpp
-	./src/protocol/actions/ProtocolLobby.cpp
+	./src/server/protocol/PacketData.cpp
+	./src/server/protocol/PacketFactory.cpp
+	./src/server/protocol/PacketManager.cpp
+	./src/server/protocol/actions/ProtocolGame.cpp
+	./src/server/protocol/actions/ProtocolGameDetails.cpp
+	./src/server/protocol/actions/ProtocolMovement.cpp
+	./src/server/protocol/actions/ProtocolLobby.cpp
 	./src/server/Server.cpp
 	./src/server/GameManager.cpp
 	./src/server/User.cpp
@@ -156,6 +156,7 @@ target_link_libraries(
 	server
 	SNetwork
 	Thread
+	pthread
 )
 
 

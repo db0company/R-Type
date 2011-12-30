@@ -11,8 +11,10 @@ private:
   TaskManager	&manager;
   void *param;
   void (TaskNetwork::*netFunc)(void *);
-  void (Game::*gameFunc)(void *);
+  //  void (Game::*gameFunc)(void *);
 public:
+  PacketTask(PacketTask const &other);
+  PacketTask&operator=(PacketTask const &other);
   PacketTask(TaskManager& man, void (TaskNetwork::*point)(void *),void *param);
   PacketTask(TaskManager& man, void (Game::*point)(void *), void *param);
   void	launchTask();

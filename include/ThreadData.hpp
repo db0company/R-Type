@@ -15,5 +15,4 @@ struct ThreadData
   ~ThreadData();
 };
 
-
 #endif // __THREADDATA_HPP__

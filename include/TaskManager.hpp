@@ -8,12 +8,13 @@ class		TaskManager
 {
 private:
   TaskNetwork	&_net;
-  Game		&_game;
+  // Game		&_game; // taskGame ?
 public:
-  TaskManager(TaskNetwork &net, Game &game);
+  // TaskManager(TaskNetwork &net, Game &game);
+  TaskManager(TaskNetwork &net);
   ~TaskManager();
   TaskManager	&operator=(const TaskManager &);
-  Game		&getGame();
+  // Game		&getGame();
   TaskNetwork	&getNet();
 };
 

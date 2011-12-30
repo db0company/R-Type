@@ -18,7 +18,6 @@ class			iProtocolAction
 /* ************************************************************************* */
  public:
   virtual void		action(ushort instruction, PacketData & data) = 0;
-  // todo: add informations about the socket.
 };
 
 #endif			// !PROTOCOLACTION_H_

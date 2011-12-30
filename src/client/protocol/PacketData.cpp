@@ -170,7 +170,6 @@ void			PacketData::addString(std::string const & str)
 
 void			PacketData::addChar(char c)
 {
-  std::cout << "addChar " << c << std::endl;
   this->data.push_back(c);
   // DataRawType tmp[sizeof(char)];
   // memcpy(tmp, &c, sizeof(char));

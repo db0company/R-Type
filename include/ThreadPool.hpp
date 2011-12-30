@@ -5,6 +5,8 @@
 #include "IThread.hpp"
 #include "ThreadData.hpp"
 
+#define POOL_NBTHREAD 4
+
 template <typename T>
 class ThreadPool
 {
@@ -20,5 +22,7 @@ public:
 
 template <typename T>
 void		*manageThread(void *param);
+
+//template class ThreadPool<ThreadData>;
 
 #endif // __THREADPOOL_HPP_

@@ -94,35 +94,37 @@ bool			User::aggregatePacketToSend(void)
       nb = this->paWrite.aggregatePacketToChar();
       if (nb > 0)
 	{
+	  std::cout << nb << "packet(s) to aggregate " << std::endl;
 	  size = this->paWrite.getSize();
 	  msg = this->paWrite.getMsg();
-	  this->tcp->SNWrite(msg, size);
+	  this->tcp->SNWrite(msg, size); // verif todo
 	  this->paWrite.erase();
 	}
+      return (true);
     }
-  return (true);
+  return (false);
 }
 
 //udp
-bool			User::aggregatePacketToSend(AUDPServerSocket *so)
-{
-  unsigned int size;
-  unsigned char	*msg;
-  int nb;
+// bool			User::aggregatePacketToSend(AUDPServerSocket *so)
+// {
+//   unsigned int size;
+//   unsigned char	*msg;
+//   int nb;
 
-  if (so->SNGetWrite())
-    {
-      nb = this->paWriteUDP.aggregatePacketToChar();
-      if (nb > 0)
-	{
-	  size = this->paWriteUDP.getSize();
-	  msg = this->paWriteUDP.getMsg();
-	  so->SNWrite(msg, size);
-	  this->paWriteUDP.erase();
-	}
-    }
-  return (true);
-}
+//   if (so->SNGetWrite())
+//     {
+//       nb = this->paWriteUDP.aggregatePacketToChar();
+//       if (nb > 0)
+// 	{
+// 	  size = this->paWriteUDP.getSize();
+// 	  msg = this->paWriteUDP.getMsg();
+// 	  so->SNWrite(msg, size);
+// 	  this->paWriteUDP.erase();
+// 	}
+//     }
+//   return (true);
+// }
 
 bool				User::processPackets(void)
 {
@@ -133,23 +135,29 @@ bool				User::processPackets(void)
   nb_packet = this->paRead.aggregateCharToPackets();
   if (nb_packet > 0)
     std::cout << "TCP PacketQueue.size() == " << nb_packet << std::endl;
+  nb_packet = this->paReadUDP.aggregateCharToPackets();
+  if (nb_packet > 0)
+    std::cout << "UDP PacketQueue.size() == " << nb_packet << std::endl;
   if (this->paRead.empty() && this->paReadUDP.empty())
     {
       return (false);
     }
   while (!this->paRead.empty())
     {
-      std::cout << "\t\033[34mPacket\033[00m["<<tmp_i<<"] ";
+      std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paRead.front();
       this->pm.Process(packet, NULL);
       this->paRead.pop();
       ++tmp_i;
     }
+  tmp_i = 0;
   while (!this->paReadUDP.empty())
     {
+      std::cout << "\t\033[33mUDP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paReadUDP.front();
       this->pm.Process(packet, NULL);
       this->paReadUDP.pop();
+      ++tmp_i;
     }
   return (true);
 }
