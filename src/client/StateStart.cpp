@@ -230,7 +230,8 @@ void LibGraphic::StateStart::cursorMenuPos(const sf::Event & Event)
   const sf::Input & Input = this->_app.GetInput();
   float JoystickPOV = Input.GetJoystickAxis(0, sf::Joy::AxisPOV);
 
-  if (JoystickPOV == -1 && Event.Type != sf::Event::KeyPressed)
+  if ((JoystickPOV == -1 && Event.Type != sf::Event::KeyPressed) ||
+      this->Clock.GetElapsedTime() < 0.1)
     return;
   switch (this->_currentButton)
     {
@@ -301,6 +302,7 @@ void LibGraphic::StateStart::cursorMenuPos(const sf::Event & Event)
 	break;
       }
     }
+  this->Clock.Reset();
 }
 
 sf::Sprite & LibGraphic::StateStart::getSprite(std::string const & spriteName) const
