@@ -152,6 +152,8 @@ add_executable(
 	./src/server/Game.cpp
 )
 
+if(UNIX)
+
 target_link_libraries(
 	server
 	SNetwork
@@ -159,8 +161,17 @@ target_link_libraries(
 	pthread
 )
 
+endif(UNIX)
 
+if(WIN32)
 
+target_link_libraries(
+	server
+	SNetwork
+	Thread
+)
+
+endif(WIN32)
 
 include_directories(SFML-1.6/include)
 
