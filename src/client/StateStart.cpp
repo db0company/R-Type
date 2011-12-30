@@ -27,8 +27,10 @@ void LibGraphic::StateStart::draw()
   sf::String *tmp;
   sf::Sprite &back = this->getSprite("StartMenuBackground");
   sf::Sprite &menu = this->getSprite("StartMenu");
+  int x = 170;
+  int y = 300;
 
-  menu.SetPosition(250, 350);
+  menu.SetPosition(250 + x, 350 + y);
   this->_app.Draw(back);
   menu.SetColor(sf::Color(255, 255, 255, 230));
 
@@ -43,7 +45,7 @@ void LibGraphic::StateStart::draw()
 	this->drawText();
 	this->_app.Draw(menu);
 	tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
-	tmp->SetPosition(320, 455);
+	tmp->SetPosition(320 + x, 455 + y);
 	tmp->Scale(2.3, 2.3);
 	tmp->SetColor(sf::Color(255,255,255, 220));
 	this->_app.Draw(*tmp);
@@ -58,7 +60,7 @@ void LibGraphic::StateStart::draw()
 	this->drawText();
 	this->_app.Draw(menu);
 	tmp = this->getStdToSfString("OPTIONS", this->getFont("StartFontF"));
-	tmp->SetPosition(740, 462);
+	tmp->SetPosition(740 + x, 462 + y);
 	tmp->Scale(1.7, 2.2);
 	tmp->SetColor(sf::Color(255,255,255, 220));
 	this->_app.Draw(*tmp);
@@ -73,7 +75,7 @@ void LibGraphic::StateStart::draw()
 	this->drawText();
 	this->_app.Draw(menu);
 	tmp = this->getStdToSfString("CREDITS", this->getFont("StartFontF"));
-	tmp->SetPosition(440, 595);
+	tmp->SetPosition(440 + x, 595 + y);
 	tmp->SetColor(sf::Color(255,255,255, 220));
 	this->_app.Draw(*tmp);
 	break;
@@ -87,7 +89,7 @@ void LibGraphic::StateStart::draw()
 	this->drawText();
 	this->_app.Draw(menu);
 	tmp = this->getStdToSfString("EXIT", this->getFont("StartFontF"));
-	tmp->SetPosition(810, 595);
+	tmp->SetPosition(810 + x, 595 + y);
 	tmp->SetColor(sf::Color(255,255,255, 220));
 	this->_app.Draw(*tmp);
 	break;
@@ -101,7 +103,7 @@ void LibGraphic::StateStart::draw()
 	this->drawText();
 	this->_app.Draw(menu);
 	tmp = this->getStdToSfString("INTRO", this->getFont("StartFontF"));
-	tmp->SetPosition(440, 375);
+	tmp->SetPosition(440 + x, 375 + y);
 	tmp->SetColor(sf::Color(255,255,255, 220));
 	this->_app.Draw(*tmp);
 	break;
@@ -115,7 +117,7 @@ void LibGraphic::StateStart::draw()
 	this->drawText();
 	this->_app.Draw(menu);
 	tmp = this->getStdToSfString("RANKING", this->getFont("StartFontF"));
-	tmp->SetPosition(725, 375);
+	tmp->SetPosition(725 + x, 375 + y);
 	tmp->SetColor(sf::Color(255,255,255, 220));
 	this->_app.Draw(*tmp);
 	break;
@@ -131,37 +133,39 @@ void LibGraphic::StateStart::draw()
 void LibGraphic::StateStart::drawText()
 {
   sf::String *tmp;
+  int x = 170;
+  int y = 300;
 
   tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,255, 180));
-  tmp->SetPosition(320, 455);
+  tmp->SetPosition(320 + x, 455 + y);
   tmp->Scale(2.3, 2.3);
   this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString("OPTIONS", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,255, 180));
-  tmp->SetPosition(740, 462);
+  tmp->SetPosition(740 + x, 462 + y);
   tmp->Scale(1.7, 2.2);
   this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString("CREDITS", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,255, 180));
-  tmp->SetPosition(440, 595);
+  tmp->SetPosition(440 + x, 595 + y);
   this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString("EXIT", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,255, 180));
-  tmp->SetPosition(810, 595);
+  tmp->SetPosition(810 + x, 595 + y);
   this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString("INTRO", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,255, 180));
-  tmp->SetPosition(440, 375);
+  tmp->SetPosition(440 + x, 375 + y);
   this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString("RANKING", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,255, 180));
-  tmp->SetPosition(725, 375);
+  tmp->SetPosition(725 + x, 375 + y);
   this->_app.Draw(*tmp);
 }
 
