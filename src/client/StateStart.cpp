@@ -1,4 +1,7 @@
 #include "StateStart.hpp"
+#include "Language.hpp"
+
+extern LibGraphic::Language language;
 
 LibGraphic::StateStart::StateStart(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
@@ -44,7 +47,10 @@ void LibGraphic::StateStart::draw()
 	menu.SetSubRect(sf::IntRect(0, 311, 841, 311 * 2));
 	this->drawText();
 	this->_app.Draw(menu);
-	tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
+	if (language == ENGLISH)
+	  tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
+	else
+	  tmp = this->getStdToSfString("JOUER", this->getFont("StartFontF"));
 	tmp->SetPosition(320 + x, 455 + y);
 	tmp->Scale(2.3, 2.3);
 	tmp->SetColor(sf::Color(255,255,255, 220));
@@ -88,8 +94,16 @@ void LibGraphic::StateStart::draw()
 	menu.SetSubRect(sf::IntRect(0, 311 * 5, 841, 311 * 6));
 	this->drawText();
 	this->_app.Draw(menu);
-	tmp = this->getStdToSfString("EXIT", this->getFont("StartFontF"));
-	tmp->SetPosition(810 + x, 595 + y);
+	if (language == ENGLISH)
+	  {
+	    tmp = this->getStdToSfString("EXIT", this->getFont("StartFontF"));
+	    tmp->SetPosition(810 + x, 595 + y);
+	  }
+	else
+	  {
+	    tmp = this->getStdToSfString("SORTIR", this->getFont("StartFontF"));
+	    tmp->SetPosition(810 + x - 60, 595 + y);
+	  }
 	tmp->SetColor(sf::Color(255,255,255, 220));
 	this->_app.Draw(*tmp);
 	break;
@@ -116,8 +130,16 @@ void LibGraphic::StateStart::draw()
 	menu.SetSubRect(sf::IntRect(0, 311 * 3 , 841, 311 * 4));
 	this->drawText();
 	this->_app.Draw(menu);
-	tmp = this->getStdToSfString("RANKING", this->getFont("StartFontF"));
-	tmp->SetPosition(725 + x, 375 + y);
+	if (language == ENGLISH)
+	  {
+	    tmp = this->getStdToSfString("RANKING", this->getFont("StartFontF"));
+	    tmp->SetPosition(725 + x, 375 + y);
+	  }
+	else
+	  {
+	    tmp = this->getStdToSfString("CLASSEMENT", this->getFont("StartFontF"));
+	    tmp->SetPosition(725 + x - 60, 375 + y);
+	  }
 	tmp->SetColor(sf::Color(255,255,255, 220));
 	this->_app.Draw(*tmp);
 	break;
@@ -136,36 +158,107 @@ void LibGraphic::StateStart::drawText()
   int x = 170;
   int y = 300;
 
-  tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
-  tmp->SetColor(sf::Color(255,255,255, 180));
+  if (this->_currentButton == BUTTON_PLAY)
+    {
+      if (language == ENGLISH)
+	tmp = this->getStdToSfString("PLAY", this->getFont("StartFontF"));
+      else
+	tmp = this->getStdToSfString("JOUER", this->getFont("StartFontF"));
+    }
+  else
+    {
+      if (language == ENGLISH)
+	tmp = this->getStdToSfString("PLAY", this->getFont("StartFontE"));
+      else
+	tmp = this->getStdToSfString("JOUER", this->getFont("StartFontE"));
+    }
+  tmp->SetColor(sf::Color(255,255,255, 255));
   tmp->SetPosition(320 + x, 455 + y);
   tmp->Scale(2.3, 2.3);
   this->_app.Draw(*tmp);
 
-  tmp = this->getStdToSfString("OPTIONS", this->getFont("StartFontF"));
-  tmp->SetColor(sf::Color(255,255,255, 180));
+  if (this->_currentButton == BUTTON_OPTIONS)
+    tmp = this->getStdToSfString("OPTIONS", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("OPTIONS", this->getFont("StartFontE"));
+  tmp->SetColor(sf::Color(255,255,255, 255));
   tmp->SetPosition(740 + x, 462 + y);
   tmp->Scale(1.7, 2.2);
   this->_app.Draw(*tmp);
 
-  tmp = this->getStdToSfString("CREDITS", this->getFont("StartFontF"));
-  tmp->SetColor(sf::Color(255,255,255, 180));
+  if (this->_currentButton == BUTTON_CREDITS)
+    tmp = this->getStdToSfString("CREDITS", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("CREDITS", this->getFont("StartFontE"));
+  tmp->SetColor(sf::Color(255,255,255, 255));
   tmp->SetPosition(440 + x, 595 + y);
   this->_app.Draw(*tmp);
 
-  tmp = this->getStdToSfString("EXIT", this->getFont("StartFontF"));
-  tmp->SetColor(sf::Color(255,255,255, 180));
-  tmp->SetPosition(810 + x, 595 + y);
+  if (this->_currentButton == BUTTON_EXIT)
+    {
+      if (language == ENGLISH)
+	{
+	  tmp = this->getStdToSfString("EXIT", this->getFont("StartFontF"));
+	  tmp->SetPosition(810 + x, 595 + y);
+	}
+      else
+	{
+	  tmp = this->getStdToSfString("SORTIR", this->getFont("StartFontF"));
+	  tmp->SetPosition(810 + x - 60, 595 + y);
+	}
+    }
+  else
+    {
+      if (language == ENGLISH)
+	{
+	  tmp = this->getStdToSfString("EXIT", this->getFont("StartFontE"));
+	  tmp->SetPosition(810 + x, 595 + y);
+	}
+      else
+	{
+	  tmp = this->getStdToSfString("SORTIR", this->getFont("StartFontE"));
+	  tmp->SetPosition(810 + x - 60, 595 + y);
+	}
+    }
+  tmp->SetColor(sf::Color(255,255,255, 255));
+  //  tmp->SetPosition(810 + x, 595 + y);
   this->_app.Draw(*tmp);
 
-  tmp = this->getStdToSfString("INTRO", this->getFont("StartFontF"));
-  tmp->SetColor(sf::Color(255,255,255, 180));
+  if (this->_currentButton == BUTTON_INTRO)
+    tmp = this->getStdToSfString("INTRO", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("INTRO", this->getFont("StartFontE"));
+  tmp->SetColor(sf::Color(255,255,255, 255));
   tmp->SetPosition(440 + x, 375 + y);
   this->_app.Draw(*tmp);
 
-  tmp = this->getStdToSfString("RANKING", this->getFont("StartFontF"));
-  tmp->SetColor(sf::Color(255,255,255, 180));
-  tmp->SetPosition(725 + x, 375 + y);
+  if (this->_currentButton == BUTTON_RANKING)
+    {
+      if (language == ENGLISH)
+	{
+	  tmp = this->getStdToSfString("RANKING", this->getFont("StartFontF"));
+	  tmp->SetPosition(725 + x, 375 + y);
+	}
+      else
+	{
+	  tmp = this->getStdToSfString("CLASSEMENT", this->getFont("StartFontF"));
+	  tmp->SetPosition(725 + x - 60, 375 + y);
+	}
+    }
+  else
+    {
+      if (language == ENGLISH)
+	{
+	  tmp = this->getStdToSfString("RANKING", this->getFont("StartFontE"));
+	  tmp->SetPosition(725 + x, 375 + y);
+	}
+      else
+	{
+	  tmp = this->getStdToSfString("CLASSEMENT", this->getFont("StartFontE"));
+	  tmp->SetPosition(725 + x - 60, 375 + y);
+	}
+    }
+  tmp->SetColor(sf::Color(255,255,255, 255));
   this->_app.Draw(*tmp);
 }
 
@@ -207,6 +300,11 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		  {
 		    this->_nextState = OPTIONS;
 		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_EXIT)
+		  {
+		    this->_app.Close();
+		    exit(EXIT_SUCCESS);
 		  }
  		break;
 	      }

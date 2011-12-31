@@ -5,7 +5,6 @@
 
 namespace LibGraphic
 {
-
   enum eStates
     {
       START,

@@ -18,6 +18,7 @@ namespace LibGraphic
     void PlayMusic();
     void PauseMusic();
     void StopMusic();
+    void UpdateVolume();
     sf::Music::Status GetMusicState()const;
   };
 

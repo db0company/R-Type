@@ -19,6 +19,7 @@ namespace LibGraphic
     void PlaySound();
     void PauseSoud();
     void StopSound();
+    void UpdateVolume();
     sf::Sound::Status GetSoundState()const;
   };
 
