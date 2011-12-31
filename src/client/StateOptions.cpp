@@ -69,11 +69,6 @@ void LibGraphic::StateOptions::draw()
   this->_app.Draw(menu_haut);
   this->_app.Draw(menu_coins);
 
-  //  tmp = this->getStdToSfString(this->test, this->getFont("StartFontF"));
-  //  tmp->SetText(this->test);
-  //  tmp->SetPosition(750, 360);
-  //  tmp->SetColor(sf::Color(0, 0, 0, 255));
-
   NameArea.SetPosition(770, 340);
   this->_app.Draw(NameArea);
   //  this->_app.Draw(*tmp);
@@ -168,6 +163,27 @@ void LibGraphic::StateOptions::drawText()
     tmp->SetColor(sf::Color(255,255,255, 205));
   tmp->SetPosition(550, 550);
   this->_app.Draw(*tmp);
+
+  tmp = this->getStdToSfString(this->_name, this->getFont("StartFontF"));
+  tmp->SetText(this->_name);
+  tmp->SetPosition(783, 342);
+  tmp->SetScale(0.8, 0.8);
+  tmp->SetColor(sf::Color(0, 0, 0, 255));
+  this->_app.Draw(*tmp);
+
+  tmp = this->getStdToSfString(this->_ip, this->getFont("StartFontF"));
+  tmp->SetText(this->_ip);
+  tmp->SetPosition(783, 392);
+  tmp->SetScale(0.8, 0.8);
+  tmp->SetColor(sf::Color(0, 0, 0, 245));
+  this->_app.Draw(*tmp);
+
+  tmp = this->getStdToSfString(this->_port, this->getFont("StartFontF"));
+  tmp->SetText(this->_port);
+  tmp->SetPosition(783, 442);
+  tmp->SetScale(0.8, 0.8);
+  tmp->SetColor(sf::Color(0, 0, 0, 235));
+  this->_app.Draw(*tmp);
 }
 
 LibGraphic::Event LibGraphic::StateOptions::gereEvent()
@@ -188,23 +204,35 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 	      }
 	    case sf::Key::Back :
 	      {
-		//		this->test = this->test.substr(0, this->test.length() - 1);
+		if (this->_currentButton == BUTTON_OPTIONS_NAME)
+		  this->_name = this->_name.substr(0, this->_name.length() - 1);
+		else if (this->_currentButton == BUTTON_OPTIONS_IP)
+		  this->_ip = this->_ip.substr(0, this->_ip.length() - 1);
+		else if (this->_currentButton == BUTTON_OPTIONS_PORT)
+		  this->_port = this->_port.substr(0, this->_port.length() - 1);
 		break;
 	      }
 	    default: break;
 	    }
 	}
-      else if (Event.Type == sf::Event::TextEntered)
-	{
-	  if (Event.Text.Unicode > 20 && Event.Text.Unicode < 128)
-	    {
-	      // if (test.size() <= 10)
-	      // 	this->test += static_cast<char>(Event.Text.Unicode);
-	    }
-	}
+      else if (Event.Type == sf::Event::TextEntered &&
+	       (Event.Text.Unicode > 20 && Event.Text.Unicode < 128))
+	readText(Event);
     }
   cursorMenuPos(Event);
   return EVENT_NONE;
+}
+
+void LibGraphic::StateOptions::readText(const sf::Event & Event)
+{
+  if (this->_currentButton == BUTTON_OPTIONS_NAME && this->_name.size() <= 12)
+    this->_name += static_cast<char>(Event.Text.Unicode);
+  else if (this->_currentButton == BUTTON_OPTIONS_IP && this->_ip.size() < 15
+	   && Event.Text.Unicode >= 46 && Event.Text.Unicode <= 57)
+    this->_ip += static_cast<char>(Event.Text.Unicode);
+  else if (this->_currentButton == BUTTON_OPTIONS_PORT && this->_port.size() < 16
+	   && Event.Text.Unicode >= 48 && Event.Text.Unicode <= 57)
+    this->_port += static_cast<char>(Event.Text.Unicode);
 }
 
 LibGraphic::eStates LibGraphic::StateOptions::getNextState()
