@@ -2,11 +2,11 @@
 # define PROTOCOLLOBBY_H_
 
 # include	<map>
-# include	"iProtocolAction.hpp"
+# include	"IProtocolAction.hpp"
 # include	"PacketData.hpp"
 # include	"eProtocolPacketLobby.hpp"
 
-class		ProtocolLobby : public iProtocolAction
+class		ProtocolLobby : public IProtocolAction
 {
 private:
   typedef bool (ProtocolLobby::*ptr_functlobby)(PacketData &);
@@ -18,7 +18,7 @@ public:
   ~ProtocolLobby(void);
   ProtocolLobby(const ProtocolLobby&);
   ProtocolLobby&	operator=(const ProtocolLobby&);
-  virtual void action(ushort instruction, PacketData &data);
+  virtual void action(ushort instruction, PacketData &data, User *, Server&);
 
 private:
 

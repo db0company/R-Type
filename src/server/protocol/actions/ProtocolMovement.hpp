@@ -2,11 +2,11 @@
 # define PROTOCOLMOVEMENT_H_
 
 # include	<map>
-# include	"iProtocolAction.hpp"
+# include	"IProtocolAction.hpp"
 # include	"PacketData.hpp"
 # include	"eProtocolPacketMovement.hpp"
 
-class		ProtocolMovement : public iProtocolAction
+class		ProtocolMovement : public IProtocolAction
 {
 private:
   typedef bool (ProtocolMovement::*ptr_funct)(PacketData &);
@@ -18,10 +18,9 @@ public:
   ~ProtocolMovement(void);
   ProtocolMovement(const ProtocolMovement&);
   ProtocolMovement&	operator=(const ProtocolMovement&);
-  virtual void action(ushort instruction, PacketData &data);
+  virtual void action(ushort instruction, PacketData &data, User *, Server &);
 
 private:
-
   bool		actionError(PacketData &data);
   bool		actionMove(PacketData &data);
   bool		actionUpdatePlayer(PacketData &data);

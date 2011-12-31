@@ -26,7 +26,7 @@ ProtocolLobby::~ProtocolLobby(void)
 }
 
 void			ProtocolLobby::action(ushort instruction,
-					     PacketData & data)
+					      PacketData & data, User *, Server &)
 {
   std::map<eProtocolPacketLobby, ptr_functlobby>::iterator it;
   ptr_functlobby	ptr;

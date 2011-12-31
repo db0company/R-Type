@@ -3,12 +3,12 @@
 # define		PROTOCOLGAME_H_
 
 # include		<map>
-# include		"iProtocolAction.hpp"
+# include		"IProtocolAction.hpp"
 # include		"PacketData.hpp"
 # include		"eProtocolPacketGame.hpp"
 
 class			ProtocolGame
-  : public iProtocolAction
+  : public IProtocolAction
 {
 private:
   typedef bool	(ProtocolGame::*ptr_func)(PacketData &);
@@ -22,7 +22,7 @@ public:
 
 public:
   virtual void		action(ushort instruction,
-			       PacketData & data);
+			       PacketData & data, User *, Server &);
 private:
   bool			actionError(PacketData & data);
   bool			actionGet(PacketData & data);

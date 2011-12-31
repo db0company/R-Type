@@ -30,7 +30,7 @@ ProtocolMovement::~ProtocolMovement(void)
 }
 
 void			ProtocolMovement::action(ushort instruction,
-					     PacketData & data)
+						 PacketData & data, User *, Server &)
 {
   std::map<eProtocolPacketMovement, ptr_funct>::iterator it;
   ptr_funct		ptr;

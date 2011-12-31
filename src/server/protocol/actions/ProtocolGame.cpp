@@ -32,7 +32,7 @@ ProtocolGame::~ProtocolGame(void)
 }
 
 void			ProtocolGame::action(ushort instruction,
-					     PacketData & data)
+					     PacketData & data, User *, Server &)
 {
   std::map<eProtocolPacketGame, ptr_func>::iterator it;
   ptr_func		ptr;

@@ -23,7 +23,7 @@ ProtocolGameDetails::~ProtocolGameDetails(void)
 {
 }
 
-void ProtocolGameDetails::action(ushort instruction, PacketData &data)
+void ProtocolGameDetails::action(ushort instruction, PacketData &data, User *, Server &)
 {
   std::map<eProtocolPacketGameDetails, ptr_funct>::iterator it;
   ptr_funct		ptr;

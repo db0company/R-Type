@@ -132,7 +132,7 @@ bool			User::addPacketToSend(ProtocolPacket *packer)
 //   return (true);
 // }
 
-bool				User::processPackets(void)
+bool				User::processPackets(Server &serv)
 {
   int				nb_packet = 0;
   ProtocolPacket		*packet = NULL;
@@ -152,7 +152,7 @@ bool				User::processPackets(void)
     {
       std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paRead.front();
-      this->pm.Process(packet, this);
+      this->pm.Process(packet, this, serv);
       this->paRead.pop();
       ++tmp_i;
     }
@@ -161,7 +161,7 @@ bool				User::processPackets(void)
     {
       std::cout << "\t\033[33mUDP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paReadUDP.front();
-      this->pm.Process(packet, this);
+      this->pm.Process(packet, this, serv);
       this->paReadUDP.pop();
       ++tmp_i;
     }
