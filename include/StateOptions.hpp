@@ -24,15 +24,6 @@ namespace LibGraphic
 	BUTTON_OPTIONS_VALIDATE
       };
 
-    // enum eSelectedArea
-    //   {
-    // 	NAME,
-    // 	IP,
-    // 	PORT,
-    // 	VOLUME_MUSIC,
-    // 	VOLUME_EFFECT
-    //   };
-
   public:
     StateOptions(std::map<std::string const, GraphicRessource *> const &,
 		       std::map<std::string const, MyMusic *> const &,
