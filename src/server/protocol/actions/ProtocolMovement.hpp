@@ -9,7 +9,7 @@
 class		ProtocolMovement : public IProtocolAction
 {
 private:
-  typedef bool (ProtocolMovement::*ptr_funct)(PacketData &);
+  typedef bool (ProtocolMovement::*ptr_funct)(PacketData &, User *, Server &);
   std::map<eProtocolPacketMovement, ptr_funct>	actionmap;
 
 public:
@@ -21,12 +21,12 @@ public:
   virtual void action(ushort instruction, PacketData &data, User *, Server &);
 
 private:
-  bool		actionError(PacketData &data);
-  bool		actionMove(PacketData &data);
-  bool		actionUpdatePlayer(PacketData &data);
-  bool		actionUpdateEnemy(PacketData &data);
-  bool		actionUpdateBullet(PacketData &data);
-  bool		actionNewBullet(PacketData &data);
+  bool		actionError(PacketData &data, User *, Server &);
+  bool		actionMove(PacketData &data, User *, Server &);
+  bool		actionUpdatePlayer(PacketData &data, User *, Server &);
+  bool		actionUpdateEnemy(PacketData &data, User *, Server &);
+  bool		actionUpdateBullet(PacketData &data, User *, Server &);
+  bool		actionNewBullet(PacketData &data, User *, Server &);
 };
 
 #endif	// PROTOCOLMOVEMENT_H_

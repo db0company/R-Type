@@ -9,7 +9,7 @@
 class		ProtocolLobby : public IProtocolAction
 {
 private:
-  typedef bool (ProtocolLobby::*ptr_functlobby)(PacketData &);
+  typedef bool (ProtocolLobby::*ptr_functlobby)(PacketData &, User *, Server &);
   std::map<eProtocolPacketLobby, ptr_functlobby>	actionmap;
 
 public:
@@ -22,8 +22,8 @@ public:
 
 private:
 
-  bool		actionError(PacketData &data);
-  bool		actionChat(PacketData &data);
+  bool		actionError(PacketData &data, User *, Server &);
+  bool		actionChat(PacketData &data, User *, Server &);
 };
 
 #endif	// PROTOCOLLOBBY_H_

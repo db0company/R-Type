@@ -9,7 +9,7 @@
 class		ProtocolGameDetails : public IProtocolAction
 {
 private:
-  typedef bool (ProtocolGameDetails::*ptr_funct)(PacketData &);
+  typedef bool (ProtocolGameDetails::*ptr_funct)(PacketData &, User *, Server &);
   std::map<eProtocolPacketGameDetails, ptr_funct>	actionmap;
 
 public:
@@ -21,11 +21,11 @@ public:
   virtual void action(ushort instruction, PacketData &data, User *, Server &);
 
 private:
-  bool		actionError(PacketData &data);
-  bool		actionPlayerLogin(PacketData &data);
-  bool		actionScore(PacketData &data);
-  bool		actionGetMap(PacketData &data);
-  bool		actionPlayerLife(PacketData &data);
+  bool		actionError(PacketData &data, User *, Server &);
+  bool		actionPlayerLogin(PacketData &data, User *, Server &);
+  bool		actionScore(PacketData &data, User *, Server &);
+  bool		actionGetMap(PacketData &data, User *, Server &);
+  bool		actionPlayerLife(PacketData &data, User *, Server &);
 };
 
 #endif			//PROTOCOLGAMEDETAILS_HPP_

@@ -11,7 +11,7 @@ class			ProtocolGame
   : public IProtocolAction
 {
 private:
-  typedef bool	(ProtocolGame::*ptr_func)(PacketData &);
+  typedef bool	(ProtocolGame::*ptr_func)(PacketData &, User *, Server &);
   std::map<eProtocolPacketGame, ptr_func>	actionmap;
 
 public:
@@ -24,14 +24,14 @@ public:
   virtual void		action(ushort instruction,
 			       PacketData & data, User *, Server &);
 private:
-  bool			actionError(PacketData & data);
-  bool			actionGet(PacketData & data);
-  bool			actionGetLevel(PacketData & data);
-  bool			actionCreate(PacketData & data);
-  bool			actionJoin(PacketData & data);
-  bool			actionQuit(PacketData & data);
-  bool			actionEnd(PacketData & data);
-  bool			actionStart(PacketData & data);
+  bool			actionError(PacketData & data, User *, Server &);
+  bool			actionGet(PacketData & data, User *, Server &);
+  bool			actionGetLevel(PacketData & data, User *, Server &);
+  bool			actionCreate(PacketData & data, User *, Server &);
+  bool			actionJoin(PacketData & data, User *, Server &);
+  bool			actionQuit(PacketData & data, User *, Server &);
+  bool			actionEnd(PacketData & data, User *, Server &);
+  bool			actionStart(PacketData & data, User *, Server &);
 };
 
 #endif			// !PROTOCOLGAME_H_
