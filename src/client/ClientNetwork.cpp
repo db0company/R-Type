@@ -153,7 +153,7 @@ bool ClientNetwork::process(Client &client)
     {
       std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paRead.front();
-      this->_pm.Process(packet, NULL);
+      this->_pm.Process(packet, client);
       this->paRead.pop();
       ++tmp_i;
     }
@@ -161,7 +161,7 @@ bool ClientNetwork::process(Client &client)
     {
       std::cout << "\t\033[33mUDP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paReadUDP.front();
-      this->_pm.Process(packet, NULL);
+      this->_pm.Process(packet, client);
       this->paReadUDP.pop();
       ++tmp_i;
     }

@@ -2,10 +2,10 @@
 # include <cstdlib>
 # include "verbose.h"
 # include "PacketManager.hpp"
-# include "ProtocolGame.hpp"
-# include "ProtocolGameDetails.hpp"
-# include "ProtocolMovement.hpp"
-# include "ProtocolLobby.hpp"
+# include "actions/ProtocolGame.hpp"
+# include "actions/ProtocolGameDetails.hpp"
+# include "actions/ProtocolMovement.hpp"
+# include "actions/ProtocolLobby.hpp"
 # include "User.hpp"
 
 PacketManager::PacketManager(void)

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "StateStart.hpp"
 
 LibGraphic::StateStart::StateStart(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,

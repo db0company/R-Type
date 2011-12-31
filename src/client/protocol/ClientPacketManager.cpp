@@ -1,14 +1,14 @@
+# include <iostream>
 # include <string.h>
 # include <cstdlib>
 # include "verbose.h"
-# include "PacketManager.hpp"
-# include "ProtocolGame.hpp"
-# include "ProtocolGameDetails.hpp"
-# include "ProtocolMovement.hpp"
-# include "ProtocolLobby.hpp"
-# include "User.hpp"
+# include "ClientPacketManager.hpp"
+# include "actions/ProtocolGame.hpp"
+# include "actions/ProtocolGameDetails.hpp"
+# include "actions/ProtocolMovement.hpp"
+# include "actions/ProtocolLobby.hpp"
 
-PacketManager::PacketManager(void)
+ClientPacketManager::ClientPacketManager(void)
 {
   this->groupaction[THE_GAME] = new ProtocolGame;
   this->groupaction[GAME_DETAILS] = new ProtocolGameDetails;
@@ -16,12 +16,12 @@ PacketManager::PacketManager(void)
   this->groupaction[LOBBY] = new ProtocolLobby;
 }
 
-PacketManager::PacketManager(PacketManager const &other)
+ClientPacketManager::ClientPacketManager(ClientPacketManager const &other)
 {
   this->groupaction = other.groupaction;
 }
 
-PacketManager &		PacketManager::operator=(PacketManager const & other)
+ClientPacketManager &		ClientPacketManager::operator=(ClientPacketManager const & other)
 {
   if (&other != this)
     {
@@ -30,12 +30,12 @@ PacketManager &		PacketManager::operator=(PacketManager const & other)
   return (*this);
 }
 
-PacketManager::~PacketManager(void)
+ClientPacketManager::~ClientPacketManager(void)
 {
   //  delete this->groupaction[THE_GAME];
 }
 
-bool				PacketManager::Process(ProtocolPacket *packet, User *)
+bool				ClientPacketManager::Process(ProtocolPacket *packet, Client& client)
 {
   PacketData *textData = PacketFactory::getPacketData(packet);
   if (this->groupaction.find(PacketFactory::getPacketGroup(packet)) == this->groupaction.end())
@@ -62,12 +62,12 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *)
       textData->prettyPrint();
 
       this->groupaction[PacketFactory::getPacketGroup(packet)]->action
-      	(PacketFactory::getPacketInstruction(packet), *textData);
+      	(PacketFactory::getPacketInstruction(packet), *textData, client);
     }
   return (true);
 }
 
-void				PacketManager::actionError(void)
+void				ClientPacketManager::actionError(void)
 {
   // if (v)
   //std::cerr << "[warning] Invalid Packet Group: Ignored" << std::endl;

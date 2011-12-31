@@ -1,4 +1,3 @@
-
 #ifndef			PROTOCOLACTION_H_
 # define		PROTOCOLACTION_H_
 
@@ -7,18 +6,11 @@
 
 class			iProtocolAction
 {
-/* ************************************************************************* */
-/*                             Virtual Destructor                            */
-/* ************************************************************************* */
  public:
   virtual ~iProtocolAction(void) {};
 
-/* ************************************************************************* */
-/*                             Interface Methods                             */
-/* ************************************************************************* */
  public:
   virtual void		action(ushort instruction, PacketData & data) = 0;
 };
 
 #endif			// !PROTOCOLACTION_H_
-
