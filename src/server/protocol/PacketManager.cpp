@@ -63,7 +63,7 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *user, Server &serv)
 
       this->groupaction[PacketFactory::getPacketGroup(packet)]->action
       	(PacketFactory::getPacketInstruction(packet), *textData, user, serv);
-      user->addPacketToSend(packet);
+      //      user->addPacketToSend(packet);
     }
   return (true);
 }

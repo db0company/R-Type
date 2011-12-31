@@ -77,20 +77,20 @@ bool Client::run(void)
 
 	  data3.addString("prout");
 	  data3.addShort(400);
-	  ProtocolPacket *protocolPacket = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(QUITGAME), data);
+	  ProtocolPacket *protocolPacket = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), data);
 	  ProtocolPacket *protocolPacket1 = PacketFactory::createPacket(LOBBY, static_cast<ushort>(CHAT), data1);
 	  ProtocolPacket *protocolPacket2 = PacketFactory::createPacket(MOVEMENT, static_cast<ushort>(NEWBULLET), data2);
 	  ProtocolPacket *protocolPacket3 = PacketFactory::createPacket(GAME_DETAILS, static_cast<ushort>(SCORE), data3);
 
 	  this->cNetwork.pushTCP(protocolPacket);
-	  this->cNetwork.pushTCP(protocolPacket1);
-	  this->cNetwork.pushTCP(protocolPacket2);
-	  this->cNetwork.pushTCP(protocolPacket3);
+	  // this->cNetwork.pushTCP(protocolPacket1);
+	  // this->cNetwork.pushTCP(protocolPacket2);
+	  // this->cNetwork.pushTCP(protocolPacket3);
 
-	  this->cNetwork.pushUDP(protocolPacket);
-	  this->cNetwork.pushUDP(protocolPacket1);
-	  this->cNetwork.pushUDP(protocolPacket2);
-	  this->cNetwork.pushUDP(protocolPacket3);
+	  // this->cNetwork.pushUDP(protocolPacket);
+	  // this->cNetwork.pushUDP(protocolPacket1);
+	  // this->cNetwork.pushUDP(protocolPacket2);
+	  // this->cNetwork.pushUDP(protocolPacket3);
 	  ++i;
 	}
       this->cNetwork.process(*this);

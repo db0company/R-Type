@@ -47,7 +47,7 @@ eProtocolPacketGroup			PacketFactory::getPacketGroup(ProtocolPacket * packet)
 
 ushort				PacketFactory::getPacketInstruction(ProtocolPacket * packet)
 {
-  return (packet ? packet->header.group : 0);
+  return (packet ? packet->header.instruction : 0);
 }
 
 PacketData *		PacketFactory::getPacketData(ProtocolPacket * packet)
