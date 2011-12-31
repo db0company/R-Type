@@ -1,3 +1,4 @@
+#include <iostream>
 #include "StateOptions.hpp"
 #include "Language.hpp"
 
@@ -245,6 +246,19 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 		  this->_port = this->_port.substr(0, this->_port.length() - 1);
 		break;
 	      }
+	    case sf::Key::Return :
+	      {
+		if (this->_currentButton == BUTTON_OPTIONS_BACK ||
+		    this->_currentButton == BUTTON_OPTIONS_VALIDATE)
+		  {
+		    this->_nextState = START;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_OPTIONS_LANG_FR)
+		  language = FRANCAIS;
+		else if (this->_currentButton == BUTTON_OPTIONS_LANG_EN)
+		  language = ENGLISH;
+	      }
 	    default: break;
 	    }
 	}
@@ -280,8 +294,8 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 	      }
 	    }
 	}
+      cursorMenuPos(Event);
     }
-  cursorMenuPos(Event);
   return EVENT_NONE;
 }
 
@@ -316,7 +330,7 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
     case BUTTON_OPTIONS_NAME :
       {
 	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
-	    (Event.Key.Code == sf::Key::Down))
+	    Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_OPTIONS_IP;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 (Event.Key.Code == sf::Key::Up))
@@ -326,7 +340,7 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
     case BUTTON_OPTIONS_IP :
       {
 	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
-	    (Event.Key.Code == sf::Key::Down))
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
 	  this->_currentButton = BUTTON_OPTIONS_PORT;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
@@ -336,7 +350,7 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
     case BUTTON_OPTIONS_PORT :
       {
 	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
-	    (Event.Key.Code == sf::Key::Down))
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
 	  this->_currentButton = BUTTON_OPTIONS_VOL_MUSICS;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
@@ -350,7 +364,7 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
     case BUTTON_OPTIONS_VOL_MUSICS :
       {
 	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
-	    (Event.Key.Code == sf::Key::Down))
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
 	  this->_currentButton = BUTTON_OPTIONS_VOL_EFFECTS;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
@@ -366,7 +380,7 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
     case BUTTON_OPTIONS_VOL_EFFECTS :
       {
 	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
-	    (Event.Key.Code == sf::Key::Down))
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
 	  this->_currentButton = BUTTON_OPTIONS_LANG_EN;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
@@ -385,7 +399,7 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
 	    Event.Key.Code == sf::Key::Right)
 	  this->_currentButton = BUTTON_OPTIONS_LANG_FR;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
-	    (Event.Key.Code == sf::Key::Down))
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
 	  this->_currentButton = BUTTON_OPTIONS_VALIDATE;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
@@ -400,7 +414,7 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
 	    Event.Key.Code == sf::Key::Left)
 	  this->_currentButton = BUTTON_OPTIONS_LANG_EN;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
-		 (Event.Key.Code == sf::Key::Down))
+		 (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
 	  this->_currentButton = BUTTON_OPTIONS_VALIDATE;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
@@ -415,7 +429,7 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
 	    Event.Key.Code == sf::Key::Right)
 	    this->_currentButton = BUTTON_OPTIONS_VALIDATE;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
-		 (Event.Key.Code == sf::Key::Down))
+		 (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
 	  this->_currentButton = BUTTON_OPTIONS_NAME;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
@@ -428,7 +442,7 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
 	    Event.Key.Code == sf::Key::Left)
 	  this->_currentButton = BUTTON_OPTIONS_BACK;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
-		 (Event.Key.Code == sf::Key::Down))
+		 (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
 	  this->_currentButton = BUTTON_OPTIONS_NAME;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
