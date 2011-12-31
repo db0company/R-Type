@@ -7,9 +7,11 @@
 #include "IGraphic.hpp"
 #include "GraphicUtils.hpp"
 #include "GraphicClientState.hpp"
-#include "ClientNetwork.hpp"
+//#include "ClientNetwork.hpp"
 
 #define WINDOWNAME "R-Type"
+
+class			ClientNetwork;
 
 namespace LibGraphic
 {

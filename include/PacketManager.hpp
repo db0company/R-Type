@@ -4,13 +4,14 @@
 # include	<map>
 # include	"PacketFactory.hpp"
 # include	"PacketData.hpp"
-# include	"iProtocolAction.hpp"
-class User;
+# include	"IProtocolAction.hpp"
 
+class User;
+class Server;
 class		PacketManager
 {
  private:
-  std::map<eProtocolPacketGroup, iProtocolAction *>	groupaction;
+  std::map<eProtocolPacketGroup, IProtocolAction *>	groupaction;
 
  public:
   PacketManager(void);
@@ -19,7 +20,7 @@ class		PacketManager
   ~PacketManager(void);
 
  public:
-  bool				Process(ProtocolPacket *packet, User *user);
+  bool				Process(ProtocolPacket *packet, User *user, Server&);
   void				actionError();
   // ProtocolPacket *		RcvPacket(User * user, bool);
 };

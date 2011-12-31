@@ -2,10 +2,10 @@
 # include <cstdlib>
 # include "verbose.h"
 # include "PacketManager.hpp"
-# include "ProtocolGame.hpp"
-# include "ProtocolGameDetails.hpp"
-# include "ProtocolMovement.hpp"
-# include "ProtocolLobby.hpp"
+# include "actions/ProtocolGame.hpp"
+# include "actions/ProtocolGameDetails.hpp"
+# include "actions/ProtocolMovement.hpp"
+# include "actions/ProtocolLobby.hpp"
 # include "User.hpp"
 
 PacketManager::PacketManager(void)
@@ -35,7 +35,7 @@ PacketManager::~PacketManager(void)
   //  delete this->groupaction[THE_GAME];
 }
 
-bool				PacketManager::Process(ProtocolPacket *packet, User *user)
+bool				PacketManager::Process(ProtocolPacket *packet, User *user, Server &serv)
 {
   PacketData *textData = PacketFactory::getPacketData(packet);
   if (this->groupaction.find(PacketFactory::getPacketGroup(packet)) == this->groupaction.end())
@@ -62,7 +62,7 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *user)
       textData->prettyPrint();
 
       this->groupaction[PacketFactory::getPacketGroup(packet)]->action
-      	(PacketFactory::getPacketInstruction(packet), *textData);
+      	(PacketFactory::getPacketInstruction(packet), *textData, user, serv);
       user->addPacketToSend(packet);
     }
   return (true);

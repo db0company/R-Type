@@ -10,7 +10,7 @@
 
 #define AGGREGATE_READ_SIZE 1024
 
-
+class		Server;
 class		User
 {
  private:
@@ -44,7 +44,7 @@ class		User
   bool			feedPacketAggregator(void);
   //udp
   bool			feedPacketAggregator(char *data, int size);
-  bool			processPackets(void);
+  bool			processPackets(Server &);
   bool			aggregatePacketToSend(void);
   // bool			aggregatePacketToSend(AUDPServerSocket*);
 };

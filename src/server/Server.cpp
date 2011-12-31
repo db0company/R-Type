@@ -200,7 +200,7 @@ bool	Server::processPackets(void)
     {
       if ((user = it->second) == NULL)
 	continue;
-      user->processPackets();
+      user->processPackets(*this);
     }
   return (true);
 }

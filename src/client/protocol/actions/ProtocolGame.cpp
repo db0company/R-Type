@@ -32,64 +32,63 @@ ProtocolGame::~ProtocolGame(void)
 }
 
 void			ProtocolGame::action(ushort instruction,
-					     PacketData & data)
+					     PacketData & data, Client &client)
 {
   std::map<eProtocolPacketGame, ptr_func>::iterator it;
   ptr_func		ptr;
 
   if (instruction >= GAME_MAX)
-    (void)this->actionError(data);
+    (void)this->actionError(data, client);
   if ((it = this->actionmap.find(static_cast<eProtocolPacketGame>(instruction))) == this->actionmap.end())
     {
-      (void)this->actionError(data);
+      (void)this->actionError(data, client);
       return ;
     }
   ptr = it->second;
-  (this->*ptr)(data);
-  //  (void)((this->*actionmap[static_cast<eProtocolContact>(instruction)]) //oldx
+  (this->*ptr)(data, client);
 }
 
-bool			ProtocolGame::actionError(PacketData &)
+bool			ProtocolGame::actionError(PacketData &, Client &)
 {
   return (true);
 }
 
-bool			ProtocolGame::actionGet(PacketData & data)
+bool			ProtocolGame::actionGet(PacketData & data, Client &)
 {
   (void)data;
   return (true);
 }
 
-bool			ProtocolGame::actionGetLevel(PacketData & data)
+bool			ProtocolGame::actionGetLevel(PacketData & data, Client &)
 {
   (void)data;
     return (true);
 }
 
-bool			ProtocolGame::actionCreate(PacketData & data)
+bool			ProtocolGame::actionCreate(PacketData & data, Client &)
 {
   (void)data;
   return (true);
 }
 
-bool			ProtocolGame::actionJoin(PacketData & data)
+bool			ProtocolGame::actionJoin(PacketData & data, Client &)
 {
   (void)data;
   return (true);
 }
 
-bool			ProtocolGame::actionQuit(PacketData & data)
+bool			ProtocolGame::actionQuit(PacketData & data, Client &)
 {
   (void)data;
   return (true);
 }
-bool			ProtocolGame::actionEnd(PacketData & data)
+bool			ProtocolGame::actionEnd(PacketData & data, Client &)
 {
   (void)data;
   return (true);
 }
 
-bool			ProtocolGame::actionStart(PacketData & data)
+bool			ProtocolGame::actionStart(PacketData & data, Client &)
 {
   (void)data;
   return (true);

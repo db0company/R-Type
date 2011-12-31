@@ -26,28 +26,28 @@ ProtocolLobby::~ProtocolLobby(void)
 }
 
 void			ProtocolLobby::action(ushort instruction,
-					     PacketData & data)
+					      PacketData & data, User *user, Server &serv)
 {
   std::map<eProtocolPacketLobby, ptr_functlobby>::iterator it;
   ptr_functlobby	ptr;
 
   if (instruction >= LOBBY_MAX)
-    (void)this->actionError(data);
+    (void)this->actionError(data, user, serv);
   if ((it = this->actionmap.find(static_cast<eProtocolPacketLobby>(instruction))) == this->actionmap.end())
     {
-      this->actionError(data);
+      this->actionError(data, user, serv);
       return ;
     }
   ptr = it->second;
-  (this->*ptr)(data);
+  (this->*ptr)(data, user, serv);
 }
 
-bool			ProtocolLobby::actionError(PacketData &)
+bool			ProtocolLobby::actionError(PacketData &, User *, Server &)
 {
   return (false);
 }
 
-bool			ProtocolLobby::actionChat(PacketData & data)
+bool			ProtocolLobby::actionChat(PacketData & data, User *, Server &)
 {
   (void)data;
   return (true);

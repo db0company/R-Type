@@ -30,53 +30,52 @@ ProtocolMovement::~ProtocolMovement(void)
 }
 
 void			ProtocolMovement::action(ushort instruction,
-					     PacketData & data)
+						 PacketData & data, User *user, Server &serv)
 {
   std::map<eProtocolPacketMovement, ptr_funct>::iterator it;
   ptr_funct		ptr;
 
   if (instruction >= MOVEMENT_MAX)
-    (void)this->actionError(data);
+    (void)this->actionError(data, user, serv);
   if ((it = this->actionmap.find(static_cast<eProtocolPacketMovement>(instruction))) == this->actionmap.end())
     {
-    (void)this->actionError(data);
-    return ;
+      (void)this->actionError(data, user, serv);
+      return ;
     }
   ptr = it->second;
-  (this->*ptr)(data);
-  //  (void)((this->*actionmap[static_cast<eProtocolContact>(instruction)]) //oldx
+  (this->*ptr)(data, user, serv);
 }
 
-bool			ProtocolMovement::actionError(PacketData &)
+bool			ProtocolMovement::actionError(PacketData &, User *, Server &)
 {
   return (true);
 }
 
-bool		ProtocolMovement::actionMove(PacketData &data)
-{
-  (void)data;
-  return (true);
-}
-
-bool		ProtocolMovement::actionUpdatePlayer(PacketData &data)
+bool		ProtocolMovement::actionMove(PacketData &data, User *, Server &)
 {
   (void)data;
   return (true);
 }
 
-bool		ProtocolMovement::actionUpdateEnemy(PacketData &data)
+bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, User *, Server &)
 {
   (void)data;
   return (true);
 }
 
-bool		ProtocolMovement::actionUpdateBullet(PacketData &data)
+bool		ProtocolMovement::actionUpdateEnemy(PacketData &data, User *, Server &)
 {
   (void)data;
   return (true);
 }
 
-bool		ProtocolMovement::actionNewBullet(PacketData &data)
+bool		ProtocolMovement::actionUpdateBullet(PacketData &data, User *, Server &)
+{
+  (void)data;
+  return (true);
+}
+
+bool		ProtocolMovement::actionNewBullet(PacketData &data, User *, Server &)
 {
   (void)data;
   return (true);

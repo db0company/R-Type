@@ -7,8 +7,10 @@
 #include "ATCPClientSocket.h"
 #include "ISelector.h"
 #include "ISocket.h"
-#include "PacketManager.hpp"
+#include "ClientPacketManager.hpp"
+
 class		Client;
+//class		ClientPacketManager;
 class		ClientNetwork
 {
 public:
@@ -28,7 +30,7 @@ public:
   bool pushTCP(ProtocolPacket *);
   bool pushUDP(ProtocolPacket *);
 private:
-  PacketManager	   _pm;
+  ClientPacketManager   _pm;
   ATCPClientSocket *_tcp;
   ISocket	   *_udp;
   ISelector	   *_selector;
