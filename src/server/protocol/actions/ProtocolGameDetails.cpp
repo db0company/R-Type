@@ -1,4 +1,8 @@
-#include	"ProtocolGameDetails.hpp"
+#include <iostream>
+#include "PacketFactory.hpp"
+#include "ProtocolPacket.h"
+#include "ProtocolGameDetails.hpp"
+#include "User.hpp"
 
 ProtocolGameDetails::ProtocolGameDetails(void)
 {
@@ -40,33 +44,44 @@ void ProtocolGameDetails::action(ushort instruction, PacketData &data, User *use
   (this->*ptr)(data, user, serv);
 }
 
-bool ProtocolGameDetails::actionError(PacketData &data, User *, Server &)
+bool ProtocolGameDetails::actionError(PacketData &, User *, Server &)
 {
-  (void)data;
   return (true);
 }
 
-bool ProtocolGameDetails::actionPlayerLogin(PacketData &data, User *, Server &)
+bool ProtocolGameDetails::actionPlayerLogin(PacketData &, User *user, Server &)
 {
-  (void)data;
+  PacketData  to_send;
+  ProtocolPacket *packet_to_send;
+  // TODO:
+  // to_send: [nb_player(char)][playerlogin(string)]+
+  packet_to_send = PacketFactory::createPacket(GAME_DETAILS, static_cast<ushort>(PLAYERLOGIN), to_send);
+  user->addPacketToSend(packet_to_send);
   return (true);
 }
 
-bool ProtocolGameDetails::actionScore(PacketData &data, User *, Server &)
+bool ProtocolGameDetails::actionScore(PacketData &, User *, Server &)
 {
-  (void)data;
+  // PacketData  to_send;
+  // ProtocolPacket *packet_to_send;
+
+  // TODO:
+  // to_send: [nb_player(char)][score(short)]
+  // si le user fait partie dune game: get le score et lui envoyer. sinon rien envoyer
+  // packet_to_send = PacketFactory::createPacket(GAME_DETAILS, static_cast<ushort>(SCORE), to_send);
+  // user->addPacketToSend(packet_to_send);
   return (true);
 }
 
-bool ProtocolGameDetails::actionGetMap(PacketData &data, User *, Server &)
+bool ProtocolGameDetails::actionGetMap(PacketData &, User *, Server &)
 {
-  (void)data;
-  return (true);
+  // BIG TODO: !!
+  // What should i do ?
+ return (true);
 }
 
-bool ProtocolGameDetails::actionPlayerLife(PacketData &data, User *, Server &)
+bool ProtocolGameDetails::actionPlayerLife(PacketData &, User *, Server &)
 {
-  (void)data;
+  // nothing to do ;)
   return (true);
 }
-

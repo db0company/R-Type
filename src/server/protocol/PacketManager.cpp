@@ -60,7 +60,6 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *user, Server &serv)
       std::cout << ") \033[32mInst\033[00m(" <<
 	PacketFactory::getPacketInstruction(packet) << ")" << std::endl;
       textData->prettyPrint();
-
       this->groupaction[PacketFactory::getPacketGroup(packet)]->action
       	(PacketFactory::getPacketInstruction(packet), *textData, user, serv);
       //      user->addPacketToSend(packet);

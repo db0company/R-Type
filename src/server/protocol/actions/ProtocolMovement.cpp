@@ -1,4 +1,3 @@
-
 #include		"ProtocolMovement.hpp"
 
 ProtocolMovement::ProtocolMovement()
@@ -53,30 +52,52 @@ bool			ProtocolMovement::actionError(PacketData &, User *, Server &)
 
 bool		ProtocolMovement::actionMove(PacketData &data, User *, Server &)
 {
+  // MOVEMENT MOVE
+  // char tilex;
+  // char tiley;
+  // char posx;
+  // char posy;
+  // char dirx;
+  // char diry;
+
+  // tilex = data.getNextChar();
+  // tiley = data.getNextChar();
+  // posx = data.getNextChar();
+  // posy = data.getNextChar();
+  // dirx = data.getNextChar();
+  // diry = data.getNextChar();
+
+  // TODO: verif si le player est bien ds une game: sinon ignor msg :)
+  // voir avec vincent comment marche les positions : les set dans la game
+  // envoyer au clients de la game les info.
+  // va ptetre faloir changer le client->server pour cette instruction.
   (void)data;
   return (true);
 }
 
-bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, User *, Server &)
+bool		ProtocolMovement::actionUpdatePlayer(PacketData &, User *, Server &)
 {
-  (void)data;
+  // nothing to do ;)
   return (true);
 }
 
-bool		ProtocolMovement::actionUpdateEnemy(PacketData &data, User *, Server &)
+bool		ProtocolMovement::actionUpdateEnemy(PacketData &, User *, Server &)
 {
-  (void)data;
+  // nothing to do ;)
   return (true);
 }
 
-bool		ProtocolMovement::actionUpdateBullet(PacketData &data, User *, Server &)
+bool		ProtocolMovement::actionUpdateBullet(PacketData &, User *, Server &)
 {
-  (void)data;
+  // nothing to do ;)
   return (true);
 }
 
-bool		ProtocolMovement::actionNewBullet(PacketData &data, User *, Server &)
+bool		ProtocolMovement::actionNewBullet(PacketData &, User *, Server &)
 {
-  (void)data;
+  // TODO: si le client nest pas dans une game qui a start: ignor msg
+  // sinon on creer un AOBject bullet associe a ce client et on envoi a tt les
+  // client de la game (y compri le lanceur) par UDP qu'il y a un new bullet
+  // avec les positions
   return (true);
 }

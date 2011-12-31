@@ -116,11 +116,6 @@ int  PacketAggregator::aggregateCharToPacket(void)
       // std::cout << "wtf?" << std::endl;
     }
   this->_index = this->_index - next;
-  if (this->_index > 1000)
-    {
-      std::cout << " ???  " << next << " " << this->_index<< std::endl;
-      exit(EXIT_FAILURE);
-    }
   return (1);
 }
 
@@ -140,6 +135,7 @@ bool PacketAggregator::erase(void)
     {
       this->_packetQueue.pop();
     }
+  memset(this->_buffer, 0, 4096);
   return (0);
 }
 

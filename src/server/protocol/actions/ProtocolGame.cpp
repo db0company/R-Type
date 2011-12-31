@@ -40,7 +40,6 @@ void			ProtocolGame::action(ushort instruction,
   std::map<eProtocolPacketGame, ptr_func>::iterator it;
   ptr_func		ptr;
 
-  std::cout << "OMG: " << instruction << std::endl;
   if (instruction >= GAME_MAX)
     (void)this->actionError(data, user, serv);
   if ((it = this->actionmap.find(static_cast<eProtocolPacketGame>(instruction))) == this->actionmap.end())

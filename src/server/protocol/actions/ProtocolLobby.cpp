@@ -1,5 +1,8 @@
-#include		<iostream>
-#include		"ProtocolLobby.hpp"
+#include <iostream>
+#include "PacketFactory.hpp"
+#include "ProtocolPacket.h"
+#include "ProtocolLobby.hpp"
+#include "User.hpp"
 
 ProtocolLobby::ProtocolLobby()
 {
@@ -47,8 +50,25 @@ bool			ProtocolLobby::actionError(PacketData &, User *, Server &)
   return (false);
 }
 
-bool			ProtocolLobby::actionChat(PacketData & data, User *, Server &)
+bool			ProtocolLobby::actionChat(PacketData & data, User *user, Server &)
 {
-  (void)data;
-  return (true);
+  PacketData  to_send;
+  ProtocolPacket *packet_to_send;
+  std::string msg;
+
+  msg = data.getNextString();
+  std::cout << "OMG" << msg<< std::endl;
+  if (msg.size())
+    {
+      // TODO:
+      // verifier si le user est dans une game. que cette game n'a pas encore commencer
+      // (lobby -mode). si c'est le cas et que le msg n'est pas vide: envoyer a tt les
+      // client de cette game le packet.
+      // to_send: [player_login(string)][msg(string)]
+      to_send.addString("login"); // recup login todo
+      to_send.addString(msg);
+      packet_to_send = PacketFactory::createPacket(LOBBY, static_cast<ushort>(CHAT), to_send);
+      user->addPacketToSend(packet_to_send); // pour tt les clients de la game
+    }
+  return (false);
 }
