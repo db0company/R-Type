@@ -24,15 +24,6 @@ namespace LibGraphic
 	BUTTON_OPTIONS_VALIDATE
       };
 
-    // enum eSelectedArea
-    //   {
-    // 	NAME,
-    // 	IP,
-    // 	PORT,
-    // 	VOLUME_MUSIC,
-    // 	VOLUME_EFFECT
-    //   };
-
   public:
     StateOptions(std::map<std::string const, GraphicRessource *> const &,
 		       std::map<std::string const, MyMusic *> const &,
@@ -53,7 +44,7 @@ namespace LibGraphic
   private:
     void drawText();
     void cursorMenuPos(const sf::Event&);
-    sf::Sprite & isCurrentButton(sf::Sprite &);
+    void readText(const sf::Event &);
 
   private:
     std::map<std::string const, GraphicRessource *>
@@ -70,11 +61,8 @@ namespace LibGraphic
 
   private:
     std::string _name;
-    std::string _nameTitre;
     std::string _ip;
-    std::string _ipTitre;
     std::string _port;
-    std::string _portTitre;
   };
 
 }
