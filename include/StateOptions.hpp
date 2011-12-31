@@ -13,18 +13,25 @@ namespace LibGraphic
   private:
     enum eSelectedButton
       {
-	BACK,
-	VALIDATE
+	BUTTON_OPTIONS_NAME,
+	BUTTON_OPTIONS_IP,
+	BUTTON_OPTIONS_PORT,
+	BUTTON_OPTIONS_VOL_MUSICS,
+	BUTTON_OPTIONS_VOL_EFFECTS,
+	BUTTON_OPTIONS_LANG_EN,
+	BUTTON_OPTIONS_LANG_FR,
+	BUTTON_OPTIONS_BACK,
+	BUTTON_OPTIONS_VALIDATE
       };
 
-    enum eSelectedArea
-      {
-	NAME,
-	IP,
-	PORT,
-	VOLUME_MUSIC,
-	VOLUME_EFFECT
-      };
+    // enum eSelectedArea
+    //   {
+    // 	NAME,
+    // 	IP,
+    // 	PORT,
+    // 	VOLUME_MUSIC,
+    // 	VOLUME_EFFECT
+    //   };
 
   public:
     StateOptions(std::map<std::string const, GraphicRessource *> const &,
@@ -44,6 +51,11 @@ namespace LibGraphic
    inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
   private:
+    void drawText();
+    void cursorMenuPos(const sf::Event&);
+    sf::Sprite & isCurrentButton(sf::Sprite &);
+
+  private:
     std::map<std::string const, GraphicRessource *>
     const & _ressourcesSprite;
     std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
@@ -53,7 +65,16 @@ namespace LibGraphic
 
   private:
     eStates _nextState;
-    std::string test;
+    eSelectedButton _currentButton;
+    sf::Clock Clock;
+
+  private:
+    std::string _name;
+    std::string _nameTitre;
+    std::string _ip;
+    std::string _ipTitre;
+    std::string _port;
+    std::string _portTitre;
   };
 
 }
