@@ -46,14 +46,14 @@ add_executable(
 	./src/client/main.cpp
 	./src/client/Client.cpp
 	./src/client/ClientNetwork.cpp
-	./src/server/PacketAggregator.cpp
+	./src/protocol/PacketAggregator.cpp
 	./src/client/protocol/PacketManager.cpp
 	./src/client/protocol/actions/ProtocolGame.cpp
 	./src/client/protocol/actions/ProtocolGameDetails.cpp
 	./src/client/protocol/actions/ProtocolMovement.cpp
 	./src/client/protocol/actions/ProtocolLobby.cpp
-	./src/client/protocol/PacketData.cpp
-	./src/client/protocol/PacketFactory.cpp
+	./src/protocol/PacketData.cpp
+	./src/protocol/PacketFactory.cpp
 	./src/client/DirectoryManagerWindows.cpp
 	./src/client/Dll.cpp
 	./src/client/DlLoader.cpp
@@ -107,14 +107,14 @@ add_executable(
 	./src/client/main.cpp
 	./src/client/Client.cpp
 	./src/client/ClientNetwork.cpp
-	./src/server/PacketAggregator.cpp
+	./src/protocol/PacketAggregator.cpp
 	./src/client/protocol/PacketManager.cpp
 	./src/client/protocol/actions/ProtocolGame.cpp
 	./src/client/protocol/actions/ProtocolGameDetails.cpp
 	./src/client/protocol/actions/ProtocolMovement.cpp
 	./src/client/protocol/actions/ProtocolLobby.cpp
-	./src/client/protocol/PacketData.cpp
-	./src/client/protocol/PacketFactory.cpp
+	./src/protocol/PacketData.cpp
+	./src/protocol/PacketFactory.cpp
 	./src/client/DirectoryManagerUnix.cpp
 	./src/client/Dll.cpp
 	./src/client/DlLoader.cpp
@@ -143,8 +143,8 @@ SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 add_executable(
 	server
 	./src/server/main.cpp
-	./src/server/protocol/PacketData.cpp
-	./src/server/protocol/PacketFactory.cpp
+	./src/protocol/PacketData.cpp
+	./src/protocol/PacketFactory.cpp
 	./src/server/protocol/PacketManager.cpp
 	./src/server/protocol/actions/ProtocolGame.cpp
 	./src/server/protocol/actions/ProtocolGameDetails.cpp
@@ -156,7 +156,7 @@ add_executable(
 	./src/server/SafeQueue.cpp
 	./src/server/ThreadData.cpp
 	./src/server/ThreadPool.cpp
-	./src/server/PacketAggregator.cpp
+	./src/protocol/PacketAggregator.cpp
 	./src/server/TaskManager.cpp
 	./src/server/TaskNetwork.cpp
 	./src/server/PacketTask.cpp
