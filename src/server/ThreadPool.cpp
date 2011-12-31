@@ -42,7 +42,7 @@ bool ThreadPool<T>::init(T *data)
 }
 
 template <typename T>
-bool ThreadPool<T>::addNewThread(T *data)
+bool ThreadPool<T>::addNewThread(T *)
 {
   return (true);
 }

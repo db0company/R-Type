@@ -141,7 +141,7 @@ bool ClientNetwork::feedPacketAggregatorUDP(void)
   return (true);
 }
 
-bool ClientNetwork::process(void)
+bool ClientNetwork::process(Client &client)
 {
   int				nb_packet;
   ProtocolPacket		*packet;

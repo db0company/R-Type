@@ -8,7 +8,7 @@
 #include "ISelector.h"
 #include "ISocket.h"
 #include "PacketManager.hpp"
-
+class		Client;
 class		ClientNetwork
 {
 public:
@@ -23,7 +23,7 @@ public:
   bool select(void);
   bool feedPacketAggregatorTCP(void);
   bool feedPacketAggregatorUDP(void);
-  bool process(void);
+  bool process(Client &client);
   bool sendPacketToServer(void);
   bool pushTCP(ProtocolPacket *);
   bool pushUDP(ProtocolPacket *);
