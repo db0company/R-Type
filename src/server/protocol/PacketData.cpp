@@ -52,7 +52,7 @@ static void		prettyPrinter(DataRawType c)
 
 void			PacketData::prettyPrint(void) const
 {
-  std::cout << "{<(* ~~ PrettyPrint ~~ *)>}" << std::endl;
+  //  std::cout << "{<(* ~~ PrettyPrint ~~ *)>}" << std::endl;
   for_each(this->data.begin(), this->data.end(), prettyPrinter);
   std::cout << std::endl;
 }

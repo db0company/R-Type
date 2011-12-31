@@ -145,23 +145,25 @@ bool ClientNetwork::process(void)
 {
   int				nb_packet;
   ProtocolPacket		*packet;
-
+  unsigned int			tmp_i = 0;
   nb_packet = this->paRead.aggregateCharToPackets();
   if (this->paRead.empty() && this->paReadUDP.empty())
     return (false);
   while (!this->paRead.empty())
     {
+      std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paRead.front();
-      // ici on a le packet a executer!
-      // serai parfait : packetManager->Process(packet);
+      this->_pm.Process(packet, NULL);
       this->paRead.pop();
+      ++tmp_i;
     }
   while (!this->paReadUDP.empty())
     {
+      std::cout << "\t\033[33mUDP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paReadUDP.front();
-      // ici on a le packet a executer!
-      // serai parfait : packetManager->Process(packet);
+      this->_pm.Process(packet, NULL);
       this->paReadUDP.pop();
+      ++tmp_i;
     }
   return (true);
 }
@@ -177,7 +179,7 @@ bool ClientNetwork::sendPacketToServer(void)
       nb = this->paWrite.aggregatePacketToChar();
       if (nb > 0)
 	{
-	  std::cout << nb << "packet(s) to aggregate (TCP)" << std::endl;
+	  std::cout << nb << " packet(s) to aggregate (TCP)" << std::endl;
 	  size = this->paWrite.getSize();
 	  msg = this->paWrite.getMsg();
 	  this->_tcp->SNWrite(msg, size);
@@ -187,7 +189,7 @@ bool ClientNetwork::sendPacketToServer(void)
   nb = this->paWriteUDP.aggregatePacketToChar();
   if (nb > 0)
     {
-      std::cout << nb << "packet(s) to aggregate (UDP)" << std::endl;
+      std::cout << nb << " packet(s) to aggregate (UDP)" << std::endl;
       size = this->paWriteUDP.getSize();
       msg = this->paWriteUDP.getMsg();
       this->_udp->SNWrite(msg, size);

@@ -47,6 +47,11 @@ add_executable(
 	./src/client/Client.cpp
 	./src/client/ClientNetwork.cpp
 	./src/server/PacketAggregator.cpp
+	./src/client/protocol/PacketManager.cpp
+	./src/client/protocol/actions/ProtocolGame.cpp
+	./src/client/protocol/actions/ProtocolGameDetails.cpp
+	./src/client/protocol/actions/ProtocolMovement.cpp
+	./src/client/protocol/actions/ProtocolLobby.cpp
 	./src/client/protocol/PacketData.cpp
 	./src/client/protocol/PacketFactory.cpp
 	./src/client/DirectoryManagerWindows.cpp
@@ -103,6 +108,11 @@ add_executable(
 	./src/client/Client.cpp
 	./src/client/ClientNetwork.cpp
 	./src/server/PacketAggregator.cpp
+	./src/client/protocol/PacketManager.cpp
+	./src/client/protocol/actions/ProtocolGame.cpp
+	./src/client/protocol/actions/ProtocolGameDetails.cpp
+	./src/client/protocol/actions/ProtocolMovement.cpp
+	./src/client/protocol/actions/ProtocolLobby.cpp
 	./src/client/protocol/PacketData.cpp
 	./src/client/protocol/PacketFactory.cpp
 	./src/client/DirectoryManagerUnix.cpp

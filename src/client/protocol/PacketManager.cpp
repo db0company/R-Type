@@ -69,6 +69,6 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *)
 
 void				PacketManager::actionError(void)
 {
-  if (v)
-    std::cerr << "[warning] Invalid Packet Group: Ignored" << std::endl;
+  // if (v)
+  //std::cerr << "[warning] Invalid Packet Group: Ignored" << std::endl;
 }

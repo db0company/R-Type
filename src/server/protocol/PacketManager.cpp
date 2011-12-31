@@ -35,7 +35,7 @@ PacketManager::~PacketManager(void)
   //  delete this->groupaction[THE_GAME];
 }
 
-bool				PacketManager::Process(ProtocolPacket *packet, User *)
+bool				PacketManager::Process(ProtocolPacket *packet, User *user)
 {
   PacketData *textData = PacketFactory::getPacketData(packet);
   if (this->groupaction.find(PacketFactory::getPacketGroup(packet)) == this->groupaction.end())
@@ -63,6 +63,7 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *)
 
       this->groupaction[PacketFactory::getPacketGroup(packet)]->action
       	(PacketFactory::getPacketInstruction(packet), *textData);
+      user->addPacketToSend(packet);
     }
   return (true);
 }

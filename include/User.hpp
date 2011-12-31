@@ -6,6 +6,7 @@
 # include	"PacketAggregator.hpp"
 # include	"PacketManager.hpp"
 # include	<string>
+# include	"ProtocolPacket.h"
 
 #define AGGREGATE_READ_SIZE 1024
 
@@ -38,7 +39,8 @@ class		User
   void			setLog(bool);
   ATCPClientSocket *	getSocketTCP(void);
   std::string const &	getIp(void)const;
-  //tcp
+  bool			addPacketToSend(ProtocolPacket *);
+ //tcp
   bool			feedPacketAggregator(void);
   //udp
   bool			feedPacketAggregator(char *data, int size);

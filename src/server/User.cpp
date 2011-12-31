@@ -94,7 +94,7 @@ bool			User::aggregatePacketToSend(void)
       nb = this->paWrite.aggregatePacketToChar();
       if (nb > 0)
 	{
-	  std::cout << nb << "packet(s) to aggregate " << std::endl;
+	  std::cout << nb << " packet(s) to aggregate (TCP)" << std::endl;
 	  size = this->paWrite.getSize();
 	  msg = this->paWrite.getMsg();
 	  this->tcp->SNWrite(msg, size); // verif todo
@@ -103,6 +103,12 @@ bool			User::aggregatePacketToSend(void)
       return (true);
     }
   return (false);
+}
+
+bool			User::addPacketToSend(ProtocolPacket *packer)
+{
+  this->paWrite.push(packer);
+  return (true);
 }
 
 //udp
@@ -133,11 +139,11 @@ bool				User::processPackets(void)
   int				tmp_i = 0;
 
   nb_packet = this->paRead.aggregateCharToPackets();
-  if (nb_packet > 0)
-    std::cout << "TCP PacketQueue.size() == " << nb_packet << std::endl;
+  // if (nb_packet > 0)
+  //   std::cout << "TCP PacketQueue.size() == " << nb_packet << std::endl;
   nb_packet = this->paReadUDP.aggregateCharToPackets();
-  if (nb_packet > 0)
-    std::cout << "UDP PacketQueue.size() == " << nb_packet << std::endl;
+  // if (nb_packet > 0)
+  //   std::cout << "UDP PacketQueue.size() == " << nb_packet << std::endl;
   if (this->paRead.empty() && this->paReadUDP.empty())
     {
       return (false);
@@ -146,7 +152,7 @@ bool				User::processPackets(void)
     {
       std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paRead.front();
-      this->pm.Process(packet, NULL);
+      this->pm.Process(packet, this);
       this->paRead.pop();
       ++tmp_i;
     }
@@ -155,7 +161,7 @@ bool				User::processPackets(void)
     {
       std::cout << "\t\033[33mUDP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paReadUDP.front();
-      this->pm.Process(packet, NULL);
+      this->pm.Process(packet, this);
       this->paReadUDP.pop();
       ++tmp_i;
     }

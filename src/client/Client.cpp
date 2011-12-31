@@ -91,12 +91,6 @@ bool Client::run(void)
       	  this->cNetwork.pushUDP(protocolPacket1);
       	  this->cNetwork.pushUDP(protocolPacket2);
       	  this->cNetwork.pushUDP(protocolPacket3);
-
-
-	  data.prettyPrint();
-	  data1.prettyPrint();
-	  data2.prettyPrint();
-	  data3.prettyPrint();
       	  ++i;
       	}
       this->cNetwork.process();
