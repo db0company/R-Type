@@ -93,7 +93,7 @@ bool Client::run(void)
       	  this->cNetwork.pushUDP(protocolPacket3);
       	  ++i;
       	}
-      this->cNetwork.process();
+      this->cNetwork.process(*this);
       this->cNetwork.sendPacketToServer(); // static ok?
     }
   return (true);

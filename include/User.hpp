@@ -18,7 +18,7 @@ class		User
   bool		log;
   std::string	login;
   std::string	ip;
-  PacketManager pm;
+  PacketManager &pm;
 
   ATCPClientSocket *	tcp;
 

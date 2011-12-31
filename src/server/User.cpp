@@ -7,12 +7,12 @@
 #include "PacketManager.hpp"
 
 User::User(ATCPClientSocket * socket, std::string const & ip, PacketManager &pamanager)
-  : safe(true), log(false), login(""), ip(ip), tcp(socket), pm(pamanager)
+  : safe(true), log(false), login(""), ip(ip), pm(pamanager), tcp(socket)
 {}
 
 User::User(User const & other)
   : safe(other.safe), log(other.log), login(other.login),
-    ip(other.ip), tcp(other.tcp), pm(other.pm)
+    ip(other.ip), pm(other.pm), tcp(other.tcp)
 {}
 
 User &			User::operator=(User const & other)
