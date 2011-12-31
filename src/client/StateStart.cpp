@@ -317,9 +317,8 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 	    default: break;
 	    }
 	}
+      cursorMenuPos(Event);
     }
-
-  cursorMenuPos(Event);
   return EVENT_NONE;
 }
 
