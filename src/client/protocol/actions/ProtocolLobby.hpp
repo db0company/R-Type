@@ -2,11 +2,11 @@
 # define PROTOCOLLOBBY_H_
 
 # include	<map>
-# include	"iClientProtocolAction.hpp"
+# include	"IClientProtocolAction.hpp"
 # include	"PacketData.hpp"
 # include	"eProtocolPacketLobby.hpp"
 
-class		ProtocolLobby : public iClientProtocolAction
+class		ProtocolLobby : public IClientProtocolAction
 {
 private:
   typedef bool (ProtocolLobby::*ptr_functlobby)(PacketData &, Client &);

@@ -4,13 +4,13 @@
 # include	<map>
 # include	"PacketFactory.hpp"
 # include	"PacketData.hpp"
-# include	"iClientProtocolAction.hpp"
-// # include	"Client.hpp"
+# include	"IClientProtocolAction.hpp"
+
 class Client;
 class		ClientPacketManager
 {
  private:
-  std::map<eProtocolPacketGroup, iClientProtocolAction *>	groupaction;
+  std::map<eProtocolPacketGroup, IClientProtocolAction *>	groupaction;
 
  public:
   ClientPacketManager(void);

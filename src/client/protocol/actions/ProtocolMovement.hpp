@@ -2,11 +2,11 @@
 # define PROTOCOLMOVEMENT_H_
 
 # include	<map>
-# include	"iClientProtocolAction.hpp"
+# include	"IClientProtocolAction.hpp"
 # include	"PacketData.hpp"
 # include	"eProtocolPacketMovement.hpp"
 
-class		ProtocolMovement : public iClientProtocolAction
+class		ProtocolMovement : public IClientProtocolAction
 {
 private:
   typedef bool (ProtocolMovement::*ptr_funct)(PacketData &, Client &);

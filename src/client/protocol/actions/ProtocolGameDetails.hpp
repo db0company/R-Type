@@ -2,11 +2,11 @@
 #define		PROTOCOLGAMEDETAILS_HPP_
 
 # include	<map>
-# include	"iClientProtocolAction.hpp"
+# include	"IClientProtocolAction.hpp"
 # include	"PacketData.hpp"
 # include	"eProtocolPacketGameDetails.hpp"
 
-class		ProtocolGameDetails : public iClientProtocolAction
+class		ProtocolGameDetails : public IClientProtocolAction
 {
 private:
   typedef bool (ProtocolGameDetails::*ptr_funct)(PacketData &, Client &);

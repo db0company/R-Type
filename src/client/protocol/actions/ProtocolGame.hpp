@@ -3,12 +3,11 @@
 # define		PROTOCOLGAME_H_
 
 # include		<map>
-# include		"iClientProtocolAction.hpp"
+# include		"IClientProtocolAction.hpp"
 # include		"PacketData.hpp"
 # include		"eProtocolPacketGame.hpp"
 
-class			ProtocolGame
-  : public iClientProtocolAction
+class			ProtocolGame: public IClientProtocolAction
 {
 private:
   typedef bool	(ProtocolGame::*ptr_func)(PacketData &, Client &);

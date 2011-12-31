@@ -3,13 +3,12 @@
 
 # include "types.h"
 # include "PacketData.hpp"
-// # include "Client.hpp"
 
 class Client;
-class			iClientProtocolAction
+class			IClientProtocolAction
 {
  public:
-  virtual ~iClientProtocolAction(void) {}
+  virtual ~IClientProtocolAction(void) {}
 
  public:
   virtual void		action(ushort instruction, PacketData &data, Client&) = 0;
