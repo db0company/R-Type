@@ -33,6 +33,11 @@ void LibGraphic::MySound::StopSound()
   Sound.Stop();
 }
 
+void LibGraphic::MySound::UpdateVolume()
+{
+  Sound.SetVolume(gVolume.soundVolume);
+}
+
 sf::Sound::Status LibGraphic::MySound::GetSoundState()const
 {
   sf::Sound::Status state = Sound.GetStatus();

@@ -58,7 +58,6 @@ namespace LibGraphic
     eStates _nextState;
     eSelectedButton _currentButton;
     sf::Clock Clock;
-
   private:
     std::string _name;
     std::string _ip;

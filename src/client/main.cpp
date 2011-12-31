@@ -1,8 +1,10 @@
 //#include "Sfml.hpp"
 #include "AudioUtils.hpp"
 #include "Client.hpp"
+#include "Language.hpp"
 
 LibGraphic::Volume gVolume;
+LibGraphic::Language language;
 
 int main()
 {

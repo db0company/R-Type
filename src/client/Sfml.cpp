@@ -5,9 +5,10 @@
 #include "Sfml.hpp"
 #include "GraphicClientState.hpp"
 #include "ClientNetwork.hpp"
+#include "Language.hpp"
 
 extern LibGraphic::Volume gVolume;
-
+extern LibGraphic::Language language;
 // LibGraphic::Sfml::Sfml(void)
 // {
 //}
@@ -35,6 +36,7 @@ bool LibGraphic::Sfml::init()
   this->_height = sf::VideoMode::GetMode(0).Height;
   gVolume.musicVolume = 50;
   gVolume.soundVolume = 50;
+  language = ENGLISH;
   this->loadRessources();
   this->createStates();
   this->_currentState = START;

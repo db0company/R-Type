@@ -1,4 +1,8 @@
 #include "StateOptions.hpp"
+#include "Language.hpp"
+
+extern LibGraphic::Volume gVolume;
+extern LibGraphic::Language language;
 
 LibGraphic::StateOptions::StateOptions(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
@@ -24,7 +28,11 @@ bool LibGraphic::StateOptions::init()
 
 void LibGraphic::StateOptions::draw()
 {
-  sf::String *Back = this->getStdToSfString("Back", this->getFont("StartFontF"));
+  sf::String *Back;
+  if (language == ENGLISH)
+    Back = this->getStdToSfString("Back", this->getFont("StartFontF"));
+  else
+    Back = this->getStdToSfString("Retour", this->getFont("StartFontF"));
   sf::String *Ok = this->getStdToSfString("Ok", this->getFont("StartFontF"));
 
   sf::Sprite &back = this->getSprite("StartMenuBackground");
@@ -71,7 +79,6 @@ void LibGraphic::StateOptions::draw()
 
   NameArea.SetPosition(770, 340);
   this->_app.Draw(NameArea);
-  //  this->_app.Draw(*tmp);
   IpArea.SetPosition(770, 390);
   this->_app.Draw(IpArea);
   PortArea.SetPosition(770, 440);
@@ -80,24 +87,24 @@ void LibGraphic::StateOptions::draw()
   VolumeMusicBar.SetPosition(758, 510);
   VolumeMusicBar.SetScale(0.8, 1);
   this->_app.Draw(VolumeMusicBar);
-  VolumeMusicButton.SetPosition(780, 503);
+  VolumeMusicButton.SetPosition(780 + (gVolume.musicVolume * 2.6), 503);
   VolumeMusicButton.SetScale(0.8, 0.8);
   this->_app.Draw(VolumeMusicButton);
 
   VolumeEffectBar.SetPosition(758, 560);
   VolumeEffectBar.SetScale(0.8, 1);
   this->_app.Draw(VolumeEffectBar);
-  VolumeEffectButton.SetPosition(780, 553);
+  VolumeEffectButton.SetPosition(780 + (gVolume.soundVolume * 2.6), 553);
   VolumeEffectButton.SetScale(0.8, 0.8);
   this->_app.Draw(VolumeEffectButton);
 
   English.SetPosition(900, 600);
   Francais.SetPosition(1000, 600);
-    English.SetColor(sf::Color(255,255,255, 255));
+  English.SetColor(sf::Color(255,255,255, 255));
   Francais.SetColor(sf::Color(255,255,255, 255));
-  if (this->_currentButton != BUTTON_OPTIONS_LANG_EN)
+  if (this->_currentButton != BUTTON_OPTIONS_LANG_EN && language != ENGLISH)
     English.SetColor(sf::Color(255,255,255, 120));
-  if (this->_currentButton != BUTTON_OPTIONS_LANG_FR)
+  if (this->_currentButton != BUTTON_OPTIONS_LANG_FR && language != FRANCAIS)
     Francais.SetColor(sf::Color(255,255,255, 120));
   this->_app.Draw(Francais);
   this->_app.Draw(English);
@@ -105,8 +112,10 @@ void LibGraphic::StateOptions::draw()
   ButtonBack.SetPosition(720, 730);
   ButtonBack.SetRotation(180);
   this->_app.Draw(ButtonBack);
-  Back->SetPosition(565, 694);
-  Back->SetText("Back");
+  if (language == ENGLISH)
+    Back->SetPosition(565, 694);
+  else
+    Back->SetPosition(540, 694);
   Back->SetScale(1, 0.8);
   Back->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_BACK)
@@ -114,7 +123,6 @@ void LibGraphic::StateOptions::draw()
   this->_app.Draw(*Back);
 
   Ok->SetPosition(965, 694);
-  Ok->SetText("Ok");
   Ok->SetScale(1, 0.8);
   ButtonOk.SetPosition(1100, 730);
   this->_app.Draw(ButtonOk);
@@ -129,7 +137,10 @@ void LibGraphic::StateOptions::drawText()
 {
   sf::String *tmp;
 
-  tmp = this->getStdToSfString("Name", this->getFont("StartFontF"));
+  if (language == ENGLISH)
+    tmp = this->getStdToSfString("Name", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("Nom", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_NAME)
     tmp->SetColor(sf::Color(255,255,255, 205));
@@ -150,18 +161,34 @@ void LibGraphic::StateOptions::drawText()
   tmp->SetPosition(550, 435);
   this->_app.Draw(*tmp);
 
-  tmp = this->getStdToSfString("Musics", this->getFont("StartFontF"));
+  if (language == ENGLISH)
+    tmp = this->getStdToSfString("Music", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("Musique", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_VOL_MUSICS)
     tmp->SetColor(sf::Color(255,255,255, 205));
   tmp->SetPosition(550, 495);
   this->_app.Draw(*tmp);
 
-  tmp = this->getStdToSfString("Effects", this->getFont("StartFontF"));
+  if (language == ENGLISH)
+    tmp = this->getStdToSfString("Effect", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("Son", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_VOL_EFFECTS)
     tmp->SetColor(sf::Color(255,255,255, 205));
   tmp->SetPosition(550, 550);
+  this->_app.Draw(*tmp);
+
+  if (language == ENGLISH)
+    tmp = this->getStdToSfString("Language", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("Langue", this->getFont("StartFontF"));
+  tmp->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_OPTIONS_LANG_FR && this->_currentButton != BUTTON_OPTIONS_LANG_EN)
+    tmp->SetColor(sf::Color(255,255,255, 205));
+  tmp->SetPosition(550, 620);
   this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString(this->_name, this->getFont("StartFontF"));
@@ -184,6 +211,12 @@ void LibGraphic::StateOptions::drawText()
   tmp->SetScale(0.8, 0.8);
   tmp->SetColor(sf::Color(0, 0, 0, 235));
   this->_app.Draw(*tmp);
+
+  MyMusic * song = this->getMusic("StartMusic");
+  if (song->GetMusicState() == sf::Music::Stopped ||
+      song->GetMusicState() == sf::Music::Paused)
+    song->PlayMusic();
+  song->UpdateVolume();
 }
 
 LibGraphic::Event LibGraphic::StateOptions::gereEvent()
@@ -218,6 +251,35 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
       else if (Event.Type == sf::Event::TextEntered &&
 	       (Event.Text.Unicode > 20 && Event.Text.Unicode < 128))
 	readText(Event);
+      else if (Event.Type == sf::Event::JoyButtonReleased)
+	{
+	  switch (Event.JoyButton.Button)
+	    {
+	    case 0:
+	      {
+		if (this->_currentButton == BUTTON_OPTIONS_BACK ||
+		    this->_currentButton == BUTTON_OPTIONS_VALIDATE)
+		  {
+		    this->_nextState = START;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_OPTIONS_LANG_FR)
+		  language = FRANCAIS;
+		else if (this->_currentButton == BUTTON_OPTIONS_LANG_EN)
+		  language = ENGLISH;
+	      }
+	    case 1:
+	      {
+		if (this->_currentButton == BUTTON_OPTIONS_BACK)
+		  {
+		    this->_nextState = START;
+		    return EVENT_CHANGE_STATE;
+		  }
+		this->_currentButton = BUTTON_OPTIONS_BACK;
+		break;
+	      }
+	    }
+	}
     }
   cursorMenuPos(Event);
   return EVENT_NONE;
@@ -293,6 +355,12 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_OPTIONS_PORT;
+	else if (((JoystickPOV > 45 && JoystickPOV < 135) ||
+		  Event.Key.Code == sf::Key::Right) && gVolume.musicVolume < 100)
+	  ++gVolume.musicVolume;
+	else if (((JoystickPOV > 225 && JoystickPOV < 315) ||
+		 Event.Key.Code == sf::Key::Left) && gVolume.musicVolume > 0)
+	  --gVolume.musicVolume;
 	break;
       }
     case BUTTON_OPTIONS_VOL_EFFECTS :
@@ -303,11 +371,17 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_OPTIONS_VOL_MUSICS;
+	else if (((JoystickPOV > 45 && JoystickPOV < 135) ||
+		  Event.Key.Code == sf::Key::Right) && gVolume.soundVolume < 100)
+	  ++gVolume.soundVolume;
+	else if (((JoystickPOV > 225 && JoystickPOV < 315) ||
+		 Event.Key.Code == sf::Key::Left) && gVolume.soundVolume > 0)
+	  --gVolume.soundVolume;
 	break;
       }
     case BUTTON_OPTIONS_LANG_EN :
       {
-	if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+	if ((JoystickPOV > 45 && JoystickPOV < 135)  ||
 	    Event.Key.Code == sf::Key::Right)
 	  this->_currentButton = BUTTON_OPTIONS_LANG_FR;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
@@ -316,11 +390,13 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_OPTIONS_VOL_EFFECTS;
+	else if (Event.Key.Code == sf::Key::Return)
+	  language = ENGLISH;
 	break;
       }
     case BUTTON_OPTIONS_LANG_FR :
       {
-	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
+	if ((JoystickPOV > 255 && JoystickPOV < 315) ||
 	    Event.Key.Code == sf::Key::Left)
 	  this->_currentButton = BUTTON_OPTIONS_LANG_EN;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
@@ -329,6 +405,8 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_OPTIONS_VOL_EFFECTS;
+	else if (Event.Key.Code == sf::Key::Return)
+	  language = FRANCAIS;
 	break;
       }
     case BUTTON_OPTIONS_BACK :

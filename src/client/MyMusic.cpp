@@ -34,6 +34,11 @@ void LibGraphic::MyMusic::StopMusic()
   Music.Stop();
 }
 
+void LibGraphic::MyMusic::UpdateVolume()
+{
+  Music.SetVolume(gVolume.musicVolume);
+}
+
 sf::Music::Status LibGraphic::MyMusic::GetMusicState()const
 {
   sf::Music::Status state = Music.GetStatus();
