@@ -76,6 +76,8 @@ endif(WIN32)
 
 if(UNIX)
 
+SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
+
 add_library(
 	SNetwork
 	STATIC
@@ -161,6 +163,12 @@ add_executable(
 	./src/server/TaskNetwork.cpp
 	./src/server/PacketTask.cpp
 	./src/server/Game.cpp
+	./src/server/Position.cpp
+	./src/server/Entities.cpp
+	./src/server/Monster.cpp
+	./src/server/Player.cpp
+	./src/server/Tile.cpp
+	./src/server/AObject.cpp
 )
 
 if(UNIX)

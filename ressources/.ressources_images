@@ -14,3 +14,5 @@ Francais::france.png::0
 BasicButton::button-basic.png::0
 BoxEmpty::boxEMPTY.png::0
 BoxChecked::boxFILLED.png::0
+VolumeBar::volumebar.png::0
+VolumeButton::volumemenu.png::0
