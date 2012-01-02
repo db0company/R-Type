@@ -25,7 +25,7 @@ private:
   bool		actionPlayerLogin(PacketData &data, User *, Server &);
   bool		actionScore(PacketData &data, User *, Server &);
   bool		actionGetMap(PacketData &data, User *, Server &);
-  bool		actionPlayerLife(PacketData &data, User *, Server &);
+  // bool		actionPlayerLife(PacketData &data, User *, Server &);
 };
 
 #endif			//PROTOCOLGAMEDETAILS_HPP_

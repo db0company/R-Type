@@ -30,7 +30,7 @@ private:
   bool			actionCreate(PacketData & data, User *, Server &);
   bool			actionJoin(PacketData & data, User *, Server &);
   bool			actionQuit(PacketData & data, User *, Server &);
-  bool			actionEnd(PacketData & data, User *, Server &);
+  // bool			actionEnd(PacketData & data, User *, Server &);
   bool			actionStart(PacketData & data, User *, Server &);
 };
 

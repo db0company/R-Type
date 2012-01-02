@@ -12,7 +12,7 @@ ProtocolGame::ProtocolGame()
   this->actionmap[CREATEGAME] = &ProtocolGame::actionCreate;
   this->actionmap[JOINGAME] = &ProtocolGame::actionJoin;
   this->actionmap[QUITGAME] = &ProtocolGame::actionQuit;
-  this->actionmap[ENDGAME] = &ProtocolGame::actionEnd;
+  this->actionmap[ENDGAME] = &ProtocolGame::actionError;
   this->actionmap[STARTGAME] = &ProtocolGame::actionStart;
 }
 
@@ -148,11 +148,12 @@ bool			ProtocolGame::actionQuit(PacketData &, User *, Server &)
   // BIG TODO: dire au autre clients qu'il se barre (add protocol)
   return (true);
 }
-bool			ProtocolGame::actionEnd(PacketData &, User *, Server &)
-{
-  // nothing to do here ;)
-  return (true);
-}
+
+// bool			ProtocolGame::actionEnd(PacketData &, User *, Server &)
+// {
+//   // nothing to do here ;)
+//   return (true);
+// }
 
 bool			ProtocolGame::actionStart(PacketData &, User *user, Server &)
 {

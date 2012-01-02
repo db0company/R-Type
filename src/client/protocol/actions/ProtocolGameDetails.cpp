@@ -48,25 +48,56 @@ bool ProtocolGameDetails::actionError(PacketData &data, Client &)
 
 bool ProtocolGameDetails::actionPlayerLogin(PacketData &data, Client &)
 {
-  (void)data;
+  short i = 0;
+  short nb_player;
+  std::string name;
+
+  nb_player = data.getNextShort();
+  if (!nb_player)
+    return (false);
+  while (i < nb_player)
+    {
+      name = data.getNextString();
+      // TODO: add la string au data de la game
+      ++i;
+    }
   return (true);
 }
 
 bool ProtocolGameDetails::actionScore(PacketData &data, Client &)
 {
-  (void)data;
+  short i = 0;
+  short nb_player;
+  short score;
+  std::string name;
+
+  nb_player = data.getNextShort();
+  if (!nb_player)
+    return (false);
+  while (i < nb_player)
+    {
+      name = data.getNextString();
+      score = data.getNextShort();
+      // TODO: modif le score du player
+      ++i;
+    }
   return (true);
 }
 
-bool ProtocolGameDetails::actionGetMap(PacketData &data, Client &)
+bool ProtocolGameDetails::actionGetMap(PacketData &, Client &)
 {
-  (void)data;
+  // TODO a definir
   return (true);
 }
 
 bool ProtocolGameDetails::actionPlayerLife(PacketData &data, Client &)
 {
-  (void)data;
+  char id_player;
+  char lives;
+
+  id_player = data.getNextChar();
+  lives = data.getNextChar();
+  // TODO: update les vie du player.
   return (true);
 }
 

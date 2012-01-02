@@ -111,8 +111,8 @@ char			PacketData::getNextChar(void)
   //   tmp[i] = this->data[this->it];
   // memcpy(&c, tmp, sizeof(char));
   c = this->data[this->it];
-  std::cout << "il y a je get le char <" << (int)this->data[this->it] << ">" << std::endl;
   ++(this->it);
+  std::cout << "il y a je get le char <" << (int)this->data[this->it - 1] << ">" << std::endl;
   return (c);
 }
 

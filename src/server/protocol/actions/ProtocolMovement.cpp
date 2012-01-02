@@ -4,9 +4,9 @@ ProtocolMovement::ProtocolMovement()
 {
   this->actionmap[MOVEMENT_ERROR]	= &ProtocolMovement::actionError;
   this->actionmap[MOVE]			= &ProtocolMovement::actionMove ;
-  this->actionmap[UPDATEPLAYER]		= &ProtocolMovement::actionUpdatePlayer;
-  this->actionmap[UPDATEENEMY]		= &ProtocolMovement::actionUpdateEnemy;
-  this->actionmap[UPDATEBULLET]		= &ProtocolMovement::actionUpdateBullet;
+  this->actionmap[UPDATEPLAYER]		= &ProtocolMovement::actionError;
+  this->actionmap[UPDATEENEMY]		= &ProtocolMovement::actionError;
+  this->actionmap[UPDATEBULLET]		= &ProtocolMovement::actionError;
   this->actionmap[NEWBULLET]		= &ProtocolMovement::actionNewBullet;
 }
 
@@ -75,23 +75,23 @@ bool		ProtocolMovement::actionMove(PacketData &data, User *, Server &)
   return (true);
 }
 
-bool		ProtocolMovement::actionUpdatePlayer(PacketData &, User *, Server &)
-{
-  // nothing to do ;)
-  return (true);
-}
+// bool		ProtocolMovement::actionUpdatePlayer(PacketData &, User *, Server &)
+// {
+//   // nothing to do ;)
+//   return (true);
+// }
 
-bool		ProtocolMovement::actionUpdateEnemy(PacketData &, User *, Server &)
-{
-  // nothing to do ;)
-  return (true);
-}
+// bool		ProtocolMovement::actionUpdateEnemy(PacketData &, User *, Server &)
+// {
+//   // nothing to do ;)
+//   return (true);
+// }
 
-bool		ProtocolMovement::actionUpdateBullet(PacketData &, User *, Server &)
-{
-  // nothing to do ;)
-  return (true);
-}
+// bool		ProtocolMovement::actionUpdateBullet(PacketData &, User *, Server &)
+// {
+//   // nothing to do ;)
+//   return (true);
+// }
 
 bool		ProtocolMovement::actionNewBullet(PacketData &, User *, Server &)
 {

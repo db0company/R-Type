@@ -5,13 +5,14 @@
 
 struct	GameParameter
 {
+  short		id;
+  std::string	owner;
   std::string	name;
   std::string	root_login;
-  int		nb_player_max;
-  int		difficulty;
+  char		slot;
+  std::string	lvl;
   bool		observer;
-  int		nb_observer_max;
-  int		lvl;
+  int		nb_player; // clientside
 };
 
 #endif	// GAMEPARAMETER_H_

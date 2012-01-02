@@ -6,10 +6,11 @@
 
 ProtocolGameDetails::ProtocolGameDetails(void)
 {
+  this->actionmap[GAMEDATAIL_ERROR] = &ProtocolGameDetails::actionError;
   this->actionmap[PLAYERLOGIN]	= &ProtocolGameDetails::actionPlayerLogin;
   this->actionmap[SCORE]	= &ProtocolGameDetails::actionScore;
   this->actionmap[GETMAP]	= &ProtocolGameDetails::actionGetMap;
-  this->actionmap[PLAYERLIFE]	= &ProtocolGameDetails::actionPlayerLife;
+  this->actionmap[PLAYERLIFE]	= &ProtocolGameDetails::actionError;
 }
 
 ProtocolGameDetails::ProtocolGameDetails(ProtocolGameDetails const &other)
@@ -80,8 +81,8 @@ bool ProtocolGameDetails::actionGetMap(PacketData &, User *, Server &)
  return (true);
 }
 
-bool ProtocolGameDetails::actionPlayerLife(PacketData &, User *, Server &)
-{
-  // nothing to do ;)
-  return (true);
-}
+// bool ProtocolGameDetails::actionPlayerLife(PacketData &, User *, Server &)
+// {
+//   // nothing to do ;)
+//   return (true);
+// }

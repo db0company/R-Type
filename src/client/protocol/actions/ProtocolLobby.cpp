@@ -49,6 +49,11 @@ bool			ProtocolLobby::actionError(PacketData &, Client &)
 
 bool			ProtocolLobby::actionChat(PacketData & data, Client &)
 {
-  (void)data;
+  std::string login;
+  std::string msg;
+
+  login = data.getNextString();
+  msg = data.getNextString();
+  // TODO: afficher ds le char si on est ds le chat (LOBBY ROOM)
   return (true);
 }

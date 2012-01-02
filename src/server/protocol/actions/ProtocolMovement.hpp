@@ -23,9 +23,9 @@ public:
 private:
   bool		actionError(PacketData &data, User *, Server &);
   bool		actionMove(PacketData &data, User *, Server &);
-  bool		actionUpdatePlayer(PacketData &data, User *, Server &);
-  bool		actionUpdateEnemy(PacketData &data, User *, Server &);
-  bool		actionUpdateBullet(PacketData &data, User *, Server &);
+  // bool		actionUpdatePlayer(PacketData &data, User *, Server &);
+  // bool		actionUpdateEnemy(PacketData &data, User *, Server &);
+  // bool		actionUpdateBullet(PacketData &data, User *, Server &);
   bool		actionNewBullet(PacketData &data, User *, Server &);
 };
 
