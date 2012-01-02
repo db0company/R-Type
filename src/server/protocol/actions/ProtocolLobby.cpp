@@ -52,7 +52,7 @@ bool			ProtocolLobby::actionError(PacketData &, User *, Server &)
 
 bool			ProtocolLobby::actionChat(PacketData & data, User *user, Server &)
 {
-  PacketData  to_send;
+  PacketData  *to_send = new PacketData;
   ProtocolPacket *packet_to_send;
   std::string msg;
 
@@ -64,8 +64,8 @@ bool			ProtocolLobby::actionChat(PacketData & data, User *user, Server &)
       // (lobby -mode). si c'est le cas et que le msg n'est pas vide: envoyer a tt les
       // client de cette game le packet.
       // to_send: [player_login(string)][msg(string)]
-      to_send.addString("login"); // recup login todo
-      to_send.addString(msg);
+      to_send->addString("login"); // recup login todo
+      to_send->addString(msg);
       packet_to_send = PacketFactory::createPacket(LOBBY, static_cast<ushort>(CHAT), to_send);
       user->addPacketToSend(packet_to_send); // pour tt les clients de la game
     }

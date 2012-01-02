@@ -51,7 +51,7 @@ bool ProtocolGameDetails::actionError(PacketData &, User *, Server &)
 
 bool ProtocolGameDetails::actionPlayerLogin(PacketData &, User *user, Server &)
 {
-  PacketData  to_send;
+  PacketData  *to_send = new PacketData;
   ProtocolPacket *packet_to_send;
   // TODO:
   // to_send: [nb_player(char)][playerlogin(string)]+
@@ -60,16 +60,16 @@ bool ProtocolGameDetails::actionPlayerLogin(PacketData &, User *user, Server &)
   return (true);
 }
 
-bool ProtocolGameDetails::actionScore(PacketData &, User *, Server &)
+bool ProtocolGameDetails::actionScore(PacketData &, User *user, Server &)
 {
-  // PacketData  to_send;
-  // ProtocolPacket *packet_to_send;
+  PacketData  *to_send = new PacketData;
+  ProtocolPacket *packet_to_send;
 
   // TODO:
   // to_send: [nb_player(char)][score(short)]
   // si le user fait partie dune game: get le score et lui envoyer. sinon rien envoyer
-  // packet_to_send = PacketFactory::createPacket(GAME_DETAILS, static_cast<ushort>(SCORE), to_send);
-  // user->addPacketToSend(packet_to_send);
+  packet_to_send = PacketFactory::createPacket(GAME_DETAILS, static_cast<ushort>(SCORE), to_send);
+  user->addPacketToSend(packet_to_send);
   return (true);
 }
 
