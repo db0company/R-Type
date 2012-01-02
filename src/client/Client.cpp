@@ -26,11 +26,11 @@ Client::Client(std::string const &ip, int port) :
 
 bool Client::init(void)
 {
-  // if (!this->cGraphic.init())
-  //   {
-  //     std::cerr << "Error: Can't initialize sfml" << std::endl;
-  //     return (false);
-  //   }
+  if (!this->cGraphic.init())
+    {
+      std::cerr << "Error: Can't initialize sfml" << std::endl;
+      return (false);
+    }
   return (true);
 }
 
@@ -53,9 +53,9 @@ bool Client::run(void)
       	}
       this->cNetwork.feedPacketAggregatorTCP();
       this->cNetwork.feedPacketAggregatorUDP();
-      // this->cGraphic.getEvent();
-      // this->cGraphic.clean();
-      // this->cGraphic.draw();
+      this->cGraphic.getEvent();
+      this->cGraphic.clean();
+      this->cGraphic.draw();
       if (i == 0)
       	{
       	  PacketData *dataGame = new PacketData;

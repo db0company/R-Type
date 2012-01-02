@@ -29,69 +29,71 @@ bool LibGraphic::StateRoomList::init()
 void LibGraphic::StateRoomList::draw()
 {
   sf::String *Back;
-
-  if (language == ENGLISH)
-    Back = this->getStdToSfString("Back", this->getFont("StartFontF"));
-  else
-    Back = this->getStdToSfString("Retour", this->getFont("StartFontF"));
-
   sf::String *Join;
-
-  if (language == ENGLISH)
-    Back = this->getStdToSfString("Join", this->getFont("StartFontF"));
-  else
-    Back = this->getStdToSfString("Rejoindre", this->getFont("StartFontF"));
-
-
   sf::String *Create;
-
-  if (language == ENGLISH)
-    Back = this->getStdToSfString("Create", this->getFont("StartFontF"));
-  else
-    Back = this->getStdToSfString("Creer", this->getFont("StartFontF"));
 
   sf::Sprite &ButtonBack = this->getSprite("BasicButton");
   sf::Sprite &ButtonJoin = this->getSprite("BasicButton");
   sf::Sprite &ButtonCreate = this->getSprite("BasicButton");
 
   sf::Sprite &background = this->getSprite("StartMenuBackground");
-  sf::Sprite &menu = this->getSprite("OptionsMenu");
-  sf::Sprite &menu_haut = this->getSprite("OptionsMenu-haut");
-  sf::Sprite &menu_bas = this->getSprite("OptionsMenu-bas");
-  sf::Sprite &menu_gauche = this->getSprite("OptionsMenu-gauche");
-  sf::Sprite &menu_droite = this->getSprite("OptionsMenu-droite");
-  sf::Sprite &menu_coins = this->getSprite("OptionsMenu-coins");
+  sf::Sprite &menu = this->getSprite("RoomListMenu");
+  sf::Sprite &menu_haut = this->getSprite("RoomList-haut");
+  sf::Sprite &menu_bas = this->getSprite("RoomList-bas");
+  sf::Sprite &menu_gauche = this->getSprite("RoomList-gauche");
+  sf::Sprite &menu_droite = this->getSprite("RoomList-droite");
+  sf::Sprite &menu_coins = this->getSprite("RoomList-coins");
   sf::Sprite &menu_diago = this->getSprite("OptionsMenu-diago");
 
-  menu.SetPosition(500, 290);
-  menu_bas.SetPosition(500, 290 + 443);
-  menu_haut.SetPosition(500 + 62, 290);
-  menu_droite.SetPosition(500 + 592, 290);
-  menu_gauche.SetPosition(500, 290 + 57);
-  menu_diago.SetPosition(500, 290);
-  menu_coins.SetPosition(399, 213);
+  sf::Sprite &Cursor = this->getSprite("RoomListCursor");
+  sf::Sprite &SelectedGame = this->getSprite("RoomListSelectedGame");
+
+  if (language == ENGLISH)
+    Back = this->getStdToSfString("Back", this->getFont("StartFontF"));
+  else
+    Back = this->getStdToSfString("Retour", this->getFont("StartFontF"));
+  if (language == ENGLISH)
+    Join = this->getStdToSfString("Join", this->getFont("StartFontF"));
+  else
+    Join = this->getStdToSfString("Rejoindre", this->getFont("StartFontF"));
+  if (language == ENGLISH)
+    Create = this->getStdToSfString("Create", this->getFont("StartFontF"));
+  else
+    Create = this->getStdToSfString("Creer", this->getFont("StartFontF"));
+
+  menu.SetPosition(245, 210);
+  menu_bas.SetPosition(245, 875);
+  menu_haut.SetPosition(245 + 61, 210);
+  menu_droite.SetPosition(245 + 1188, 210);
+  menu_gauche.SetPosition(245, 210 + 52);
+  menu_diago.SetPosition(245, 210);
+  menu_coins.SetPosition(192, 145);
   menu.SetColor(sf::Color(255, 255, 255, 210));
   this->_app.Draw(background);
   this->_app.Draw(menu);
   this->_app.Draw(menu_diago);
+  this->_app.Draw(menu_bas);
   this->_app.Draw(menu_gauche);
   this->_app.Draw(menu_droite);
-  this->_app.Draw(menu_bas);
   this->_app.Draw(menu_haut);
   this->_app.Draw(menu_coins);
+  this->_app.Draw(menu_diago);
 
-  ButtonBack.SetPosition(720, 730);
-  ButtonBack.SetRotation(180);
-  this->_app.Draw(ButtonBack);
-  if (language == ENGLISH)
-    Back->SetPosition(565, 694);
-  else
-    Back->SetPosition(540, 694);
-  Back->SetScale(1, 0.8);
-  Back->SetColor(sf::Color(255,255,0, 255));
-  if (this->_currentButton != BUTTON_JOINCREATE_BACK)
-    Back->SetColor(sf::Color(255,255,255, 205));
-  this->_app.Draw(*Back);
+  Cursor.SetPosition(293, 335);
+  this->_app.Draw(Cursor);
+
+  // ButtonBack.SetPosition(720, 730);
+  // ButtonBack.SetRotation(180);
+  // this->_app.Draw(ButtonBack);
+  // if (language == ENGLISH)
+  //   Back->SetPosition(565, 694);
+  // else
+  //   Back->SetPosition(540, 694);
+  // Back->SetScale(1, 0.8);
+  // Back->SetColor(sf::Color(255,255,0, 255));
+  // if (this->_currentButton != BUTTON_JOINCREATE_BACK)
+  //   Back->SetColor(sf::Color(255,255,255, 205));
+  // this->_app.Draw(*Back);
 }
 
 LibGraphic::Event LibGraphic::StateRoomList::gereEvent()

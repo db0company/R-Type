@@ -8,6 +8,12 @@ OptionsMenu-droite::menu1-75-droite.png::0
 OptionsMenu-diago::menu1-75-diago.png::0
 OptionsMenu-coins::menu1-75-bitonio-noir.png::0
 OptionsMenu-bas::menu1-75-bas.png::0
+RoomList-haut::menu-roomlist-haut.png::0
+RoomList-bas::menu-roomlist-bas.png::0
+RoomList-coins::menu-roomlist-bitonio-noir.png::0
+RoomList-gauche::menu-roomlist-gauche.png::0
+RoomList-droite::menu-roomlist-droite.png::0
+RoomListMenu::menu-roomlist.png::0
 TextArea::textinput.png::0
 English::england.png::0
 Francais::france.png::0
@@ -16,3 +22,5 @@ BoxEmpty::boxEMPTY.png::0
 BoxChecked::boxFILLED.png::0
 VolumeBar::volumebar.png::0
 VolumeButton::volumemenu.png::0
+RoomListCursor::cursor.png::0
+RoomListSelectedGame::slected_game.png::0

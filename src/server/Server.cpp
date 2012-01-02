@@ -29,9 +29,9 @@ Server::Server(void) :
   this->_listener = new TCPServerSocketWindows(this->_selector);
   this->_condVar = new CondVarWindows;
 #endif
-  this->_taskNet.init(this->_udp, this->_udpMutex);
-  ThreadData<PacketTask> threadData(this->_taskQueue, this->_condVar);
-  this->_threadPool.init<PacketTask>(&threadData); // thread data todo
+  // this->_taskNet.init(this->_udp, this->_udpMutex);
+  // ThreadData<PacketTask> threadData(this->_taskQueue, this->_condVar);
+  // this->_threadPool.init<PacketTask>(&threadData); // thread data todo
 }
 
 Server::~Server(void)
