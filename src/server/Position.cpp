@@ -23,9 +23,19 @@ Position::~Position()
 
 }
 
-bool		Position::operator=(const Position& old)const
+int		Position::getX()const
 {
-  if (this->x == old.x && this->y == old.y)
+  return (this->x);
+}
+
+int		Position::getY()const
+{
+  return (this->y);
+}
+
+bool		Position::operator==(const Position& old)const
+{
+  if (this->x == old.getX() && this->y == old.getY())
     return (true);
   return (false);
 }

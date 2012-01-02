@@ -2,14 +2,15 @@
 # define	__PLAYER_HPP__
 
 #include "Entities.hpp"
-
+#include "User.hpp"
 class		Player : public Entities
 {
 public:
-  Player();
+  Player(User *us, const std::string& name);
   ~Player();
+  const std::string&	getIp()const;
 private:
-
+  User		*us;
 };
 
 #endif		/*__PLAYER_HPP__*/

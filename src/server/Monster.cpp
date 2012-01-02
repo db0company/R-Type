@@ -9,3 +9,9 @@ Monster::~Monster()
 {
 
 }
+
+void		Monster::moveNextPos()
+{
+
+}
+

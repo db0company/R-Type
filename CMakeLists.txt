@@ -169,6 +169,7 @@ add_executable(
 	./src/server/Player.cpp
 	./src/server/Tile.cpp
 	./src/server/AObject.cpp
+	./src/server/Bullet.cpp
 )
 
 if(UNIX)
