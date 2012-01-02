@@ -42,7 +42,7 @@ private:
   GameManager				_gameManager;
   TaskNetwork				_taskNet;
   TaskManager				_taskManager;
-  ThreadPool<ThreadData<PacketTask> >	_threadPool;
+  ThreadPool				_threadPool;
   std::map<std::string, User *>		_userMap;
   std::queue<std::string>		_quitQueue;
   ATCPServerSocket*			_listener;

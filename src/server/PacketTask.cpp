@@ -32,7 +32,7 @@ PacketTask&PacketTask::operator=(PacketTask const &other)
 //   this->param = p;
 // }
 
-void	PacketTask::launchTask()
+void	PacketTask::launchTask(ICondVar *cv)
 {
   // if (this->netFunc == NULL && this->gameFunc != NULL)
   //   {
