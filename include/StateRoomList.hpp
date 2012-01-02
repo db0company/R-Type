@@ -12,9 +12,11 @@ namespace LibGraphic
   private:
     enum eSelectedButton
       {
-	BUTTON_JOINCREATE_JOIN,
-	BUTTON_JOINCREATE_CREATE,
-	BUTTON_JOINCREATE_BACK
+	BUTTON_ROOMLIST_BACK,
+	BUTTON_ROOMLIST_REFRESH,
+	BUTTON_ROOMLIST_SPECTATE,
+	BUTTON_ROOMLIST_CREATE,
+	BUTTON_ROOMLIST_JOIN
       };
 
   public:
@@ -51,7 +53,7 @@ namespace LibGraphic
     eStates _nextState;
     eSelectedButton _currentButton;
     sf::Clock Clock;
-
+    unsigned int _deepList;
   };
 
 }

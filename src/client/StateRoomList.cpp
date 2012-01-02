@@ -13,8 +13,9 @@ LibGraphic::StateRoomList::StateRoomList(std::map<std::string const, GraphicRess
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
   _app(app)
 {
-  this->_currentButton = BUTTON_JOINCREATE_JOIN;
+  this->_currentButton = BUTTON_ROOMLIST_REFRESH;
   this->_nextState = UNKNOWN_STATE;
+  this->_deepList = 0;
 }
 
 LibGraphic::StateRoomList::~StateRoomList()
@@ -28,13 +29,14 @@ bool LibGraphic::StateRoomList::init()
 
 void LibGraphic::StateRoomList::draw()
 {
+  int nb_game = 5;
   sf::String *Back;
+  sf::String *Refresh;
+  sf::String *Spectate;
   sf::String *Join;
   sf::String *Create;
 
-  sf::Sprite &ButtonBack = this->getSprite("BasicButton");
-  sf::Sprite &ButtonJoin = this->getSprite("BasicButton");
-  sf::Sprite &ButtonCreate = this->getSprite("BasicButton");
+  sf::Sprite &Button = this->getSprite("BasicButton");
 
   sf::Sprite &background = this->getSprite("StartMenuBackground");
   sf::Sprite &menu = this->getSprite("RoomListMenu");
@@ -52,6 +54,14 @@ void LibGraphic::StateRoomList::draw()
     Back = this->getStdToSfString("Back", this->getFont("StartFontF"));
   else
     Back = this->getStdToSfString("Retour", this->getFont("StartFontF"));
+  if (language == ENGLISH)
+    Refresh = this->getStdToSfString("Refresh", this->getFont("StartFontF"));
+  else
+    Refresh = this->getStdToSfString("Rafraichir", this->getFont("StartFontF"));
+  if (language == ENGLISH)
+    Spectate = this->getStdToSfString("Spectate", this->getFont("StartFontF"));
+  else
+    Spectate = this->getStdToSfString("Observer", this->getFont("StartFontF"));
   if (language == ENGLISH)
     Join = this->getStdToSfString("Join", this->getFont("StartFontF"));
   else
@@ -79,21 +89,66 @@ void LibGraphic::StateRoomList::draw()
   this->_app.Draw(menu_coins);
   this->_app.Draw(menu_diago);
 
-  Cursor.SetPosition(293, 335);
+  Cursor.SetPosition(293, 345 + (50 * this->_deepList));
   this->_app.Draw(Cursor);
 
-  // ButtonBack.SetPosition(720, 730);
-  // ButtonBack.SetRotation(180);
-  // this->_app.Draw(ButtonBack);
-  // if (language == ENGLISH)
-  //   Back->SetPosition(565, 694);
-  // else
-  //   Back->SetPosition(540, 694);
-  // Back->SetScale(1, 0.8);
-  // Back->SetColor(sf::Color(255,255,0, 255));
-  // if (this->_currentButton != BUTTON_JOINCREATE_BACK)
-  //   Back->SetColor(sf::Color(255,255,255, 205));
-  // this->_app.Draw(*Back);
+  Button.SetPosition(470, 870);
+  Button.SetRotation(180);
+  this->_app.Draw(Button);
+  Back->SetScale(0.6, 0.6);
+  if (language == ENGLISH)
+    Back->SetPosition(333, 838);
+  else
+    Back->SetPosition(313, 838);
+  Back->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_ROOMLIST_BACK)
+    Back->SetColor(sf::Color(255,255,255, 205));
+  this->_app.Draw(*Back);
+
+  Button.SetPosition(660, 870);
+  this->_app.Draw(Button);
+  Refresh->SetScale(0.6, 0.6);
+  if (language == ENGLISH)
+    Refresh->SetPosition(501, 838);
+  else
+    Refresh->SetPosition(491, 838);
+  Refresh->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_ROOMLIST_REFRESH)
+    Refresh->SetColor(sf::Color(255,255,255, 205));
+  this->_app.Draw(*Refresh);
+
+  Button.SetPosition(1055, 870);
+  this->_app.Draw(Button);
+  Spectate->SetScale(0.6, 0.6);
+  Spectate->SetPosition(888, 838);
+  Spectate->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_ROOMLIST_SPECTATE)
+    Spectate->SetColor(sf::Color(255,255,255, 205));
+  this->_app.Draw(*Spectate);
+
+  Button.SetPosition(1245, 870);
+  this->_app.Draw(Button);
+  Create->SetScale(0.6, 0.6);
+  if (language == ENGLISH)
+    Create->SetPosition(1092, 838);
+  else
+    Create->SetPosition(1100, 838);
+  Create->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_ROOMLIST_CREATE)
+    Create->SetColor(sf::Color(255,255,255, 205));
+  this->_app.Draw(*Create);
+
+  Button.SetPosition(1435, 870);
+  this->_app.Draw(Button);
+  Join->SetScale(0.6, 0.6);
+  if (language == ENGLISH)
+    Join->SetPosition(1298, 838);
+  else
+    Join->SetPosition(1268, 838);
+  Join->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_ROOMLIST_JOIN)
+    Join->SetColor(sf::Color(255,255,255, 205));
+  this->_app.Draw(*Join);
 }
 
 LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
