@@ -34,7 +34,7 @@ bool LibGraphic::Sfml::init()
     return false;
   this->_width = sf::VideoMode::GetMode(0).Width;
   this->_height = sf::VideoMode::GetMode(0).Height;
-  gVolume.musicVolume = 50;
+  gVolume.musicVolume = 5;
   gVolume.soundVolume = 50;
   language = ENGLISH;
   this->loadRessources();
@@ -207,7 +207,6 @@ bool LibGraphic::Sfml::loadMusic()
 			     this->getNextInfoRessource(s));
       this->_ressourcesPlayList[tmp] = song;
     }
-  gVolume.musicVolume = 50;
   return true;
 }
 

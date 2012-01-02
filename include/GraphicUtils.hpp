@@ -8,6 +8,7 @@ namespace LibGraphic
   enum eStates
     {
       START,
+      JOINCREATE,
       ROOMLIST,
       GAMEPARAMETER,
       ROOM,

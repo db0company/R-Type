@@ -27,6 +27,8 @@ class				PacketFactory
 					     DataRawType const * data, ushort size);
   static ProtocolPacket *	createPacket(eProtocolPacketGroup group, ushort instruction,
 					     PacketData & data);
+  static ProtocolPacket *	createPacket(eProtocolPacketGroup group, ushort instruction,
+					     PacketData * data);
   static eProtocolPacketGroup	getPacketGroup(ProtocolPacket * packet);
   static ushort			getPacketInstruction(ProtocolPacket * packet);
   static PacketData *		getPacketData(ProtocolPacket * packet);

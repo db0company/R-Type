@@ -24,10 +24,10 @@ public:
   bool push(ProtocolPacket *);
   bool erase(void);
   unsigned int getSize(void)const;
-  unsigned char *getMsg(void)const;
+  char *getMsg(void)const;
 private:
   std::queue<ProtocolPacket *>	_packetQueue;
-  unsigned char			_buffer[4096];
+  char				_buffer[4096];
   unsigned int			_index;
 };
 
