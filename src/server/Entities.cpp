@@ -31,3 +31,7 @@ void		Entities::changeLife(int ch)
   this->life -= ch;
 }
 
+eGroup		Entities::getGroup()const
+{
+  return (this->group);
+}

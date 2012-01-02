@@ -1,0 +1,6 @@
+- gestion de la map 
+- timer sur les packets
+- terminer les actions qui se repete tout le temps. (deplacement des bullets)
+- creer des packets dans les fonctions ou il faut
+- faire des dll de monstres, map, players.... // facile, long et chiant
+

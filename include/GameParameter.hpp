@@ -12,6 +12,8 @@ struct	GameParameter
   char		slot;
   std::string	lvl;
   bool		observer;
+  int		sizeCol;
+  int		sizeLine;
   int		nb_player; // clientside
 };
 

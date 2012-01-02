@@ -6,21 +6,15 @@
 
 Game::Game(const GameParameter& param)
 {
-  AObject	*truc;
   
   _param = param;
-
   // On va faire quelques tests.
   
   createNewPlayer(NULL, "Player1");
   createNewPlayer(NULL, "Player2");
   createNewMonster(NULL);
   createNewMonster(NULL);
-
-   truc = new Tile;
-  this->_map.insert(std::pair<std::string, AObject *>("tile1", truc));
-  truc = new Tile;
-  this->_map.insert(std::pair<std::string, AObject *>("tile2", truc));
+  createWall();
 }
 
 Game::~Game()
@@ -89,18 +83,18 @@ void	Game::createNewMonster(void *)
   // creer un nouveau paquet create new monster
 }
 
-const std::string Game::getPlayerByIp(const std::string& ip)
+const std::string& Game::getPlayerByIp(const std::string& ip)
 {
   std::map<std::string, AObject *>::iterator it = this->_players.begin();
 
   while (it != this->_players.end())
     {
       if (reinterpret_cast<Player *>(it->second)->getIp() == ip)
-	return (it->first);
+	return (it->second->getName());
       ++it;
     }
   //error
-  return ("");
+  return (it->second->getName()); // jai mis sa pour retirer le warning
 }
 
 void	Game::checkCollision(void *)
@@ -118,6 +112,7 @@ void	Game::checkCollision(void *)
 	  if ((*itB).getGroup() == ENNEMY && itP->second->getPos() == (*itB).getPos()) 
 	    {
 	      // kill player; NE PAS DETRUIRE LE MAILLON ICI
+	      // destroy la bullet MAIS PAS ICI
 	    }
 	  ++itM;
 	}
@@ -146,6 +141,47 @@ void	Game::moveBullet(void *)
       ++it;
     }
 }
+
+void	Game::moveWall(void *)
+{
+  std::list<AObject *> line;
+
+  line = this->_map.front();
+  this->_map.pop_front();
+  //faire des modifs sur wall pour faire croire a un new mur
+  this->_map.push_front(line);
+}
+
+void	Game::createWall()
+{
+  std::list<AObject *> newLine;
+  int	i = 0;
+  int	j;
+
+  while (i != this->_param.sizeCol)
+    {
+      j = 0;
+      while (j != this->_param.sizeLine)
+	{
+	  newLine.push_front(new Tile);
+	  ++j;
+	}
+      ++i;
+      this->_map.push_back(newLine);
+    }  
+}
+
+void	Game::fireBullet(void *)
+{
+  AObject *ent = NULL;
+  eGroup	g;
+
+  g = reinterpret_cast<Entities *>(ent)->getGroup();
+  this->_bullets.push_front(Bullet(ent->getPos(), g));
+}
+
+
+
 
 Game&	Game::operator=(const Game& old)
 {

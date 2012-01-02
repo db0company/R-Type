@@ -21,15 +21,18 @@ public:
   void	moveMonster(void *);
   void	createNewPlayer(User *us, const std::string& name);
   void	createNewMonster(void *);
-  const std::string getPlayerByIp(const std::string& ip);
+  const std::string& getPlayerByIp(const std::string& ip);
   void	checkCollision(void *);
   void	moveBullet(void *);
+  void	moveWall(void *);
+  void	createWall();
+  void	fireBullet(void *);
 private:
   GameParameter	_param;
   std::map<std::string, AObject *> _players;
   std::map<std::string, AObject *> _monster;
-  std::map<std::string, AObject *> _map;
-  std::list<Bullet>		_bullets;
+  std::list<std::list<AObject *> > _map;
+  std::list<Bullet>	_bullets;
 };
 
 #endif	// GAME_H_
