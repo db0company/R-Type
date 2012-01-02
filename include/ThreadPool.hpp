@@ -7,7 +7,7 @@
 
 #define POOL_NBTHREAD 4
 
-template <typename T>
+
 class ThreadPool
 {
 private:
@@ -15,14 +15,14 @@ private:
 public:
   ThreadPool(int nbThread);
   ~ThreadPool();
-  bool init(T *data);
-  bool addNewThread(T *data);
+  template <typename T>
+  bool init(ThreadData<T> *data);
   bool endThread();
 };
 
 template <typename T>
 void		*manageThread(void *param);
 
-//template class ThreadPool<ThreadData>;
+
 
 #endif // __THREADPOOL_HPP_

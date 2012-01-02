@@ -4,7 +4,7 @@
 #include "TaskManager.hpp"
 #include "Game.hpp"
 #include "TaskNetwork.hpp"
-
+#include "ICondVar.hpp"
 class PacketTask
 {
 private:
@@ -17,7 +17,7 @@ public:
   PacketTask&operator=(PacketTask const &other);
   PacketTask(TaskManager& man, void (TaskNetwork::*point)(void *),void *param);
   PacketTask(TaskManager& man, void (Game::*point)(void *), void *param);
-  void	launchTask();
+  void	launchTask(ICondVar *);
 };
 
 #endif // _PACKETTASK_HPP_

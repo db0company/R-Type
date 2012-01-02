@@ -8,8 +8,8 @@
 #include "ThreadUnix.hpp"
 #endif
 
-template <typename T>
-ThreadPool<T>::ThreadPool(int nbThread)
+
+ThreadPool::ThreadPool(int nbThread)
 {
 
 #ifdef _WIN32
@@ -21,13 +21,12 @@ ThreadPool<T>::ThreadPool(int nbThread)
 #endif
 }
 
-template <typename T>
-ThreadPool<T>::~ThreadPool()
+ThreadPool::~ThreadPool()
 {
 }
 
 template <typename T>
-bool ThreadPool<T>::init(T *data)
+bool ThreadPool::init(ThreadData<T> *data)
 {
   std::list<IThread *>::iterator it;
 
@@ -41,14 +40,8 @@ bool ThreadPool<T>::init(T *data)
   return (true);
 }
 
-template <typename T>
-bool ThreadPool<T>::addNewThread(T *)
-{
-  return (true);
-}
 
-template <typename T>
-bool ThreadPool<T>::endThread()
+bool ThreadPool::endThread()
 {
   std::list<IThread *>::iterator it;
 
@@ -65,13 +58,22 @@ bool ThreadPool<T>::endThread()
 template <typename T>
 void		*manageThread(void *param)
 {
-  T	*data;
+  ThreadData<T>	*data;
 
-  data = reinterpret_cast<T *>(param);
+  data = reinterpret_cast<ThreadData<T> *>(param);
   while (1)
     {
+      if (data->QueueTask.empty())
+	{
+	  T *task = NULL;
+	  if (data->QueueTask.tryPop(task) == true)
+	    task->launchTask(data->condVar);
+	}
+      else
+	data->condVar->wait();      
     }
   return (NULL);
 }
 
-template class ThreadPool<ThreadData<PacketTask> >;
+template void		*manageThread<PacketTask>(void *param);
+template bool ThreadPool::init<PacketTask>(ThreadData<PacketTask> *data);

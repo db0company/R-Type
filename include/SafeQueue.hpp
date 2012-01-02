@@ -1,3 +1,4 @@
+
 #ifndef __SAFEQUEUE_HPP__
 #define  __SAFEQUEUE_HPP__
 
