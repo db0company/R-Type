@@ -8,6 +8,7 @@ class		Monster : public Entities
 public:
   Monster();
   ~Monster();
+  void		moveNextPos();
 private:
 
 };

@@ -5,7 +5,7 @@
 
 class		Entities : public AObject
 {
-private:
+protected:
   int		life;
   int		power;
 public:

@@ -1,11 +1,11 @@
 #ifndef		USERHPP
 # define	USERHPP
 
+# include	<string>
 # include	"ATCPClientSocket.h"
 # include	"AUDPServerSocket.h"
 # include	"PacketAggregator.hpp"
 # include	"PacketManager.hpp"
-# include	<string>
 # include	"ProtocolPacket.h"
 
 #define AGGREGATE_READ_SIZE 1024
