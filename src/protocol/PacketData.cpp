@@ -26,11 +26,6 @@ PacketData &		PacketData::operator=(PacketData const & other)
     {
       this->data = other.data;
       this->it = other.it;
-
-      // If there is a pointer to something allocated, do this :
-      // if (this->SomeThingAllocated)
-      //   delete this->SomeThingAllocated;
-      // this->SomeThingAllocated = CopyFunc(other.SomeThingAllocated);
     }
   return (*this);
 }
@@ -50,6 +45,22 @@ static void		prettyPrinter(DataRawType c)
     std::cout << '[' << (int)c << ']';
 }
 
+void			uglyPrinter(char *str, int size)
+{
+  int		i;
+
+  i = 0;
+  while (i < size)
+    {
+      if (isprint(str[i]))
+	std::cout << '[' << (char)str[i] << ']';
+      else
+	std::cout << '[' << (int)str[i] << ']';
+      ++i;
+    }
+  std::cout << std::endl;
+}
+
 void			PacketData::prettyPrint(void) const
 {
   //  std::cout << "{<(* ~~ PrettyPrint ~~ *)>}" << std::endl;
@@ -59,7 +70,7 @@ void			PacketData::prettyPrint(void) const
 
 /* ************************************************************************* */
 
-DataRawType const *	PacketData::getData(void) const
+DataRawType const *		PacketData::getData(void) const
 {
   // It works because vector containers have their elements stored in
   // contiguous storage locations, which means that their elements can be
@@ -95,10 +106,13 @@ char			PacketData::getNextChar(void)
   if ((this->data.size() - this->it) < sizeof(char))
     return (0);
   char c = 0;
-  DataRawType tmp[sizeof(char)];
-  for (uint i = 0 ; i < sizeof(char) ; ++i, ++(this->it))
-    tmp[i] = this->data[this->it];
-  memcpy(&c, tmp, sizeof(char));
+  // DataRawType tmp[sizeof(char)];
+  // for (uint i = 0 ; i < sizeof(char) ; ++i, ++(this->it))
+  //   tmp[i] = this->data[this->it];
+  // memcpy(&c, tmp, sizeof(char));
+  c = this->data[this->it];
+  std::cout << "il y a je get le char <" << (int)this->data[this->it] << ">" << std::endl;
+  ++(this->it);
   return (c);
 }
 

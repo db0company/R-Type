@@ -38,6 +38,13 @@ ProtocolPacket *		PacketFactory::createPacket(eProtocolPacketGroup group,
   return (PacketFactory::createPacket(group, instruction, data.getData(), data.getDataSize()));
 }
 
+ProtocolPacket *		PacketFactory::createPacket(eProtocolPacketGroup group,
+							    ushort instruction,
+							    PacketData * data)
+{
+  return (PacketFactory::createPacket(group, instruction, data->getData(), data->getDataSize()));
+}
+
 eProtocolPacketGroup			PacketFactory::getPacketGroup(ProtocolPacket * packet)
 {
   return (packet && packet->header.group < GROUP_MAX ?

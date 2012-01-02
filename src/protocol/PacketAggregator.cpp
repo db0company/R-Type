@@ -2,6 +2,8 @@
 #include "PacketAggregator.hpp"
 #include "PacketFactory.hpp"
 
+void			uglyPrinter(char *str, int size);
+
 PacketAggregator::PacketAggregator(void) : _index(0)
 {
   memset(this->_buffer, 0, 4096);
@@ -29,38 +31,47 @@ PacketAggregator&	PacketAggregator::operator=(const PacketAggregator&other)
 bool PacketAggregator::concat(char *str, int size)
 {
   if (size + this->_index > 4096)
-    return (false);
+    {
+      // todo read
+      return (false);
+    }
+  // std::cout << "dans le buffer avant concat (index:" << this->_index << ")" << std::endl;
+  // uglyPrinter(this->_buffer, this->_index);
   memcpy(this->_buffer + this->_index, str, size);
-  // std::cout << "concat here " << size << " index:"  << this->_index << std::endl;
   this->_index += size;
+  // std::cout << "dans le buffer apres concat (index:" << this->_index << ")" << std::endl;
+  // uglyPrinter(this->_buffer, this->_index);
   return (true);
 }
 
 int  PacketAggregator::aggregatePacketToChar(void)
 {
-  int		nb_packet = 0;
+  int		 nb_packet = 0;
   ProtocolPacket *packet;
   int		 size;
 
   size = 0;
   if (this->_packetQueue.empty())
     return (0);
-
   while (!this->_packetQueue.empty())
     {
       packet = this->_packetQueue.front();
-      size = sizeof(packet->header) +
-	PacketFactory::getPacketDataSize(packet);
+      size = sizeof(ProtocolPacketHeader) + packet->header.size;
       if (size + this->_index > 4096)
 	return (nb_packet);
+      // std::cout << "Dans le buffer pour aggregate to char avant ++ envoi ++ (index:" << this->_index << ")" << std::endl;
+      // uglyPrinter((char *)this->_buffer, this->_index);
       memcpy(this->_buffer + this->_index, &(packet->header),
-	     sizeof(packet->header));
-      this->_index += sizeof(packet->header);
-      // std::cout << "size : " << PacketFactory::getPacketDataSize(packet) << std::endl;
-      memcpy(this->_buffer + this->_index,
-	     PacketFactory::getPacketData(packet)->getData(),
-	     PacketFactory::getPacketDataSize(packet));
-      this->_index += PacketFactory::getPacketDataSize(packet);
+      	     sizeof(ProtocolPacketHeader));
+      this->_index += sizeof(ProtocolPacketHeader);
+      // std::cout << "Dans le buffer pour aggregate to char le header (index:" << this->_index << ")" << std::endl;
+      // uglyPrinter((char *)this->_buffer, this->_index);
+      // std::cout << "Dans le buffer pour aggregate LA DATA (index:" << this->_index << ")" << std::endl;
+      // uglyPrinter((char *)(packet->data), packet->header.size);
+      memcpy(this->_buffer + this->_index, packet->data, packet->header.size);
+      this->_index += packet->header.size;
+      // std::cout << "Dans le buffer pour aggregate to char avant envoi (index:" << this->_index << ")" << std::endl;
+      // uglyPrinter((char *)this->_buffer, this->_index);
       this->_packetQueue.pop();
       nb_packet++;
     }
@@ -83,38 +94,27 @@ int  PacketAggregator::aggregateCharToPacket(void)
 {
   ProtocolPacketHeader header;
   unsigned int next;
-  unsigned char *packet_data;
+  char *packet_data;
 
   next = 0;
-  // std::cout << "index(" << this->_index << ") sizeof("
-  // 	    << sizeof(ProtocolPacketHeader) << ")" << std::endl;
   if (this->_index < sizeof(ProtocolPacketHeader))
     return (0);
   memcpy(&header, this->_buffer, sizeof(ProtocolPacketHeader));
   if (this->_index - sizeof(ProtocolPacketHeader) < header.size)
     return (0);
-
-  packet_data = new unsigned char[header.size];
-  // std::cout << "premier caracter ici:" << std::endl;
-  // std::cout << "||"<< (int)this->_buffer[sizeof(ProtocolPacketHeader)] <<"||" <<std::endl;
+  packet_data = new char[header.size];
+  // std::cout << "debug BEGIN " << header.size << std::endl;
+  // uglyPrinter(this->_buffer + sizeof(ProtocolPacketHeader), header.size);
+  // uglyPrinter(this->_buffer, this->_index);
+  // std::cout << "debug: END"<< std::endl;
   memcpy(packet_data, this->_buffer + sizeof(ProtocolPacketHeader), header.size);
-  // std::cout << "::"<< (int)packet_data[0] <<"::" << packet_data[0] << " size: " << header.size << std::endl;
   ProtocolPacket * packet = PacketFactory::createPacket(static_cast<eProtocolPacketGroup>(header.group), header.instruction, packet_data, header.size);
-
-  // ProtocolPacket * packet = PacketFactory::createPacket(static_cast<eProtocolPacketGroup>(header.group), header.instruction, this->_buffer + sizeof(ProtocolPacketHeader), header.size);
+  PacketData *debug;
+  debug = PacketFactory::getPacketData(packet);
   this->_packetQueue.push(packet);
   next += sizeof(ProtocolPacketHeader) + PacketFactory::getPacketDataSize(packet);
-  // std::cout << "je memmove (buffer[0], buffer["<< next << "], 4096 - " << next << ") = " << 4096 - next << std::endl;
   memmove(this->_buffer, &(this->_buffer[next]), 4096 - next);
-  // std::cout << "je memset (buffer[" << next << "], 0, " << 4096 - next << ")" << std::endl;
   memset(&(this->_buffer)[this->_index - next], 0, 4096 - (this->_index - next));
-
-  // std::cout << "next ====" << next << std::endl;
-  // std::cout << "index ====" << this->_index << std::endl;
-  if (this->_index == next)
-    {
-      // std::cout << "wtf?" << std::endl;
-    }
   this->_index = this->_index - next;
   return (1);
 }
@@ -158,12 +158,11 @@ unsigned int PacketAggregator::getSize(void) const
   return (this->_index);
 }
 
-unsigned char* PacketAggregator::getMsg(void) const
+char*	PacketAggregator::getMsg(void) const
 {
-  unsigned char *msg;
+  char *msg;
 
-  msg = new unsigned char[this->_index];
-
+  msg = new char[this->_index];
   memcpy(msg, this->_buffer, this->_index);
   return (msg);
 }

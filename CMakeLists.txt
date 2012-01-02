@@ -76,7 +76,7 @@ endif(WIN32)
 
 if(UNIX)
 
-SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
+SET(CMAKE_CXX_FLAGS "-Wextra -Wall -g3")
 
 add_library(
 	SNetwork
