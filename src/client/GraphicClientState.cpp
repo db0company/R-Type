@@ -2,6 +2,8 @@
 #include <iostream>
 #include "StateStart.hpp"
 #include "StateOptions.hpp"
+#include "StateJoinCreate.hpp"
+#include "StateRoomList.hpp"
 #include "GraphicClientState.hpp"
 
 LibGraphic::GraphicClientState::GraphicClientState(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
@@ -23,8 +25,17 @@ void LibGraphic::GraphicClientState::loadStates(void)
 					    this->_ressourcesSounds,
 					    this->_ressourcesFont,
 					    this->_app);
-  this->_stateInfos[ROOMLIST] = NULL;
+  this->_stateInfos[ROOMLIST] = new StateRoomList(this->_ressourcesSprite,
+						  this->_ressourcesPlayList,
+						  this->_ressourcesSounds,
+						  this->_ressourcesFont,
+						  this->_app);
   this->_stateInfos[GAMEPARAMETER] = NULL;
+  this->_stateInfos[JOINCREATE] = new StateJoinCreate(this->_ressourcesSprite,
+					    this->_ressourcesPlayList,
+					    this->_ressourcesSounds,
+					    this->_ressourcesFont,
+					    this->_app);
   this->_stateInfos[ROOM] = NULL;
   this->_stateInfos[OPTIONS] = new StateOptions(this->_ressourcesSprite,
 					    this->_ressourcesPlayList,

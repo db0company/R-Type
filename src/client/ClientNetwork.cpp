@@ -18,6 +18,7 @@
 # include <cstring>
 #endif
 #include "ClientNetwork.hpp"
+#include <cstdlib>
 
 ClientNetwork::ClientNetwork(void) : _ip(""), _port(0)
 {
@@ -146,6 +147,7 @@ bool ClientNetwork::process(Client &client)
   int				nb_packet;
   ProtocolPacket		*packet;
   unsigned int			tmp_i = 0;
+
   nb_packet = this->paRead.aggregateCharToPackets();
   if (this->paRead.empty() && this->paReadUDP.empty())
     return (false);
@@ -167,41 +169,59 @@ bool ClientNetwork::process(Client &client)
     }
   return (true);
 }
+void			uglyPrinter(char *str, int size);
+
+ProtocolPacket &ProtocolPacket::operator=(ProtocolPacket const &other)
+{
+  std::cout << "salut c'est lop =" << std::endl;
+  this->header.magic = other.header.magic;
+  this->header.size = other.header.size;
+  this->header.group = other.header.group;
+  this->header.instruction = other.header.instruction;
+  memcpy(&(this->data), &(other.data), other.header.size);
+  return (*this);
+}
+
 
 bool ClientNetwork::sendPacketToServer(void)
 {
-  unsigned int size;
-  unsigned char	*msg;
+  unsigned int sizeT;
+  char	*msg;
   int nb;
 
   if (this->_tcp->SNGetWrite())
     {
       nb = this->paWrite.aggregatePacketToChar();
       if (nb > 0)
-	{
-	  std::cout << nb << " packet(s) to aggregate (TCP)" << std::endl;
-	  size = this->paWrite.getSize();
-	  msg = this->paWrite.getMsg();
-	  this->_tcp->SNWrite(msg, size);
-	  this->paWrite.erase(); //done ? todo
-	}
+      	{
+      	  std::cout << nb << " packet(s) to aggregate (TCP)" << std::endl;
+      	  sizeT = this->paWrite.getSize();
+      	  msg = this->paWrite.getMsg();
+      	  this->_tcp->SNWrite(msg, sizeT);
+      	  this->paWrite.erase(); //done ? todo
+      	}
     }
-  nb = this->paWriteUDP.aggregatePacketToChar();
-  if (nb > 0)
-    {
-      std::cout << nb << " packet(s) to aggregate (UDP)" << std::endl;
-      size = this->paWriteUDP.getSize();
-      msg = this->paWriteUDP.getMsg();
-      this->_udp->SNWrite(msg, size);
-      this->paWriteUDP.erase(); //done ? todo
-    }
+  // nb = this->paWriteUDP.aggregatePacketToChar();
+  // if (nb > 0)
+  //   {
+  //     std::cout << nb << " packet(s) to aggregate (UDP)" << std::endl;
+  //     size = this->paWriteUDP.getSize();
+  //     msg = this->paWriteUDP.getMsg();
+  //     this->_udp->SNWrite(msg, size);
+  //     this->paWriteUDP.erase(); //done ? todo
+  //   }
   return (true);
 }
 
 bool ClientNetwork::pushTCP(ProtocolPacket *t)
 {
   this->paWrite.push(t);
-  return (true);
+  // std::cout << "ClientNetwork::pushTCP " << std::endl;
+  // uglyPrinter((char *)(t->data), t->header.size);
+  // ProtocolPacket *tmp = this->paWrite.front();
+  // std::cout << "ClientNetwork::pushTCP front" << std::endl;
+  // uglyPrinter((unsigned char *)(tmp->data), tmp->header.size);
+ return (true);
 }
 
 bool ClientNetwork::pushUDP(ProtocolPacket *t)

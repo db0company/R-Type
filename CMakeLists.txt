@@ -63,6 +63,9 @@ add_executable(
 	./src/client/GraphicClientState.cpp
 	./src/client/StateStart.cpp
 	./src/client/StateOptions.cpp
+	./src/client/StateGameParameters.cpp
+	./src/client/StateRoomList.cpp
+	./src/client/StateJoinCreate.cpp
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
 	./src/client/Button.cpp
@@ -76,7 +79,7 @@ endif(WIN32)
 
 if(UNIX)
 
-SET(CMAKE_CXX_FLAGS "-W -Wall -Wextra")
+SET(CMAKE_CXX_FLAGS "-Wextra -Wall -g3")
 
 add_library(
 	SNetwork
@@ -126,6 +129,9 @@ add_executable(
 	./src/client/GraphicClientState.cpp
 	./src/client/StateStart.cpp
 	./src/client/StateOptions.cpp
+	./src/client/StateJoinCreate.cpp
+	./src/client/StateGameParameters.cpp
+	./src/client/StateRoomList.cpp
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
 	./src/client/Button.cpp

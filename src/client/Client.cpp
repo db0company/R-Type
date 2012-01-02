@@ -26,11 +26,11 @@ Client::Client(std::string const &ip, int port) :
 
 bool Client::init(void)
 {
-  if (!this->cGraphic.init())
-    {
-      std::cerr << "Error: Can't initialize sfml" << std::endl;
-      return (false);
-    }
+  // if (!this->cGraphic.init())
+  //   {
+  //     std::cerr << "Error: Can't initialize sfml" << std::endl;
+  //     return (false);
+  //   }
   return (true);
 }
 
@@ -53,30 +53,28 @@ bool Client::run(void)
       	}
       this->cNetwork.feedPacketAggregatorTCP();
       this->cNetwork.feedPacketAggregatorUDP();
-      this->cGraphic.getEvent();
-      this->cGraphic.clean();
-      this->cGraphic.draw();
+      // this->cGraphic.getEvent();
+      // this->cGraphic.clean();
+      // this->cGraphic.draw();
       if (i == 0)
       	{
-      	  PacketData dataGame;
-      	  PacketData dataChat;
-	  dataGame.addString("DarkK3vinNaruto666");
-	  dataGame.addString("Game de la Mort");
-	  dataGame.addString("lvl1");
-	  dataGame.addChar(4);
-	  dataGame.addChar(0);
-	  dataChat.addString("Salut!");
-
+      	  PacketData *dataGame = new PacketData;
+	  PacketData *data = new PacketData;
+	  dataGame->addString("DarkK3vinNaruto666");
+	  dataGame->addString("Game de la Mort");
+	  dataGame->addString("lvl1");
+	  dataGame->addChar(4);
+	  dataGame->addChar(0);
+	  data->addString("coucou lol");
 	  ProtocolPacket *protocolPacket = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), dataGame);
-	  ProtocolPacket *protocolPacket1 = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(STARTGAME), dataChat);
-
-	  dataGame.prettyPrint();
+	  ProtocolPacket *protocolPacket1 = PacketFactory::createPacket(LOBBY, static_cast<ushort>(CHAT), data);
+	  // dataGame.prettyPrint();
 	  this->cNetwork.pushTCP(protocolPacket);
 	  this->cNetwork.pushTCP(protocolPacket1);
 	  ++i;
 	}
-      this->cNetwork.process(*this);
       this->cNetwork.sendPacketToServer(); // static ok?
+      this->cNetwork.process(*this);
     }
   return (true);
 }

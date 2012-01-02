@@ -1,10 +1,10 @@
 #ifndef			PROTOCOLPACKETDATA_H_
 # define		PROTOCOLPACKETDATA_H_
 
-# include		"types.h"
 # include		<vector>
 # include		<algorithm>
 # include		<string>
+# include		"types.h"
 
 class			PacketData
 {
@@ -32,7 +32,7 @@ class			PacketData
   void			prettyPrint(void) const;
 
  public:
-  DataRawType const *	getData(void) const;
+  DataRawType const *		getData(void) const;
   ushort		getDataSize(void) const;
 
  public:

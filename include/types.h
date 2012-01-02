@@ -6,7 +6,7 @@ typedef		unsigned short		ushort;
 typedef		unsigned int		uint;
 typedef		unsigned char		uchar;
 
-typedef		uchar			DataRawType;
+typedef		char			DataRawType;
 
 # define	KO			0
 # define	OK			!KO

@@ -286,6 +286,11 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		    this->_nextState = OPTIONS;
 		    return EVENT_CHANGE_STATE;
 		  }
+		else if (this->_currentButton == BUTTON_PLAY)
+		  {
+		    this->_nextState = ROOMLIST;
+		    return EVENT_CHANGE_STATE;
+		  }
 		break;
 	      }
 	    default: break;
@@ -306,6 +311,11 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		  {
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
+		  }
+		else if (this->_currentButton == BUTTON_OPTIONS)
+		  {
+		    this->_nextState = ROOMLIST;
+		    return EVENT_CHANGE_STATE;
 		  }
  		break;
 	      }

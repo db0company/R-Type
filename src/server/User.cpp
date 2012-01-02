@@ -86,7 +86,7 @@ bool				User::feedPacketAggregator(char *data, int size)
 bool			User::aggregatePacketToSend(void)
 {
   unsigned int size;
-  unsigned char	*msg;
+  char	*msg;
   int nb;
 
   if (this->tcp->SNGetWrite())

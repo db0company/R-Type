@@ -58,7 +58,7 @@ bool			ProtocolGame::actionError(PacketData &, User *, Server &)
 
 bool			ProtocolGame::actionGet(PacketData &, User *user, Server &)
 {
-  PacketData  to_send;
+  PacketData  *to_send = new PacketData;
   ProtocolPacket *packet_to_send;
   // TODO:
   // to_send: [id_group(short), login(string), game_name(string),
@@ -70,7 +70,7 @@ bool			ProtocolGame::actionGet(PacketData &, User *user, Server &)
 
 bool			ProtocolGame::actionGetLevel(PacketData &, User *user, Server &)
 {
-  PacketData  to_send;
+  PacketData  *to_send = new PacketData;
   ProtocolPacket *packet_to_send;
   // TODO:
   // to_send: [game_name(string)]+
@@ -86,7 +86,7 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &)
   std::string game_lvl;
   char	      player_max;
   char	      observer;
-  PacketData  to_send;
+  PacketData  *to_send = new PacketData;
   ProtocolPacket *packet_to_send;
 
   name = received.getNextString();
@@ -102,16 +102,16 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &)
   // verifier si game_name pas deja pris. si game_lvl existe ds le server
   if (player_max < 1 || player_max > 4)
     {
-      to_send.addChar(0);
-      to_send.addString("Number of Player must be between 1 and 4");
-      to_send.prettyPrint();
+      to_send->addChar(0);
+      to_send->addString("Number of Player must be between 1 and 4");
+      to_send->prettyPrint();
       packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
       user->addPacketToSend(packet_to_send);
       return (false);
     }
   // TODO :
   // arrive ici tout est verrifier c'est bon donc on doit creer la game ici
-  to_send.addChar(1);
+  to_send->addChar(1);
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
   user->addPacketToSend(packet_to_send);
   return (true);
@@ -119,7 +119,7 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &)
 
 bool			ProtocolGame::actionJoin(PacketData & received, User *user, Server &)
 {
-  PacketData	to_send;
+  PacketData	*to_send = new PacketData;
   ProtocolPacket *packet_to_send;
   std::string	login;
   short		id_game;
@@ -133,8 +133,8 @@ bool			ProtocolGame::actionJoin(PacketData & received, User *user, Server &)
   // + si observer != 0: verifier si la game est pas deja full.
   // + si observer == 0: verif si game accept observer
   // to_send: status(char) textinfo()
-  to_send.addChar(0);
-  to_send.addString("Not Yet Implemented");
+  to_send->addChar(0);
+  to_send->addString("Not Yet Implemented");
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(JOINGAME), to_send);
   user->addPacketToSend(packet_to_send);
   return (true);
@@ -156,7 +156,7 @@ bool			ProtocolGame::actionEnd(PacketData &, User *, Server &)
 
 bool			ProtocolGame::actionStart(PacketData &, User *user, Server &)
 {
-  PacketData	to_send;
+  PacketData	*to_send = new PacketData;
   ProtocolPacket *packet_to_send;
 
   // TODO:
@@ -164,8 +164,8 @@ bool			ProtocolGame::actionStart(PacketData &, User *user, Server &)
   // et si la game est bien en mode lobby(attente dautre personne/chat)
   // si oui -> start game + envoyer packet ok. sinon envoyer packet failure
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(STARTGAME), to_send);
-  to_send.addChar(0);
-  to_send.addString("Not Yet implemented");
+  to_send->addChar(0);
+  to_send->addString("Not Yet implemented");
   user->addPacketToSend(packet_to_send);
   return (true);
 }
