@@ -157,26 +157,41 @@ void LibGraphic::StateRoomList::drawText()
   sf::String *tmp;
 
   if (language == ENGLISH)
-    tmp = this->getStdToSfString("GameName", this->getFont("StartFontF"));
+    {
+      tmp = this->getStdToSfString("GameName", this->getFont("StartFontF"));
+      tmp->SetPosition(340, 300);
+    }
   else
-    tmp = this->getStdToSfString("Partie", this->getFont("StartFontF"));
-  tmp->SetPosition(340, 300);
+    {
+      tmp = this->getStdToSfString("Partie", this->getFont("StartFontF"));
+      tmp->SetPosition(360, 300);
+    }
   tmp->SetScale(0.6, 0.6);
   this->_app.Draw(*tmp);
 
   if (language == ENGLISH)
-    tmp = this->getStdToSfString("Owner", this->getFont("StartFontF"));
+    {
+      tmp = this->getStdToSfString("Owner", this->getFont("StartFontF"));
+      tmp->SetPosition(530, 300);
+    }
   else
-    tmp = this->getStdToSfString("Createur", this->getFont("StartFontF"));
-  tmp->SetPosition(530, 300);
+    {
+      tmp = this->getStdToSfString("Createur", this->getFont("StartFontF"));
+      tmp->SetPosition(510, 300);
+    }
   tmp->SetScale(0.6, 0.6);
   this->_app.Draw(*tmp);
 
   if (language == ENGLISH)
-    tmp = this->getStdToSfString("Slots", this->getFont("StartFontF"));
+    {
+      tmp = this->getStdToSfString("Slots", this->getFont("StartFontF"));
+      tmp->SetPosition(648, 300);
+    }
   else
-    tmp = this->getStdToSfString("Places", this->getFont("StartFontF"));
-  tmp->SetPosition(648, 300);
+    {
+      tmp = this->getStdToSfString("Places", this->getFont("StartFontF"));
+      tmp->SetPosition(643, 300);
+    }
   tmp->SetScale(0.6, 0.6);
   this->_app.Draw(*tmp);
 
@@ -189,10 +204,15 @@ void LibGraphic::StateRoomList::drawText()
   this->_app.Draw(*tmp);
 
   if (language == ENGLISH)
-    tmp = this->getStdToSfString("Map", this->getFont("StartFontF"));
+    {
+      tmp = this->getStdToSfString("Map", this->getFont("StartFontF"));
+      tmp->SetPosition(915, 300);
+    }
   else
-    tmp = this->getStdToSfString("Carte", this->getFont("StartFontF"));
-  tmp->SetPosition(915, 300);
+    {
+      tmp = this->getStdToSfString("Carte", this->getFont("StartFontF"));
+      tmp->SetPosition(900, 300);
+    }
   tmp->SetScale(0.6, 0.6);
   this->_app.Draw(*tmp);
 }
@@ -212,6 +232,20 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 	      {
 		this->_app.Close();
 		exit(EXIT_SUCCESS);
+	      }
+	    case sf::Key::Return :
+	      {
+		if (this->_currentButton == BUTTON_ROOMLIST_BACK)
+		  {
+		    this->_nextState = START;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
+		  {
+		    this->_nextState = ROOM;
+		    return EVENT_CHANGE_STATE;
+		  }
+		break;
 	      }
 	    default : break;
 	    }
