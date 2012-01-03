@@ -11,8 +11,8 @@ public:
   ATCPClientSocket(void);
   virtual ~ATCPClientSocket(void);
   virtual bool		SNCreate(std::string const &host, int port) = 0;
-  virtual int		SNRead(void *msg, unsigned int size) = 0;
-  virtual int		SNWrite(const void *buffer, unsigned int size) = 0;
+  virtual int		SNRead(char *msg, unsigned int size) = 0;
+  virtual int		SNWrite(const char *buffer, unsigned int size) = 0;
   virtual bool		SNConnect(void) = 0;
   virtual bool		SNClose(void) = 0;
   virtual eSocketErr	SNGetLastErr(void) const = 0;

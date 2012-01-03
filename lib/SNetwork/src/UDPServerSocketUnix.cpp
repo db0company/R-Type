@@ -73,7 +73,7 @@ bool		UDPServerSocketUnix::SNCreate(std::string const &host, int port)
   return (true);
 }
 
-int		UDPServerSocketUnix::SNRead(void *msg, uint32_t size)
+int		UDPServerSocketUnix::SNRead(char *msg, uint32_t size)
 {
   int		ret;
   socklen_t	addrsize;
@@ -91,7 +91,7 @@ int		UDPServerSocketUnix::SNRead(void *msg, uint32_t size)
   return (ret);
 }
 
-int		UDPServerSocketUnix::SNWrite(const void *msg, uint32_t size)
+int		UDPServerSocketUnix::SNWrite(const char *msg, uint32_t size)
 {
   int		ret;
   socklen_t	socklen;
@@ -106,7 +106,7 @@ int		UDPServerSocketUnix::SNWrite(const void *msg, uint32_t size)
   return (ret);
 }
 
-int		UDPServerSocketUnix::SNReadClient(void *msg, unsigned int size, std::string &ip)
+int		UDPServerSocketUnix::SNReadClient(char *msg, unsigned int size, std::string &ip)
 {
   int		ret;
   socklen_t	addrsize;
@@ -127,7 +127,7 @@ int		UDPServerSocketUnix::SNReadClient(void *msg, unsigned int size, std::string
   return (ret);
 }
 
-int		UDPServerSocketUnix::SNWriteClients(const void *msg, unsigned int size)
+int		UDPServerSocketUnix::SNWriteClients(const char *msg, unsigned int size)
 {
   std::map<std::string, struct sockaddr_in *>::iterator it;
   int		ret;
@@ -152,7 +152,7 @@ int		UDPServerSocketUnix::SNWriteClients(const void *msg, unsigned int size)
   return (client);
 }
 
-int		UDPServerSocketUnix::SNWriteToClient(const void *msg, unsigned int size, const std::string &ip)
+int		UDPServerSocketUnix::SNWriteToClient(const char *msg, unsigned int size, const std::string &ip)
 {
   struct sockaddr_in c_addr;
   socklen_t		socklen;

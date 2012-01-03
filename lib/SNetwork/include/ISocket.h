@@ -29,8 +29,8 @@ class 	ISocket
 public:
   virtual ~ISocket(){}
   virtual bool		SNCreate(std::string const &host, int port) = 0;
-  virtual int		SNRead(void *msg, unsigned int size) = 0;
-  virtual int		SNWrite(const void *msg, unsigned int size) = 0;
+  virtual int		SNRead(char *msg, unsigned int size) = 0;
+  virtual int		SNWrite(const char *msg, unsigned int size) = 0;
   virtual bool		SNClose(void) = 0;
   virtual eSocketErr	SNGetLastErr(void) const = 0;
 
