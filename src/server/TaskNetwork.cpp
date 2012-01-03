@@ -28,6 +28,19 @@ TaskNetwork::~TaskNetwork()
 {
 }
 
+TaskNetwork::TaskNetwork(const TaskNetwork& old)
+  : udpSock(old.udpSock), udpMutex(old.udpMutex)
+{
+
+}
+
+TaskNetwork&	TaskNetwork::operator=(const TaskNetwork& old)
+{
+  this->udpSock = old.udpSock;
+  this->udpMutex = old.udpMutex;
+  return (*this);
+}
+
 void	TaskNetwork::sendToClient(void *data)
 {
   sendToClientData	*dataSend = NULL;

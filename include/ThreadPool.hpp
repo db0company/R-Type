@@ -5,7 +5,7 @@
 #include "IThread.hpp"
 #include "ThreadData.hpp"
 
-#define POOL_NBTHREAD 4
+#define POOL_NBTHREAD 6
 
 
 class ThreadPool

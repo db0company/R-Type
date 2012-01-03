@@ -12,4 +12,10 @@ ThreadData<T>::~ThreadData()
 {
 }
 
-template class ThreadData<PacketTask>;
+template <typename T>
+ThreadData<T>::ThreadData(const ThreadData<T>& old)
+  :QueueTask(old.QueueTask), condVar(old.condVar)
+{
+}
+
+template class ThreadData<PacketTask *>;

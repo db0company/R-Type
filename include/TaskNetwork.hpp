@@ -13,6 +13,8 @@ private:
   IMutex	   *udpMutex;
 public:
   TaskNetwork(void);
+  TaskNetwork(const TaskNetwork& old);
+  TaskNetwork&	operator=(const TaskNetwork& old);
   void init(AUDPServerSocket *udp, IMutex *mutex);
   void setSock(AUDPServerSocket *udp);
   void setMutex(IMutex *mutex);

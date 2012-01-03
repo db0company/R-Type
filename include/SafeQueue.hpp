@@ -17,7 +17,7 @@ public:
   SafeQueue &operator=(SafeQueue<T> &old);
   ~SafeQueue();
   bool push(T value);
-  bool tryPop(T *elem);
+  T tryPop();
   bool empty();
 };
 
