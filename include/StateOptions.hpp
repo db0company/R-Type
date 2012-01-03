@@ -62,6 +62,10 @@ namespace LibGraphic
     std::string _name;
     std::string _ip;
     std::string _port;
+
+    bool _isDefaultName;
+    bool _isDefaultIp;
+    bool _isDefaultPort;
   };
 
 }

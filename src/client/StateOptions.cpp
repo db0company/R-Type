@@ -16,6 +16,16 @@ LibGraphic::StateOptions::StateOptions(std::map<std::string const, GraphicRessou
 {
   this->_currentButton = BUTTON_OPTIONS_NAME;
   this->_nextState = UNKNOWN_STATE;
+
+  if (language == ENGLISH)
+    this->_name = "Player";
+  else
+    this->_name = "Joueur";
+  this->_ip = "xxx.xxx.xxx.xxx";
+  this->_port = "xxxxx";
+  this->_isDefaultName = true;
+  this->_isDefaultIp = true;
+  this->_isDefaultPort = true;
 }
 
 LibGraphic::StateOptions::~StateOptions()
@@ -195,7 +205,8 @@ void LibGraphic::StateOptions::drawText()
   else
     tmp = this->getStdToSfString("Langue", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,0, 255));
-  if (this->_currentButton != BUTTON_OPTIONS_LANG_FR && this->_currentButton != BUTTON_OPTIONS_LANG_EN)
+  if (this->_currentButton != BUTTON_OPTIONS_LANG_FR
+      && this->_currentButton != BUTTON_OPTIONS_LANG_EN)
     tmp->SetColor(sf::Color(255,255,255, 205));
   tmp->SetPosition(550, 625);
   tmp->SetScale(0.8, 0.8);
@@ -203,23 +214,29 @@ void LibGraphic::StateOptions::drawText()
 
   tmp = this->getStdToSfString(this->_name, this->getFont("StartFontF"));
   tmp->SetText(this->_name);
-  tmp->SetPosition(783, 342);
-  tmp->SetScale(0.8, 0.8);
+  tmp->SetPosition(785, 347);
+  tmp->SetScale(0.6, 0.6);
   tmp->SetColor(sf::Color(0, 0, 0, 255));
-  this->_app.Draw(*tmp);
+   if (this->_currentButton != BUTTON_OPTIONS_NAME)
+    tmp->SetColor(sf::Color(0, 0, 0, 155));
+ this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString(this->_ip, this->getFont("StartFontF"));
   tmp->SetText(this->_ip);
-  tmp->SetPosition(783, 392);
-  tmp->SetScale(0.8, 0.8);
-  tmp->SetColor(sf::Color(0, 0, 0, 245));
+  tmp->SetPosition(785, 397);
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetColor(sf::Color(0, 0, 0, 255));
+  if (this->_currentButton != BUTTON_OPTIONS_IP)
+    tmp->SetColor(sf::Color(0, 0, 0, 155));
   this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString(this->_port, this->getFont("StartFontF"));
   tmp->SetText(this->_port);
-  tmp->SetPosition(783, 442);
-  tmp->SetScale(0.8, 0.8);
-  tmp->SetColor(sf::Color(0, 0, 0, 235));
+  tmp->SetPosition(785, 447);
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetColor(sf::Color(0, 0, 0, 255));
+  if (this->_currentButton != BUTTON_OPTIONS_PORT)
+    tmp->SetColor(sf::Color(0, 0, 0, 155));
   this->_app.Draw(*tmp);
 
   MyMusic * song = this->getMusic("StartMusic");
@@ -310,6 +327,22 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 
 void LibGraphic::StateOptions::readText(const sf::Event & Event)
 {
+  if (this->_currentButton == BUTTON_OPTIONS_NAME && this->_isDefaultName)
+    {
+      this->_isDefaultName = !this->_isDefaultName;
+      this->_name = "";
+    }
+  else if (this->_currentButton == BUTTON_OPTIONS_IP && this->_isDefaultIp)
+    {
+      this->_isDefaultIp = !this->_isDefaultIp;
+      this->_ip = "";
+    }
+  else if (this->_currentButton == BUTTON_OPTIONS_PORT && this->_isDefaultPort)
+    {
+      this->_isDefaultPort = !this->_isDefaultPort;
+      this->_port = "";
+    }
+
   if (this->_currentButton == BUTTON_OPTIONS_NAME && this->_name.size() <= 12)
     this->_name += static_cast<char>(Event.Text.Unicode);
   else if (this->_currentButton == BUTTON_OPTIONS_IP && this->_ip.size() < 15

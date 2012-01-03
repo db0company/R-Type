@@ -120,7 +120,10 @@ void LibGraphic::StateRoomList::draw()
   Button.SetPosition(1055, 870);
   this->_app.Draw(Button);
   Spectate->SetScale(0.6, 0.6);
-  Spectate->SetPosition(888, 838);
+  if (language == ENGLISH)
+    Spectate->SetPosition(888, 838);
+  else
+    Spectate->SetPosition(883, 838);
   Spectate->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_ROOMLIST_SPECTATE)
     Spectate->SetColor(sf::Color(255,255,255, 205));
@@ -241,6 +244,11 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		    return EVENT_CHANGE_STATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
+		  {
+		    this->_nextState = ROOM;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
 		    this->_nextState = ROOM;
 		    return EVENT_CHANGE_STATE;

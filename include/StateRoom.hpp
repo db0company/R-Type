@@ -53,6 +53,8 @@ namespace LibGraphic
     eStates _nextState;
     eSelectedButton _currentButton;
     sf::Clock Clock;
+    std::string _chat;
+    bool _isDefaultText;
   };
 
 }
