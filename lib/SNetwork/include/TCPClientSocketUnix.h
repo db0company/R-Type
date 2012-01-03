@@ -20,8 +20,8 @@ public:
   TCPClientSocketUnix& operator=(const TCPClientSocketUnix &other);
   virtual bool		SNCreate(std::string const &host, int port);
   void			SNCreateAccept(int socket, struct sockaddr_in addr);
-  virtual int		SNRead(void *msg, unsigned int size);
-  virtual int		SNWrite(const void *msg, unsigned int size);
+  virtual int		SNRead(char *msg, unsigned int size);
+  virtual int		SNWrite(const char *msg, unsigned int size);
   virtual bool		SNConnect(void);
   virtual bool		SNClose(void);
   virtual eSocketErr	SNGetLastErr(void) const;

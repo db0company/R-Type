@@ -65,7 +65,7 @@ bool		UDPClientSocketWindows::SNCreate(std::string const &host, int port)
 	return (true);
 }
 
-int		UDPClientSocketWindows::SNRead(void *msg, unsigned int size)
+int		UDPClientSocketWindows::SNRead(char *msg, unsigned int size)
 {
 	WSABUF	DataBuff;
 	DWORD	BytesReceived;
@@ -74,7 +74,7 @@ int		UDPClientSocketWindows::SNRead(void *msg, unsigned int size)
 	int	structsize;
 
 	structsize = sizeof(from);
-	DataBuff.buf = static_cast <char *>(msg);
+	DataBuff.buf = (msg);
 	DataBuff.len = size;
 	if (WSARecvFrom(this->_socket, &DataBuff, 1, &BytesReceived, &Flags, (SOCKADDR *)&(from), &structsize, NULL, NULL) == SOCKET_ERROR)
 	//	if (WSARecvFrom(this->_socket, &DataBuff, 1, &BytesReceived, &Flags, (SOCKADDR *)&(from), &structsize, NULL, NULL) == SOCKET_ERROR)
@@ -86,13 +86,13 @@ int		UDPClientSocketWindows::SNRead(void *msg, unsigned int size)
 	return (BytesReceived);
 }
 
-int		UDPClientSocketWindows::SNWrite(const void *msg, unsigned int size)
+int		UDPClientSocketWindows::SNWrite(const char *msg, unsigned int size)
 {
 	WSABUF	DataBuff;
 	DWORD SendBytes;
 	DWORD Flags = 0;
 
-	DataBuff.buf = static_cast <char *> (const_cast <void *> (msg));
+	DataBuff.buf = const_cast <char *> (msg);
 	DataBuff.len = size;
 	if (WSASendTo(this->_socket, &DataBuff, 1, &SendBytes, Flags, (SOCKADDR *)&(this->_servaddr), sizeof(this->_servaddr), NULL, NULL) == SOCKET_ERROR)
 		{

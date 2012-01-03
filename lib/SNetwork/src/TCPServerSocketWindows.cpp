@@ -76,13 +76,13 @@ bool				TCPServerSocketWindows::SNCreate(std::string const &host, int port)
 	return (true);
 }
 
-int				TCPServerSocketWindows::SNRead(void *msg, unsigned int size)
+int				TCPServerSocketWindows::SNRead(char *msg, unsigned int size)
 {
 	WSABUF	DataBuff;
 	DWORD	BytesReceived;
 	DWORD	flags = 0;
 
-	DataBuff.buf = static_cast <char *> (msg);
+	DataBuff.buf = (msg);
 	DataBuff.len = size;
 	if (WSARecv(this->_socket, &DataBuff, 1, &BytesReceived, &flags, NULL, NULL) == SOCKET_ERROR)
 		{
@@ -92,12 +92,12 @@ int				TCPServerSocketWindows::SNRead(void *msg, unsigned int size)
 	this->_error = NOERRORSOCKET;
 	return (BytesReceived);
 }
-int				TCPServerSocketWindows::SNWrite(const void *msg, unsigned int size)
+int				TCPServerSocketWindows::SNWrite(const char *msg, unsigned int size)
 {
 	WSABUF		DataBuff;
 	DWORD		SendBytes;
 
-	DataBuff.buf = static_cast <char *> (const_cast <void *> (msg));
+	DataBuff.buf = (const_cast <char *> (msg);
 	DataBuff.len = size;
 	if (WSASend(this->_socket, &DataBuff, 1, &SendBytes, 0, NULL, NULL) == SOCKET_ERROR)
 		{

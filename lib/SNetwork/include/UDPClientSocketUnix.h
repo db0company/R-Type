@@ -16,8 +16,8 @@ public:
   UDPClientSocketUnix(const UDPClientSocketUnix &other);
   UDPClientSocketUnix& operator=(const UDPClientSocketUnix &other);
   virtual bool		SNCreate(std::string const &host, int port);
-  virtual int		SNRead(void *msg, uint32_t size);
-  virtual int		SNWrite(const void *msg, uint32_t size);
+  virtual int		SNRead(char *msg, uint32_t size);
+  virtual int		SNWrite(const char *msg, uint32_t size);
   virtual bool		SNClose(void);
   std::string		getHost(void) const;
   int			getPort(void) const;

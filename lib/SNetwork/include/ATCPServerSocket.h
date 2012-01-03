@@ -11,8 +11,8 @@ public:
   ATCPServerSocket(void);
   virtual ~ATCPServerSocket();
   virtual bool			SNCreate(std::string const &host, int port) = 0;
-  virtual int			SNRead(void *buffer, unsigned int size) = 0;
-  virtual int			SNWrite(const void *msg, unsigned int) = 0;
+  virtual int			SNRead(char *buffer, unsigned int size) = 0;
+  virtual int			SNWrite(const char *msg, unsigned int) = 0;
   virtual bool			SNListen(void) = 0;
   virtual ATCPClientSocket *	SNAccept(void) = 0;
   std::string			getHost(void) const;
