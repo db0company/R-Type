@@ -30,8 +30,8 @@ Server::Server(void) :
   this->_condVar = new CondVarWindows;
 #endif
   this->_taskNet.init(this->_udp, this->_udpMutex);
-  ThreadData<PacketTask> *threadData = new ThreadData<PacketTask>(this->_taskQueue, this->_condVar);
-  this->_threadPool.init<PacketTask>(threadData); // thread data todo
+  ThreadData<PacketTask *> *threadData = new ThreadData<PacketTask *>(this->_taskQueue, this->_condVar);
+  this->_threadPool.init<PacketTask *>(threadData); // thread data todo
 }
 
 Server::~Server(void)
@@ -207,6 +207,15 @@ bool	Server::processPackets(void)
 
 bool Server::run(void)
 {
+  // sendToClientData *sdata = new sendToClientData;
+  // PacketData *data = new PacketData;
+  // ProtocolPacket *packet = PacketFactory::createPacket(THE_GAME,
+			  // static_cast<ushort>(GETGAME), data);
+  // sdata->packet = packet;
+  // sdata->ip = "127.0.0.1";
+  // sdata->port = 12348;
+  // PacketTask pa(this->_taskManager, &TaskNetwork::sendToClient, reinterpret_cast<void *>sdata);
+  // int i = 0;
   while (true)
     {
       this->_listener->SNAddRead();
@@ -215,11 +224,25 @@ bool Server::run(void)
 	  std::cerr << "Error: Select" << std::endl;
 	  return (false);
 	}
-      
       this->getNewClient();
       this->readFromClients();
       this->processPackets();
       this->writeToClients();
       this->cleanClients();
     }
+}
+
+TaskManager &Server::getTaskManager(void)
+{
+  return (this->_taskManager);
+}
+
+SafeQueue<PacketTask *> &Server::getTaskQueue(void)
+{
+  return (this->_taskQueue);
+}
+
+ICondVar		*Server::getCondVar(void)
+{
+  return (this->_condVar);
 }

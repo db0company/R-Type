@@ -49,17 +49,18 @@ bool SafeQueue<T>::push(T value)
 }
 
 template <typename T>
-bool SafeQueue<T>::tryPop(T *elem)
+T SafeQueue<T>::tryPop()
 {
+  T elem;
   ScopedLock sl(this->mutex);
 
   if (QueueTask.empty() == false)
     {
-      *elem = QueueTask.front();
+      elem = QueueTask.front();
       QueueTask.pop();
-      return (true);
+      return (elem);
     }
-  return (false);
+  return (NULL);
 }
 
 template <typename T>
@@ -72,4 +73,4 @@ bool SafeQueue<T>::empty()
   return (false);
 }
 
-template class SafeQueue<PacketTask>;
+template class SafeQueue<PacketTask *>;

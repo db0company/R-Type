@@ -11,14 +11,17 @@ PacketTask::PacketTask(TaskManager& man, void (TaskNetwork::*point)(void *), voi
 
 
 PacketTask::PacketTask(PacketTask const &other) : manager(other.manager),
-						  param(other.param)
+						  param(other.param),
+						  netFunc(other.netFunc)
+
 {
 }
 
-PacketTask&PacketTask::operator=(PacketTask const &other)
+PacketTask& PacketTask::operator=(PacketTask const &other)
 {
   this->manager = other.manager;
   this->param = other.param;
+  this->netFunc = other.netFunc;
   return *this;
 }
 
@@ -41,8 +44,7 @@ void	PacketTask::launchTask(ICondVar *cv)
   //     (g.*gameFunc)(this->param);
   //   }
   // else
-  if (// this->gameFunc == NULL &&
-      this->netFunc != NULL)
+  if (/* this->gameFunc == NULL &*/ this->netFunc != NULL)
     {
       TaskNetwork n = manager.getNet();
 

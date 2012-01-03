@@ -61,6 +61,9 @@ void LibGraphic::StateOptions::draw()
   sf::Sprite &VolumeEffectBar = this->getSprite("VolumeBar");
   sf::Sprite &VolumeEffectButton = this->getSprite("VolumeButton");
 
+
+  this->_app.Draw(back);
+
   menu.SetPosition(500, 290);
   menu_bas.SetPosition(500, 290 + 443);
   menu_haut.SetPosition(500 + 62, 290);
@@ -69,7 +72,6 @@ void LibGraphic::StateOptions::draw()
   menu_diago.SetPosition(500, 290);
   menu_coins.SetPosition(399, 213);
   menu.SetColor(sf::Color(255, 255, 255, 210));
-  this->_app.Draw(back);
   this->_app.Draw(menu);
   this->_app.Draw(menu_diago);
   this->_app.Draw(menu_gauche);
@@ -114,17 +116,17 @@ void LibGraphic::StateOptions::draw()
   ButtonBack.SetRotation(180);
   this->_app.Draw(ButtonBack);
   if (language == ENGLISH)
-    Back->SetPosition(565, 694);
+    Back->SetPosition(575, 697);
   else
-    Back->SetPosition(540, 694);
-  Back->SetScale(1, 0.8);
+    Back->SetPosition(555, 697);
+  Back->SetScale(0.7, 0.7);
   Back->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_BACK)
     Back->SetColor(sf::Color(255,255,255, 205));
   this->_app.Draw(*Back);
 
-  Ok->SetPosition(965, 694);
-  Ok->SetScale(1, 0.8);
+  Ok->SetPosition(975, 697);
+  Ok->SetScale(0.7, 0.7);
   ButtonOk.SetPosition(1100, 730);
   this->_app.Draw(ButtonOk);
   Ok->SetColor(sf::Color(255,255,0, 255));
@@ -138,6 +140,7 @@ void LibGraphic::StateOptions::drawText()
 {
   sf::String *tmp;
 
+
   if (language == ENGLISH)
     tmp = this->getStdToSfString("Name", this->getFont("StartFontF"));
   else
@@ -145,21 +148,24 @@ void LibGraphic::StateOptions::drawText()
   tmp->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_NAME)
     tmp->SetColor(sf::Color(255,255,255, 205));
-  tmp->SetPosition(550, 335);
+  tmp->SetPosition(550, 340);
+  tmp->SetScale(0.8, 0.8);
   this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString("Ip", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_IP)
     tmp->SetColor(sf::Color(255,255,255, 205));
-  tmp->SetPosition(550, 385);
+  tmp->SetPosition(550, 390);
+  tmp->SetScale(0.8, 0.8);
   this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString("Port", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_PORT)
     tmp->SetColor(sf::Color(255,255,255, 205));
-  tmp->SetPosition(550, 435);
+  tmp->SetPosition(550, 440);
+  tmp->SetScale(0.8, 0.8);
   this->_app.Draw(*tmp);
 
   if (language == ENGLISH)
@@ -169,7 +175,8 @@ void LibGraphic::StateOptions::drawText()
   tmp->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_VOL_MUSICS)
     tmp->SetColor(sf::Color(255,255,255, 205));
-  tmp->SetPosition(550, 495);
+  tmp->SetPosition(550, 500);
+  tmp->SetScale(0.8, 0.8);
   this->_app.Draw(*tmp);
 
   if (language == ENGLISH)
@@ -179,7 +186,8 @@ void LibGraphic::StateOptions::drawText()
   tmp->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_VOL_EFFECTS)
     tmp->SetColor(sf::Color(255,255,255, 205));
-  tmp->SetPosition(550, 550);
+  tmp->SetPosition(550, 555);
+  tmp->SetScale(0.8, 0.8);
   this->_app.Draw(*tmp);
 
   if (language == ENGLISH)
@@ -189,7 +197,8 @@ void LibGraphic::StateOptions::drawText()
   tmp->SetColor(sf::Color(255,255,0, 255));
   if (this->_currentButton != BUTTON_OPTIONS_LANG_FR && this->_currentButton != BUTTON_OPTIONS_LANG_EN)
     tmp->SetColor(sf::Color(255,255,255, 205));
-  tmp->SetPosition(550, 620);
+  tmp->SetPosition(550, 625);
+  tmp->SetScale(0.8, 0.8);
   this->_app.Draw(*tmp);
 
   tmp = this->getStdToSfString(this->_name, this->getFont("StartFontF"));
