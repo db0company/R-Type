@@ -141,6 +141,31 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 	       (Event.Text.Unicode > 20 && Event.Text.Unicode < 128))
 	readText(Event);
       cursorMenuPos(Event);
+      if (Event.Type == sf::Event::JoyButtonReleased)
+	{
+	  switch (Event.JoyButton.Button)
+	    {
+	    case 0:
+	      {
+		if (this->_currentButton == BUTTON_ROOM_QUIT)
+		  {
+		    this->_nextState = ROOMLIST;
+		    return EVENT_CHANGE_STATE;
+		  }
+	      }
+	    case 1:
+	      {
+		if (this->_currentButton == BUTTON_ROOM_QUIT)
+		  {
+		    this->_nextState = ROOMLIST;
+		    return EVENT_CHANGE_STATE;
+		  }
+		this->_currentButton = BUTTON_ROOM_QUIT;
+		break;
+	      }
+	    default : break;
+	    }
+	}
     }
   return EVENT_NONE;
 }

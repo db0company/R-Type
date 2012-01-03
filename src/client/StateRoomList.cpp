@@ -258,6 +258,42 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 	    default : break;
 	    }
 	}
+      else if (Event.Type == sf::Event::JoyButtonReleased)
+	{
+	  switch (Event.JoyButton.Button)
+	    {
+	    case 0:
+	      {
+		if (this->_currentButton == BUTTON_ROOMLIST_BACK)
+		  {
+		    this->_nextState = START;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
+		  {
+		    this->_nextState = ROOM;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
+		  {
+		    this->_nextState = ROOM;
+		    return EVENT_CHANGE_STATE;
+		  }
+		break;
+	      }
+	    case 1:
+	      {
+		if (this->_currentButton == BUTTON_ROOMLIST_BACK)
+		  {
+		    this->_nextState = START;
+		    return EVENT_CHANGE_STATE;
+		  }
+		this->_currentButton = BUTTON_ROOMLIST_BACK;
+		break;
+	      }
+	    default : break;
+	    }
+	}
       cursorMenuPos(Event);
     }
   return EVENT_NONE;
@@ -270,7 +306,7 @@ LibGraphic::eStates LibGraphic::StateRoomList::getNextState()
 
 void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 {
-    const sf::Input & Input = this->_app.GetInput();
+  const sf::Input & Input = this->_app.GetInput();
   float JoystickPOV = Input.GetJoystickAxis(0, sf::Joy::AxisPOV);
 
   if ((JoystickPOV == -1 && Event.Type != sf::Event::KeyPressed) ||
@@ -281,7 +317,7 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
     case BUTTON_ROOMLIST_GAME :
       {
 	if (((JoystickPOV > 135 && JoystickPOV < 225) ||
-	    Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab) &&
+	     Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab) &&
 	    this->_deepList < this->_nbGame - 1)
 	  ++this->_deepList;
 	else if (((JoystickPOV > 135 && JoystickPOV < 225) ||
@@ -289,10 +325,10 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 		 this->_deepList == this->_nbGame - 1)
 	  this->_currentButton = BUTTON_ROOMLIST_REFRESH;
 	else if (((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1)) ||
-		 Event.Key.Code == sf::Key::Up) && this->_deepList)
+		  Event.Key.Code == sf::Key::Up) && this->_deepList)
 	  --this->_deepList;
 	else if (((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1)) ||
-		 Event.Key.Code == sf::Key::Up) && !this->_deepList)
+		  Event.Key.Code == sf::Key::Up) && !this->_deepList)
 	  this->_currentButton = BUTTON_ROOMLIST_BACK;
 	break;
       }
@@ -302,7 +338,7 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 	    Event.Key.Code == sf::Key::Right || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_ROOMLIST_REFRESH;
 	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
-	    Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
+		 Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_ROOMLIST_JOIN;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down))
@@ -324,7 +360,7 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 	    Event.Key.Code == sf::Key::Right || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_ROOMLIST_SPECTATE;
 	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
-	    Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
+		 Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_ROOMLIST_BACK;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down))
@@ -346,7 +382,7 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 	    Event.Key.Code == sf::Key::Right || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_ROOMLIST_CREATE;
 	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
-	    Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
+		 Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_ROOMLIST_REFRESH;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down))
@@ -368,7 +404,7 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 	    Event.Key.Code == sf::Key::Right || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_ROOMLIST_JOIN;
 	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
-	    Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
+		 Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_ROOMLIST_SPECTATE;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down))
@@ -390,7 +426,7 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 	    Event.Key.Code == sf::Key::Right || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_ROOMLIST_BACK;
 	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
-	    Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
+		 Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
 	  this->_currentButton = BUTTON_ROOMLIST_CREATE;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down))
