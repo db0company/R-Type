@@ -11,7 +11,7 @@ struct ThreadData
   SafeQueue<T> &QueueTask;
   ICondVar *condVar;
   ThreadData();
-  ThreadData(SafeQueue<T>, ICondVar *);
+  ThreadData(SafeQueue<T>&, ICondVar *);
   ~ThreadData();
 };
 

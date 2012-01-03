@@ -1,4 +1,5 @@
 #include <pthread.h>
+#include <iostream>
 #include "MutexUnix.hpp"
 
 MutexUnix::MutexUnix(MutexUnix const &other)
@@ -16,7 +17,7 @@ MutexUnix::MutexUnix(void)
 {
   if (pthread_mutex_init(&this->_mutex, NULL) != 0)
     {
-      ;//error
+      std::cerr << "ERROR init mutex" << std::endl;//error
     }
 }
 

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "PacketTask.hpp"
 #include "ThreadData.hpp"
 #include "IThread.hpp"
@@ -11,7 +12,6 @@
 
 ThreadPool::ThreadPool(int nbThread)
 {
-
 #ifdef _WIN32
   for (int i = 0; i < nbThread; ++i)
  listThread.push_front(new ThreadWindows);
@@ -63,14 +63,17 @@ void		*manageThread(void *param)
   data = reinterpret_cast<ThreadData<T> *>(param);
   while (1)
     {
-      if (data->QueueTask.empty())
+      if (data->QueueTask.empty() == false)
 	{
 	  T *task = NULL;
 	  if (data->QueueTask.tryPop(task) == true)
 	    task->launchTask(data->condVar);
 	}
       else
-	data->condVar->wait();      
+	{
+	  std::cout << "jattend" << std::endl;
+	data->condVar->wait();
+	}
     }
   return (NULL);
 }

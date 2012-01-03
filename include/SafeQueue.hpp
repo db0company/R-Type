@@ -13,8 +13,8 @@ private:
   IMutex *mutex;
 public:
   SafeQueue();
-  SafeQueue(SafeQueue &old);
-  SafeQueue &operator=(SafeQueue &old);
+  SafeQueue(SafeQueue<T> &old);
+  SafeQueue &operator=(SafeQueue<T> &old);
   ~SafeQueue();
   bool push(T value);
   bool tryPop(T *elem);
