@@ -3,6 +3,9 @@
 #include	"ProtocolPacket.h"
 #include	"ProtocolGame.hpp"
 #include	"User.hpp"
+#include	"TaskNetwork.hpp"
+#include	"PacketTask.hpp"
+#include	"Server.hpp"
 
 ProtocolGame::ProtocolGame()
 {
@@ -79,7 +82,7 @@ bool			ProtocolGame::actionGetLevel(PacketData &, User *user, Server &)
   return (true);
 }
 
-bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &)
+bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &server)
 {
   std::string name;
   std::string game_name;
@@ -113,7 +116,16 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &)
   // arrive ici tout est verrifier c'est bon donc on doit creer la game ici
   to_send->addChar(1);
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
-  user->addPacketToSend(packet_to_send);
+  // user->addPacketToSend(packet_to_send);
+  sendToClientData *sdata = new sendToClientData;
+  sdata->packet = packet_to_send;
+  sdata->ip = "127.0.0.1";
+  sdata->port = 0;
+  PacketTask *pa = new PacketTask(server.getTaskManager(), &TaskNetwork::sendToClient, sdata);
+  std::cout << "jai exec, tout va pour le mieu" << std::endl;
+  server.getTaskQueue().push(pa);
+  server.getCondVar()->signal();
+  // user->addPacketToSend(packet_to_send);
   return (true);
 }
 

@@ -17,8 +17,9 @@ TaskManager::~TaskManager()
 
 }
 
-TaskManager	&TaskManager::operator=(const TaskManager &)
+TaskManager	&TaskManager::operator=(const TaskManager &old)
 {
+  _net = old._net;
   return (*this);
 }
 

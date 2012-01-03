@@ -65,8 +65,9 @@ void		*manageThread(void *param)
     {
       if (data->QueueTask.empty() == false)
 	{
-	  T *task = NULL;
-	  if (data->QueueTask.tryPop(task) == true)
+	  T task = NULL;
+	  task = data->QueueTask.tryPop();
+	  if (task != NULL)
 	    task->launchTask(data->condVar);
 	}
       else
@@ -78,5 +79,5 @@ void		*manageThread(void *param)
   return (NULL);
 }
 
-template void		*manageThread<PacketTask>(void *param);
-template bool ThreadPool::init<PacketTask>(ThreadData<PacketTask> *data);
+template void		*manageThread<PacketTask *>(void *param);
+template bool ThreadPool::init<PacketTask *>(ThreadData<PacketTask *> *data);
