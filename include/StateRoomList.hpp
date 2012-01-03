@@ -12,6 +12,7 @@ namespace LibGraphic
   private:
     enum eSelectedButton
       {
+	BUTTON_ROOMLIST_GAME,
 	BUTTON_ROOMLIST_BACK,
 	BUTTON_ROOMLIST_REFRESH,
 	BUTTON_ROOMLIST_SPECTATE,
@@ -54,8 +55,8 @@ namespace LibGraphic
     eSelectedButton _currentButton;
     sf::Clock Clock;
     unsigned int _deepList;
+    unsigned int _nbGame;
   };
 
 }
-
 #endif
