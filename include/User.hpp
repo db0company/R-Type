@@ -24,8 +24,9 @@ class		User
 
   PacketAggregator	paRead;
   PacketAggregator	paWrite;
-
+  PacketAggregator	paWriteUDP;
   PacketAggregator	paReadUDP;
+
  public:
   User(ATCPClientSocket *, std::string const & ip, PacketManager &);
   User(User const & other);
@@ -40,13 +41,14 @@ class		User
   ATCPClientSocket *	getSocketTCP(void);
   std::string const &	getIp(void)const;
   bool			addPacketToSend(ProtocolPacket *);
+bool			addPacketToSendUDP(ProtocolPacket *);
  //tcp
   bool			feedPacketAggregator(void);
   //udp
   bool			feedPacketAggregator(char *data, int size);
   bool			processPackets(Server &);
   bool			aggregatePacketToSend(void);
-  // bool			aggregatePacketToSend(AUDPServerSocket*);
+  bool			aggregatePacketToSend(AUDPServerSocket*);
 };
 
 #endif			// USERHPP

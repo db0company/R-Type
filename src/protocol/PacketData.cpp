@@ -1,4 +1,3 @@
-
 #include		<cctype>
 #include		<cstring>
 #include		<iostream>
@@ -112,7 +111,7 @@ char			PacketData::getNextChar(void)
   // memcpy(&c, tmp, sizeof(char));
   c = this->data[this->it];
   ++(this->it);
-  std::cout << "il y a je get le char <" << (int)this->data[this->it - 1] << ">" << std::endl;
+  std::cout << "getNextChar<" << (int)this->data[this->it - 1] << ">" << std::endl;
   return (c);
 }
 

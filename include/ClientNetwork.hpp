@@ -32,7 +32,7 @@ public:
 private:
   ClientPacketManager   _pm;
   ATCPClientSocket *_tcp;
-  ISocket	   *_udp;
+  ISocket *_udp;
   ISelector	   *_selector;
   PacketAggregator paRead;
   PacketAggregator paWrite;

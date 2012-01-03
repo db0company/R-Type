@@ -53,4 +53,6 @@ class			PacketData
   void			addUint32(UInt32);
 };
 
+void			uglyPrinter(char *data, int size);
+
 #endif			// !PROTOCOLPACKETDATA_H_

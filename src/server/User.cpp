@@ -94,7 +94,7 @@ bool			User::aggregatePacketToSend(void)
       nb = this->paWrite.aggregatePacketToChar();
       if (nb > 0)
 	{
-	  std::cout << nb << " packet(s) to aggregate (TCP)" << std::endl;
+	  std::cout << nb << " packet(s) to aggregate (send TCP)" << std::endl;
 	  size = this->paWrite.getSize();
 	  msg = this->paWrite.getMsg();
 	  this->tcp->SNWrite(msg, size); // verif todo
@@ -111,26 +111,31 @@ bool			User::addPacketToSend(ProtocolPacket *packer)
   return (true);
 }
 
-//udp
-// bool			User::aggregatePacketToSend(AUDPServerSocket *so)
-// {
-//   unsigned int size;
-//   unsigned char	*msg;
-//   int nb;
 
-//   if (so->SNGetWrite())
-//     {
-//       nb = this->paWriteUDP.aggregatePacketToChar();
-//       if (nb > 0)
-// 	{
-// 	  size = this->paWriteUDP.getSize();
-// 	  msg = this->paWriteUDP.getMsg();
-// 	  so->SNWrite(msg, size);
-// 	  this->paWriteUDP.erase();
-// 	}
-//     }
-//   return (true);
-// }
+bool			User::addPacketToSendUDP(ProtocolPacket *packer)
+{
+  this->paWriteUDP.push(packer);
+  return (true);
+}
+
+// udp
+bool			User::aggregatePacketToSend(AUDPServerSocket *so)
+{
+  unsigned int size;
+  char	*msg;
+  int nb;
+
+  nb = this->paWriteUDP.aggregatePacketToChar();
+  if (nb > 0)
+    {
+      std::cout << nb << " packet(s) to aggregate (send UDP)" << std::endl;
+      size = this->paWriteUDP.getSize();
+      msg = this->paWriteUDP.getMsg();
+      so->SNWrite(msg, size); // read verif udp omg wtf bbq
+      this->paWriteUDP.erase();
+    }
+  return (true);
+}
 
 bool				User::processPackets(Server &serv)
 {
