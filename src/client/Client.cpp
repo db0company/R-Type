@@ -39,7 +39,7 @@ bool Client::run(void)
   int i;
 
   i = 0;
-  if (!this->cNetwork.connect("127.0.0.1", 12348))// a faire ds le play
+  if (!this->cNetwork.connect("10.41.167.195", 12348))
     {
       //et pas en dur !
       return (false);

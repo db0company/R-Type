@@ -97,7 +97,7 @@ int				TCPServerSocketWindows::SNWrite(const char *msg, unsigned int size)
 	WSABUF		DataBuff;
 	DWORD		SendBytes;
 
-	DataBuff.buf = (const_cast <char *> (msg);
+	DataBuff.buf = const_cast <char *> (msg);
 	DataBuff.len = size;
 	if (WSASend(this->_socket, &DataBuff, 1, &SendBytes, 0, NULL, NULL) == SOCKET_ERROR)
 		{
