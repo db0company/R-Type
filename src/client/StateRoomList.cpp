@@ -13,9 +13,10 @@ LibGraphic::StateRoomList::StateRoomList(std::map<std::string const, GraphicRess
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
   _app(app)
 {
-  this->_currentButton = BUTTON_ROOMLIST_REFRESH;
+  this->_currentButton = BUTTON_ROOMLIST_GAME;
   this->_nextState = UNKNOWN_STATE;
   this->_deepList = 0;
+  this->_nbGame = 9;
 }
 
 LibGraphic::StateRoomList::~StateRoomList()
@@ -29,7 +30,6 @@ bool LibGraphic::StateRoomList::init()
 
 void LibGraphic::StateRoomList::draw()
 {
-  int nb_game = 5;
   sf::String *Back;
   sf::String *Refresh;
   sf::String *Spectate;
@@ -149,6 +149,52 @@ void LibGraphic::StateRoomList::draw()
   if (this->_currentButton != BUTTON_ROOMLIST_JOIN)
     Join->SetColor(sf::Color(255,255,255, 205));
   this->_app.Draw(*Join);
+  this->drawText();
+}
+
+void LibGraphic::StateRoomList::drawText()
+{
+  sf::String *tmp;
+
+  if (language == ENGLISH)
+    tmp = this->getStdToSfString("GameName", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("Partie", this->getFont("StartFontF"));
+  tmp->SetPosition(340, 300);
+  tmp->SetScale(0.6, 0.6);
+  this->_app.Draw(*tmp);
+
+  if (language == ENGLISH)
+    tmp = this->getStdToSfString("Owner", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("Createur", this->getFont("StartFontF"));
+  tmp->SetPosition(530, 300);
+  tmp->SetScale(0.6, 0.6);
+  this->_app.Draw(*tmp);
+
+  if (language == ENGLISH)
+    tmp = this->getStdToSfString("Slots", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("Places", this->getFont("StartFontF"));
+  tmp->SetPosition(648, 300);
+  tmp->SetScale(0.6, 0.6);
+  this->_app.Draw(*tmp);
+
+  if (language == ENGLISH)
+    tmp = this->getStdToSfString("Spect", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("Spect", this->getFont("StartFontF"));
+  tmp->SetPosition(747, 300);
+  tmp->SetScale(0.6, 0.6);
+  this->_app.Draw(*tmp);
+
+  if (language == ENGLISH)
+    tmp = this->getStdToSfString("Map", this->getFont("StartFontF"));
+  else
+    tmp = this->getStdToSfString("Carte", this->getFont("StartFontF"));
+  tmp->SetPosition(915, 300);
+  tmp->SetScale(0.6, 0.6);
+  this->_app.Draw(*tmp);
 }
 
 LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
@@ -182,6 +228,145 @@ LibGraphic::eStates LibGraphic::StateRoomList::getNextState()
 
 void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 {
+    const sf::Input & Input = this->_app.GetInput();
+  float JoystickPOV = Input.GetJoystickAxis(0, sf::Joy::AxisPOV);
+
+  if ((JoystickPOV == -1 && Event.Type != sf::Event::KeyPressed) ||
+      this->Clock.GetElapsedTime() < 0.1)
+    return;
+  switch (this->_currentButton)
+    {
+    case BUTTON_ROOMLIST_GAME :
+      {
+	if (((JoystickPOV > 135 && JoystickPOV < 225) ||
+	    Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab) &&
+	    this->_deepList < this->_nbGame - 1)
+	  ++this->_deepList;
+	else if (((JoystickPOV > 135 && JoystickPOV < 225) ||
+		  Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab) &&
+		 this->_deepList == this->_nbGame - 1)
+	  this->_currentButton = BUTTON_ROOMLIST_REFRESH;
+	else if (((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1)) ||
+		 Event.Key.Code == sf::Key::Up) && this->_deepList)
+	  --this->_deepList;
+	else if (((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1)) ||
+		 Event.Key.Code == sf::Key::Up) && !this->_deepList)
+	  this->_currentButton = BUTTON_ROOMLIST_BACK;
+	break;
+      }
+    case BUTTON_ROOMLIST_BACK :
+      {
+	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
+	    Event.Key.Code == sf::Key::Right || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_ROOMLIST_REFRESH;
+	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
+	    Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_ROOMLIST_JOIN;
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+		 (Event.Key.Code == sf::Key::Down))
+	  {
+	    this->_deepList = 0;
+	    this->_currentButton = BUTTON_ROOMLIST_GAME;
+	  }
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  {
+	    this->_currentButton = BUTTON_ROOMLIST_GAME;
+	    this->_deepList = this->_nbGame - 1;
+	  }
+	break;
+      }
+    case BUTTON_ROOMLIST_REFRESH :
+      {
+	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
+	    Event.Key.Code == sf::Key::Right || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_ROOMLIST_SPECTATE;
+	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
+	    Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_ROOMLIST_BACK;
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+		 (Event.Key.Code == sf::Key::Down))
+	  {
+	    this->_deepList = 0;
+	    this->_currentButton = BUTTON_ROOMLIST_GAME;
+	  }
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  {
+	    this->_currentButton = BUTTON_ROOMLIST_GAME;
+	    this->_deepList = this->_nbGame - 1;
+	  }
+	break;
+      }
+    case BUTTON_ROOMLIST_SPECTATE :
+      {
+	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
+	    Event.Key.Code == sf::Key::Right || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_ROOMLIST_CREATE;
+	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
+	    Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_ROOMLIST_REFRESH;
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+		 (Event.Key.Code == sf::Key::Down))
+	  {
+	    this->_deepList = 0;
+	    this->_currentButton = BUTTON_ROOMLIST_GAME;
+	  }
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  {
+	    this->_currentButton = BUTTON_ROOMLIST_GAME;
+	    this->_deepList = this->_nbGame - 1;
+	  }
+	break;
+      }
+    case BUTTON_ROOMLIST_CREATE :
+      {
+	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
+	    Event.Key.Code == sf::Key::Right || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_ROOMLIST_JOIN;
+	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
+	    Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_ROOMLIST_SPECTATE;
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+		 (Event.Key.Code == sf::Key::Down))
+	  {
+	    this->_deepList = 0;
+	    this->_currentButton = BUTTON_ROOMLIST_GAME;
+	  }
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  {
+	    this->_currentButton = BUTTON_ROOMLIST_GAME;
+	    this->_deepList = this->_nbGame - 1;
+	  }
+	break;
+      }
+    case BUTTON_ROOMLIST_JOIN :
+      {
+	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
+	    Event.Key.Code == sf::Key::Right || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_ROOMLIST_BACK;
+	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
+	    Event.Key.Code == sf::Key::Left || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_ROOMLIST_CREATE;
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+		 (Event.Key.Code == sf::Key::Down))
+	  {
+	    this->_deepList = 0;
+	    this->_currentButton = BUTTON_ROOMLIST_GAME;
+	  }
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  {
+	    this->_currentButton = BUTTON_ROOMLIST_GAME;
+	    this->_deepList = this->_nbGame - 1;
+	  }
+	break;
+      }
+    default : break;
+    }
+  this->Clock.Reset();
 }
 
 sf::Sprite & LibGraphic::StateRoomList::getSprite(std::string const & spriteName) const
