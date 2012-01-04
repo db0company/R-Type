@@ -19,8 +19,8 @@ public:
   TCPServerSocketWindows(const TCPServerSocketWindows &other);
   TCPServerSocketWindows& operator=(const TCPServerSocketWindows &other);
   virtual bool				SNCreate(std::string const &host, int port);
-  virtual int				SNRead(void *msg, unsigned int size);
-  virtual int				SNWrite(const void *msg, unsigned int size);
+  virtual int				SNRead(char *msg, unsigned int size);
+  virtual int				SNWrite(const char *msg, unsigned int size);
   virtual bool				SNListen(void);
   virtual TCPClientSocketWindows		*SNAccept(void);
   virtual bool				SNClose(void);

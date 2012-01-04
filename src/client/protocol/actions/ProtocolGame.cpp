@@ -70,7 +70,7 @@ bool			ProtocolGame::actionGet(PacketData & data, Client &)
       gameParam->name = data.getNextString();
       gameParam->lvl = data.getNextString();
       gameParam->slot = data.getNextChar();
-      gameParam->observer = data.getNextChar();
+      //gameParam->observer = data.getNextChar();
       gameParam->nb_player = data.getNextChar();
       // TODO: verif toutes les donnees sont ok puis ajouter a la
       // map des games du client
