@@ -1,7 +1,6 @@
 #ifndef _CONDVAR_WINDOWS_HPP
 #define _CONDVAR_WINDOWS_HPP
 
-#include <Windows.h>
 #include "ICondvar.hpp"
 #include "MutexWindows.hpp"
 

@@ -1,12 +1,3 @@
-/*
-** timer.c for  in /home/munoz_v//svn/zappy
-** 
-** Made by vincent munoz
-** Login   <munoz_v@epitech.net>
-** 
-** Started on  Wed Jun 22 15:17:28 2011 vincent munoz
-** Last update Sun Jul 10 14:40:06 2011 vincent munoz
-*/
 
 #include <stdlib.h>
 #include <unistd.h>

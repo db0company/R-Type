@@ -18,4 +18,4 @@ ThreadData<T>::ThreadData(const ThreadData<T>& old)
 {
 }
 
-template class ThreadData<PacketTask *>;
+template struct ThreadData<PacketTask *>;

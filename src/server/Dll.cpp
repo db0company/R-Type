@@ -4,7 +4,6 @@
 #include "DlLoader.hpp"
 #include "Dll.hpp"
 #include "IExtension.hpp"
-#include "IAudio.hpp"
 #include "OS.hpp"
 #include "IGraph.hpp"
 
@@ -61,7 +60,3 @@ void Dll::closeDll()
 {
   this->dll->close();
 }
-
-template IAudio *Dll::getSymbol<IAudio>(std::string const & nameFunc) const;
-
-template IEncoder *Dll::getSymbol<IEncoder>(std::string const & nameFunc) const;
