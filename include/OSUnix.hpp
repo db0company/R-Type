@@ -4,5 +4,6 @@
 #include "ExtensionSo.hpp"
 #include "DirectoryManagerUnix.hpp"
 #define EXTENSION ".so"
+#define DELIM "/"
 
 #endif /* __OSUNIX_HPP__ */

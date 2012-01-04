@@ -1,13 +1,3 @@
-//
-// DlLoader.hpp for  in /home/bideau_s//babel/src/babel
-//
-// Made by sofia bideaux
-// Login   <bideau_s@epitech.net>
-//
-// Started on  Sat Nov 19 17:45:35 2011 sofia bideaux
-// Last update Tue Nov 29 01:14:31 2011 cedric anceau
-//
-
 #ifndef		__DLLOADER_HPP__
 # define	__DLLOADER_HPP__
 
@@ -25,7 +15,7 @@ class DlLoader
 public:
   static DlLoader *getInstance();
   Dll& getDll();
-  Dll& getDll(std::string dirname, std::string &name, const IDirectoryManager& dm);
+  Dll& getDll(const std::string& name);
   template <typename T>
   void openDll(const std::string &nameLib);
   template <typename T>

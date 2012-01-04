@@ -54,10 +54,6 @@ add_executable(
 	./src/client/protocol/actions/ProtocolLobby.cpp
 	./src/protocol/PacketData.cpp
 	./src/protocol/PacketFactory.cpp
-	./src/client/DirectoryManagerWindows.cpp
-	./src/client/Dll.cpp
-	./src/client/DlLoader.cpp
-	./src/client/ExtensionDll.cpp
 	./src/client/MyMusic.cpp
 	./src/client/MySound.cpp
 	./src/client/GraphicClientState.cpp
@@ -120,10 +116,6 @@ add_executable(
 	./src/client/protocol/actions/ProtocolLobby.cpp
 	./src/protocol/PacketData.cpp
 	./src/protocol/PacketFactory.cpp
-	./src/client/DirectoryManagerUnix.cpp
-	./src/client/Dll.cpp
-	./src/client/DlLoader.cpp
-	./src/client/ExtensionSo.cpp
 	./src/client/MyMusic.cpp
 	./src/client/MySound.cpp
 	./src/client/GraphicClientState.cpp
