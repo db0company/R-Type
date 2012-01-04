@@ -224,3 +224,13 @@ bool ClientNetwork::pushUDP(ProtocolPacket *t)
   this->paWriteUDP.push(t);
   return (true);
 }
+
+void ClientNetwork::setIp(std::string const &ip)
+{
+  this->_ip = ip;
+}
+
+void ClientNetwork::setPort(int port)
+{
+  this->_port = port;
+}

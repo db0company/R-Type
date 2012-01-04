@@ -7,10 +7,10 @@
 class	Client
 {
 private:
-  Client(void);
   Client(const Client&);
   Client&	operator=(const Client&);
 public:
+  Client(void);
   ~Client(void);
   Client(std::string const &ip, int port);
   bool init(void);

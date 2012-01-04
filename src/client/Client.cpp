@@ -4,7 +4,7 @@
 #include "PacketData.hpp"
 #include "PacketFactory.hpp"
 
-Client::Client(void) : cNetwork("", 0), cGraphic(cNetwork)
+Client::Client(void) : cNetwork("10.224.1.6", 12348), cGraphic(cNetwork)
 {}
 
 Client::~Client(void)
@@ -32,6 +32,8 @@ bool Client::init(void)
       return (false);
     }
   return (true);
+  this->cNetwork.setIp("127.0.0.1");
+  this->cNetwork.setPort(12348);
 }
 
 bool Client::run(void)
