@@ -7,6 +7,7 @@
 
 #define POOL_NBTHREAD 6
 
+typedef generic GParam;
 
 class ThreadPool
 {
@@ -18,10 +19,11 @@ public:
   template <typename T>
   bool init(ThreadData<T> *data);
   bool endThread();
+template <typename T>
+static void		*manageThread(GParam *param);
 };
 
-template <typename T>
-void		*manageThread(void *param);
+
 
 
 

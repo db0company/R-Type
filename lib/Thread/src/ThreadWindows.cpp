@@ -24,7 +24,7 @@ ThreadWindows &ThreadWindows::operator=(ThreadWindows const &other)
   return (*this);
 }
 
-bool ThreadWindows::Create(void *(*pfonct)(void *), void *data)
+bool ThreadWindows::Create(generic *(*pfonct)(generic *), generic *data)
 {
 	this->_handle = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(pfonct), data, 0, &(this->_threadId));
 	if (this->_handle == NULL)
@@ -35,7 +35,7 @@ bool ThreadWindows::Create(void *(*pfonct)(void *), void *data)
 	return (true);
 }
 
-bool ThreadWindows::operator()(void *(*pfonct)(void *), void *data)
+bool ThreadWindows::operator()(generic *(*pfonct)(generic *), generic *data)
 {
 	this->_handle = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(pfonct), data, 0, &(this->_threadId));
 	if (this->_handle == NULL)

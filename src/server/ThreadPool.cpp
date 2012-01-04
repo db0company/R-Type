@@ -23,6 +23,7 @@ ThreadPool::ThreadPool(int nbThread)
 
 ThreadPool::~ThreadPool()
 {
+  this->endThread();
 }
 
 template <typename T>
@@ -33,7 +34,7 @@ bool ThreadPool::init(ThreadData<T> *data)
   it = listThread.begin();
   while (it != listThread.end())
     {
-      if ((*it)->Create(&manageThread<T>, reinterpret_cast<void *>(data)) == false)
+      if ((*it)->Create(&ThreadPool::manageThread<T>, reinterpret_cast<void *>(data)) == false)
 	return (false);
       it++;
     }
@@ -56,7 +57,7 @@ bool ThreadPool::endThread()
 }
 
 template <typename T>
-void		*manageThread(void *param)
+void		*ThreadPool::manageThread(GParam *param)
 {
   ThreadData<T>	*data;
 
@@ -79,5 +80,5 @@ void		*manageThread(void *param)
   return (NULL);
 }
 
-template void		*manageThread<PacketTask *>(void *param);
+template void		*ThreadPool::manageThread<PacketTask *>(void *param);
 template bool ThreadPool::init<PacketTask *>(ThreadData<PacketTask *> *data);

@@ -2,6 +2,7 @@
 #ifndef		PERSOTYPES_H_
 # define	PERSOTYPES_H_
 
+typedef		void			generic;
 typedef		unsigned short		ushort;
 typedef		unsigned int		uint;
 typedef		unsigned char		uchar;
