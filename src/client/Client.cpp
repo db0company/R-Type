@@ -39,7 +39,7 @@ bool Client::run(void)
   int i;
 
   i = 0;
-  if (!this->cNetwork.connect("127.0.0.1", 12348))// a faire ds le play
+  if (!this->cNetwork.connect("10.41.167.195", 12348))
     {
       //et pas en dur !
       return (false);
@@ -68,8 +68,7 @@ bool Client::run(void)
 	  data->addString("coucou lol");
 	  ProtocolPacket *protocolPacket = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), dataGame);
 	  ProtocolPacket *protocolPacket1 = PacketFactory::createPacket(LOBBY, static_cast<ushort>(CHAT), data);
-	  // dataGame.prettyPrint();
-	  this->cNetwork.pushTCP(protocolPacket);
+	  this->cNetwork.pushUDP(protocolPacket);
 	  this->cNetwork.pushTCP(protocolPacket1);
 	  ++i;
 	}

@@ -73,7 +73,7 @@ bool		UDPServerSocketWindows::SNCreate(std::string const &host, int port)
 	return (true);
 }
 
-int		UDPServerSocketWindows::SNRead(void *msg, unsigned int size)
+int		UDPServerSocketWindows::SNRead(char *msg, unsigned int size)
 {
 	WSABUF DataBuf;
 	DWORD BytesReceived;
@@ -82,7 +82,7 @@ int		UDPServerSocketWindows::SNRead(void *msg, unsigned int size)
 
 	structsize = sizeof(this->_daddr);
 	DataBuf.len = size;
-	DataBuf.buf = static_cast <char *>(msg);
+	DataBuf.buf = (msg);
 	if (WSARecvFrom(this->_socket, &DataBuf, 1, &BytesReceived, &Flags, (SOCKADDR *)&(this->_daddr), &structsize, NULL, NULL) == SOCKET_ERROR)
 	{
 		this->_error = CANTREAD;
@@ -92,12 +92,12 @@ int		UDPServerSocketWindows::SNRead(void *msg, unsigned int size)
 	return (BytesReceived);
 }
 
-int		UDPServerSocketWindows::SNWrite(const void *msg, unsigned int size)
+int		UDPServerSocketWindows::SNWrite(const char *msg, unsigned int size)
 {
 	DWORD	SendBytes;
 	WSABUF	DataBuf;
 
-	DataBuf.buf = static_cast <char *> (const_cast <void *> (msg));
+	DataBuf.buf = const_cast <char *> (msg);
 	DataBuf.len = size;
 	if (WSASendTo(this->_socket, &DataBuf, 1, &SendBytes, 0, (SOCKADDR *)&(this->_daddr), sizeof(this->_daddr), NULL, NULL) == SOCKET_ERROR)
 	{
@@ -107,7 +107,7 @@ int		UDPServerSocketWindows::SNWrite(const void *msg, unsigned int size)
 	return (SendBytes);
 }
 
-int				UDPServerSocketWindows::SNReadClient(void *msg, unsigned int size, std::string &ip)
+int				UDPServerSocketWindows::SNReadClient(char *msg, unsigned int size, std::string &ip)
 {
 	WSABUF DataBuf;
 	DWORD BytesReceived;
@@ -117,7 +117,7 @@ int				UDPServerSocketWindows::SNReadClient(void *msg, unsigned int size, std::s
 
 	structsize = sizeof(this->_daddr);
 	DataBuf.len = size;
-	DataBuf.buf = static_cast <char *>(msg);
+	DataBuf.buf = (msg);
 	if (WSARecvFrom(this->_socket, &DataBuf, 1, &BytesReceived, &Flags, (SOCKADDR *)&(this->_daddr), &structsize, NULL, NULL) == SOCKET_ERROR)
 	{
 		this->_error = CANTREAD;
@@ -129,13 +129,14 @@ int				UDPServerSocketWindows::SNReadClient(void *msg, unsigned int size, std::s
 	return (BytesReceived);
 }
 
-int				UDPServerSocketWindows::SNWriteClients(const void *msg, unsigned int size)
+int				UDPServerSocketWindows::SNWriteClients(const char *msg, unsigned int size)
 {
 	std::map<std::string, struct sockaddr_in *>::iterator it;
 	DWORD	SendBytes;
 	WSABUF	DataBuf;
 	int client = 0;
-	DataBuf.buf = static_cast <char *> (const_cast <void *> (msg));
+
+	DataBuf.buf = const_cast <char *> (msg);
 	DataBuf.len = size;
 	struct sockaddr_in *clientinfo = NULL;
 
@@ -155,13 +156,13 @@ int				UDPServerSocketWindows::SNWriteClients(const void *msg, unsigned int size
 	return (client);
 }
 
-int				UDPServerSocketWindows::SNWriteToClient(const void *msg, unsigned int size, const std::string &ip)
+int				UDPServerSocketWindows::SNWriteToClient(const char *msg, unsigned int size, const std::string &ip)
 {
 	struct sockaddr_in c_addr;
 	DWORD	SendBytes;
 	WSABUF	DataBuf;
 
-	DataBuf.buf = static_cast <char *> (const_cast <void *> (msg));
+	DataBuf.buf = const_cast <char *> (msg);
 	DataBuf.len = size;
 	c_addr.sin_family = AF_INET;
 	c_addr.sin_port = this->_port;

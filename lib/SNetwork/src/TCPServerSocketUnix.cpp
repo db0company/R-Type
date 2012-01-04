@@ -71,7 +71,7 @@ bool		TCPServerSocketUnix::SNCreate(std::string const &host, int port)
   return (true);
 }
 
-int		TCPServerSocketUnix::SNRead(void *msg, uint32_t size)
+int		TCPServerSocketUnix::SNRead(char *msg, uint32_t size)
 {
   int		err;
 
@@ -94,7 +94,7 @@ int		TCPServerSocketUnix::SNRead(void *msg, uint32_t size)
   return (-1);
 }
 
-int		TCPServerSocketUnix::SNWrite(const void *msg, uint32_t size)
+int		TCPServerSocketUnix::SNWrite(const char *msg, uint32_t size)
 {
   int		err;
 

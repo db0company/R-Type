@@ -78,13 +78,13 @@ void		TCPClientSocketWindows::SNCreateAccept(SOCKET socket, struct sockaddr_in a
   this->_socket = socket;
 }
 
-int			TCPClientSocketWindows::SNRead(void *msg, unsigned int size)
+int			TCPClientSocketWindows::SNRead(char *msg, unsigned int size)
 {
 	WSABUF	DataBuff;
 	DWORD	BytesReceived;
 	DWORD	flags = 0;
 
-	DataBuff.buf = static_cast <char *>(msg);
+	DataBuff.buf = msg;
 	DataBuff.len = size;
 	if (WSARecv(this->_socket, &DataBuff, 1, &BytesReceived, &flags, NULL, NULL) == SOCKET_ERROR)
 		{
@@ -95,12 +95,12 @@ int			TCPClientSocketWindows::SNRead(void *msg, unsigned int size)
 	return (BytesReceived);
 }
 
-int			TCPClientSocketWindows::SNWrite(const void *msg, unsigned int size)
+int			TCPClientSocketWindows::SNWrite(const char *msg, unsigned int size)
 {
 	WSABUF		WDataBuf;
 	DWORD		SendBytes;
 
-	WDataBuf.buf = static_cast <char *> (const_cast <void *> (msg));
+	WDataBuf.buf = (const_cast <char *> (msg));
 	WDataBuf.len = size;
 	if (WSASend(this->_socket, &WDataBuf, 1, &SendBytes, 0, NULL, NULL) == SOCKET_ERROR)
 		{

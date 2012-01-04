@@ -18,8 +18,8 @@ public:
   UDPServerSocketUnix(const UDPServerSocketUnix &other);
   UDPServerSocketUnix& operator=(const UDPServerSocketUnix &other);
   virtual bool		SNCreate(std::string const &host, int port);
-  virtual int		SNRead(void *msg, uint32_t size);
-  virtual int		SNWrite(const void *msg, uint32_t size);
+  virtual int		SNRead(char *msg, uint32_t size);
+  virtual int		SNWrite(const char *msg, uint32_t size);
   virtual bool		SNClose(void);
   std::string		getHost(void) const;
   int			getPort(void) const;
@@ -37,9 +37,9 @@ public:
 
   virtual char*		getIp(void)const;
 
-  virtual int				SNReadClient(void *msg, unsigned int size, std::string &ip);
-  virtual int				SNWriteClients(const void *msg, unsigned int size);
-  virtual int				SNWriteToClient(const void *msg, unsigned int size, const std::string &ip);
+  virtual int				SNReadClient(char *msg, unsigned int size, std::string &ip);
+  virtual int				SNWriteClients(const char *msg, unsigned int size);
+  virtual int				SNWriteToClient(const char *msg, unsigned int size, const std::string &ip);
 
 private:
   int			_socket;

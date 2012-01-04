@@ -19,8 +19,8 @@ public:
   TCPServerSocketUnix(const TCPServerSocketUnix &other);
   TCPServerSocketUnix& operator=(const TCPServerSocketUnix &other);
   virtual bool				SNCreate(std::string const &host, int port);
-  virtual int				SNRead(void *msg, uint32_t size);
-  virtual int				SNWrite(const void *msg, uint32_t size);
+  virtual int				SNRead(char *msg, uint32_t size);
+  virtual int				SNWrite(const char *msg, uint32_t size);
   virtual bool				SNListen(void);
   virtual TCPClientSocketUnix		*SNAccept(void);
   virtual bool				SNClose(void);

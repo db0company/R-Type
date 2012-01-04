@@ -35,7 +35,8 @@ PacketTask& PacketTask::operator=(PacketTask const &other)
 //   this->param = p;
 // }
 
-void	PacketTask::launchTask(ICondVar *cv)
+// TODO: pourquoi on utilise pas la icondvar ?
+void	PacketTask::launchTask(ICondVar *)
 {
   // if (this->netFunc == NULL && this->gameFunc != NULL)
   //   {

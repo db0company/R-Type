@@ -187,6 +187,7 @@ bool	Server::writeToClients(void)
       if ((user = it->second) == NULL)
 	continue;
       user->aggregatePacketToSend();
+      user->aggregatePacketToSend(this->_udp);
     }
   return (true);
 }

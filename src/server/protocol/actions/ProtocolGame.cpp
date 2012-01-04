@@ -98,8 +98,8 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &ser
   player_max = received.getNextChar();
   observer = received.getNextChar();
   std::cout << "login(" << name << ") game(" << game_name << ") lvl("
-	    << game_lvl << ") max(" << player_max << ") observer("
-	    << observer << ")" << std::endl;
+	    << game_lvl << ") max(" << (int)player_max << ") observer("
+	    << (int)observer << ")" << std::endl;
 
   // TODO :
   // verifier si game_name pas deja pris. si game_lvl existe ds le server
@@ -109,6 +109,7 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &ser
       to_send->addString("Number of Player must be between 1 and 4");
       to_send->prettyPrint();
       packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
+      user->addPacketToSendUDP(packet_to_send);
       user->addPacketToSend(packet_to_send);
       return (false);
     }
@@ -116,15 +117,14 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &ser
   // arrive ici tout est verrifier c'est bon donc on doit creer la game ici
   to_send->addChar(1);
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
-  // user->addPacketToSend(packet_to_send);
-  sendToClientData *sdata = new sendToClientData;
-  sdata->packet = packet_to_send;
-  sdata->ip = "127.0.0.1";
-  sdata->port = 0;
-  PacketTask *pa = new PacketTask(server.getTaskManager(), &TaskNetwork::sendToClient, sdata);
-  std::cout << "jai exec, tout va pour le mieu" << std::endl;
-  server.getTaskQueue().push(pa);
-  server.getCondVar()->signal();
+  // sendToClientData *sdata = new sendToClientData;
+  // sdata->packet = packet_to_send;
+  // sdata->ip = "127.0.0.1";
+  // sdata->port = 0;
+  //PacketTask *pa = new PacketTask(server.getTaskManager(), &TaskNetwork::sendToClient, sdata);
+  // server.getTaskQueue().push(pa);
+  // server.getCondVar()->signal();
+  user->addPacketToSendUDP(packet_to_send);
   // user->addPacketToSend(packet_to_send);
   return (true);
 }

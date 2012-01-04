@@ -19,8 +19,8 @@ public:
   AUDPServerSocket(void);
   virtual ~AUDPServerSocket(void);
   virtual bool		SNCreate(std::string const &host, int port) = 0;
-  virtual int		SNRead(void *msg, unsigned int size) = 0;
-  virtual int		SNWrite(const void *msg, unsigned int size) = 0;
+  virtual int		SNRead(char *msg, unsigned int size) = 0;
+  virtual int		SNWrite(const char *msg, unsigned int size) = 0;
   virtual bool		SNClose(void) = 0;
   virtual eSocketErr	SNGetLastErr(void) const = 0;
 
@@ -38,9 +38,9 @@ public:
 
   bool				SNAddClient(std::string const &, int port);
   bool				SNDelClient(std::string const &);
-  virtual int			SNReadClient(void *msg, unsigned int size, std::string &ip) = 0;
-  virtual int			SNWriteClients(const void *msg, unsigned int size) = 0;
-  virtual int			SNWriteToClient(const void *msg, unsigned int size, const std::string &ip) = 0;
+  virtual int			SNReadClient(char *msg, unsigned int size, std::string &ip) = 0;
+  virtual int			SNWriteClients(const char *msg, unsigned int size) = 0;
+  virtual int			SNWriteToClient(const char *msg, unsigned int size, const std::string &ip) = 0;
 
 protected:
 	std::map<std::string, struct sockaddr_in *> _contactMap;

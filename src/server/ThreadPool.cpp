@@ -73,8 +73,8 @@ void		*ThreadPool::manageThread(GParam *param)
 	}
       else
 	{
-	  std::cout << "jattend" << std::endl;
-	data->condVar->wait();
+	  // std::cout << "jattend" << std::endl;
+	  data->condVar->wait();
 	}
     }
   return (NULL);

@@ -312,7 +312,7 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
-		else if (this->_currentButton == BUTTON_OPTIONS)
+		else if (this->_currentButton == BUTTON_PLAY)
 		  {
 		    this->_nextState = ROOMLIST;
 		    return EVENT_CHANGE_STATE;

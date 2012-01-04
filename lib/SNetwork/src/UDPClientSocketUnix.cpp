@@ -77,7 +77,7 @@ bool		UDPClientSocketUnix::SNCreate(std::string const &host, int port)
   return (true);
 }
 
-int		UDPClientSocketUnix::SNRead(void *msg, uint32_t size)
+int		UDPClientSocketUnix::SNRead(char *msg, uint32_t size)
 {
   struct sockaddr_in *from;
   unsigned int	length;
@@ -96,7 +96,7 @@ int		UDPClientSocketUnix::SNRead(void *msg, uint32_t size)
   return (ret);
 }
 
-int		UDPClientSocketUnix::SNWrite(const void *msg, uint32_t size)
+int		UDPClientSocketUnix::SNWrite(const char *msg, uint32_t size)
 {
   int		ret;
 

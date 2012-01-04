@@ -60,7 +60,7 @@ bool	TCPClientSocketUnix::SNCreate(std::string const &host, int port)
   return (true);
 }
 
-int		TCPClientSocketUnix::SNRead(void *msg, unsigned int size)
+int		TCPClientSocketUnix::SNRead(char *msg, unsigned int size)
 {
   int		err;
 
@@ -83,7 +83,7 @@ int		TCPClientSocketUnix::SNRead(void *msg, unsigned int size)
   return (-1);
 }
 
-int		TCPClientSocketUnix::SNWrite(const void *msg, unsigned int size)
+int		TCPClientSocketUnix::SNWrite(const char *msg, unsigned int size)
 {
   int		err;
 
