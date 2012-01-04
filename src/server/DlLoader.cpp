@@ -9,9 +9,6 @@
 #include "IDirectoryManager.hpp"
 
 
-
-DlLoader *DlLoaderInstance = NULL;
-
 DlLoader::DlLoader()
 {
 
@@ -42,7 +39,7 @@ void DlLoader::openDllFromDirectory(const std::string &nameDirectory, IDirectory
   std::string nameDll;
   size_t i;
 
-  dm->openDirectory(nameDirectory);
+  dm->openDirectory(replaceDelim(nameDirectory));
 
   nameDll = dm->readNameFile();
 
@@ -54,15 +51,14 @@ void DlLoader::openDllFromDirectory(const std::string &nameDirectory, IDirectory
     }
 }
 
-// dirname del car en com
-Dll& DlLoader::getDll(std::string , std::string &name, const IDirectoryManager& dm)
+Dll& DlLoader::getDll(std::string &name)
 {
   CustomError	err("DlLoaderError: " + name + " No such shared library");
   std::map<std::string, Dll>::iterator it;
   std::string	dirfilename;
 
   (void)dm;
-  dirfilename = /*dirname + dm.getPlatChar() + */name;
+  dirfilename = replaceDelim(name);
   if (this->mapDll.empty())
   {
     throw (err);
@@ -88,9 +84,24 @@ void	 DlLoader::closeDll()
 
 DlLoader	*DlLoader::getInstance(void)
 {
+  static DlLoader *DlLoaderInstance = NULL;
+
   if (!DlLoaderInstance)
   DlLoaderInstance = new DlLoader();
   return (DlLoaderInstance);
+}
+
+void		DlLoader::replaceDelim(const std::string& s)
+{
+  size_t	c;
+  std::string	good = s;
+  int		i = 0;
+
+  while ((c = good.find("/"), i) != std::string::npos)
+    {
+      good.replace(c, 1, DELIM);
+      i = c + 1;
+    }
 }
 
 #ifdef _WIN32
