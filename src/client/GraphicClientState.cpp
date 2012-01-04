@@ -2,7 +2,7 @@
 #include <iostream>
 #include "StateStart.hpp"
 #include "StateOptions.hpp"
-#include "StateJoinCreate.hpp"
+#include "StateCreateGame.hpp"
 #include "StateRoomList.hpp"
 #include "StateRoom.hpp"
 #include "GraphicClientState.hpp"
@@ -31,7 +31,8 @@ void LibGraphic::GraphicClientState::loadStates(void)
 						  this->_ressourcesSounds,
 						  this->_ressourcesFont,
 						  this->_app);
-  this->_stateInfos[GAMEPARAMETER] = NULL;
+  this->_stateInfos[CREATEGAME] = NULL;
+
   this->_stateInfos[ROOM] = new StateRoom(this->_ressourcesSprite,
 					    this->_ressourcesPlayList,
 					    this->_ressourcesSounds,

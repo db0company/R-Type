@@ -1,5 +1,5 @@
 #include <iostream>
-#include "StateJoinCreate.hpp"
+#include "StateCreateGame.hpp"
 #include "Language.hpp"
 
 extern LibGraphic::Volume gVolume;

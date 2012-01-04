@@ -9,7 +9,7 @@ namespace LibGraphic
     {
       START,
       ROOMLIST,
-      GAMEPARAMETER,
+      CREATEGAME,
       ROOM,
       OPTIONS,
       CREDITS,
