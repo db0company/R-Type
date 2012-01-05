@@ -1,5 +1,5 @@
-#ifndef STATEJOINCREATE_H
-# define STATEJOINCREATE_H
+#ifndef STATECREATEGAME_H
+# define STATECREATEGAME_H
 
 #include "Sfml.hpp"
 #include "Istate.hpp"
@@ -7,24 +7,27 @@
 namespace LibGraphic
 {
 
-  class StateJoinCreate : public IState
+  class StateCreateGame : public IState
   {
 
   private:
     enum eSelectedButton
       {
-	BUTTON_JOINCREATE_JOIN,
-	BUTTON_JOINCREATE_CREATE,
-	BUTTON_JOINCREATE_BACK
+ 	BUTTON_CREATE_MAP,
+	BUTTON_CREATE_TEAMSIZE,
+	BUTTON_CREATE_SPECTATOR,
+	BUTTON_CREATE_NAME,
+	BUTTON_CREATE_BACK,
+	BUTTON_CREATE_CREATE
       };
 
   public:
-    StateJoinCreate(std::map<std::string const, GraphicRessource *> const &,
-		       std::map<std::string const, MyMusic *> const &,
-		       std::map<std::string const, MySound *> const &,
-		       std::map<std::string const, sf::Font *> const &,
-		       sf::RenderWindow &);
-    ~StateJoinCreate();
+    StateCreateGame(std::map<std::string const, GraphicRessource *> const &,
+		    std::map<std::string const, MyMusic *> const &,
+		    std::map<std::string const, MySound *> const &,
+		    std::map<std::string const, sf::Font *> const &,
+		    sf::RenderWindow &);
+    ~StateCreateGame();
     virtual bool init();
     virtual void draw();
     virtual Event gereEvent();
@@ -33,7 +36,7 @@ namespace LibGraphic
     sf::Sprite & getSprite(std::string const &) const;
     MyMusic * getMusic(std::string const &) const;
     sf::Font * getFont(std::string const &) const;
-   inline sf::String * getStdToSfString(std::string const &, sf::Font *);
+    inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
   private:
     void drawText();
@@ -52,6 +55,7 @@ namespace LibGraphic
     eStates _nextState;
     eSelectedButton _currentButton;
     sf::Clock Clock;
+    bool _isSpectatorChecked;
 
   };
 
