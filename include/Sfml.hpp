@@ -7,6 +7,7 @@
 #include "IGraphic.hpp"
 #include "GraphicUtils.hpp"
 #include "GraphicClientState.hpp"
+#include "EGraphicAction.hpp"
 //#include "ClientNetwork.hpp"
 
 #define WINDOWNAME "R-Type"
@@ -30,6 +31,18 @@ namespace LibGraphic
     virtual void quit();
     virtual void clean();
     virtual void draw();
+
+    // Getter/Setter pour le reseau
+  public:
+    eGraphicAction getAction() const;
+    std::string const & getIp() const;
+    int getPort() const;
+    int getIdGame() const;
+    std::string const & getLevel() const;
+    int getSlot() const;
+    bool getSpectator() const;
+    std::string const & getMessage() const;
+    std::string const & getGameName() const;
 
   private:
     bool loadFont();

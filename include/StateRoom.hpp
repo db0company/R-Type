@@ -41,6 +41,9 @@ namespace LibGraphic
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
 
+  public:
+    std::string const & getMessage() const;
+
   private:
     std::map<std::string const, GraphicRessource *>
     const & _ressourcesSprite;

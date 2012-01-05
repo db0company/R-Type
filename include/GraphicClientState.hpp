@@ -7,6 +7,7 @@
 #include "GraphicUtils.hpp"
 #include "IGraphic.hpp"
 #include "Istate.hpp"
+#include "EGraphicAction.hpp"
 
 namespace LibGraphic
 {
@@ -25,6 +26,18 @@ namespace LibGraphic
     void draw(eStates);
     Event getEventFromState(eStates);
     eStates goToNextState(eStates scene);
+
+    // Getter/Setter pour le reseau
+  public:
+    eGraphicAction getAction() const;
+    std::string const & getIp() const;
+    int getPort();
+    int getIdGame() const;
+    std::string const & getLevel() const;
+    int getSlot() const;
+    bool getSpectator() const;
+    std::string const & getMessage() const;
+    std::string const & getGameName() const;
 
   private:
     Event eventStart(eStates & scene);

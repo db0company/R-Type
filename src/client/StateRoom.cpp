@@ -247,3 +247,8 @@ inline sf::String * LibGraphic::StateRoom::getStdToSfString(std::string const & 
 {
   return (new sf::String(s, *daFont));
 }
+
+std::string const & LibGraphic::StateRoom::getMessage() const
+{
+  return this->_chat;
+}

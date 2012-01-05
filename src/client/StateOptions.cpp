@@ -512,4 +512,33 @@ inline sf::String * LibGraphic::StateOptions::getStdToSfString(std::string const
   return (new sf::String(s, *daFont));
 }
 
+std::string const & LibGraphic::StateOptions::getName() const
+{
+  return this->_name;
+}
+
+std::string const & LibGraphic::StateOptions::getIp() const
+{
+  return this->_ip;
+}
+
+std::string const & LibGraphic::StateOptions::getPort() const
+{
+  return this->_port;
+}
+
+bool LibGraphic::StateOptions::isDefaultName() const
+{
+  return this->_isDefaultName;
+}
+
+bool LibGraphic::StateOptions::isDefaultIp() const
+{
+  return this->_isDefaultIp;
+}
+
+bool LibGraphic::StateOptions::isDefaultPort() const
+{
+  return this->_isDefaultPort;
+}
 
