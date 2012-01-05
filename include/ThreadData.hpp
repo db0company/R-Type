@@ -3,16 +3,18 @@
 
 #include "SafeQueue.hpp"
 #include "ICondVar.hpp"
-
+#include "IThreadData.hpp"
 
 template <typename T>
-struct ThreadData
+struct ThreadData : public IThreadData
 {
   SafeQueue<T> &QueueTask;
   ICondVar *condVar;
   ThreadData(const ThreadData& old);
   ThreadData(SafeQueue<T>&, ICondVar *);
   ~ThreadData();
+  void ExecParam();
+
 };
 
 #endif // __THREADDATA_HPP__

@@ -18,4 +18,25 @@ ThreadData<T>::ThreadData(const ThreadData<T>& old)
 {
 }
 
+template <typename T>
+void ThreadData<T>::ExecParam()
+{
+  while (1)
+    {
+      if (this->QueueTask.empty() == false)
+	{
+	  T task = NULL;
+	  task = this->QueueTask.tryPop();
+	  if (task != NULL)
+	    task->launchTask(this->condVar);
+	}
+      else
+	{
+	   std::cout << "jattend" << std::endl;
+	  this->condVar->wait();
+	}
+    }
+}
+
+
 template struct ThreadData<PacketTask *>;
