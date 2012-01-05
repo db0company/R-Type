@@ -5,7 +5,6 @@ class		ITimer
 {
 public:
   virtual ~ITimer() {}
-  virtual double getTime()const = 0;
   virtual bool isTimeOut()const = 0;
   virtual void	initWait(unsigned int sec, unsigned int milli) = 0;
   virtual void resetTime() = 0;
