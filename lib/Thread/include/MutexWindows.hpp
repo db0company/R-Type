@@ -1,7 +1,8 @@
 #ifndef __MUTEX_WINDOWS_HPP__
 #define __MUTEX_WINDOWS_HPP__
 
-#include <windows.h>
+
+#include <Windows.h>
 #include "IMutex.hpp"
 
 class MutexWindows : public IMutex

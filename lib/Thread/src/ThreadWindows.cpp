@@ -1,4 +1,3 @@
-#include <Windows.h>
 #include "ThreadWindows.hpp"
 
 ThreadWindows::ThreadWindows(void): _state(OFF)

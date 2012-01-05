@@ -1,5 +1,4 @@
-#include <Windows.h>
-#include "MutexWindows.hpp"
+
 #include "CondVarWindows.hpp"
 
 CondVarWindows::CondVarWindows()

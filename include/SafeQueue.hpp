@@ -1,6 +1,6 @@
 
 #ifndef __SAFEQUEUE_HPP__
-#define  __SAFEQUEUE_HPP__
+#define __SAFEQUEUE_HPP__
 
 #include <queue>
 #include "IMutex.hpp"
