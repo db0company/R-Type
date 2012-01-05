@@ -1,5 +1,6 @@
-#include	"GameParameter.hpp"
-#include	"ProtocolGame.hpp"
+#include <iostream>
+#include "GameParameter.hpp"
+#include "ProtocolGame.hpp"
 
 ProtocolGame::ProtocolGame()
 {
@@ -95,7 +96,8 @@ bool			ProtocolGame::actionCreate(PacketData & data, Client &)
 
   status = data.getNextChar();
   details = data.getNextString();
-  if (status)
+  std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
+ if (status)
     {
       // TODO la creation de la game a reussi
       //  -> on passe en affichage room (join ?)

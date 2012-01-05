@@ -4,7 +4,7 @@
 #include "PacketData.hpp"
 #include "PacketFactory.hpp"
 
-Client::Client(void) : cNetwork("10.224.1.6", 12348), cGraphic(cNetwork)
+Client::Client(void) : cNetwork("127.0.0.1", 12348), cGraphic(cNetwork)
 {}
 
 Client::~Client(void)
@@ -69,9 +69,9 @@ bool Client::run(void)
 	  dataGame->addChar(0);
 	  data->addString("coucou lol");
 	  ProtocolPacket *protocolPacket = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), dataGame);
-	  ProtocolPacket *protocolPacket1 = PacketFactory::createPacket(LOBBY, static_cast<ushort>(CHAT), data);
+	  // ProtocolPacket *protocolPacket1 = PacketFactory::createPacket(LOBBY, static_cast<ushort>(CHAT), data);
 	  this->cNetwork.pushUDP(protocolPacket);
-	  this->cNetwork.pushTCP(protocolPacket1);
+	  // this->cNetwork.pushTCP(protocolPacket1);
 	  ++i;
 	}
       this->cNetwork.sendPacketToServer(); // static ok?
