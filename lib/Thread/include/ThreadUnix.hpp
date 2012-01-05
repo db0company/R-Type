@@ -11,8 +11,8 @@ public:
   ThreadUnix(ThreadUnix const &);
   ThreadUnix &operator=(ThreadUnix const &);
   virtual ~ThreadUnix(void);
-  virtual bool Create(generic *(*pfonct)(generic *), generic *t);
-  virtual bool operator()(generic *(*pfonct)(generic *), generic *t);
+  bool Create(IExec *work);
+  virtual bool operator()(IExec *work);
   virtual bool Destroy(void);
   virtual bool Wait(void);
   virtual eThreadState getState(void) const;

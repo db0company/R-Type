@@ -258,3 +258,48 @@ inline unsigned int LibGraphic::Sfml::getIntFromS(std::string s)
   ss >> res;
   return (res);
 }
+
+eGraphicAction LibGraphic::Sfml::getAction() const
+{
+  return this->_graphicState->getAction();
+}
+
+std::string const & LibGraphic::Sfml::getIp() const
+{
+  return this->_graphicState->getIp();
+}
+
+int LibGraphic::Sfml::getPort() const
+{
+  return this->_graphicState->getPort();
+}
+
+int LibGraphic::Sfml::getIdGame() const
+{
+  return this->_graphicState->getIdGame();
+}
+
+std::string const & LibGraphic::Sfml::getLevel() const
+{
+  return this->_graphicState->getLevel();
+}
+
+int LibGraphic::Sfml::getSlot() const
+{
+  return this->_graphicState->getSlot();
+}
+
+bool LibGraphic::Sfml::getSpectator() const
+{
+  return this->_graphicState->getSlot();
+}
+
+std::string const & LibGraphic::Sfml::getMessage() const
+{
+  return this->_graphicState->getMessage();
+}
+
+std::string const & LibGraphic::Sfml::getGameName() const
+{
+  return this->_graphicState->getGameName();
+}

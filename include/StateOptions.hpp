@@ -41,6 +41,15 @@ namespace LibGraphic
     sf::Font * getFont(std::string const &) const;
    inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
+  public:
+    std::string const & getName() const;
+    std::string const & getIp() const;
+    std::string const & getPort() const;
+
+    bool isDefaultName() const;
+    bool isDefaultIp() const;
+    bool isDefaultPort() const;
+
   private:
     void drawText();
     void cursorMenuPos(const sf::Event&);

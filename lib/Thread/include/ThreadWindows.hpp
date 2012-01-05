@@ -11,8 +11,8 @@ public:
   ThreadWindows(ThreadWindows const &);
   ThreadWindows &operator=(ThreadWindows const &);
   virtual ~ThreadWindows(void);
-  virtual bool Create(generic *(*pfonct)(generic *), generic *t);
-  virtual bool operator()(generic *(*pfonct)(generic *), generic *t);
+  virtual bool Create(IExec *data);
+  virtual bool operator()(IExec *data);
   virtual bool Destroy(void);
   virtual bool Wait(void);
   virtual eThreadState getState(void) const;

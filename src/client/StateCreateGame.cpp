@@ -460,3 +460,17 @@ inline sf::String * LibGraphic::StateCreateGame::getStdToSfString(std::string co
   return (new sf::String(s, *daFont));
 }
 
+int LibGraphic::StateCreateGame::getSlot() const
+{
+  return this->_teamSize;
+}
+
+bool LibGraphic::StateCreateGame::getSpectator() const
+{
+  return this->_isSpectatorChecked;
+}
+
+std::string const & LibGraphic::StateCreateGame::getGameName() const
+{
+  return this->_name;
+}

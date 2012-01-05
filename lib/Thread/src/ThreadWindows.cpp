@@ -1,5 +1,12 @@
 #include "ThreadWindows.hpp"
 
+static void *RunThread(void *data)
+{
+  IExec *ex = reinterpret_cast<IExec *>(data);
+  ex->RunExec();
+  return (NULL);
+}
+
 ThreadWindows::ThreadWindows(void): _state(OFF)
 {
 }
@@ -23,26 +30,26 @@ ThreadWindows &ThreadWindows::operator=(ThreadWindows const &other)
   return (*this);
 }
 
-bool ThreadWindows::Create(generic *(*pfonct)(generic *), generic *data)
+bool ThreadWindows::Create(IExec *data)
 {
-	this->_handle = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(pfonct), data, 0, &(this->_threadId));
-	if (this->_handle == NULL)
-		{
-			return (false);
-		}
-	this->_state = ON;
-	return (true);
+  this->_handle = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(&RunThread), reinterpret_cast<void *>(data), 0, &(this->_threadId));
+  if (this->_handle == NULL)
+    {
+      return (false);
+    }
+  this->_state = ON;
+  return (true);
 }
 
-bool ThreadWindows::operator()(generic *(*pfonct)(generic *), generic *data)
+bool ThreadWindows::operator()(IExec *data)
 {
-	this->_handle = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(pfonct), data, 0, &(this->_threadId));
-	if (this->_handle == NULL)
-		{
-			return (false);
-		}
-	this->_state = ON;
-	return (true);
+  this->_handle = CreateThread(NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(&RunThread), reinterpret_cast<void *>(data), 0, &(this->_threadId));
+  if (this->_handle == NULL)
+    {
+      return (false);
+    }
+  this->_state = ON;
+  return (true);
 }
 
 bool ThreadWindows::Destroy(void)

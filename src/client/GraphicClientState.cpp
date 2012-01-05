@@ -1,11 +1,24 @@
 //#include <Rect.hpp>
 #include <iostream>
+#include <sstream>
 #include "StateStart.hpp"
 #include "StateOptions.hpp"
 #include "StateCreateGame.hpp"
 #include "StateRoomList.hpp"
 #include "StateRoom.hpp"
 #include "GraphicClientState.hpp"
+#include "EGraphicAction.hpp"
+
+using namespace LibGraphic;
+
+static IState const* getValue(std::map<eStates, IState*> const& m, eStates const& key)
+{
+  std::map<eStates, IState*>::const_iterator it;
+  it = m.find(key);
+  if (it == m.end())
+    return 0;
+  return it->second;
+}
 
 LibGraphic::GraphicClientState::GraphicClientState(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
@@ -70,4 +83,53 @@ void LibGraphic::GraphicClientState::draw(eStates scene)
 LibGraphic::Event LibGraphic::GraphicClientState::getEventFromState(eStates scene)
 {
   return this->_stateInfos[scene]->gereEvent();
+}
+
+eGraphicAction LibGraphic::GraphicClientState::getAction() const
+{
+  return UNKNOWN;
+}
+
+std::string const & LibGraphic::GraphicClientState::getIp() const
+{
+  return reinterpret_cast <StateOptions const *>(getValue(this->_stateInfos,OPTIONS))->getIp();
+}
+
+int LibGraphic::GraphicClientState::getPort()
+{
+  int port;
+  std::stringstream ss;
+
+  ss << reinterpret_cast <StateOptions const *>(getValue(this->_stateInfos, OPTIONS))->getPort();
+  ss >> port;
+  return port;
+}
+
+int LibGraphic::GraphicClientState::getIdGame() const
+{
+  return -1;
+}
+
+std::string const & LibGraphic::GraphicClientState::getLevel() const
+{
+}
+
+int LibGraphic::GraphicClientState::getSlot() const
+{
+  return reinterpret_cast <StateCreateGame const *>(getValue(this->_stateInfos, CREATEGAME))->getSlot();
+}
+
+bool LibGraphic::GraphicClientState::getSpectator() const
+{
+  return reinterpret_cast <StateCreateGame const *>(getValue(this->_stateInfos, CREATEGAME))->getSpectator();
+}
+
+std::string const & LibGraphic::GraphicClientState::getGameName() const
+{
+  return reinterpret_cast <StateCreateGame const *>(getValue(this->_stateInfos, CREATEGAME))->getGameName();
+}
+
+std::string const & LibGraphic::GraphicClientState::getMessage() const
+{
+  return reinterpret_cast <StateRoom const *>(getValue(this->_stateInfos, ROOM))->getMessage();
 }

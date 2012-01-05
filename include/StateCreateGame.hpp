@@ -41,6 +41,11 @@ namespace LibGraphic
     sf::Font * getFont(std::string const &) const;
     inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
+  public:
+    bool getSpectator() const;
+    int getSlot() const;
+    std::string const & getGameName() const;
+
   private:
     void drawText();
     void cursorMenuPos(const sf::Event&);
