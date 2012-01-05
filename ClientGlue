@@ -3,7 +3,6 @@
 			|  GETTER  |
 			\----------/
 
-
 START :
       ACTION   : PLAY
       	       GETIP    : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
@@ -18,6 +17,7 @@ ROOMLIST:
        	       GETNAME  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
 	       GETIDGAME : ROOMLIST -> GRAPHICCLIENTSTATE -> SFML
 	       REACTION : PACKET JOIN
+
 
 	ACTION : SPECTATE
        	       GETNAME  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
@@ -70,3 +70,4 @@ PACKET Score :
 
 PACKET CHAR:
        SETTEXT : client -> sfml -> graphicclientstate -> ROOM
+

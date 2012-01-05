@@ -116,6 +116,7 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &)
 
   status = data.getNextChar();
   details = data.getNextString();
+  std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
       // TODO join de la game a reussi
@@ -147,6 +148,7 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &)
 
   status = data.getNextChar();
   details = data.getNextString();
+  std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
       // Todo

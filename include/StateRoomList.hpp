@@ -1,7 +1,9 @@
 #ifndef STATEROOMLIST_H
 # define STATEROOMLIST_H
+
 #include "Sfml.hpp"
 #include "Istate.hpp"
+#include "InfoGame.hpp"
 
 namespace LibGraphic
 {
@@ -49,6 +51,7 @@ namespace LibGraphic
     std::map<std::string const, MySound *> const & _ressourcesSounds;
     std::map<std::string const, sf::Font *> const & _ressourcesFont;
     sf::RenderWindow & _app;
+    std::list<InfoGame *> _infoGame; // todo getter / setter
 
   private:
     eStates _nextState;
