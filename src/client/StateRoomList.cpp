@@ -253,6 +253,11 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		    this->_nextState = ROOM;
 		    return EVENT_CHANGE_STATE;
 		  }
+		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
+		  {
+		    this->_nextState = CREATEGAME;
+		    return EVENT_CHANGE_STATE;
+		  }
 		break;
 	      }
 	    default : break;
@@ -277,6 +282,11 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
 		    this->_nextState = ROOM;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
+		  {
+		    this->_nextState = CREATEGAME;
 		    return EVENT_CHANGE_STATE;
 		  }
 		break;

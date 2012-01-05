@@ -5,7 +5,7 @@
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 
-LibGraphic::StateJoinCreate::StateJoinCreate(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
+LibGraphic::StateCreateGame::StateCreateGame(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
 						   std::map<std::string const, sf::Font *> const & ressourcesFont,
@@ -14,33 +14,25 @@ LibGraphic::StateJoinCreate::StateJoinCreate(std::map<std::string const, Graphic
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
   _app(app)
 {
-  this->_currentButton = BUTTON_JOINCREATE_JOIN;
   this->_nextState = UNKNOWN_STATE;
+  this->_currentButton = BUTTON_CREATE_SPECTATOR;
+  this->_isSpectatorChecked = false;
 }
 
-LibGraphic::StateJoinCreate::~StateJoinCreate()
+LibGraphic::StateCreateGame::~StateCreateGame()
 {
 }
 
-bool LibGraphic::StateJoinCreate::init()
+bool LibGraphic::StateCreateGame::init()
 {
   return true;
 }
 
-void LibGraphic::StateJoinCreate::draw()
+void LibGraphic::StateCreateGame::draw()
 {
-  sf::String *Back;
-
-  if (language == ENGLISH)
-    Back = this->getStdToSfString("Back", this->getFont("StartFontF"));
-  else
-    Back = this->getStdToSfString("Retour", this->getFont("StartFontF"));
-
-  sf::Sprite &ButtonBack = this->getSprite("BasicButton");
-  sf::Sprite &ButtonJoin = this->getSprite("BasicButton");
-  sf::Sprite &ButtonCreate = this->getSprite("BasicButton");
-
   sf::Sprite &back = this->getSprite("StartMenuBackground");
+  this->_app.Draw(back);
+
   sf::Sprite &menu = this->getSprite("OptionsMenu");
   sf::Sprite &menu_haut = this->getSprite("OptionsMenu-haut");
   sf::Sprite &menu_bas = this->getSprite("OptionsMenu-bas");
@@ -48,6 +40,15 @@ void LibGraphic::StateJoinCreate::draw()
   sf::Sprite &menu_droite = this->getSprite("OptionsMenu-droite");
   sf::Sprite &menu_coins = this->getSprite("OptionsMenu-coins");
   sf::Sprite &menu_diago = this->getSprite("OptionsMenu-diago");
+
+  sf::Sprite &Button = this->getSprite("BasicButton");
+
+  sf::Sprite &ButtonBox = this->getSprite("BoxEmpty");
+  sf::Sprite &ButtonBox_s = this->getSprite("BoxEmpty-s");
+  sf::Sprite &ButtonBoxChecked = this->getSprite("BoxChecked");
+  sf::Sprite &ButtonBoxChecked_s = this->getSprite("BoxChecked-s");
+
+  sf::Sprite &TextArea = this->getSprite("TextArea");
 
   menu.SetPosition(500, 290);
   menu_bas.SetPosition(500, 290 + 443);
@@ -57,7 +58,6 @@ void LibGraphic::StateJoinCreate::draw()
   menu_diago.SetPosition(500, 290);
   menu_coins.SetPosition(399, 213);
   menu.SetColor(sf::Color(255, 255, 255, 210));
-  this->_app.Draw(back);
   this->_app.Draw(menu);
   this->_app.Draw(menu_diago);
   this->_app.Draw(menu_gauche);
@@ -66,21 +66,144 @@ void LibGraphic::StateJoinCreate::draw()
   this->_app.Draw(menu_haut);
   this->_app.Draw(menu_coins);
 
-  ButtonBack.SetPosition(720, 730);
-  ButtonBack.SetRotation(180);
-  this->_app.Draw(ButtonBack);
-  if (language == ENGLISH)
-    Back->SetPosition(565, 694);
-  else
-    Back->SetPosition(540, 694);
-  Back->SetScale(1, 0.8);
-  Back->SetColor(sf::Color(255,255,0, 255));
-  if (this->_currentButton != BUTTON_JOINCREATE_BACK)
-    Back->SetColor(sf::Color(255,255,255, 205));
-  this->_app.Draw(*Back);
+  Button.SetPosition(1100, 730);
+  this->_app.Draw(Button);
+
+  Button.SetPosition(730, 730);
+  this->_app.Draw(Button);
+
+  TextArea.SetPosition(770, 480);
+  this->_app.Draw(TextArea);
+
+  ButtonBox.SetPosition(770, 340);
+  ButtonBox_s.SetPosition(770, 340);
+  this->_app.Draw(ButtonBox);
+  if (this->_currentButton == BUTTON_CREATE_SPECTATOR)
+    this->_app.Draw(ButtonBox_s);
+
+  sf::String *tmp;
+
+  ButtonBox.SetPosition(770, 410);
+  this->_app.Draw(ButtonBox);
+  tmp = this->getStdToSfString("1", this->getFont("StartFontF"));
+  tmp->SetColor(sf::Color(0,0,0,255));
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetPosition(783, 411);
+  this->_app.Draw(*tmp);
+
+  ButtonBox.SetPosition(820, 410);
+  this->_app.Draw(ButtonBox);
+  tmp = this->getStdToSfString("2", this->getFont("StartFontF"));
+  tmp->SetColor(sf::Color(0,0,0,255));
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetPosition(828, 411);
+  this->_app.Draw(*tmp);
+
+  ButtonBox.SetPosition(870, 410);
+  this->_app.Draw(ButtonBox);
+  tmp = this->getStdToSfString("3", this->getFont("StartFontF"));
+  tmp->SetColor(sf::Color(0,0,0,255));
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetPosition(878, 411);
+  this->_app.Draw(*tmp);
+
+  ButtonBox.SetPosition(920, 410);
+  this->_app.Draw(ButtonBox);
+  tmp = this->getStdToSfString("4", this->getFont("StartFontE"));
+  tmp->SetColor(sf::Color(0,0,0,255));
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetPosition(928, 411);
+  this->_app.Draw(*tmp);
+
+  this->drawText();
 }
 
-LibGraphic::Event LibGraphic::StateJoinCreate::gereEvent()
+void LibGraphic::StateCreateGame::drawText()
+{
+  sf::String *tmp;
+
+  if (language == ENGLISH)
+    {
+      tmp = this->getStdToSfString("Back", this->getFont("StartFontF"));
+      tmp->SetPosition(590, 700);
+    }
+  else
+    {
+      tmp = this->getStdToSfString("Retour", this->getFont("StartFontF"));
+      tmp->SetPosition(570, 700);
+    }
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_CREATE_BACK)
+    tmp->SetColor(sf::Color(255,255,255, 205));
+  this->_app.Draw(*tmp);
+
+  if (language == ENGLISH)
+    {
+      tmp = this->getStdToSfString("Create", this->getFont("StartFontF"));
+      tmp->SetPosition(950, 700);
+    }
+  else
+    {
+      tmp = this->getStdToSfString("Lancer", this->getFont("StartFontF"));
+      tmp->SetPosition(950, 700);
+    }
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_CREATE_CREATE)
+    tmp->SetColor(sf::Color(255,255,255, 205));
+  this->_app.Draw(*tmp);
+
+  if (language == ENGLISH)
+    {
+      tmp = this->getStdToSfString("Spectators", this->getFont("StartFontF"));
+      tmp->SetPosition(550, 340);
+    }
+  else
+    {
+      tmp = this->getStdToSfString("Spectateurs", this->getFont("StartFontF"));
+      tmp->SetPosition(550, 340);
+    }
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_CREATE_SPECTATOR)
+    tmp->SetColor(sf::Color(255,255,255, 205));
+  this->_app.Draw(*tmp);
+
+  if (language == ENGLISH)
+    {
+      tmp = this->getStdToSfString("Team size", this->getFont("StartFontF"));
+      tmp->SetPosition(550, 410);
+    }
+  else
+    {
+      tmp = this->getStdToSfString("Taille de l'equipe", this->getFont("StartFontF"));
+      tmp->SetPosition(550, 410);
+    }
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_CREATE_TEAMSIZE)
+    tmp->SetColor(sf::Color(255,255,255, 205));
+  this->_app.Draw(*tmp);
+
+  if (language == ENGLISH)
+    {
+      tmp = this->getStdToSfString("Game name", this->getFont("StartFontF"));
+      tmp->SetPosition(550, 490);
+    }
+  else
+    {
+      tmp = this->getStdToSfString("Nom de la partie", this->getFont("StartFontF"));
+      tmp->SetPosition(550, 490);
+    }
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetColor(sf::Color(255,255,0, 255));
+  if (this->_currentButton != BUTTON_CREATE_NAME)
+    tmp->SetColor(sf::Color(255,255,255, 205));
+  this->_app.Draw(*tmp);
+}
+
+LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 {
   sf::Event Event;
 
@@ -104,31 +227,35 @@ LibGraphic::Event LibGraphic::StateJoinCreate::gereEvent()
   return EVENT_NONE;
 }
 
-LibGraphic::eStates LibGraphic::StateJoinCreate::getNextState()
+void LibGraphic::StateCreateGame::readText(const sf::Event & Event)
+{
+}
+
+LibGraphic::eStates LibGraphic::StateCreateGame::getNextState()
 {
   return this->_nextState;
 }
 
-void LibGraphic::StateJoinCreate::cursorMenuPos(const sf::Event & Event)
+void LibGraphic::StateCreateGame::cursorMenuPos(const sf::Event & Event)
 {
 }
 
-sf::Sprite & LibGraphic::StateJoinCreate::getSprite(std::string const & spriteName) const
+sf::Sprite & LibGraphic::StateCreateGame::getSprite(std::string const & spriteName) const
 {
   return ((*this->_ressourcesSprite.find(spriteName)).second->_sprite);
 }
 
-LibGraphic::MyMusic * LibGraphic::StateJoinCreate::getMusic(std::string const & musicName) const
+LibGraphic::MyMusic * LibGraphic::StateCreateGame::getMusic(std::string const & musicName) const
 {
   return ((*this->_ressourcesPlayList.find(musicName)).second);
 }
 
-sf::Font * LibGraphic::StateJoinCreate::getFont(std::string const & fontName) const
+sf::Font * LibGraphic::StateCreateGame::getFont(std::string const & fontName) const
 {
   return ((*this->_ressourcesFont.find(fontName)).second);
 }
 
-inline sf::String * LibGraphic::StateJoinCreate::getStdToSfString(std::string const & s, sf::Font * daFont)
+inline sf::String * LibGraphic::StateCreateGame::getStdToSfString(std::string const & s, sf::Font * daFont)
 {
   return (new sf::String(s, *daFont));
 }

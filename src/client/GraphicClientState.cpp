@@ -31,8 +31,11 @@ void LibGraphic::GraphicClientState::loadStates(void)
 						  this->_ressourcesSounds,
 						  this->_ressourcesFont,
 						  this->_app);
-  this->_stateInfos[CREATEGAME] = NULL;
-
+  this->_stateInfos[CREATEGAME] = new StateCreateGame(this->_ressourcesSprite,
+						  this->_ressourcesPlayList,
+						  this->_ressourcesSounds,
+						  this->_ressourcesFont,
+						  this->_app);
   this->_stateInfos[ROOM] = new StateRoom(this->_ressourcesSprite,
 					    this->_ressourcesPlayList,
 					    this->_ressourcesSounds,
