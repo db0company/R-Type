@@ -30,8 +30,8 @@ Server::Server(void) :
   this->_condVar = new CondVarWindows;
 #endif
   this->_taskNet.init(this->_udp, this->_udpMutex);
-  ThreadData<PacketTask *> *threadData = new ThreadData<PacketTask *>(this->_taskQueue, this->_condVar);
-  this->_threadPool.init<PacketTask *>(threadData); // thread data todo
+  IThreadData *threadData = new ThreadData<PacketTask *>(this->_taskQueue, this->_condVar);
+  this->_threadPool.init(threadData); // thread data todo
 }
 
 Server::~Server(void)

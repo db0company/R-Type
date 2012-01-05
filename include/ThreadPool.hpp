@@ -16,11 +16,8 @@ private:
 public:
   ThreadPool(int nbThread);
   ~ThreadPool();
-  template <typename T>
-  bool init(ThreadData<T> *data);
+  bool init(IThreadData *data);
   bool endThread();
-template <typename T>
-static void		*manageThread(GParam *param);
 };
 
 

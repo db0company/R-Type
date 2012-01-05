@@ -1,11 +1,12 @@
 #include <pthread.h>
 #include "ThreadUnix.hpp"
 
-// static void *funcThread(void *data)
-// {
-//   IWork *work = (IWork*)data;
-//   work->Run();
-// }
+ static void *RunThread(void *data)
+ {
+   IExec *ex = reinterpret_cast<IExec *>(data);
+   ex->RunExec();
+   return (NULL);
+ }
 
 ThreadUnix::ThreadUnix(void) :
   _state(OFF)
@@ -29,17 +30,17 @@ ThreadUnix::ThreadUnix(ThreadUnix const &other)
   this->_thread = other._state;
 }
 
-bool ThreadUnix::Create(generic *(*pfonct)(generic *), generic *t)
+bool ThreadUnix::Create(IExec *work)
 {
-  if (pthread_create(&this->_thread, NULL, pfonct, t) != 0)
+ if (pthread_create(&this->_thread, NULL, &RunThread, reinterpret_cast<void *>(work)) != 0)
     return (false);
   this->_state = ON;
   return (true);
 }
 
-bool ThreadUnix::operator()(generic *(*pfonct)(generic *), generic *t)
+bool ThreadUnix::operator()(IExec *work)
 {
-  if (pthread_create(&this->_thread, NULL, pfonct, t) != 0)
+  if (pthread_create(&this->_thread, NULL, &RunThread, reinterpret_cast<void *>(work)) != 0)
     return (false);
   this->_state = ON;
   return (true);
@@ -53,7 +54,7 @@ bool ThreadUnix::Destroy(void)
 
 bool ThreadUnix::Wait(void)
 {
-  generic *res;
+  void *res;
 
   if (pthread_join(this->_thread, &res) != 0)
     return (false);

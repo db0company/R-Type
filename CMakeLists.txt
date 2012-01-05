@@ -24,6 +24,8 @@ target_link_libraries(
 	Ws2_32.lib
 )
 
+include_directories(include)
+
 
 add_library(
 	Thread
@@ -32,6 +34,7 @@ add_library(
 	./lib/Thread/src/ThreadWindows.cpp
 	./lib/Thread/src/CondVarWindows.cpp
 	./lib/Thread/src/ScopedLock.cpp
+	./lib/Thread/src/ExecThread.cpp
 )
 
 
@@ -89,6 +92,7 @@ add_library(
 	./lib/SNetwork/src/UDPClientSocketUnix.cpp
 )
 
+include_directories(include)
 
 add_library(
 	Thread
@@ -97,6 +101,7 @@ add_library(
 	./lib/Thread/src/ThreadUnix.cpp
 	./lib/Thread/src/CondVarUnix.cpp
 	./lib/Thread/src/ScopedLock.cpp
+	./lib/Thread/src/ExecThread.cpp
 )
 
 
