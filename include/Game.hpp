@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list>
+#include <map>
 #include "GameParameter.hpp"
 #include "User.hpp"
 #include "AObject.hpp"
@@ -27,12 +28,19 @@ public:
   void	moveWall(void *);
   void	createWall();
   void	fireBullet(void *);
+  unsigned int getId(void) const;
+  bool	addUser(User *user, bool root, bool observer, std::string const &);
 private:
+  unsigned int _id;
   GameParameter	_param;
   std::map<std::string, AObject *> _players;
   std::map<std::string, AObject *> _monster;
   std::list<std::list<AObject *> > _map;
   std::list<Bullet>	_bullets;
+  static unsigned int _sid;
+  std::map<std::string , User *> _userMap;
+  std::map<std::string, User *> _userObsMap;
+  std::string owner_login;
 };
 
 #endif	// GAME_H_

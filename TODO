@@ -1,12 +1,3 @@
-INFO:
-Sofia: ce que tu a commit segfault (thread)
-mais tkt c'est pas compliquer je crois
-Dans le manage_thead il y a un queue.empty() qui scope
-Lock un mutex nn initialiser (le mutex de la safequeue nes pas init je pense)
-Jai mis en commentaire linit de la thread pool dans Server::Server pour continuer a coder
-je te laisse verifier.
-
-
 /!\ TODO: /!\
 
 -> General:
@@ -15,11 +6,13 @@ je te laisse verifier.
   * definir comment representer un lvl (cote serveur un lvl a une map charge depuis
     un fichier (.txt? autre) avec plusieurs donnee (nom du lvl, description, map... etc)
     A DEFINIR (format)
+  * throw les exeption, les catcher (si on catch ds le serveur ca fait quoi avec les thread?)
+  * CP le githug ds le koalagit !
 
 -> Client: [Graphic Menu]
-   * Faire la selection des games dans le menu gamelist
+	// OK * Faire la selection des games dans le menu gamelist
    * Faire le Menu de creation de game
-   * Faire le Lobby (attente de lancement de partie) + Chat
+	// OK * Faire le Lobby (attente de lancement de partie) + Chat
    * Faire une minifenetre genre popup pour info
      (genre void sfml::pop(std::string const &msg) qui affiche ds la
      minifenetre le message avec un boutton OK pour lenlever)
@@ -39,18 +32,16 @@ je te laisse verifier.
    * Lier les packets recu a des actions du client (sauvegarde et modif des donnees)
 
 -> Server [Thread]
-   * Enlever Segfault Thread/Mutex
-   * Tester les thread avec la task network
+	   // OK * Enlever Segfault Thread/Mutex
+	   // OK * Tester les thread avec la task network
 
 -> Server [Game/Corp]
-   * Faire les Task Game (Vincent)
-   * Faire les Aobject/IElem/je ne sais pas comment ils s'appel (Missile Monster Player)
+   	  // OK * Faire les Task Game (Vincent)
+   	  // OK * Faire les Aobject/IElem/je ne sais pas comment ils s'appel (Missile Monster Player)
    * Finir le game manager (il contiens les games)
    * Finir la classe game (contient info d'une game)
    * Faire le systeme de colision
    * Faire un systeme de timer
-   * Vincent je ne sais pas ou tu en est donc je laisse un petit point ici
-     pour ce qu'il reste a faire
    * Lier les packets recu a des actions (jai commencer mais il manques des classes
      Pour continuer)
 

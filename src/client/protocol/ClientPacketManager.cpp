@@ -1,7 +1,6 @@
 # include <iostream>
 # include <string.h>
 # include <cstdlib>
-# include "verbose.h"
 # include "ClientPacketManager.hpp"
 # include "actions/ProtocolGame.hpp"
 # include "actions/ProtocolGameDetails.hpp"

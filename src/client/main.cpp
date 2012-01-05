@@ -1,4 +1,3 @@
-//#include "Sfml.hpp"
 #include "AudioUtils.hpp"
 #include "Client.hpp"
 #include "Language.hpp"
@@ -8,8 +7,9 @@ LibGraphic::Language language;
 
 int main()
 {
-  Client client("127.0.0.1", 12348);
+  Client client;
 
   if (client.init())
-    client.run();
+    return (client.run());
+  return (0);
 }

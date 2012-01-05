@@ -1,6 +1,12 @@
 #include <pthread.h>
 #include "ThreadUnix.hpp"
 
+// static void *funcThread(void *data)
+// {
+//   IWork *work = (IWork*)data;
+//   work->Run();
+// }
+
 ThreadUnix::ThreadUnix(void) :
   _state(OFF)
 {

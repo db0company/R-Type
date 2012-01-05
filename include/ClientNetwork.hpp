@@ -19,6 +19,7 @@ public:
   ~ClientNetwork(void);
   ClientNetwork(const ClientNetwork&);
   ClientNetwork&	operator=(const ClientNetwork&);
+
   void init(std::string const &ip, int port);
   bool connect(std::string const &ip, int port);
   bool connect(void);
@@ -29,6 +30,9 @@ public:
   bool sendPacketToServer(void);
   bool pushTCP(ProtocolPacket *);
   bool pushUDP(ProtocolPacket *);
+  void setIp(std::string const &);
+  void setPort(int port);
+
 private:
   ClientPacketManager   _pm;
   ATCPClientSocket *_tcp;

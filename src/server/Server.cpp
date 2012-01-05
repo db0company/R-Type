@@ -208,15 +208,6 @@ bool	Server::processPackets(void)
 
 bool Server::run(void)
 {
-  // sendToClientData *sdata = new sendToClientData;
-  // PacketData *data = new PacketData;
-  // ProtocolPacket *packet = PacketFactory::createPacket(THE_GAME,
-			  // static_cast<ushort>(GETGAME), data);
-  // sdata->packet = packet;
-  // sdata->ip = "127.0.0.1";
-  // sdata->port = 12348;
-  // PacketTask pa(this->_taskManager, &TaskNetwork::sendToClient, reinterpret_cast<void *>sdata);
-  // int i = 0;
   while (true)
     {
       this->_listener->SNAddRead();

@@ -1,12 +1,11 @@
-# include <string.h>
-# include <cstdlib>
-# include "verbose.h"
-# include "PacketManager.hpp"
-# include "actions/ProtocolGame.hpp"
-# include "actions/ProtocolGameDetails.hpp"
-# include "actions/ProtocolMovement.hpp"
-# include "actions/ProtocolLobby.hpp"
-# include "User.hpp"
+#include <string.h>
+#include <cstdlib>
+#include "PacketManager.hpp"
+#include "actions/ProtocolGame.hpp"
+#include "actions/ProtocolGameDetails.hpp"
+#include "actions/ProtocolMovement.hpp"
+#include "actions/ProtocolLobby.hpp"
+#include "User.hpp"
 
 PacketManager::PacketManager(void)
 {
@@ -61,13 +60,12 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *user, Server &serv)
 	PacketFactory::getPacketInstruction(packet) << ")" << std::endl;
       this->groupaction[PacketFactory::getPacketGroup(packet)]->action
       	(PacketFactory::getPacketInstruction(packet), *textData, user, serv);
-      //      user->addPacketToSend(packet);
     }
   return (true);
 }
 
 void				PacketManager::actionError(void)
 {
-  if (v)
-    std::cerr << "[warning] Invalid Packet Group: Ignored" << std::endl;
+  // if (v)
+  //   std::cerr << "[warning] Invalid Packet Group: Ignored" << std::endl;
 }

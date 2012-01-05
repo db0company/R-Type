@@ -2,7 +2,7 @@
 # define GAMEPARAMETER_H_
 
 #include <string>
-
+//todo
 struct	GameParameter
 {
   short		id;
