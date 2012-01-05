@@ -12,7 +12,6 @@
 #include "PacketManager.hpp"
 #include "TaskManager.hpp"
 #include "ThreadPool.hpp"
-#include "ThreadData.hpp"
 #include "PacketTask.hpp"
 #include "IMutex.hpp"
 #include "ICondVar.hpp"

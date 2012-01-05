@@ -1,9 +1,9 @@
-﻿Build started 28/12/2011 21:49:25.
-     1>Project "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\sfml-graphics.vcxproj" on node 2 (build target(s)).
+﻿Build started 03/01/2012 05:15:21.
+     1>Project "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\sfml-graphics.vcxproj" on node 5 (rebuild target(s)).
      1>InitializeBuildStatus:
-         Creating "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\sfml-graphics.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Creating "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\sfml-graphics.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\include" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\extlibs\headers" /nologo /W2 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D GLEW_STATIC /D STBI_FAILURE_USERMSG /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\vc100.pdb" /Gd /TC /wd4996 /analyze- /errorReport:prompt ..\..\src\SFML\Graphics\zlib\adler32.c ..\..\src\SFML\Graphics\zlib\compress.c ..\..\src\SFML\Graphics\zlib\crc32.c ..\..\src\SFML\Graphics\zlib\deflate.c ..\..\src\SFML\Graphics\zlib\inffast.c ..\..\src\SFML\Graphics\zlib\inflate.c ..\..\src\SFML\Graphics\zlib\inftrees.c ..\..\src\SFML\Graphics\zlib\trees.c ..\..\src\SFML\Graphics\zlib\uncompr.c ..\..\src\SFML\Graphics\zlib\zutil.c ..\..\src\SFML\Graphics\libpng\png.c ..\..\src\SFML\Graphics\libpng\pngerror.c ..\..\src\SFML\Graphics\libpng\pnggccrd.c ..\..\src\SFML\Graphics\libpng\pngget.c ..\..\src\SFML\Graphics\libpng\pngmem.c ..\..\src\SFML\Graphics\libpng\pngpread.c ..\..\src\SFML\Graphics\libpng\pngread.c ..\..\src\SFML\Graphics\libpng\pngrio.c ..\..\src\SFML\Graphics\libpng\pngrtran.c ..\..\src\SFML\Graphics\libpng\pngrutil.c ..\..\src\SFML\Graphics\libpng\pngset.c ..\..\src\SFML\Graphics\libpng\pngtrans.c ..\..\src\SFML\Graphics\libpng\pngvcrd.c ..\..\src\SFML\Graphics\libpng\pngwio.c ..\..\src\SFML\Graphics\libpng\pngwrite.c ..\..\src\SFML\Graphics\libpng\pngwtran.c ..\..\src\SFML\Graphics\libpng\pngwutil.c ..\..\src\SFML\Graphics\SOIL\image_DXT.c ..\..\src\SFML\Graphics\SOIL\SOIL.c ..\..\src\SFML\Graphics\SOIL\stb_image_aug.c ..\..\src\SFML\Graphics\libjpeg\jcapimin.c ..\..\src\SFML\Graphics\libjpeg\jcapistd.c ..\..\src\SFML\Graphics\libjpeg\jccoefct.c ..\..\src\SFML\Graphics\libjpeg\jccolor.c ..\..\src\SFML\Graphics\libjpeg\jcdctmgr.c ..\..\src\SFML\Graphics\libjpeg\jchuff.c ..\..\src\SFML\Graphics\libjpeg\jcinit.c ..\..\src\SFML\Graphics\libjpeg\jcmainct.c ..\..\src\SFML\Graphics\libjpeg\jcmarker.c ..\..\src\SFML\Graphics\libjpeg\jcmaster.c ..\..\src\SFML\Graphics\libjpeg\jcomapi.c ..\..\src\SFML\Graphics\libjpeg\jcparam.c ..\..\src\SFML\Graphics\libjpeg\jcphuff.c ..\..\src\SFML\Graphics\libjpeg\jcprepct.c ..\..\src\SFML\Graphics\libjpeg\jcsample.c ..\..\src\SFML\Graphics\libjpeg\jctrans.c ..\..\src\SFML\Graphics\libjpeg\jdapimin.c ..\..\src\SFML\Graphics\libjpeg\jdapistd.c ..\..\src\SFML\Graphics\libjpeg\jdatadst.c ..\..\src\SFML\Graphics\libjpeg\jdatasrc.c ..\..\src\SFML\Graphics\libjpeg\jdcoefct.c ..\..\src\SFML\Graphics\libjpeg\jdcolor.c ..\..\src\SFML\Graphics\libjpeg\jddctmgr.c ..\..\src\SFML\Graphics\libjpeg\jdhuff.c ..\..\src\SFML\Graphics\libjpeg\jdinput.c ..\..\src\SFML\Graphics\libjpeg\jdmainct.c ..\..\src\SFML\Graphics\libjpeg\jdmarker.c ..\..\src\SFML\Graphics\libjpeg\jdmaster.c ..\..\src\SFML\Graphics\libjpeg\jdmerge.c ..\..\src\SFML\Graphics\libjpeg\jdphuff.c ..\..\src\SFML\Graphics\libjpeg\jdpostct.c ..\..\src\SFML\Graphics\libjpeg\jdsample.c ..\..\src\SFML\Graphics\libjpeg\jdtrans.c ..\..\src\SFML\Graphics\libjpeg\jerror.c ..\..\src\SFML\Graphics\libjpeg\jfdctflt.c ..\..\src\SFML\Graphics\libjpeg\jfdctfst.c ..\..\src\SFML\Graphics\libjpeg\jfdctint.c ..\..\src\SFML\Graphics\libjpeg\jidctflt.c ..\..\src\SFML\Graphics\libjpeg\jidctfst.c ..\..\src\SFML\Graphics\libjpeg\jidctint.c ..\..\src\SFML\Graphics\libjpeg\jidctred.c ..\..\src\SFML\Graphics\libjpeg\jmemmgr.c ..\..\src\SFML\Graphics\libjpeg\jmemnobs.c ..\..\src\SFML\Graphics\libjpeg\jquant1.c ..\..\src\SFML\Graphics\libjpeg\jquant2.c ..\..\src\SFML\Graphics\libjpeg\jutils.c /MP 
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\include" /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\extlibs\headers" /nologo /W2 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D GLEW_STATIC /D STBI_FAILURE_USERMSG /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\vc100.pdb" /Gd /TC /wd4996 /analyze- /errorReport:prompt ..\..\src\SFML\Graphics\zlib\adler32.c ..\..\src\SFML\Graphics\zlib\compress.c ..\..\src\SFML\Graphics\zlib\crc32.c ..\..\src\SFML\Graphics\zlib\deflate.c ..\..\src\SFML\Graphics\zlib\inffast.c ..\..\src\SFML\Graphics\zlib\inflate.c ..\..\src\SFML\Graphics\zlib\inftrees.c ..\..\src\SFML\Graphics\zlib\trees.c ..\..\src\SFML\Graphics\zlib\uncompr.c ..\..\src\SFML\Graphics\zlib\zutil.c ..\..\src\SFML\Graphics\libpng\png.c ..\..\src\SFML\Graphics\libpng\pngerror.c ..\..\src\SFML\Graphics\libpng\pnggccrd.c ..\..\src\SFML\Graphics\libpng\pngget.c ..\..\src\SFML\Graphics\libpng\pngmem.c ..\..\src\SFML\Graphics\libpng\pngpread.c ..\..\src\SFML\Graphics\libpng\pngread.c ..\..\src\SFML\Graphics\libpng\pngrio.c ..\..\src\SFML\Graphics\libpng\pngrtran.c ..\..\src\SFML\Graphics\libpng\pngrutil.c ..\..\src\SFML\Graphics\libpng\pngset.c ..\..\src\SFML\Graphics\libpng\pngtrans.c ..\..\src\SFML\Graphics\libpng\pngvcrd.c ..\..\src\SFML\Graphics\libpng\pngwio.c ..\..\src\SFML\Graphics\libpng\pngwrite.c ..\..\src\SFML\Graphics\libpng\pngwtran.c ..\..\src\SFML\Graphics\libpng\pngwutil.c ..\..\src\SFML\Graphics\SOIL\image_DXT.c ..\..\src\SFML\Graphics\SOIL\SOIL.c ..\..\src\SFML\Graphics\SOIL\stb_image_aug.c ..\..\src\SFML\Graphics\libjpeg\jcapimin.c ..\..\src\SFML\Graphics\libjpeg\jcapistd.c ..\..\src\SFML\Graphics\libjpeg\jccoefct.c ..\..\src\SFML\Graphics\libjpeg\jccolor.c ..\..\src\SFML\Graphics\libjpeg\jcdctmgr.c ..\..\src\SFML\Graphics\libjpeg\jchuff.c ..\..\src\SFML\Graphics\libjpeg\jcinit.c ..\..\src\SFML\Graphics\libjpeg\jcmainct.c ..\..\src\SFML\Graphics\libjpeg\jcmarker.c ..\..\src\SFML\Graphics\libjpeg\jcmaster.c ..\..\src\SFML\Graphics\libjpeg\jcomapi.c ..\..\src\SFML\Graphics\libjpeg\jcparam.c ..\..\src\SFML\Graphics\libjpeg\jcphuff.c ..\..\src\SFML\Graphics\libjpeg\jcprepct.c ..\..\src\SFML\Graphics\libjpeg\jcsample.c ..\..\src\SFML\Graphics\libjpeg\jctrans.c ..\..\src\SFML\Graphics\libjpeg\jdapimin.c ..\..\src\SFML\Graphics\libjpeg\jdapistd.c ..\..\src\SFML\Graphics\libjpeg\jdatadst.c ..\..\src\SFML\Graphics\libjpeg\jdatasrc.c ..\..\src\SFML\Graphics\libjpeg\jdcoefct.c ..\..\src\SFML\Graphics\libjpeg\jdcolor.c ..\..\src\SFML\Graphics\libjpeg\jddctmgr.c ..\..\src\SFML\Graphics\libjpeg\jdhuff.c ..\..\src\SFML\Graphics\libjpeg\jdinput.c ..\..\src\SFML\Graphics\libjpeg\jdmainct.c ..\..\src\SFML\Graphics\libjpeg\jdmarker.c ..\..\src\SFML\Graphics\libjpeg\jdmaster.c ..\..\src\SFML\Graphics\libjpeg\jdmerge.c ..\..\src\SFML\Graphics\libjpeg\jdphuff.c ..\..\src\SFML\Graphics\libjpeg\jdpostct.c ..\..\src\SFML\Graphics\libjpeg\jdsample.c ..\..\src\SFML\Graphics\libjpeg\jdtrans.c ..\..\src\SFML\Graphics\libjpeg\jerror.c ..\..\src\SFML\Graphics\libjpeg\jfdctflt.c ..\..\src\SFML\Graphics\libjpeg\jfdctfst.c ..\..\src\SFML\Graphics\libjpeg\jfdctint.c ..\..\src\SFML\Graphics\libjpeg\jidctflt.c ..\..\src\SFML\Graphics\libjpeg\jidctfst.c ..\..\src\SFML\Graphics\libjpeg\jidctint.c ..\..\src\SFML\Graphics\libjpeg\jidctred.c ..\..\src\SFML\Graphics\libjpeg\jmemmgr.c ..\..\src\SFML\Graphics\libjpeg\jmemnobs.c ..\..\src\SFML\Graphics\libjpeg\jquant1.c ..\..\src\SFML\Graphics\libjpeg\jquant2.c ..\..\src\SFML\Graphics\libjpeg\jutils.c /MP 
          adler32.c
          compress.c
          crc32.c
@@ -80,11 +80,11 @@
          jquant1.c
          jquant2.c
          jutils.c
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\include" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\extlibs\headers" /nologo /W1 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D GLEW_STATIC /D STBI_FAILURE_USERMSG /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\vc100.pdb" /Gd /TC /wd4996 /analyze- /errorReport:prompt ..\..\src\SFML\Graphics\GLEW\glew.c /MP 
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\include" /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\extlibs\headers" /nologo /W1 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D GLEW_STATIC /D STBI_FAILURE_USERMSG /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\vc100.pdb" /Gd /TC /wd4996 /analyze- /errorReport:prompt ..\..\src\SFML\Graphics\GLEW\glew.c /MP 
          glew.c
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\include" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\extlibs\headers" /nologo /W4 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D GLEW_STATIC /D STBI_FAILURE_USERMSG /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\vc100.pdb" /Gd /TP /wd4996 /analyze- /errorReport:prompt ..\..\src\SFML\Graphics\Color.cpp ..\..\src\SFML\Graphics\Drawable.cpp ..\..\src\SFML\Graphics\Font.cpp ..\..\src\SFML\Graphics\FontLoader.cpp ..\..\src\SFML\Graphics\GraphicsContext.cpp ..\..\src\SFML\Graphics\Image.cpp ..\..\src\SFML\Graphics\Matrix3.cpp ..\..\src\SFML\Graphics\PostFX.cpp ..\..\src\SFML\Graphics\RenderTarget.cpp ..\..\src\SFML\Graphics\RenderWindow.cpp ..\..\src\SFML\Graphics\Shape.cpp ..\..\src\SFML\Graphics\Sprite.cpp ..\..\src\SFML\Graphics\String.cpp ..\..\src\SFML\Graphics\View.cpp /MP 
-         Drawable.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\include" /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\extlibs\headers" /nologo /W4 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D GLEW_STATIC /D STBI_FAILURE_USERMSG /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\vc100.pdb" /Gd /TP /wd4996 /analyze- /errorReport:prompt ..\..\src\SFML\Graphics\Color.cpp ..\..\src\SFML\Graphics\Drawable.cpp ..\..\src\SFML\Graphics\Font.cpp ..\..\src\SFML\Graphics\FontLoader.cpp ..\..\src\SFML\Graphics\GraphicsContext.cpp ..\..\src\SFML\Graphics\Image.cpp ..\..\src\SFML\Graphics\Matrix3.cpp ..\..\src\SFML\Graphics\PostFX.cpp ..\..\src\SFML\Graphics\RenderTarget.cpp ..\..\src\SFML\Graphics\RenderWindow.cpp ..\..\src\SFML\Graphics\Shape.cpp ..\..\src\SFML\Graphics\Sprite.cpp ..\..\src\SFML\Graphics\String.cpp ..\..\src\SFML\Graphics\View.cpp /MP 
          Color.cpp
+         Drawable.cpp
          Font.cpp
          FontLoader.cpp
          GraphicsContext.cpp
@@ -97,109 +97,109 @@
          Sprite.cpp
          String.cpp
          View.cpp
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\include" /I"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\extlibs\headers" /nologo /W4 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D GLEW_STATIC /D STBI_FAILURE_USERMSG /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\vc100.pdb" /Gd /TP /wd4611 /wd4996 /analyze- /errorReport:prompt ..\..\src\SFML\Graphics\ImageLoader.cpp /MP 
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\src" /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\include" /I"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\extlibs\headers" /nologo /W4 /WX- /Ox /Ob2 /Oi /Ot /Oy- /D NDEBUG /D WIN32 /D _LIB /D SFML_EXPORTS /D GLEW_STATIC /D STBI_FAILURE_USERMSG /D _MBCS /GF /Gm- /EHsc /MD /GS- /fp:fast /Zc:wchar_t /Zc:forScope /Fo"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\\" /Fd"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\vc100.pdb" /Gd /TP /wd4611 /wd4996 /analyze- /errorReport:prompt ..\..\src\SFML\Graphics\ImageLoader.cpp /MP 
          ImageLoader.cpp
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\sfml-graphics.lib) does not match the Library's OutputFile property value (C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\lib\vc2008\sfml-graphics-s.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\sfml-graphics.lib) does not match the Library's OutputFile property value (C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\lib\vc2008\sfml-graphics-s.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1153,5): warning MSB8012: TargetName(sfml-graphics) does not match the Library's OutputFile property value (sfml-graphics-s). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\lib\vc2008\sfml-graphics-s.lib" opengl32.lib "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\extlibs\libs-vc2005\freetype.lib" /NOLOGO "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\adler32.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\compress.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\crc32.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\deflate.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\inffast.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\inflate.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\inftrees.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\trees.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\uncompr.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\zutil.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\png.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngerror.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pnggccrd.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngget.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngmem.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngpread.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngread.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngrio.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngrtran.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngrutil.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngset.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngtrans.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngvcrd.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngwio.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngwrite.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngwtran.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngwutil.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\image_DXT.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\SOIL.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\stb_image_aug.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcapimin.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcapistd.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jccoefct.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jccolor.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcdctmgr.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jchuff.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcinit.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcmainct.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcmarker.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcmaster.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcomapi.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcparam.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcphuff.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcprepct.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcsample.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jctrans.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdapimin.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdapistd.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdatadst.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdatasrc.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdcoefct.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdcolor.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jddctmgr.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdhuff.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdinput.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdmainct.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdmarker.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdmaster.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdmerge.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdphuff.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdpostct.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdsample.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdtrans.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jerror.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jfdctflt.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jfdctfst.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jfdctint.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jidctflt.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jidctfst.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jidctint.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jidctred.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jmemmgr.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jmemnobs.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jquant1.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jquant2.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jutils.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\glew.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Color.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Drawable.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Font.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\FontLoader.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\GraphicsContext.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Image.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\ImageLoader.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Matrix3.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\PostFX.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\RenderTarget.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\RenderWindow.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Shape.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Sprite.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\String.obj"
-         "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\View.obj"
-         sfml-graphics.vcxproj -> C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\sfml-graphics.lib
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\lib\vc2008\sfml-graphics-s.lib" opengl32.lib "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\extlibs\libs-vc2005\freetype.lib" /NOLOGO "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\adler32.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\compress.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\crc32.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\deflate.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\inffast.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\inflate.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\inftrees.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\trees.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\uncompr.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\zutil.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\png.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngerror.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pnggccrd.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngget.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngmem.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngpread.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngread.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngrio.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngrtran.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngrutil.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngset.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngtrans.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngvcrd.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngwio.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngwrite.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngwtran.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\pngwutil.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\image_DXT.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\SOIL.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\stb_image_aug.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcapimin.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcapistd.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jccoefct.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jccolor.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcdctmgr.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jchuff.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcinit.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcmainct.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcmarker.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcmaster.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcomapi.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcparam.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcphuff.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcprepct.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jcsample.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jctrans.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdapimin.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdapistd.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdatadst.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdatasrc.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdcoefct.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdcolor.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jddctmgr.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdhuff.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdinput.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdmainct.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdmarker.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdmaster.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdmerge.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdphuff.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdpostct.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdsample.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jdtrans.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jerror.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jfdctflt.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jfdctfst.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jfdctint.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jidctflt.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jidctfst.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jidctint.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jidctred.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jmemmgr.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jmemnobs.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jquant1.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jquant2.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\jutils.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\glew.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Color.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Drawable.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Font.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\FontLoader.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\GraphicsContext.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Image.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\ImageLoader.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Matrix3.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\PostFX.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\RenderTarget.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\RenderWindow.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Shape.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\Sprite.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\String.obj"
+         "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\View.obj"
+         sfml-graphics.vcxproj -> C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\sfml-graphics.lib
        FinalizeBuildStatus:
-         Deleting file "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\sfml-graphics.unsuccessfulbuild".
-         Touching "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\sfml-graphics.lastbuildstate".
-     1>Done Building Project "C:\Users\munoz_v\Desktop\R-Type2\SFML-1.6\build\vc2008\sfml-graphics.vcxproj" (build target(s)).
+         Deleting file "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\sfml-graphics.unsuccessfulbuild".
+         Touching "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\..\..\Temp\vc2008\sfml-graphics\Release static\sfml-graphics.lastbuildstate".
+     1>Done Building Project "C:\Users\munoz_v\Desktop\R-Type\SFML-1.6\build\vc2008\sfml-graphics.vcxproj" (rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:13.18
+Time Elapsed 00:00:08.82

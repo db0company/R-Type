@@ -1,13 +1,3 @@
-//
-// Dll.hpp for  in /home/bideau_s//babel/src/babel
-//
-// Made by sofia bideaux
-// Login   <bideau_s@epitech.net>
-//
-// Started on  Sat Nov 19 18:34:50 2011 sofia bideaux
-// Last update Wed Nov 30 23:46:37 2011 sofia bideaux
-//
-
 #ifndef		__DLL_HPP__
 # define	__DLL_HPP__
 

@@ -1,19 +1,20 @@
+
+#include <iostream>
+#include "SafeQueue.hpp"
+#include "ScopedLock.hpp"
+#include "PacketTask.hpp"
 #ifdef _WIN32
 # include "MutexWindows.hpp"
 #else
 # include "MutexUnix.hpp"
 #endif
 
-#include <iostream>
-#include "SafeQueue.hpp"
-#include "ScopedLock.hpp"
-#include "PacketTask.hpp"
 
 template <typename T>
 SafeQueue<T>::SafeQueue()
 {
 #ifdef _WIN32
-  this->mutex = new MutexWindows;
+ this->mutex = new MutexWindows;
 #else
   this->mutex = new MutexUnix;
 #endif
