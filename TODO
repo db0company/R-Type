@@ -33,17 +33,15 @@
 
 -> Server [Thread]
 	   // OK * Enlever Segfault Thread/Mutex
-   * Tester les thread avec la task network
+	   // OK * Tester les thread avec la task network
 
 -> Server [Game/Corp]
-   * Faire les Task Game (Vincent)
-   * Faire les Aobject/IElem/je ne sais pas comment ils s'appel (Missile Monster Player)
+   	  // OK * Faire les Task Game (Vincent)
+   	  // OK * Faire les Aobject/IElem/je ne sais pas comment ils s'appel (Missile Monster Player)
    * Finir le game manager (il contiens les games)
    * Finir la classe game (contient info d'une game)
    * Faire le systeme de colision
    * Faire un systeme de timer
-   * Vincent je ne sais pas ou tu en est donc je laisse un petit point ici
-     pour ce qu'il reste a faire
    * Lier les packets recu a des actions (jai commencer mais il manques des classes
      Pour continuer)
 

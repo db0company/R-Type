@@ -1,20 +1,27 @@
+#include <iostream>
 #include <map>
+#include <string>
+// #include <pair>
 #include "Player.hpp"
 #include "Monster.hpp"
 #include "Tile.hpp"
 #include "Game.hpp"
+#include "User.hpp"
+
+unsigned int Game::_sid = 0;
 
 Game::Game(const GameParameter& param)
 {
-  
   _param = param;
   // On va faire quelques tests.
-  
+
   createNewPlayer(NULL, "Player1");
   createNewPlayer(NULL, "Player2");
   createNewMonster(NULL);
   createNewMonster(NULL);
   createWall();
+  this->_id = this->_sid;
+  ++this->_sid;
 }
 
 Game::~Game()
@@ -109,7 +116,7 @@ void	Game::checkCollision(void *)
       while (itB != this->_bullets.end())
 	{
 
-	  if ((*itB).getGroup() == ENNEMY && itP->second->getPos() == (*itB).getPos()) 
+	  if ((*itB).getGroup() == ENNEMY && itP->second->getPos() == (*itB).getPos())
 	    {
 	      // kill player; NE PAS DETRUIRE LE MAILLON ICI
 	      // destroy la bullet MAIS PAS ICI
@@ -118,7 +125,7 @@ void	Game::checkCollision(void *)
 	}
       while (itM != this->_monster.end())
 	{
-	  if (itP->second->getPos() == itM->second->getPos()) 
+	  if (itP->second->getPos() == itM->second->getPos())
 	    {
 	      // kill player; NE PAS DETRUIRE LE MAILLON ICI
 	    }
@@ -168,7 +175,7 @@ void	Game::createWall()
 	}
       ++i;
       this->_map.push_back(newLine);
-    }  
+    }
 }
 
 void	Game::fireBullet(void *)
@@ -180,11 +187,24 @@ void	Game::fireBullet(void *)
   this->_bullets.push_front(Bullet(ent->getPos(), g));
 }
 
-
-
+unsigned int Game::getId(void)const
+{
+  return (this->_id);
+}
 
 Game&	Game::operator=(const Game& old)
 {
   this->_param = old._param;
   return (*this);
+}
+
+bool Game::addUser(User *user, bool root, bool observer, std::string const &login)
+{
+  if (root)
+    this->owner_login = login;
+  if (observer)
+    this->_userMap.insert(std::pair<std::string, User *>(user->getIp(), user));
+  else
+    this->_userObsMap.insert(std::pair<std::string, User *>(user->getIp(), user));
+  return (true);
 }

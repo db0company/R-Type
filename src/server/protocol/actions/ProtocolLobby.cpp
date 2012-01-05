@@ -57,6 +57,7 @@ bool			ProtocolLobby::actionChat(PacketData & data, User *user, Server &)
   std::string msg;
 
   msg = data.getNextString();
+  std::cout << "chat_msg(" << msg << ")" << std::endl;
   if (msg.size())
     {
       // TODO:

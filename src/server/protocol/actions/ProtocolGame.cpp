@@ -82,7 +82,7 @@ bool			ProtocolGame::actionGetLevel(PacketData &, User *user, Server &)
   return (true);
 }
 
-bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &server)
+bool			ProtocolGame::actionCreate(PacketData & received, User *user, Server &)
 {
   std::string name;
   std::string game_name;
@@ -140,6 +140,8 @@ bool			ProtocolGame::actionJoin(PacketData & received, User *user, Server &)
   login = received.getNextString();
   id_game = received.getNextShort();
   observer = received.getNextChar();
+  std::cout << "login(" << login << ") id_game(" << id_game << ") observer("
+	    << (int)observer << ")" << std::endl;
   // TODO:
   // verifier si id_game existe et si le logine st dispo pour cette game
   // + si observer != 0: verifier si la game est pas deja full.
@@ -160,12 +162,6 @@ bool			ProtocolGame::actionQuit(PacketData &, User *, Server &)
   // BIG TODO: dire au autre clients qu'il se barre (add protocol)
   return (true);
 }
-
-// bool			ProtocolGame::actionEnd(PacketData &, User *, Server &)
-// {
-//   // nothing to do here ;)
-//   return (true);
-// }
 
 bool			ProtocolGame::actionStart(PacketData &, User *user, Server &)
 {

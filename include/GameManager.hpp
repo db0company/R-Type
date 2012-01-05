@@ -5,7 +5,6 @@
 #include <string>
 #include "GameParameter.hpp"
 #include "Game.hpp"
-#include "Room.hpp"
 #include "User.hpp"
 
 class GameManager
@@ -16,11 +15,12 @@ private:
 public:
   GameManager(void);
   ~GameManager(void);
-  bool createRoom(GameParameter const &param);
   bool createGame(GameParameter const &param);
+  bool addPlayerToGame(User *user, unsigned int game_id, std::string const &,
+		       bool root = true, bool observer = false);
+  bool delPlayerFromGame(User *user);
+  Game *getGameFromId(unsigned int id);
 private:
-  std::map<std::string, User *> _userMap;
-  std::map<int, Room *>		_roomMap;
   std::map<int, Game *>		_gameMap;
 };
 

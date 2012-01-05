@@ -2,16 +2,10 @@
 
 GameManager::GameManager(GameManager const &other)
 {
-  this->_userMap = other._userMap;
-  this->_roomMap = other._roomMap;
-  this->_gameMap = other._gameMap;
 }
 
 GameManager& GameManager::operator=(GameManager const &other)
 {
-  this->_userMap = other._userMap;
-  this->_roomMap = other._roomMap;
-  this->_gameMap = other._gameMap;
   return (*this);
 }
 
@@ -23,14 +17,34 @@ GameManager::~GameManager(void)
 {
 }
 
-bool GameManager::createRoom(GameParameter const &)
+bool GameManager::createGame(GameParameter const &param)
 {
-  //todo
-  return (false);
+  Game *new_game = new Game(param);
+
+  this->_gameMap[new_game->getId()] = new_game;
+  return (true);
 }
 
-bool GameManager::createGame(GameParameter const &)
+bool GameManager::addPlayerToGame(User *user, unsigned int game_id,
+				  std::string const &log, bool root, bool observer)
 {
-  //todo
-  return (false);
+  if (this->_gameMap.find(game_id) == this->_gameMap.end())
+    {
+      return (false);
+    }
+  return (this->_gameMap[game_id]->addUser(user, root, observer, log));
 }
+
+// bool GameManager::delPlayerFromGame(User *user)
+// {
+// }
+
+Game *GameManager::getGameFromId(unsigned int id)
+{
+  if (this->_gameMap.find(id) == this->_gameMap.end())
+    {
+      return (NULL);
+    }
+  return (this->_gameMap[id]);
+}
+

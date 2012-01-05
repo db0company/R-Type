@@ -80,9 +80,3 @@ bool ProtocolGameDetails::actionGetMap(PacketData &, User *, Server &)
   // What should i do ?
  return (true);
 }
-
-// bool ProtocolGameDetails::actionPlayerLife(PacketData &, User *, Server &)
-// {
-//   // nothing to do ;)
-//   return (true);
-// }
