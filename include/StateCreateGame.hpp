@@ -14,7 +14,10 @@ namespace LibGraphic
     enum eSelectedButton
       {
  	BUTTON_CREATE_MAP,
-	BUTTON_CREATE_TEAMSIZE,
+	BUTTON_CREATE_TEAMSIZE_1,
+	BUTTON_CREATE_TEAMSIZE_2,
+	BUTTON_CREATE_TEAMSIZE_3,
+	BUTTON_CREATE_TEAMSIZE_4,
 	BUTTON_CREATE_SPECTATOR,
 	BUTTON_CREATE_NAME,
 	BUTTON_CREATE_BACK,
@@ -56,7 +59,8 @@ namespace LibGraphic
     eSelectedButton _currentButton;
     sf::Clock Clock;
     bool _isSpectatorChecked;
-
+    unsigned char _teamSize;
+    std::string _name;
   };
 
 }

@@ -17,6 +17,7 @@ LibGraphic::StateCreateGame::StateCreateGame(std::map<std::string const, Graphic
   this->_nextState = UNKNOWN_STATE;
   this->_currentButton = BUTTON_CREATE_SPECTATOR;
   this->_isSpectatorChecked = false;
+  this->_teamSize = 1;
 }
 
 LibGraphic::StateCreateGame::~StateCreateGame()
@@ -77,39 +78,66 @@ void LibGraphic::StateCreateGame::draw()
 
   ButtonBox.SetPosition(770, 340);
   ButtonBox_s.SetPosition(770, 340);
+  ButtonBoxChecked.SetPosition(770, 340);
+  ButtonBoxChecked_s.SetPosition(770, 340);
   this->_app.Draw(ButtonBox);
+  if (this->_isSpectatorChecked)
+    this->_app.Draw(ButtonBoxChecked);
   if (this->_currentButton == BUTTON_CREATE_SPECTATOR)
-    this->_app.Draw(ButtonBox_s);
-
+    {
+      this->_app.Draw(ButtonBox_s);
+      if (this->_isSpectatorChecked)
+	this->_app.Draw(ButtonBoxChecked_s);
+    }
   sf::String *tmp;
 
   ButtonBox.SetPosition(770, 410);
+  ButtonBox_s.SetPosition(770, 410);
   this->_app.Draw(ButtonBox);
-  tmp = this->getStdToSfString("1", this->getFont("StartFontF"));
+  if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_1)
+    this->_app.Draw(ButtonBox_s);
+  tmp = this->getStdToSfString("1", this->getFont("StartFontE"));
+  if (this->_teamSize == 1)
+    tmp = this->getStdToSfString("1", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(0,0,0,255));
   tmp->SetScale(0.6, 0.6);
   tmp->SetPosition(783, 411);
   this->_app.Draw(*tmp);
 
   ButtonBox.SetPosition(820, 410);
+  ButtonBox_s.SetPosition(820, 410);
   this->_app.Draw(ButtonBox);
-  tmp = this->getStdToSfString("2", this->getFont("StartFontF"));
+  if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_2)
+    this->_app.Draw(ButtonBox_s);
+  tmp = this->getStdToSfString("2", this->getFont("StartFontE"));
+  if (this->_teamSize == 2)
+    tmp = this->getStdToSfString("2", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(0,0,0,255));
   tmp->SetScale(0.6, 0.6);
   tmp->SetPosition(828, 411);
   this->_app.Draw(*tmp);
 
   ButtonBox.SetPosition(870, 410);
+  ButtonBox_s.SetPosition(870, 410);
   this->_app.Draw(ButtonBox);
-  tmp = this->getStdToSfString("3", this->getFont("StartFontF"));
+  if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_3)
+    this->_app.Draw(ButtonBox_s);
+  tmp = this->getStdToSfString("3", this->getFont("StartFontE"));
+  if (this->_teamSize == 3)
+    tmp = this->getStdToSfString("3", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(0,0,0,255));
   tmp->SetScale(0.6, 0.6);
   tmp->SetPosition(878, 411);
   this->_app.Draw(*tmp);
 
   ButtonBox.SetPosition(920, 410);
+  ButtonBox_s.SetPosition(920, 410);
   this->_app.Draw(ButtonBox);
+  if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_4)
+    this->_app.Draw(ButtonBox_s);
   tmp = this->getStdToSfString("4", this->getFont("StartFontE"));
+  if (this->_teamSize == 4)
+    tmp = this->getStdToSfString("4", this->getFont("StartFontF"));
   tmp->SetColor(sf::Color(0,0,0,255));
   tmp->SetScale(0.6, 0.6);
   tmp->SetPosition(928, 411);
@@ -182,7 +210,10 @@ void LibGraphic::StateCreateGame::drawText()
     }
   tmp->SetScale(0.6, 0.6);
   tmp->SetColor(sf::Color(255,255,0, 255));
-  if (this->_currentButton != BUTTON_CREATE_TEAMSIZE)
+  if (this->_currentButton != BUTTON_CREATE_TEAMSIZE_1 &&
+      this->_currentButton != BUTTON_CREATE_TEAMSIZE_2 &&
+      this->_currentButton != BUTTON_CREATE_TEAMSIZE_3 &&
+      this->_currentButton != BUTTON_CREATE_TEAMSIZE_4)
     tmp->SetColor(sf::Color(255,255,255, 205));
   this->_app.Draw(*tmp);
 
@@ -201,6 +232,16 @@ void LibGraphic::StateCreateGame::drawText()
   if (this->_currentButton != BUTTON_CREATE_NAME)
     tmp->SetColor(sf::Color(255,255,255, 205));
   this->_app.Draw(*tmp);
+
+  tmp = this->getStdToSfString(this->_name, this->getFont("StartFontF"));
+  tmp->SetText(this->_name);
+  tmp->SetPosition(785, 487);
+  tmp->SetScale(0.6, 0.6);
+  tmp->SetColor(sf::Color(0, 0, 0, 255));
+  if (this->_currentButton != BUTTON_CREATE_NAME)
+    tmp->SetColor(sf::Color(0, 0, 0, 155));
+ this->_app.Draw(*tmp);
+
 }
 
 LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
@@ -219,9 +260,44 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 		this->_app.Close();
 		exit(EXIT_SUCCESS);
 	      }
+	    case sf::Key::Back :
+	      {
+		if (this->_currentButton == BUTTON_CREATE_NAME)
+		  this->_name = this->_name.substr(0, this->_name.length() - 1);
+		break;
+	      }
+	    case sf::Key::Return :
+	      {
+		if (this->_currentButton == BUTTON_CREATE_NAME)
+		  this->_currentButton = BUTTON_CREATE_CREATE;
+		else if (this->_currentButton == BUTTON_CREATE_BACK)
+		  {
+		    this->_nextState = ROOMLIST;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_CREATE_CREATE)
+		  {
+		    this->_nextState = ROOM;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_1)
+		  this->_teamSize = 1;
+		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_2)
+		  this->_teamSize = 2;
+		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_3)
+		  this->_teamSize = 3;
+		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_4)
+		  this->_teamSize = 4;
+		else if (this->_currentButton == BUTTON_CREATE_SPECTATOR)
+		  this->_isSpectatorChecked = !this->_isSpectatorChecked;
+		break;
+	      }
 	    default : break;
 	    }
 	}
+      else if (Event.Type == sf::Event::TextEntered &&
+	       (Event.Text.Unicode > 20 && Event.Text.Unicode < 128))
+	readText(Event);
       cursorMenuPos(Event);
     }
   return EVENT_NONE;
@@ -229,6 +305,8 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 
 void LibGraphic::StateCreateGame::readText(const sf::Event & Event)
 {
+  if (this->_currentButton == BUTTON_CREATE_NAME && this->_name.size() <= 12)
+    this->_name += static_cast<char>(Event.Text.Unicode);
 }
 
 LibGraphic::eStates LibGraphic::StateCreateGame::getNextState()
@@ -238,6 +316,128 @@ LibGraphic::eStates LibGraphic::StateCreateGame::getNextState()
 
 void LibGraphic::StateCreateGame::cursorMenuPos(const sf::Event & Event)
 {
+  const sf::Input & Input = this->_app.GetInput();
+  float JoystickPOV = Input.GetJoystickAxis(0, sf::Joy::AxisPOV);
+
+  if ((JoystickPOV == -1 && Event.Type != sf::Event::KeyPressed) ||
+      this->Clock.GetElapsedTime() < 0.1)
+    return;
+
+  switch (this->_currentButton)
+    {
+    case BUTTON_CREATE_SPECTATOR :
+      {
+	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+	    Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab)
+	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_1;
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 (Event.Key.Code == sf::Key::Up))
+	  this->_currentButton = BUTTON_CREATE_BACK;
+	break;
+      }
+    case BUTTON_CREATE_TEAMSIZE_1 :
+      {
+	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
+	  this->_currentButton = BUTTON_CREATE_NAME;
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  this->_currentButton = BUTTON_CREATE_SPECTATOR;
+	else if (((JoystickPOV > 45 && JoystickPOV < 135) ||
+		  Event.Key.Code == sf::Key::Right) && gVolume.musicVolume < 100)
+	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_2;
+	else if (((JoystickPOV > 225 && JoystickPOV < 315) ||
+		  Event.Key.Code == sf::Key::Left) && gVolume.musicVolume > 0)
+	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_4;
+	break;
+      }
+    case BUTTON_CREATE_TEAMSIZE_2 :
+      {
+	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
+	  this->_currentButton = BUTTON_CREATE_NAME;
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  this->_currentButton = BUTTON_CREATE_SPECTATOR;
+	else if (((JoystickPOV > 45 && JoystickPOV < 135) ||
+		  Event.Key.Code == sf::Key::Right) && gVolume.musicVolume < 100)
+	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_3;
+	else if (((JoystickPOV > 225 && JoystickPOV < 315) ||
+		  Event.Key.Code == sf::Key::Left) && gVolume.musicVolume > 0)
+	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_1;
+	break;
+      }
+    case BUTTON_CREATE_TEAMSIZE_3 :
+      {
+	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
+	  this->_currentButton = BUTTON_CREATE_NAME;
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  this->_currentButton = BUTTON_CREATE_SPECTATOR;
+	else if (((JoystickPOV > 45 && JoystickPOV < 135) ||
+		  Event.Key.Code == sf::Key::Right) && gVolume.musicVolume < 100)
+	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_4;
+	else if (((JoystickPOV > 225 && JoystickPOV < 315) ||
+		  Event.Key.Code == sf::Key::Left) && gVolume.musicVolume > 0)
+	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_2;
+	break;
+      }
+    case BUTTON_CREATE_TEAMSIZE_4 :
+      {
+	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
+	  this->_currentButton = BUTTON_CREATE_NAME;
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  this->_currentButton = BUTTON_CREATE_SPECTATOR;
+	else if (((JoystickPOV > 45 && JoystickPOV < 135) ||
+		  Event.Key.Code == sf::Key::Right) && gVolume.musicVolume < 100)
+	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_1;
+	else if (((JoystickPOV > 225 && JoystickPOV < 315) ||
+		  Event.Key.Code == sf::Key::Left) && gVolume.musicVolume > 0)
+	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_3;
+	break;
+      }
+    case BUTTON_CREATE_NAME :
+      {
+	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
+	  this->_currentButton = BUTTON_CREATE_CREATE;
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_1;
+	break;
+      }
+    case BUTTON_CREATE_BACK :
+      {
+	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
+	    Event.Key.Code == sf::Key::Right)
+	    this->_currentButton = BUTTON_CREATE_CREATE;
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+		 (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
+	  this->_currentButton = BUTTON_CREATE_SPECTATOR;
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  this->_currentButton = BUTTON_CREATE_NAME;
+	break;
+      }
+    case BUTTON_CREATE_CREATE :
+      {
+	if ((JoystickPOV > 225 && JoystickPOV < 315) ||
+	    Event.Key.Code == sf::Key::Left)
+	  this->_currentButton = BUTTON_CREATE_BACK;
+	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+		 (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
+	  this->_currentButton = BUTTON_CREATE_SPECTATOR;
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
+	  this->_currentButton = BUTTON_CREATE_NAME;
+	break;
+      }
+    default : break;
+    }
+  this->Clock.Reset();
 }
 
 sf::Sprite & LibGraphic::StateCreateGame::getSprite(std::string const & spriteName) const

@@ -397,10 +397,6 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_OPTIONS_IP;
-	else if (Event.Key.Code == sf::Key::Right)
-	  break;
-	else if (Event.Key.Code == sf::Key::Left)
-	  break;
 	break;
       }
     case BUTTON_OPTIONS_VOL_MUSICS :
