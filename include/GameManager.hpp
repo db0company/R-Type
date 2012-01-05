@@ -15,11 +15,13 @@ private:
 public:
   GameManager(void);
   ~GameManager(void);
-  bool createGame(GameParameter const &param);
+  bool addGame(Game *g);
   bool addPlayerToGame(User *user, unsigned int game_id, std::string const &,
 		       bool root = true, bool observer = false);
   bool delPlayerFromGame(User *user);
   Game *getGameFromId(unsigned int id);
+  Game *getGameFromName(std::string const &);
+  std::map<int, Game *>&getGames(void);
 private:
   std::map<int, Game *>		_gameMap;
 };

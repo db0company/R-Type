@@ -1,0 +1,72 @@
+
+			/----------\
+			|  GETTER  |
+			\----------/
+
+
+START :
+      ACTION   : PLAY
+      	       GETIP    : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
+      	       GETPORT  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
+      	       REACTION : CONNECTION
+
+ROOMLIST:
+	ACTION : REFRESH
+	       REACTIONS : PACKET GETGAME, SETGAMELIST
+
+	ACTION : JOIN
+       	       GETNAME  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
+	       GETIDGAME : ROOMLIST -> GRAPHICCLIENTSTATE -> SFML
+	       REACTION : PACKET JOIN
+
+	ACTION : SPECTATE
+       	       GETNAME  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
+	       GETIDGAME : ROOMLIST -> GRAPHICCLIENTSTATE -> SFML
+	       REACTION : PACKET JOIN
+
+CREATE:
+	ACTION : CREATE
+       	       GETNAME  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
+	       GETLVL   : CREATE_GAME -> GRAPHICCLIENTSTATE -> SFML
+	       GETSLOT	: CREATE_GAME -> GRAPHICCLIENTSTATE -> SFML
+	       GETOBSERVER : CREATE_GAME -> GRAPHICCLIENTSTATE -> SFML
+	       REACTION : PACKET CREATE
+
+
+ROOM:
+	ACTION : CHAT
+   	       GETNAME  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
+	       GETMSG   : ROOM -> GRAPHICCLIENTSTATE ->SFML
+	       REACTION : PACKET CHAT
+
+
+			/----------\
+			|  SETTER  |
+			\----------/
+
+PACKET GETGAME :
+       SETGAMELIST : Client -> Sfml -> GRAPHICCLientState -> RoomList
+
+PACKET GETLVL :
+       SETLVLLIST :  Client -> Sfml -> GRAPHICCLientState -> RoomList
+
+PACKET CREATE :
+       FAILURE: affichage erreure (pop)
+       SUCCESS: change state ROOM !
+
+PACKET JOIN :
+       FAILURE: affichage erreure (pop)
+       SUCCESS: change state ROOM !
+
+PACKET END :
+       change state ROOMLIST
+
+PACKET PlayerLogin :
+       SETPLAYERSLOG : Client -> sfml -> graphicclientstate -> ROOM
+   &&  SETPLAYERSLOG : Client -> sfml -> graphicclientstate -> InGame
+
+PACKET Score :
+       SETSCORE : client -> sfml -> graphicclientstate -> InGame
+
+PACKET CHAR:
+       SETTEXT : client -> sfml -> graphicclientstate -> ROOM

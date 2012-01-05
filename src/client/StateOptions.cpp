@@ -397,10 +397,6 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_OPTIONS_IP;
-	else if (Event.Key.Code == sf::Key::Right)
-	  break;
-	else if (Event.Key.Code == sf::Key::Left)
-	  break;
 	break;
       }
     case BUTTON_OPTIONS_VOL_MUSICS :
@@ -516,4 +512,33 @@ inline sf::String * LibGraphic::StateOptions::getStdToSfString(std::string const
   return (new sf::String(s, *daFont));
 }
 
+std::string const & LibGraphic::StateOptions::getName() const
+{
+  return this->_name;
+}
+
+std::string const & LibGraphic::StateOptions::getIp() const
+{
+  return this->_ip;
+}
+
+std::string const & LibGraphic::StateOptions::getPort() const
+{
+  return this->_port;
+}
+
+bool LibGraphic::StateOptions::isDefaultName() const
+{
+  return this->_isDefaultName;
+}
+
+bool LibGraphic::StateOptions::isDefaultIp() const
+{
+  return this->_isDefaultIp;
+}
+
+bool LibGraphic::StateOptions::isDefaultPort() const
+{
+  return this->_isDefaultPort;
+}
 

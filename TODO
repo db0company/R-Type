@@ -11,7 +11,7 @@
 
 -> Client: [Graphic Menu]
 	// OK * Faire la selection des games dans le menu gamelist
-   * Faire le Menu de creation de game
+	// OK * Faire le Menu de creation de game
 	// OK * Faire le Lobby (attente de lancement de partie) + Chat
    * Faire une minifenetre genre popup pour info
      (genre void sfml::pop(std::string const &msg) qui affiche ds la
@@ -45,5 +45,12 @@
    * Lier les packets recu a des actions (jai commencer mais il manques des classes
      Pour continuer)
 
+-> Server [Exec]
+   * Quand un player quite, informer les autres, le del
+   * quand une game fini: del
+   * quand root quitte en mode lobby: si autre player: devient root, sinon del game.
+
 -> Divers
    * Faire les dll de monstres.
+   * creer des lvl
+   * comment gerer la map?

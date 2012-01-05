@@ -19,10 +19,14 @@ English::england.png::0
 Francais::france.png::0
 BasicButton::button-basic.png::0
 BoxEmpty::boxEMPTY.png::0
+BoxEmpty-s::boxEMPTY-s.bmp::0
 BoxChecked::boxFILLED.png::0
+BoxChecked-s::boxFILLED-s.png::0
 VolumeBar::volumebar.png::0
 VolumeButton::volumemenu.png::0
 RoomListCursor::cursor.png::0
 RoomListSelectedGame::slected_game.png::0
 Room-coin::menu-inroom-bitonio-noir.png::0
 RoomMenu::menu-inroom.png::0
+MenuCreateCoins::menu-create-bitonio-noir.png::0
+MenuCreate::menu-create.png::0
