@@ -111,7 +111,6 @@ char			PacketData::getNextChar(void)
   // memcpy(&c, tmp, sizeof(char));
   c = this->data[this->it];
   ++(this->it);
-  std::cout << "getNextChar<" << (int)this->data[this->it - 1] << ">" << std::endl;
   return (c);
 }
 

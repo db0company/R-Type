@@ -10,9 +10,9 @@
 
 unsigned int Game::_sid = 0;
 
-Game::Game(const GameParameter& param)
+Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
+	       _observer(true), _status(LOBBYROOM)
 {
-  _param = param;
   // On va faire quelques tests.
 
   createNewPlayer(NULL, "Player1");
@@ -20,8 +20,9 @@ Game::Game(const GameParameter& param)
   createNewMonster(NULL);
   createNewMonster(NULL);
   createWall();
+
   this->_id = this->_sid;
-  ++this->_sid;
+  ++(this->_sid);
 }
 
 Game::~Game()
@@ -31,7 +32,39 @@ Game::~Game()
 
 Game::Game(const Game& old)
 {
+  this->_id = old._id;
   this->_param = old._param;
+  this->_players = old._players;
+  this->_monster = old._monster;
+  this->_map = old._map;
+  this->_bullets = old._bullets;
+  this->_userMap = old._userMap;
+  this->_userObsMap = old._userObsMap;
+  this->_owner_login = old._owner_login;
+  this->_name = old._name;
+  this->_lvlname = old._lvlname;
+  this->player_max = old.player_max;
+  this->_observer = old._observer;
+  this->_status = old._status;
+}
+
+Game&	Game::operator=(const Game& old)
+{
+  this->_id = old._id;
+  this->_param = old._param;
+  this->_players = old._players;
+  this->_monster = old._monster;
+  this->_map = old._map;
+  this->_bullets = old._bullets;
+  this->_userMap = old._userMap;
+  this->_userObsMap = old._userObsMap;
+  this->_owner_login = old._owner_login;
+  this->_name = old._name;
+  this->_lvlname = old._lvlname;
+  this->player_max = old.player_max;
+  this->_observer = old._observer;
+  this->_status = old._status;
+  return (*this);
 }
 
 void	Game::changePlayerPos(void *)
@@ -187,24 +220,74 @@ void	Game::fireBullet(void *)
   this->_bullets.push_front(Bullet(ent->getPos(), g));
 }
 
-unsigned int Game::getId(void)const
-{
-  return (this->_id);
-}
-
-Game&	Game::operator=(const Game& old)
-{
-  this->_param = old._param;
-  return (*this);
-}
-
 bool Game::addUser(User *user, bool root, bool observer, std::string const &login)
 {
+  if (this->_userMap.size() > this->player_max)
+    return (false);
   if (root)
-    this->owner_login = login;
+    this->_owner_login = login;
   if (observer)
     this->_userMap.insert(std::pair<std::string, User *>(user->getIp(), user));
   else
     this->_userObsMap.insert(std::pair<std::string, User *>(user->getIp(), user));
   return (true);
+}
+
+unsigned int Game::getId(void) const
+{
+  return (this->_id);
+}
+
+std::string &Game::getOwnerLogin(void)
+{
+  return (this->_owner_login);
+}
+
+void Game::setOwnerId(std::string const &log)
+{
+  this->_owner_login = log;
+}
+
+std::string &Game::getName(void)
+{
+  return (this->_name);
+}
+
+void Game::setName(std::string const &n)
+{
+  this->_name = n;
+}
+
+std::string &Game::getLvlName(void)
+{
+  return (this->_lvlname);
+}
+
+void Game::setLvlName(std::string const &lvl)
+{
+  this->_lvlname = lvl;
+}
+
+unsigned int Game::getPlayerMax(void)const
+{
+  return (this->player_max);
+}
+void Game::setPlayerMax(unsigned int p)
+{
+  this->player_max = p;
+}
+
+bool Game::getObs(void)const
+{
+  return (this->_observer);
+}
+
+void Game::setObs(bool o)
+{
+  this->_observer = o;
+}
+
+unsigned int Game::getNbPlayer(void)const
+{
+  return (this->_userMap.size());
 }

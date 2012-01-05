@@ -238,3 +238,8 @@ ICondVar		*Server::getCondVar(void)
 {
   return (this->_condVar);
 }
+
+GameManager		&Server::getGameManager(void)
+{
+  return (this->_gameManager);
+}

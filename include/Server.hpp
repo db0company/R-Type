@@ -21,18 +21,14 @@
 class Server
 {
 public:
+
   Server(void);
   ~Server(void);
   bool init(int port = DEFAULT_PORT);
   bool run(void);
 
-public:
-
-  TaskManager &getTaskManager(void);
-  SafeQueue<PacketTask *> &getTaskQueue(void);
-  ICondVar *getCondVar(void);
-
 private:
+
   bool getNewClient(void);
   bool addClient(ATCPClientSocket *);
   bool readFromClients(void);
@@ -41,7 +37,15 @@ private:
   bool cleanClients(void);
   bool removeClient(User *user, ATCPClientSocket *socket);
 
+public:
+
+  TaskManager &getTaskManager(void);
+  SafeQueue<PacketTask *> &getTaskQueue(void);
+  ICondVar *getCondVar(void);
+  GameManager &getGameManager(void);
+
 private:
+
   SafeQueue<PacketTask *>		_taskQueue;
   ICondVar*				_condVar;
   GameManager				_gameManager;

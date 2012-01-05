@@ -10,11 +10,16 @@
 #include "Position.hpp"
 #include "Bullet.hpp"
 
-//todo
+enum eGameStatus
+  {
+    INGAME,
+    LOBBYROOM
+  };
+
 class	Game
 {
 public:
-  Game(const GameParameter& param);
+  Game(void);
   ~Game(void);
   Game(const Game&);
   Game&	operator=(const Game&);
@@ -28,11 +33,27 @@ public:
   void	moveWall(void *);
   void	createWall();
   void	fireBullet(void *);
-  unsigned int getId(void) const;
-  bool	addUser(User *user, bool root, bool observer, std::string const &);
+
+  // getter // setter
+  unsigned int	getId(void) const;
+  std::string	&getOwnerLogin(void);
+  void		setOwnerId(std::string const &);
+  std::string	&getName(void);
+  void		setName(std::string const &);
+  std::string	&getLvlName(void);
+  void		setLvlName(std::string const &);
+  bool		addUser(User *user, bool root, bool observer, std::string const &);
+  unsigned int	getPlayerMax(void)const;
+  void		setPlayerMax(unsigned int);
+  bool		getObs(void)const;
+  void		setObs(bool);
+  unsigned int	getNbPlayer(void)const;
+  eGameStatus	getStatus(void)const;
+  void		setStatus(eGameStatus e);
+
 private:
   unsigned int _id;
-  GameParameter	_param;
+  GameParameter        _param;
   std::map<std::string, AObject *> _players;
   std::map<std::string, AObject *> _monster;
   std::list<std::list<AObject *> > _map;
@@ -40,7 +61,12 @@ private:
   static unsigned int _sid;
   std::map<std::string , User *> _userMap;
   std::map<std::string, User *> _userObsMap;
-  std::string owner_login;
+  std::string _owner_login;
+  std::string _name;
+  std::string _lvlname;
+  unsigned int player_max;
+  bool _observer;
+  eGameStatus _status;
 };
 
 #endif	// GAME_H_
