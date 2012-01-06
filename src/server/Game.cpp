@@ -67,12 +67,34 @@ Game&	Game::operator=(const Game& old)
   return (*this);
 }
 
-void	Game::changePlayerPos(void *)
+
+void	Game::sendToAllClient(PacketData *data)
+{
+  std::map<std::string, AObject*>::const_iterator it = this->_players.begin();
+
+  while (it != this->_players.end())
+    {
+      sendToIp(data, reinterpret_cast<Player *>(it->second)->getIp());
+      ++it;
+    }
+}
+
+void	Game::sendToIp(PacketData *data, const std::string& ip)
+{
+  //  SendToClientData *UDP = new SendToClientData;
+
+  //  UDP->packet = data;
+  //UDP->ip = ip;
+
+}
+
+void	Game::changePlayerPos(PacketData *info)
 {
   std::string ip; // a extraire du packet
   std::string ret;
   std::map<std::string, AObject *>::iterator it;
   Position newPos;
+  PacketData	*data = new PacketData;
 
   if ((ret = getPlayerByIp(ip)) == "")
     {
@@ -86,41 +108,61 @@ void	Game::changePlayerPos(void *)
       return ;
     }
   newPos = it->second->getPos();
+  //  newPos = info.getPosition();
   it->second->setPos(newPos);
+  data->addString(it->first);
+  // data->addData<Position>(newPos);
+  sendToAllClient(data);
 }
 
-void	Game::moveMonster(void *)
+void	Game::moveMonster(PacketData*)
 {
   std::map<std::string, AObject *>::iterator it = this->_monster.begin();
 
   while (it != this->_monster.end())
     {
+      PacketData	*data = new PacketData;
+      
       reinterpret_cast<Monster *>(it->second)->moveNextPos();
+      data->addString(it->first);
+      //  data->addData<Position>(newPos);
+      sendToAllClient(data);
       ++it;
     }
+  
   // create packet move monster dans 1 s
 }
 
 void	Game::createNewPlayer(User *us, const std::string& name)
 {
   Player	*newPlayer = new Player(us, name);
+  PacketData	*data = new PacketData;
+  Position	pos;
 
   this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
+  data->addString(name);
+  //  data->addData<Position>(newPos);
+  sendToAllClient(data);
 }
 
 void	Game::createNewMonster(void *)
 {
   AObject *truc;
   int	i = 0;
+  std::string name;
+  PacketData *data = new PacketData;
 
   while (i != 3)
     {
       truc = new Monster;
       // initialisation du monstre
       this->_monster.insert(std::pair<std::string, AObject *>("monster", truc));
+      data->addString("monster");
+      //data->addData<Position>(newPos);
+      sendToAllClient(data);
       ++i;
     }
-  // creer un nouveau paquet create new monster
+
 }
 
 const std::string& Game::getPlayerByIp(const std::string& ip)
@@ -151,6 +193,11 @@ void	Game::checkCollision(void *)
 
 	  if ((*itB).getGroup() == ENNEMY && itP->second->getPos() == (*itB).getPos())
 	    {
+	      PacketData *data = new PacketData;
+
+	      data->addString(itP->first);
+	      data->addString(itP->first);
+	      sendToAllClient(data);
 	      // kill player; NE PAS DETRUIRE LE MAILLON ICI
 	      // destroy la bullet MAIS PAS ICI
 	    }

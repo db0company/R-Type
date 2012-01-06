@@ -6,6 +6,7 @@
 #include <map>
 #include "GameParameter.hpp"
 #include "User.hpp"
+#include "PacketData.hpp"
 #include "AObject.hpp"
 #include "Position.hpp"
 #include "Bullet.hpp"
@@ -23,8 +24,9 @@ public:
   ~Game(void);
   Game(const Game&);
   Game&	operator=(const Game&);
-  void	changePlayerPos(void *);
-  void	moveMonster(void *);
+
+  void	changePlayerPos(PacketData *info);
+  void	moveMonster(PacketData *);
   void	createNewPlayer(User *us, const std::string& name);
   void	createNewMonster(void *);
   const std::string& getPlayerByIp(const std::string& ip);
@@ -33,7 +35,8 @@ public:
   void	moveWall(void *);
   void	createWall();
   void	fireBullet(void *);
-
+  void	sendToAllClient(PacketData *data);
+  void	sendToIp(PacketData *data, const std::string& ip);
   // getter // setter
   unsigned int	getId(void) const;
   std::string	&getOwnerLogin(void);
