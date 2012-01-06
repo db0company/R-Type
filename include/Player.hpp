@@ -9,6 +9,7 @@ public:
   Player(User *us, const std::string& name);
   ~Player();
   const std::string&	getIp()const;
+  User		*getUser();
 private:
   User		*us;
 };

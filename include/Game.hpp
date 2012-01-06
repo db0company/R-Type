@@ -10,6 +10,7 @@
 #include "AObject.hpp"
 #include "Position.hpp"
 #include "Bullet.hpp"
+#include "Player.hpp"
 
 enum eGameStatus
   {
@@ -28,15 +29,15 @@ public:
   void	changePlayerPos(PacketData *info);
   void	moveMonster(PacketData *);
   void	createNewPlayer(User *us, const std::string& name);
-  void	createNewMonster(void *);
+  void	createNewMonster(PacketData *);
   const std::string& getPlayerByIp(const std::string& ip);
-  void	checkCollision(void *);
-  void	moveBullet(void *);
-  void	moveWall(void *);
+  void	checkCollision(PacketData *);
+  void	moveBullet(PacketData *);
+  void	moveWall(PacketData *);
   void	createWall();
-  void	fireBullet(void *);
-  void	sendToAllClient(PacketData *data);
-  void	sendToIp(PacketData *data, const std::string& ip);
+  void	fireBullet(PacketData *);
+  void	sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc);
+  void	sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player);
   // getter // setter
   unsigned int	getId(void) const;
   std::string	&getOwnerLogin(void);

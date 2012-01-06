@@ -7,7 +7,9 @@
 #include "Tile.hpp"
 #include "Game.hpp"
 #include "User.hpp"
-
+#include "User.hpp"
+#include "eProtocolPacketMovement.hpp"
+#include "eProtocolPacketGame.hpp"
 unsigned int Game::_sid = 0;
 
 Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
@@ -68,24 +70,27 @@ Game&	Game::operator=(const Game& old)
 }
 
 
-void	Game::sendToAllClient(PacketData *data)
+void	Game::sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc)
 {
   std::map<std::string, AObject*>::const_iterator it = this->_players.begin();
+  User	*us;
 
   while (it != this->_players.end())
     {
-      sendToIp(data, reinterpret_cast<Player *>(it->second)->getIp());
+      ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, *data);
+      us = static_cast<Player *>(it->second)->getUser();
+      us->addPacketToSendUDP(packet_to_send);
       ++it;
     }
 }
 
-void	Game::sendToIp(PacketData *data, const std::string& ip)
+void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player)
 {
-  //  SendToClientData *UDP = new SendToClientData;
+  ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, *data);
+  User	*us;
 
-  //  UDP->packet = data;
-  //UDP->ip = ip;
-
+  us = static_cast<Player *>(player)->getUser();
+  us->addPacketToSendUDP(packet_to_send);
 }
 
 void	Game::changePlayerPos(PacketData *info)
@@ -111,8 +116,8 @@ void	Game::changePlayerPos(PacketData *info)
   //  newPos = info.getPosition();
   it->second->setPos(newPos);
   data->addString(it->first);
-  // data->addData<Position>(newPos);
-  sendToAllClient(data);
+  //  data->addData<Position>(it->second->getPos);
+  sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
 }
 
 void	Game::moveMonster(PacketData*)
@@ -125,12 +130,10 @@ void	Game::moveMonster(PacketData*)
       
       reinterpret_cast<Monster *>(it->second)->moveNextPos();
       data->addString(it->first);
-      //  data->addData<Position>(newPos);
-      sendToAllClient(data);
+      //data->addData<Position>(it->second->getPos());
+      sendToAllClient(data, MOVEMENT, UPDATEENEMY);
       ++it;
     }
-  
-  // create packet move monster dans 1 s
 }
 
 void	Game::createNewPlayer(User *us, const std::string& name)
@@ -140,12 +143,9 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   Position	pos;
 
   this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
-  data->addString(name);
-  //  data->addData<Position>(newPos);
-  sendToAllClient(data);
 }
 
-void	Game::createNewMonster(void *)
+void	Game::createNewMonster(PacketData *)
 {
   AObject *truc;
   int	i = 0;
@@ -157,9 +157,9 @@ void	Game::createNewMonster(void *)
       truc = new Monster;
       // initialisation du monstre
       this->_monster.insert(std::pair<std::string, AObject *>("monster", truc));
-      data->addString("monster");
-      //data->addData<Position>(newPos);
-      sendToAllClient(data);
+      data->addString("monster01");
+      //      data->addData<Position>(newPos);
+      sendToAllClient(data, MOVEMENT, UPDATEENEMY);
       ++i;
     }
 
@@ -179,7 +179,7 @@ const std::string& Game::getPlayerByIp(const std::string& ip)
   return (it->second->getName()); // jai mis sa pour retirer le warning
 }
 
-void	Game::checkCollision(void *)
+void	Game::checkCollision(PacketData *)
 {
   std::map<std::string, AObject *>::iterator itP = this->_players.begin();
   std::map<std::string, AObject *>::iterator itM = this->_monster.begin();
@@ -196,8 +196,7 @@ void	Game::checkCollision(void *)
 	      PacketData *data = new PacketData;
 
 	      data->addString(itP->first);
-	      data->addString(itP->first);
-	      sendToAllClient(data);
+	      sendToAllClient(data, THE_GAME, ENDGAME);
 	      // kill player; NE PAS DETRUIRE LE MAILLON ICI
 	      // destroy la bullet MAIS PAS ICI
 	    }
@@ -207,6 +206,10 @@ void	Game::checkCollision(void *)
 	{
 	  if (itP->second->getPos() == itM->second->getPos())
 	    {
+	      PacketData *data = new PacketData;
+
+	      data->addString(itP->first);
+	      sendToAllClient(data, THE_GAME, ENDGAME);
 	      // kill player; NE PAS DETRUIRE LE MAILLON ICI
 	    }
 	  ++itM;
@@ -215,21 +218,25 @@ void	Game::checkCollision(void *)
     }
 }
 
-void	Game::moveBullet(void *)
+void	Game::moveBullet(PacketData *)
 {
   Position p;
   std::list<Bullet>::iterator it = this->_bullets.begin();
 
   while (it != this->_bullets.end())
     {
+      PacketData	*data = new PacketData;
+
       p = (*it).getPos();
       p.x--;
+      //      data->addData<Position>(it->getPos());
+      sendToAllClient(data, MOVEMENT, UPDATEBULLET);
       (*it).setPos(p);
       ++it;
     }
 }
 
-void	Game::moveWall(void *)
+void	Game::moveWall(PacketData *)
 {
   std::list<AObject *> line;
 
@@ -258,13 +265,16 @@ void	Game::createWall()
     }
 }
 
-void	Game::fireBullet(void *)
+void	Game::fireBullet(PacketData *)
 {
   AObject *ent = NULL;
   eGroup	g;
+  PacketData *data = new PacketData;
 
   g = reinterpret_cast<Entities *>(ent)->getGroup();
   this->_bullets.push_front(Bullet(ent->getPos(), g));
+  //  data->addData<Position>(ent->getPos());
+  sendToAllClient(data, MOVEMENT, UPDATEBULLET);
 }
 
 bool Game::addUser(User *user, bool root, bool observer, std::string const &login)

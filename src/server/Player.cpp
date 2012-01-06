@@ -19,3 +19,7 @@ const std::string&	Player::getIp()const
   return (this->us->getIp());
 }
 
+User		*Player::getUser()
+{
+  return (this->us);
+}
