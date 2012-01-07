@@ -3,7 +3,7 @@
 
 #include "ITimer.hpp"
 
-class		TimerUnix : ITimer
+class		TimerUnix : public ITimer
 {
 private:
   double	start_time;

@@ -15,6 +15,7 @@
 #include "PacketTask.hpp"
 #include "IMutex.hpp"
 #include "ICondVar.hpp"
+#include "ITimer.hpp"
 
 #define DEFAULT_PORT 12348
 
@@ -60,6 +61,7 @@ private:
   ISelector*				_selector;
   PacketManager				_pm;
   int					_port;
+  ITimer				*_time;
 };
 
 #endif// _SERVER_RTYPE_HPP_

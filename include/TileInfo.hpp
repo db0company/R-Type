@@ -1,4 +1,4 @@
-#ifndif __TILEINFO_HH
+#ifndef __TILEINFO_HH
 #define __TILEINFO_HH
 
 #define TILE_SIZE_X 128
@@ -26,5 +26,16 @@ enum eTilePos
     CEILING = 0,
     FLOOR = 1
   };
+
+struct TileStruct
+{
+  eTileName up;
+  eTileName down;
+  TileStruct() {}
+  TileStruct(eTileName u, eTileName d) 
+    : up(u), down(d)
+  { }
+
+};
 
 #endif // __TILEINFO_HH

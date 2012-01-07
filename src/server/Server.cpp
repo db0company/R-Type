@@ -6,11 +6,12 @@
 # include "UDPServerSocketUnix.h"
 # include "MutexUnix.hpp"
 # include "CondVarUnix.hpp"
+# include "TimerUnix.hpp"
 #else
 # include "TCPServerSocketWindows.h"
 # include "UDPServerSocketWindows.h"
 # include "CondVarWindows.hpp"
-
+# include "TimerWindows.hpp"
 #endif
 
 Server::Server(void) :
@@ -22,12 +23,14 @@ Server::Server(void) :
   this->_udp = new UDPServerSocketUnix(this->_selector);
   this->_listener = new TCPServerSocketUnix(this->_selector);
   this->_condVar = new CondVarUnix;
+  this->_time = new TimerUnix;
 #else
   this->_udpMutex = new MutexWindows;
   this->_selector = new Selector<SOCKET>;
   this->_udp = new UDPServerSocketWindows(this->_selector);
   this->_listener = new TCPServerSocketWindows(this->_selector);
   this->_condVar = new CondVarWindows;
+  this->_time = new TimerWindows;
 #endif
   this->_taskNet.init(this->_udp, this->_udpMutex);
   IThreadData *threadData = new ThreadData<PacketTask *>(this->_taskQueue, this->_condVar);
@@ -208,14 +211,19 @@ bool	Server::processPackets(void)
 
 bool Server::run(void)
 {
+  this->_time->resetTime();
+
   while (true)
     {
       this->_listener->SNAddRead();
+      this->_selector->setTimer(1, 0);
       if (!this->_selector->SNSelect())
 	{
 	  std::cerr << "Error: Select" << std::endl;
 	  return (false);
 	}
+      if (this->_selector->getSec() == 0 && this->_selector->getUsec() == 0)
+	std::cout << "It's time to packet." << std::endl;
       this->getNewClient();
       this->readFromClients();
       this->processPackets();
