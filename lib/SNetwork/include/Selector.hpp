@@ -82,8 +82,6 @@ public:
 	else
 	  (*it).second->SNSetRead(false);
       }
-    this->_timeout.tv_sec = 0;
-    this->_timeout.tv_usec = 0;
     return (true);
   }
 
@@ -123,6 +121,22 @@ public:
     this->_writeMap.erase(socket);
     FD_CLR(socket, &(this->_writeFd));
     return (true);
+  }
+
+  void setTimer(long sec, long usec)
+  {
+    this->_timeout.tv_sec = sec;
+    this->_timeout.tv_usec = usec;
+  }
+
+  long getSec(void) const
+  {
+    return (this->_timeout.tv_sec);
+  }
+
+  long getUsec(void) const
+  {
+    return (this->_timeout.tv_usec);
   }
 
 private:
