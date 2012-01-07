@@ -20,7 +20,7 @@
 #include "ClientNetwork.hpp"
 #include <cstdlib>
 
-ClientNetwork::ClientNetwork(void) : _ip(""), _port(0)
+ClientNetwork::ClientNetwork(void) : _ip(""), _port(0), _connected(false)
 {
 #ifndef _WIN32
   this->_selector = new Selector<int>;
@@ -34,7 +34,7 @@ ClientNetwork::ClientNetwork(void) : _ip(""), _port(0)
 }
 
 
-ClientNetwork::ClientNetwork(std::string const &ip, int port) : _ip(ip), _port(port)
+ClientNetwork::ClientNetwork(std::string const &ip, int port) : _ip(ip), _port(port), _connected(false)
 {
 #ifndef _WIN32
   this->_selector = new Selector<int>;
@@ -62,6 +62,7 @@ ClientNetwork::ClientNetwork(const ClientNetwork&other)
   this->_tcp = other._tcp;
   this->_udp = other._udp;
   this->_selector = other._selector;
+  this->_connected = other._connected;
 }
 
 ClientNetwork&	ClientNetwork::operator=(const ClientNetwork&other)
@@ -69,7 +70,13 @@ ClientNetwork&	ClientNetwork::operator=(const ClientNetwork&other)
   this->_tcp = other._tcp;
   this->_udp = other._udp;
   this->_selector = other._selector;
+  this->_connected = other._connected;
   return (*this);
+}
+
+bool ClientNetwork::isConnected(void)const
+{
+  return (this->_connected);
 }
 
 bool ClientNetwork::connect(std::string const &ip, int port)
@@ -94,6 +101,7 @@ bool ClientNetwork::connect(std::string const &ip, int port)
   this->_tcp->SNAddRead();
   this->_udp->SNAddRead();
   this->_tcp->SNAddWrite();
+  this->_connected = true;
   return (true);
 }
 

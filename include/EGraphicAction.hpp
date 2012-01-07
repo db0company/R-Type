@@ -12,4 +12,10 @@ enum eGraphicAction
     UNKNOWN
   };
 
+// enum eNetworkAction
+//   {
+//     JOIN_SUCCESS,
+
+//   };
+
 #endif //EGRAPHICACTION_H
