@@ -20,7 +20,8 @@
 #include "ClientNetwork.hpp"
 #include <cstdlib>
 
-ClientNetwork::ClientNetwork(void) : _ip(""), _port(0), _connected(false)
+ClientNetwork::ClientNetwork(void) :
+  _ip(""), _port(0), _connected(false), _action(UNKNOWN_NET)
 {
 #ifndef _WIN32
   this->_selector = new Selector<int>;
@@ -34,7 +35,8 @@ ClientNetwork::ClientNetwork(void) : _ip(""), _port(0), _connected(false)
 }
 
 
-ClientNetwork::ClientNetwork(std::string const &ip, int port) : _ip(ip), _port(port), _connected(false)
+ClientNetwork::ClientNetwork(std::string const &ip, int port) :
+  _ip(ip), _port(port), _connected(false), _action(UNKNOWN_NET)
 {
 #ifndef _WIN32
   this->_selector = new Selector<int>;
@@ -63,6 +65,7 @@ ClientNetwork::ClientNetwork(const ClientNetwork&other)
   this->_udp = other._udp;
   this->_selector = other._selector;
   this->_connected = other._connected;
+  this->_action = other._action;
 }
 
 ClientNetwork&	ClientNetwork::operator=(const ClientNetwork&other)
@@ -71,12 +74,23 @@ ClientNetwork&	ClientNetwork::operator=(const ClientNetwork&other)
   this->_udp = other._udp;
   this->_selector = other._selector;
   this->_connected = other._connected;
+  this->_action = other._action;
   return (*this);
 }
 
 bool ClientNetwork::isConnected(void)const
 {
   return (this->_connected);
+}
+
+eNetworkAction ClientNetwork::getAction(void) const
+{
+  return (this->_action);
+}
+
+void ClientNetwork::setAction(eNetworkAction a)
+{
+  this->_action = a;
 }
 
 bool ClientNetwork::connect(std::string const &ip, int port)
@@ -135,7 +149,7 @@ bool ClientNetwork::feedPacketAggregatorTCP(void)
 bool ClientNetwork::feedPacketAggregatorUDP(void)
 {
   int size;
-  char buffer[1024];// = {0};
+  char buffer[1024];
 
   if (this->_udp->SNGetRead())
     {

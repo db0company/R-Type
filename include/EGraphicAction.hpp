@@ -12,10 +12,13 @@ enum eGraphicAction
     UNKNOWN
   };
 
-// enum eNetworkAction
-//   {
-//     JOIN_SUCCESS,
-
-//   };
+enum eNetworkAction
+  {
+    JOIN_SUCCESS,
+    START_GAME_SUCESS,
+    GET_GAME_SUCESS,
+    CREATE_SUCESS,
+    UNKNOWN_NET
+  };
 
 #endif //EGRAPHICACTION_H

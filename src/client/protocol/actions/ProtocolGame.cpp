@@ -1,6 +1,8 @@
 #include <iostream>
 #include "GameParameter.hpp"
 #include "ProtocolGame.hpp"
+#include "EGraphicAction.hpp"
+#include "Client.hpp"
 
 ProtocolGame::ProtocolGame()
 {
@@ -89,7 +91,7 @@ bool			ProtocolGame::actionGetLevel(PacketData & data, Client &)
     return (true);
 }
 
-bool			ProtocolGame::actionCreate(PacketData & data, Client &)
+bool			ProtocolGame::actionCreate(PacketData & data, Client &client)
 {
   char			status;
   std::string		details;
@@ -99,17 +101,19 @@ bool			ProtocolGame::actionCreate(PacketData & data, Client &)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
  if (status)
     {
+      client.getNetwork().setAction(CREATE_SUCESS);
       // TODO la creation de la game a reussi
       //  -> on passe en affichage room (join ?)
     }
   else
     {
+      client.getNetwork().setAction(CREATE_SUCESS);
       // TODO creation fail. popup error
     }
   return (true);
 }
 
-bool			ProtocolGame::actionJoin(PacketData & data, Client &)
+bool			ProtocolGame::actionJoin(PacketData & data, Client &client)
 {
   char			status;
   std::string		details;
@@ -119,11 +123,13 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
+      client.getNetwork().setAction(JOIN_SUCCESS);
       // TODO join de la game a reussi
       // -> on passe en affichage room
     }
   else
     {
+      client.getNetwork().setAction(JOIN_SUCCESS);
       // TODO join fail. popup error
     }
   return (true);
@@ -141,7 +147,7 @@ bool			ProtocolGame::actionEnd(PacketData &, Client &)
   return (true);
 }
 
-bool			ProtocolGame::actionStart(PacketData & data, Client &)
+bool			ProtocolGame::actionStart(PacketData & data, Client &client)
 {
   char			status;
   std::string		details;
@@ -151,10 +157,12 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
+      client.getNetwork().setAction(START_GAME_SUCESS);
       // Todo
     }
   else
     {
+      client.getNetwork().setAction(START_GAME_SUCESS);
       // Todo
     }
   return (true);
