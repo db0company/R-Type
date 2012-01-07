@@ -177,7 +177,8 @@ add_executable(
 	./src/server/Tile.cpp
 	./src/server/AObject.cpp
 	./src/server/Bullet.cpp
-	#./src/server/TimerWindows.cpp
+	./src/server/TimerUnix.cpp
+	./src/server/RecupMap.cpp
 )
 
 if(UNIX)
