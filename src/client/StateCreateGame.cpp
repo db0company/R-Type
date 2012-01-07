@@ -484,3 +484,8 @@ void LibGraphic::StateCreateGame::setAction(eGraphicAction g)
 {
   this->_action = g;
 }
+
+void LibGraphic::StateCreateGame::setNextState(eStates e)
+{
+  this->_nextState = e;
+}

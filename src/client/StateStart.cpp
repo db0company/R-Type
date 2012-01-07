@@ -289,8 +289,8 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		else if (this->_currentButton == BUTTON_PLAY)
 		  {
 		    this->_action = START_PLAY;
-		    this->_nextState = ROOMLIST;
-		    return EVENT_CHANGE_STATE;
+		    //		    this->_nextState = ROOMLIST;
+		    //		    return EVENT_CHANGE_STATE;
 		  }
 		break;
 	      }
@@ -446,4 +446,9 @@ eGraphicAction LibGraphic::StateStart::getAction()
 void LibGraphic::StateStart::setAction(eGraphicAction g)
 {
   this->_action = g;
+}
+
+void LibGraphic::StateStart::setNextState(eStates e)
+{
+  this->_nextState = e;
 }

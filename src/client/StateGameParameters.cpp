@@ -93,3 +93,8 @@ void LibGraphic::StateGameParameters::setAction(eGraphicAction g)
 {
   this->_action = g;
 }
+
+void LibGraphic::StateGameParameters::setNextState(eStates e)
+{
+  this->_nextState = e;
+}

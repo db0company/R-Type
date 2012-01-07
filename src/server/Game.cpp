@@ -17,11 +17,11 @@ Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
 {
   // On va faire quelques tests.
 
-  createNewPlayer(NULL, "Player1");
-  createNewPlayer(NULL, "Player2");
-  createNewMonster(NULL);
-  createNewMonster(NULL);
-  createWall();
+  // createNewPlayer(NULL, "Player1");
+  // createNewPlayer(NULL, "Player2");
+  // createNewMonster(NULL);
+  // createNewMonster(NULL);
+  // createWall();
 
   this->_id = this->_sid;
   ++(this->_sid);
@@ -93,7 +93,7 @@ void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Playe
   us->addPacketToSendUDP(packet_to_send);
 }
 
-void	Game::changePlayerPos(PacketData *info)
+void	Game::changePlayerPos(PacketData *)
 {
   std::string ip; // a extraire du packet
   std::string ret;
@@ -127,7 +127,7 @@ void	Game::moveMonster(PacketData*)
   while (it != this->_monster.end())
     {
       PacketData	*data = new PacketData;
-      
+
       reinterpret_cast<Monster *>(it->second)->moveNextPos();
       data->addString(it->first);
       //data->addData<Position>(it->second->getPos());

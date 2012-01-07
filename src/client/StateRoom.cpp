@@ -262,3 +262,8 @@ void LibGraphic::StateRoom::setAction(eGraphicAction g)
 {
   this->_action = g;
 }
+
+void LibGraphic::StateRoom::setNextState(eStates e)
+{
+  this->_nextState = e;
+}

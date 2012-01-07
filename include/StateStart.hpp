@@ -31,6 +31,7 @@ namespace LibGraphic
     virtual Event gereEvent();
     virtual eStates getNextState();
     virtual eGraphicAction getAction();
+    virtual void setNextState(eStates e);
     virtual void setAction(eGraphicAction);
 
   public:

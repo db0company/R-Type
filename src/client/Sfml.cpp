@@ -43,6 +43,12 @@ bool LibGraphic::Sfml::init()
   return true;
 }
 
+bool LibGraphic::Sfml::goToNextState(void)
+{
+  this->_currentState = this->_graphicState->goToNextState(this->_currentState);
+  return (true);
+}
+
 LibGraphic::Event LibGraphic::Sfml::getEvent()
 {
   switch (this->_graphicState->getEventFromState(this->_currentState))
@@ -92,7 +98,7 @@ bool LibGraphic::Sfml::loadFont()
   ressourceFile.open("ressources/.ressources_fonts");
   if (!ressourceFile.is_open())
     {
-      std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " <<"ressources/.ressources_fonts" << std::endl;
+      std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " << "ressources/.ressources_fonts" << std::endl;
       // throw
       return false;
     }
@@ -269,6 +275,11 @@ std::string const & LibGraphic::Sfml::getIp() const
   return this->_graphicState->getIp();
 }
 
+std::string const & LibGraphic::Sfml::getName() const
+{
+  return this->_graphicState->getName();
+}
+
 int LibGraphic::Sfml::getPort() const
 {
   return this->_graphicState->getPort();
@@ -307,4 +318,9 @@ std::string const & LibGraphic::Sfml::getGameName() const
 void LibGraphic::Sfml::setAction(eGraphicAction gAction)
 {
   this->_graphicState->setAction(gAction, this->_currentState);
+}
+
+void LibGraphic::Sfml::setNextState(eStates next)
+{
+  this->_graphicState->setNextState(this->_currentState, next);
 }

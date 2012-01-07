@@ -35,8 +35,10 @@ namespace LibGraphic
   public:
     eGraphicAction getAction() const;
     void	   setAction(eGraphicAction);
-    void	   setNextState(eStates s);
+    void	   setNextState(eStates next);
+    bool	   goToNextState(void);
     std::string const & getIp() const;
+    std::string const & getName() const;
     int getPort() const;
     int getIdGame() const;
     std::string const & getLevel() const;

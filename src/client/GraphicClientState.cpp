@@ -96,6 +96,11 @@ std::string const & LibGraphic::GraphicClientState::getIp() const
   return reinterpret_cast <StateOptions const *>(getValue(this->_stateInfos,OPTIONS))->getIp();
 }
 
+std::string const & LibGraphic::GraphicClientState::getName() const
+{
+  return reinterpret_cast <StateOptions const *>(getValue(this->_stateInfos,OPTIONS))->getName();
+}
+
 int LibGraphic::GraphicClientState::getPort()
 {
   int port;
@@ -140,4 +145,9 @@ std::string const & LibGraphic::GraphicClientState::getMessage() const
 void LibGraphic::GraphicClientState::setAction(eGraphicAction eAction, eStates scene)
 {
   return this->_stateInfos[scene]->setAction(eAction);
+}
+
+void LibGraphic::GraphicClientState::setNextState(eStates current, eStates next)
+{
+  this->_stateInfos[current]->setNextState(next);
 }
