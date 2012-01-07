@@ -8,9 +8,9 @@
 #include "ISelector.h"
 #include "ISocket.h"
 #include "ClientPacketManager.hpp"
-#include "EGraphicAction.hpp"
 
 class		Client;
+//class		ClientPacketManager;
 class		ClientNetwork
 {
 public:
@@ -33,9 +33,6 @@ public:
   void setIp(std::string const &);
   void setPort(int port);
   bool isConnected(void) const;
-
-  eNetworkAction getAction(void) const;
-  void setAction(eNetworkAction);
 private:
   ClientPacketManager   _pm;
   ATCPClientSocket *_tcp;
@@ -48,7 +45,6 @@ private:
   std::string	   _ip;
   int		   _port;
   bool		   _connected;
-  eNetworkAction   _action;
 };
 
 #endif	// CLIENTNETWORK_H_

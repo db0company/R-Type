@@ -15,9 +15,7 @@ public:
   Client(std::string const &ip, int port);
   bool init(void);
   bool run(void);
-  bool gereGraphicAction(void);
-  bool gereNetworkAction(void);
-  ClientNetwork &getNetwork(void);
+  bool gereAction(void);
 private:
   ClientNetwork		cNetwork;
   LibGraphic::Sfml	cGraphic;

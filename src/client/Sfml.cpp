@@ -56,7 +56,6 @@ LibGraphic::Event LibGraphic::Sfml::getEvent()
     case EVENT_CHANGE_STATE :
       {
 	this->_currentState = this->_graphicState->goToNextState(this->_currentState);
-	return (EVENT_CHANGE_STATE);
 	break;
       }
     default : break;

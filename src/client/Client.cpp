@@ -38,7 +38,7 @@ bool Client::init(void)
   this->cNetwork.setPort(12348);
 }
 
-bool Client::gereGraphicAction(void)
+bool Client::gereAction(void)
 {
   eGraphicAction action = this->cGraphic.getAction();
 
@@ -60,7 +60,6 @@ bool Client::gereGraphicAction(void)
       this->cGraphic.setAction(UNKNOWN);
       this->cGraphic.setNextState(LibGraphic::ROOMLIST);
       this->cGraphic.goToNextState();
-      return (true);
     }
   else if (action == ROOMLIST_REFRESH)
     {
@@ -68,7 +67,7 @@ bool Client::gereGraphicAction(void)
       PacketData *to_send = new PacketData;
 
       packet_to_send = PacketFactory::createPacket(THE_GAME,
-      						   static_cast<ushort>(GETGAME), to_send);
+		   static_cast<ushort>(GETGAME), to_send);
       this->cNetwork.pushTCP(packet_to_send);
       this->cGraphic.setAction(UNKNOWN);
     }
@@ -84,13 +83,10 @@ bool Client::gereGraphicAction(void)
       to_send->addShort(0);
       to_send->addChar(0);
       packet_to_send = PacketFactory::createPacket(THE_GAME,
-						   static_cast<ushort>(JOINGAME), to_send);
-      std::cout << "push je veut join "<< std::endl;
+		   static_cast<ushort>(JOINGAME), to_send);
       this->cNetwork.pushTCP(packet_to_send);
       this->cGraphic.setNextState(LibGraphic::ROOM);
       this->cGraphic.goToNextState();
-      //      this->cGraphic.setAction(UNKNOWN);
-      return (false);
     }
   else if (action == ROOMLIST_SPECTATE)
     {
@@ -109,8 +105,6 @@ bool Client::gereGraphicAction(void)
 
       this->cGraphic.setNextState(LibGraphic::ROOM);
       this->cGraphic.goToNextState();
-      // this->cGraphic.setAction(UNKNOWN);
-      return (false);
     }
   // else if (action == CREATE_CREATE)
   //   {
@@ -118,63 +112,31 @@ bool Client::gereGraphicAction(void)
   // else if (action == ROOM_CHAT)
   //   {
   //   }
-  return (false);
-}
-
-bool Client::gereNetworkAction(void)
-{
-  eNetworkAction action = this->cNetwork.getAction();
-
-  if (action == UNKNOWN_NET)
-    return (false);
-  std::cout << "action reseau ici" << std::endl;
-  if (action == JOIN_SUCCESS || action == CREATE_SUCESS)
-    {
-      std::cout << "action join" << std::endl;
-      this->cNetwork.setAction(UNKNOWN_NET);
-    }
-  else if (action == GET_GAME_SUCESS)
-    {
-      // todo
-      this->cNetwork.setAction(UNKNOWN_NET);
-    }
-  else if (action == (START_GAME_SUCESS))
-    {
-      // todo
-      this->cNetwork.setAction(UNKNOWN_NET);
-    }
-  else
-    {
-      this->cNetwork.setAction(UNKNOWN_NET);
-    }
-  return (false);
+  return (true);
 }
 
 bool Client::run(void)
 {
+  // if (!this->cNetwork.connect("127.0.0.1", 12348))
+  //   {
+  //     //et pas en dur !
+  //     return (false);
+  //   }
   while (true)
     {
       if (!this->cNetwork.select())
-	{
-	  std::cerr << "Error: Can't Monitor Sockets" << std::endl;
-	  return (false);
-	}
+      	{
+      	  std::cerr << "Error: Can't Monitor Sockets" << std::endl;
+      	  return (false);
+      	}
       this->cNetwork.feedPacketAggregatorTCP();
       this->cNetwork.feedPacketAggregatorUDP();
       this->cGraphic.getEvent();
-      if (!this->gereGraphicAction())
-      	{
-      	  this->gereNetworkAction();
-      	}
+      this->gereAction();
       this->cGraphic.clean();
       this->cGraphic.draw();
       this->cNetwork.sendPacketToServer(); // static ok?
       this->cNetwork.process(*this);
     }
   return (true);
-}
-
-ClientNetwork &Client::getNetwork(void)
-{
-  return (this->cNetwork);
 }
