@@ -3,6 +3,7 @@
 #include "Protocol.h"
 #include "PacketData.hpp"
 #include "PacketFactory.hpp"
+#include "EGraphicAction.hpp"
 
 Client::Client(void) : cNetwork("127.0.0.1", 12348), cGraphic(cNetwork)
 {}
@@ -36,6 +37,35 @@ bool Client::init(void)
   this->cNetwork.setPort(12348);
 }
 
+bool Client::gereAction(void)
+{
+  eGraphicAction action = this->cGraphic.getAction();
+
+  if (action == UNKNOWN)
+    return (false);
+  if (action == START_PLAY)
+    {
+      std::cout << "PLAY" << std::endl;
+      this->cGraphic.setAction(UNKNOWN);
+    }
+  if (action == ROOMLIST_REFRESH)
+    {
+      std::cout << "REFRESH" << std::endl;
+      this->cGraphic.setAction(UNKNOWN);
+    }
+  if (action == ROOMLIST_JOIN)
+    {
+      std::cout << "JOIIIN" << std::endl;
+      this->cGraphic.setAction(UNKNOWN);
+    }
+  if (action == ROOMLIST_SPECTATE)
+    {
+      std::cout << "SPECTATE" << std::endl;
+      this->cGraphic.setAction(UNKNOWN);
+    }
+  return (true);
+}
+
 bool Client::run(void)
 {
   int i;
@@ -56,6 +86,7 @@ bool Client::run(void)
       this->cNetwork.feedPacketAggregatorTCP();
       this->cNetwork.feedPacketAggregatorUDP();
       this->cGraphic.getEvent();
+      this->gereAction();
       this->cGraphic.clean();
       this->cGraphic.draw();
       if (i == 0)

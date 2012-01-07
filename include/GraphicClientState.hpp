@@ -29,7 +29,9 @@ namespace LibGraphic
 
     // Getter/Setter pour le reseau
   public:
-    eGraphicAction getAction() const;
+    eGraphicAction getAction(eStates scene);
+    void setAction(eGraphicAction, eStates);
+
     std::string const & getIp() const;
     int getPort();
     int getIdGame() const;

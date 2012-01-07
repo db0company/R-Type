@@ -31,10 +31,11 @@ namespace LibGraphic
     virtual void quit();
     virtual void clean();
     virtual void draw();
-
     // Getter/Setter pour le reseau
   public:
     eGraphicAction getAction() const;
+    void	   setAction(eGraphicAction);
+    void	   setNextState(eStates s);
     std::string const & getIp() const;
     int getPort() const;
     int getIdGame() const;

@@ -11,7 +11,7 @@ LibGraphic::StateStart::StateStart(std::map<std::string const, GraphicRessource 
 						   sf::RenderWindow & app):
   _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app)
+  _app(app), _action(UNKNOWN)
 {
   this->_currentButton = BUTTON_PLAY;
   this->_nextState = UNKNOWN_STATE;
@@ -288,6 +288,7 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_PLAY)
 		  {
+		    this->_action = START_PLAY;
 		    this->_nextState = ROOMLIST;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -314,6 +315,7 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_PLAY)
 		  {
+		    this->_action = START_PLAY;
 		    this->_nextState = ROOMLIST;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -434,4 +436,14 @@ sf::Font * LibGraphic::StateStart::getFont(std::string const & fontName) const
 inline sf::String * LibGraphic::StateStart::getStdToSfString(std::string const & s, sf::Font * daFont)
 {
   return (new sf::String(s, *daFont));
+}
+
+eGraphicAction LibGraphic::StateStart::getAction()
+{
+  return (this->_action);
+}
+
+void LibGraphic::StateStart::setAction(eGraphicAction g)
+{
+  this->_action = g;
 }

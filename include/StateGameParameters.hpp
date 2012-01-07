@@ -31,6 +31,9 @@ namespace LibGraphic
     virtual void draw();
     virtual Event gereEvent();
     virtual eStates getNextState();
+    virtual eGraphicAction getAction();
+    virtual void setAction(eGraphicAction);
+
   public:
     sf::Sprite & getSprite(std::string const &) const;
     MyMusic * getMusic(std::string const &) const;
@@ -54,7 +57,7 @@ namespace LibGraphic
     eStates _nextState;
     eSelectedButton _currentButton;
     sf::Clock Clock;
-
+    eGraphicAction _action;
   };
 
 }

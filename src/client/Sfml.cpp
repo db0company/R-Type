@@ -261,7 +261,7 @@ inline unsigned int LibGraphic::Sfml::getIntFromS(std::string s)
 
 eGraphicAction LibGraphic::Sfml::getAction() const
 {
-  return this->_graphicState->getAction();
+  return this->_graphicState->getAction(this->_currentState);
 }
 
 std::string const & LibGraphic::Sfml::getIp() const
@@ -302,4 +302,9 @@ std::string const & LibGraphic::Sfml::getMessage() const
 std::string const & LibGraphic::Sfml::getGameName() const
 {
   return this->_graphicState->getGameName();
+}
+
+void LibGraphic::Sfml::setAction(eGraphicAction gAction)
+{
+  this->_graphicState->setAction(gAction, this->_currentState);
 }

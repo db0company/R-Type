@@ -11,7 +11,7 @@ LibGraphic::StateGameParameters::StateGameParameters(std::map<std::string const,
 						   sf::RenderWindow & app):
   _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app)
+  _app(app), _action(UNKNOWN)
 {
   this->_currentButton = BUTTON_GAME_NAME;
   this->_nextState = UNKNOWN_STATE;
@@ -30,6 +30,7 @@ void LibGraphic::StateGameParameters::draw()
 {
 }
 
+// ! TODO PRIORITE++ idriss !
 LibGraphic::Event LibGraphic::StateGameParameters::gereEvent()
 {
   sf::Event Event;
@@ -83,3 +84,12 @@ inline sf::String * LibGraphic::StateGameParameters::getStdToSfString(std::strin
   return (new sf::String(s, *daFont));
 }
 
+eGraphicAction LibGraphic::StateGameParameters::getAction()
+{
+  return (this->_action);
+}
+
+void LibGraphic::StateGameParameters::setAction(eGraphicAction g)
+{
+  this->_action = g;
+}

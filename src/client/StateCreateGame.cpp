@@ -12,7 +12,7 @@ LibGraphic::StateCreateGame::StateCreateGame(std::map<std::string const, Graphic
 						   sf::RenderWindow & app):
   _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app)
+  _app(app), _action(UNKNOWN)
 {
   this->_nextState = UNKNOWN_STATE;
   this->_currentButton = BUTTON_CREATE_SPECTATOR;
@@ -473,4 +473,14 @@ bool LibGraphic::StateCreateGame::getSpectator() const
 std::string const & LibGraphic::StateCreateGame::getGameName() const
 {
   return this->_name;
+}
+
+eGraphicAction LibGraphic::StateCreateGame::getAction()
+{
+  return (this->_action);
+}
+
+void LibGraphic::StateCreateGame::setAction(eGraphicAction g)
+{
+  this->_action = g;
 }
