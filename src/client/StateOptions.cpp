@@ -21,10 +21,8 @@ LibGraphic::StateOptions::StateOptions(std::map<std::string const, GraphicRessou
     this->_name = "Player";
   else
     this->_name = "Joueur";
-  // this->_ip = "xxx.xxx.xxx.xxx";
-  // this->_port = "xxxxx";
-  this->_ip = "127.0.0.1";
-  this->_port = "12348";
+  this->_ip = "xxx.xxx.xxx.xxx";
+  this->_port = "xxxxx";
   this->_isDefaultName = true;
   this->_isDefaultIp = true;
   this->_isDefaultPort = true;

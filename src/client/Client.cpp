@@ -46,17 +46,7 @@ bool Client::gereAction(void)
     return (false);
   if (action == START_PLAY)
     {
-      if (!this->cNetwork.isConnected())
-	{
-	  if (!this->cNetwork.connect(this->cGraphic.getIp(),
-				      this->cGraphic.getPort()))
-	    {
-	      std::cout << "todo: afficher un pop up erreur"
-			<< std::endl;
-	      this->cGraphic.setAction(UNKNOWN);
-	      return (false);
-	    }
-	}
+      std::cout << "Todo: connect here" << std::endl;
       this->cGraphic.setAction(UNKNOWN);
       this->cGraphic.setNextState(LibGraphic::ROOMLIST);
       this->cGraphic.goToNextState();
@@ -117,11 +107,14 @@ bool Client::gereAction(void)
 
 bool Client::run(void)
 {
-  // if (!this->cNetwork.connect("127.0.0.1", 12348))
-  //   {
-  //     //et pas en dur !
-  //     return (false);
-  //   }
+  int i;
+
+  i = 0;
+  if (!this->cNetwork.connect("127.0.0.1", 12348))
+    {
+      //et pas en dur !
+      return (false);
+    }
   while (true)
     {
       if (!this->cNetwork.select())
@@ -135,6 +128,22 @@ bool Client::run(void)
       this->gereAction();
       this->cGraphic.clean();
       this->cGraphic.draw();
+      // if (i == 0)
+      // 	{
+      // 	  PacketData *dataGame = new PacketData;
+      // 	  PacketData *data = new PacketData;
+      // 	  dataGame->addString("DarkK3vinNaruto666");
+      // 	  dataGame->addString("Game de la Mort");
+      // 	  dataGame->addString("lvl1");
+      // 	  dataGame->addChar(4);
+      // 	  dataGame->addChar(0);
+      // 	  data->addString("coucou lol");
+      // 	  ProtocolPacket *protocolPacket = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), dataGame);
+      // 	  // ProtocolPacket *protocolPacket1 = PacketFactory::createPacket(LOBBY, static_cast<ushort>(CHAT), data);
+      // 	  this->cNetwork.pushUDP(protocolPacket);
+      // 	  // this->cNetwork.pushTCP(protocolPacket1);
+      // 	  ++i;
+      // 	}
       this->cNetwork.sendPacketToServer(); // static ok?
       this->cNetwork.process(*this);
     }
