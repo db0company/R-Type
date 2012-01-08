@@ -20,7 +20,7 @@
 #include "ClientNetwork.hpp"
 #include <cstdlib>
 
-ClientNetwork::ClientNetwork(void) : _ip(""), _port(0)
+ClientNetwork::ClientNetwork(void) : _ip(""), _port(0), _connected(false)
 {
 #ifndef _WIN32
   this->_selector = new Selector<int>;
@@ -34,7 +34,8 @@ ClientNetwork::ClientNetwork(void) : _ip(""), _port(0)
 }
 
 
-ClientNetwork::ClientNetwork(std::string const &ip, int port) : _ip(ip), _port(port)
+ClientNetwork::ClientNetwork(std::string const &ip, int port) :
+  _ip(ip), _port(port), _connected(false)
 {
 #ifndef _WIN32
   this->_selector = new Selector<int>;
@@ -61,6 +62,14 @@ ClientNetwork::ClientNetwork(const ClientNetwork&other)
 {
   this->_tcp = other._tcp;
   this->_udp = other._udp;
+  this->_pm = other._pm;
+  this->paRead = other.paRead;
+  this->paWrite = other.paWrite;
+  this->paWriteUDP = other.paWriteUDP;
+  this->paReadUDP = other.paReadUDP;
+  this->_ip = other._ip;
+  this->_port = other._port;
+  this->_connected = other._connected;
   this->_selector = other._selector;
 }
 
@@ -68,8 +77,21 @@ ClientNetwork&	ClientNetwork::operator=(const ClientNetwork&other)
 {
   this->_tcp = other._tcp;
   this->_udp = other._udp;
+  this->_pm = other._pm;
+  this->paRead = other.paRead;
+  this->paWrite = other.paWrite;
+  this->paWriteUDP = other.paWriteUDP;
+  this->paReadUDP = other.paReadUDP;
+  this->_ip = other._ip;
+  this->_port = other._port;
+  this->_connected = other._connected;
   this->_selector = other._selector;
   return (*this);
+}
+
+bool ClientNetwork::isConnected(void) const
+{
+  return (this->_connected);
 }
 
 bool ClientNetwork::connect(std::string const &ip, int port)
@@ -94,6 +116,7 @@ bool ClientNetwork::connect(std::string const &ip, int port)
   this->_tcp->SNAddRead();
   this->_udp->SNAddRead();
   this->_tcp->SNAddWrite();
+  this->_connected = true;
   return (true);
 }
 
@@ -112,6 +135,8 @@ bool ClientNetwork::feedPacketAggregatorTCP(void)
   int size;
   char buffer[1024] = {0};
 
+  if (!this->_connected)
+    return (false);
   if (this->_tcp->SNGetRead())
     {
       if ((size = this->_tcp->SNRead(buffer, 1024)) <= 0)
@@ -127,8 +152,10 @@ bool ClientNetwork::feedPacketAggregatorTCP(void)
 bool ClientNetwork::feedPacketAggregatorUDP(void)
 {
   int size;
-  char buffer[1024];// = {0};
+  char buffer[1024];
 
+  if (!this->_connected)
+    return (false);
   if (this->_udp->SNGetRead())
     {
       if ((size = this->_udp->SNRead(buffer, 1024)) <= 0)
@@ -150,6 +177,8 @@ bool ClientNetwork::process(Client &client)
   unsigned int			tmp_i = 0;
   bool				state_change = false;
 
+  if (!this->_connected)
+    return (false);
   nb_packet = this->paRead.aggregateCharToPackets();
   nb_packet = this->paReadUDP.aggregateCharToPackets();
   if (this->paRead.empty() && this->paReadUDP.empty())
@@ -184,7 +213,7 @@ ProtocolPacket &ProtocolPacket::operator=(ProtocolPacket const &other)
   memcpy(&(this->data), &(other.data), other.header.size);
   return (*this);
 }
-
+//wtf
 
 bool ClientNetwork::sendPacketToServer(void)
 {
@@ -192,6 +221,8 @@ bool ClientNetwork::sendPacketToServer(void)
   char	*msg;
   int nb;
 
+  if (this->_connected == false)
+    return (false);
   if (this->_tcp->SNGetWrite())
     {
       nb = this->paWrite.aggregatePacketToChar();

@@ -32,18 +32,20 @@ public:
   bool pushUDP(ProtocolPacket *);
   void setIp(std::string const &);
   void setPort(int port);
+  bool isConnected(void)const;
 
 private:
   ClientPacketManager   _pm;
-  ATCPClientSocket *_tcp;
-  ISocket *_udp;
-  ISelector	   *_selector;
-  PacketAggregator paRead;
-  PacketAggregator paWrite;
-  PacketAggregator paReadUDP;
-  PacketAggregator paWriteUDP;
-  std::string	   _ip;
-  int		   _port;
+  ATCPClientSocket	*_tcp;
+  ISocket		*_udp;
+  ISelector		*_selector;
+  PacketAggregator	paRead;
+  PacketAggregator	paWrite;
+  PacketAggregator	paReadUDP;
+  PacketAggregator	paWriteUDP;
+  std::string		_ip;
+  int			_port;
+  bool			_connected;
 };
 
 #endif	// CLIENTNETWORK_H_
