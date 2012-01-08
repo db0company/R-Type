@@ -43,18 +43,25 @@ bool LibGraphic::Sfml::init()
   return true;
 }
 
+void		LibGraphic::Sfml::goToNextState(void)
+{
+  this->_currentState = this->_graphicState->goToNextState(this->_currentState);
+}
+
 LibGraphic::Event LibGraphic::Sfml::getEvent()
 {
-  switch (this->_graphicState->getEventFromState(this->_currentState))
-    {
-    case EVENT_CHANGE_STATE :
-      {
-	this->_currentState = this->_graphicState->goToNextState(this->_currentState);
-	break;
-      }
-    default : break;
-    }
-  return LibGraphic::EVENT_NONE;
+  LibGraphic::Event event = this->_graphicState->getEventFromState(this->_currentState);
+  // switch (this->_graphicState->getEventFromState(this->_currentState))
+  //   {
+  //   case EVENT_CHANGE_STATE :
+  //     {
+  // 	this->_currentState = this->_graphicState->goToNextState(this->_currentState);
+  // 	break;
+  //     }
+  //   default : break;
+  //   }
+  // return LibGraphic::EVENT_NONE;
+  return (event);
 }
 
 void LibGraphic::Sfml::quit()
@@ -259,11 +266,6 @@ inline unsigned int LibGraphic::Sfml::getIntFromS(std::string s)
   return (res);
 }
 
-eGraphicAction LibGraphic::Sfml::getAction() const
-{
-  return this->_graphicState->getAction(this->_currentState);
-}
-
 std::string const & LibGraphic::Sfml::getLogin() const
 {
   return this->_graphicState->getLogin();
@@ -307,9 +309,4 @@ std::string const & LibGraphic::Sfml::getMessage() const
 std::string const & LibGraphic::Sfml::getGameName() const
 {
   return this->_graphicState->getGameName();
-}
-
-void LibGraphic::Sfml::setAction(eGraphicAction gAction)
-{
-  this->_graphicState->setAction(gAction, this->_currentState);
 }

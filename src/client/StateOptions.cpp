@@ -12,7 +12,7 @@ LibGraphic::StateOptions::StateOptions(std::map<std::string const, GraphicRessou
 						   sf::RenderWindow & app):
   _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app), _action(UNKNOWN)
+  _app(app)
 {
   this->_currentButton = BUTTON_OPTIONS_NAME;
   this->_nextState = UNKNOWN_STATE;
@@ -540,14 +540,4 @@ bool LibGraphic::StateOptions::isDefaultIp() const
 bool LibGraphic::StateOptions::isDefaultPort() const
 {
   return this->_isDefaultPort;
-}
-
-eGraphicAction LibGraphic::StateOptions::getAction()
-{
-  return (this->_action);
-}
-
-void LibGraphic::StateOptions::setAction(eGraphicAction g)
-{
-  this->_action = g;
 }

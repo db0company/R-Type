@@ -37,43 +37,24 @@ bool Client::init(void)
   this->cNetwork.setPort(12348);
 }
 
-bool Client::gereAction(void)
+bool Client::gereAction(LibGraphic::Event e)
 {
-  eGraphicAction action = this->cGraphic.getAction();
-
-  if (action == UNKNOWN)
-    return (false);
-  if (action == START_PLAY)
+  switch (e)
     {
-      std::cout << "PLAY" << std::endl;
-      this->cGraphic.setAction(UNKNOWN);
-    }
-  if (action == ROOMLIST_REFRESH)
-    {
-      std::cout << "REFRESH" << std::endl;
-      this->cGraphic.setAction(UNKNOWN);
-    }
-  if (action == ROOMLIST_JOIN)
-    {
-      std::cout << "JOIIIN" << std::endl;
-      this->cGraphic.setAction(UNKNOWN);
-    }
-  if (action == ROOMLIST_SPECTATE)
-    {
-      std::cout << "SPECTATE" << std::endl;
-      this->cGraphic.setAction(UNKNOWN);
+    case LibGraphic::EVENT_CHANGE_STATE :
+      this->cGraphic.goToNextState();
+      break;
+    default : break;
     }
   return (true);
 }
 
 bool Client::run(void)
 {
-  int i;
+  LibGraphic::Event e;
 
-  i = 0;
   if (!this->cNetwork.connect("127.0.0.1", 12348))
     {
-      //et pas en dur !
       return (false);
     }
   while (true)
@@ -85,27 +66,11 @@ bool Client::run(void)
       	}
       this->cNetwork.feedPacketAggregatorTCP();
       this->cNetwork.feedPacketAggregatorUDP();
-      this->cGraphic.getEvent();
-      this->gereAction();
+      e = this->cGraphic.getEvent();
+      this->gereAction(e);
       this->cGraphic.clean();
       this->cGraphic.draw();
-      if (i == 0)
-      	{
-      	  PacketData *dataGame = new PacketData;
-	  PacketData *data = new PacketData;
-	  dataGame->addString("DarkK3vinNaruto666");
-	  dataGame->addString("Game de la Mort");
-	  dataGame->addString("lvl1");
-	  dataGame->addChar(4);
-	  dataGame->addChar(0);
-	  data->addString("coucou lol");
-	  ProtocolPacket *protocolPacket = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), dataGame);
-	  // ProtocolPacket *protocolPacket1 = PacketFactory::createPacket(LOBBY, static_cast<ushort>(CHAT), data);
-	  this->cNetwork.pushUDP(protocolPacket);
-	  // this->cNetwork.pushTCP(protocolPacket1);
-	  ++i;
-	}
-      this->cNetwork.sendPacketToServer(); // static ok?
+      this->cNetwork.sendPacketToServer();
       this->cNetwork.process(*this);
     }
   return (true);

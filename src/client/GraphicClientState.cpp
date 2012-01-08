@@ -86,11 +86,6 @@ LibGraphic::Event LibGraphic::GraphicClientState::getEventFromState(eStates scen
   return this->_stateInfos[scene]->gereEvent();
 }
 
-eGraphicAction LibGraphic::GraphicClientState::getAction(eStates scene)
-{
-  return this->_stateInfos[scene]->getAction();
-}
-
 std::string const & LibGraphic::GraphicClientState::getIp() const
 {
   return reinterpret_cast <StateOptions const *>(getValue(this->_stateInfos,OPTIONS))->getIp();
@@ -142,7 +137,3 @@ std::string const & LibGraphic::GraphicClientState::getMessage() const
   return reinterpret_cast <StateRoom const *>(getValue(this->_stateInfos, ROOM))->getMessage();
 }
 
-void LibGraphic::GraphicClientState::setAction(eGraphicAction eAction, eStates scene)
-{
-  return this->_stateInfos[scene]->setAction(eAction);
-}

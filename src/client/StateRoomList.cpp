@@ -11,7 +11,7 @@ LibGraphic::StateRoomList::StateRoomList(std::map<std::string const, GraphicRess
 						   sf::RenderWindow & app):
   _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app), _action(UNKNOWN)
+  _app(app)
 {
   this->_currentButton = BUTTON_ROOMLIST_GAME;
   this->_nextState = UNKNOWN_STATE;
@@ -245,13 +245,11 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
 		  {
-		    this->_action = ROOMLIST_JOIN;
 		    this->_nextState = ROOM;
 		    return EVENT_CHANGE_STATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
-		    this->_action = ROOMLIST_SPECTATE;
 		    this->_nextState = ROOM;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -262,7 +260,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_REFRESH)
 		  {
-		    this->_action = ROOMLIST_REFRESH;
+		    break;
 		  }
 		break;
 	      }
@@ -282,13 +280,11 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
 		  {
-		    this->_action = ROOMLIST_JOIN;
 		    this->_nextState = ROOM;
 		    return EVENT_CHANGE_STATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
-		    this->_action = ROOMLIST_SPECTATE;
 		    this->_nextState = ROOM;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -299,7 +295,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_REFRESH)
 		  {
-		    this->_action = ROOMLIST_REFRESH;
+		    break;
 		  }
 		break;
 	      }
@@ -487,14 +483,4 @@ sf::Font * LibGraphic::StateRoomList::getFont(std::string const & fontName) cons
 inline sf::String * LibGraphic::StateRoomList::getStdToSfString(std::string const & s, sf::Font * daFont)
 {
   return (new sf::String(s, *daFont));
-}
-
-eGraphicAction LibGraphic::StateRoomList::getAction()
-{
-  return (this->_action);
-}
-
-void LibGraphic::StateRoomList::setAction(eGraphicAction g)
-{
-  this->_action = g;
 }

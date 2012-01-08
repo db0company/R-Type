@@ -11,7 +11,7 @@ LibGraphic::StateGameParameters::StateGameParameters(std::map<std::string const,
 						   sf::RenderWindow & app):
   _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app), _action(UNKNOWN)
+  _app(app)
 {
   this->_currentButton = BUTTON_GAME_NAME;
   this->_nextState = UNKNOWN_STATE;
@@ -82,14 +82,4 @@ sf::Font * LibGraphic::StateGameParameters::getFont(std::string const & fontName
 inline sf::String * LibGraphic::StateGameParameters::getStdToSfString(std::string const & s, sf::Font * daFont)
 {
   return (new sf::String(s, *daFont));
-}
-
-eGraphicAction LibGraphic::StateGameParameters::getAction()
-{
-  return (this->_action);
-}
-
-void LibGraphic::StateGameParameters::setAction(eGraphicAction g)
-{
-  this->_action = g;
 }

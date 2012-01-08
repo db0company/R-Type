@@ -11,7 +11,7 @@ LibGraphic::StateRoom::StateRoom(std::map<std::string const, GraphicRessource *>
 						   sf::RenderWindow & app):
   _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app), _action(UNKNOWN)
+  _app(app)
 {
   this->_currentButton = BUTTON_ROOM_CHAT;
   this->_nextState = UNKNOWN_STATE;
@@ -253,12 +253,3 @@ std::string const & LibGraphic::StateRoom::getMessage() const
   return this->_chat;
 }
 
-eGraphicAction LibGraphic::StateRoom::getAction()
-{
-  return (this->_action);
-}
-
-void LibGraphic::StateRoom::setAction(eGraphicAction g)
-{
-  this->_action = g;
-}
