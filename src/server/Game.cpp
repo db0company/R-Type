@@ -93,7 +93,7 @@ void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Playe
   us->addPacketToSendUDP(packet_to_send);
 }
 
-void	Game::changePlayerPos(PacketData *)
+void	Game::changePlayerPos(PacketData *info)
 {
   std::string ip; // a extraire du packet
   std::string ret;

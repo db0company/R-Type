@@ -246,14 +246,14 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
 		  {
 		    this->_action = ROOMLIST_JOIN;
-		    //		    this->_nextState = ROOM;
-		    //		    return EVENT_CHANGE_STATE;
+		    this->_nextState = ROOM;
+		    return EVENT_CHANGE_STATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
 		    this->_action = ROOMLIST_SPECTATE;
-		    //		    this->_nextState = ROOM;
-		    //		    return EVENT_CHANGE_STATE;
+		    this->_nextState = ROOM;
+		    return EVENT_CHANGE_STATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
 		  {
@@ -283,14 +283,14 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
 		  {
 		    this->_action = ROOMLIST_JOIN;
-		    //		    this->_nextState = ROOM;
-		    //		    return EVENT_CHANGE_STATE;
+		    this->_nextState = ROOM;
+		    return EVENT_CHANGE_STATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
 		    this->_action = ROOMLIST_SPECTATE;
-		    //		    this->_nextState = ROOM;
-		    //		    return EVENT_CHANGE_STATE;
+		    this->_nextState = ROOM;
+		    return EVENT_CHANGE_STATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
 		  {
@@ -497,9 +497,4 @@ eGraphicAction LibGraphic::StateRoomList::getAction()
 void LibGraphic::StateRoomList::setAction(eGraphicAction g)
 {
   this->_action = g;
-}
-
-void LibGraphic::StateRoomList::setNextState(eStates e)
-{
-  this->_nextState = e;
 }

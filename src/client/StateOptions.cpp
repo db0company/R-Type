@@ -551,8 +551,3 @@ void LibGraphic::StateOptions::setAction(eGraphicAction g)
 {
   this->_action = g;
 }
-
-void LibGraphic::StateOptions::setNextState(eStates e)
-{
-  this->_nextState = e;
-}

@@ -26,14 +26,14 @@ namespace LibGraphic
     void draw(eStates);
     Event getEventFromState(eStates);
     eStates goToNextState(eStates scene);
-    void setNextState(eStates current, eStates next);
+
     // Getter/Setter pour le reseau
   public:
     eGraphicAction getAction(eStates scene);
     void setAction(eGraphicAction, eStates);
 
     std::string const & getIp() const;
-    std::string const & getName() const;
+    std::string const & getLogin() const;
     int getPort();
     int getIdGame() const;
     std::string const & getLevel() const;
