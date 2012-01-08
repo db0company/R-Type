@@ -45,6 +45,9 @@ namespace LibGraphic
     std::string const & getMessage() const;
     std::string const & getGameName() const;
 
+  public:
+    void errorMessage(std::string const &);
+
   private:
     bool loadFont();
     bool loadSound();
@@ -57,7 +60,8 @@ namespace LibGraphic
     inline unsigned int getIntFromS(std::string s);
 
   private:
-    int _width;
+    std::string _errorMessage;
+   int _width;
     int _height;
     sf::RenderWindow _app;
     eStates _currentState;

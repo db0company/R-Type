@@ -3,6 +3,7 @@
 #include "Language.hpp"
 
 extern LibGraphic::Language language;
+extern bool errorToPrint;
 
 LibGraphic::StateStart::StateStart(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
@@ -276,8 +277,13 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 	    case sf::Key::Escape :
 	      //return LibGraphic::__EVENT_QUIT;
 	      {
-		this->_app.Close();
-		exit(EXIT_SUCCESS);
+		if (errorToPrint)
+		  errorToPrint = false;
+		else
+		  {
+		    this->_app.Close();
+		    exit(EXIT_SUCCESS);
+		  }
 	      }
 	    case sf::Key::Return :
 	      {
