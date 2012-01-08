@@ -32,7 +32,7 @@ ProtocolGame::~ProtocolGame(void)
 {
 }
 
-void			ProtocolGame::action(ushort instruction,
+bool			ProtocolGame::action(ushort instruction,
 					     PacketData & data, Client &client)
 {
   std::map<eProtocolPacketGame, ptr_func>::iterator it;
@@ -43,15 +43,15 @@ void			ProtocolGame::action(ushort instruction,
   if ((it = this->actionmap.find(static_cast<eProtocolPacketGame>(instruction))) == this->actionmap.end())
     {
       (void)this->actionError(data, client);
-      return ;
+      return false;
     }
   ptr = it->second;
-  (this->*ptr)(data, client);
+  return ((this->*ptr)(data, client));
 }
 
 bool			ProtocolGame::actionError(PacketData &, Client &)
 {
-  return (true);
+  return (false);
 }
 
 bool			ProtocolGame::actionGet(PacketData & data, Client &)
@@ -80,13 +80,13 @@ bool			ProtocolGame::actionGet(PacketData & data, Client &)
       // client->addNewGame(gameParam);
       ++i;
     }
-  return (true);
+  return (false);
 }
 
 bool			ProtocolGame::actionGetLevel(PacketData & data, Client &)
 {
   (void)data;
-    return (true);
+    return (false);
 }
 
 bool			ProtocolGame::actionCreate(PacketData & data, Client &)
@@ -106,7 +106,7 @@ bool			ProtocolGame::actionCreate(PacketData & data, Client &)
     {
       // TODO creation fail. popup error
     }
-  return (true);
+  return (false);
 }
 
 bool			ProtocolGame::actionJoin(PacketData & data, Client &)
@@ -126,7 +126,7 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &)
     {
       // TODO join fail. popup error
     }
-  return (true);
+  return (false);
 }
 
 // bool			ProtocolGame::actionQuit(PacketData & data, Client &)
@@ -138,7 +138,7 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &)
 bool			ProtocolGame::actionEnd(PacketData &, Client &)
 {
   // TODO: la game est fini. clean memoire + go ecran de fin (puis game list)
-  return (true);
+  return (false);
 }
 
 bool			ProtocolGame::actionStart(PacketData & data, Client &)
@@ -157,7 +157,6 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &)
     {
       // Todo
     }
-  return (true);
+  return (false);
   (void)data;
-  return (true);
 }

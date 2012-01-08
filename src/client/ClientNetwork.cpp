@@ -148,6 +148,7 @@ bool ClientNetwork::process(Client &client)
   int				nb_packet;
   ProtocolPacket		*packet;
   unsigned int			tmp_i = 0;
+  bool				state_change = false;
 
   nb_packet = this->paRead.aggregateCharToPackets();
   nb_packet = this->paReadUDP.aggregateCharToPackets();
@@ -157,7 +158,8 @@ bool ClientNetwork::process(Client &client)
     {
       std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paRead.front();
-      this->_pm.Process(packet, client);
+      if (this->_pm.Process(packet, client))
+	state_change = true;
       this->paRead.pop();
       ++tmp_i;
     }
@@ -165,11 +167,12 @@ bool ClientNetwork::process(Client &client)
     {
       std::cout << "\t\033[33mUDP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paReadUDP.front();
-      this->_pm.Process(packet, client);
+      if (this->_pm.Process(packet, client))
+	state_change = true;
       this->paReadUDP.pop();
       ++tmp_i;
     }
-  return (true);
+  return (state_change);
 }
 
 ProtocolPacket &ProtocolPacket::operator=(ProtocolPacket const &other)

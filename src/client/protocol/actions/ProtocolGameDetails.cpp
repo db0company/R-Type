@@ -23,7 +23,7 @@ ProtocolGameDetails::~ProtocolGameDetails(void)
 {
 }
 
-void ProtocolGameDetails::action(ushort instruction, PacketData &data, Client &client)
+bool ProtocolGameDetails::action(ushort instruction, PacketData &data, Client &client)
 {
   std::map<eProtocolPacketGameDetails, ptr_funct>::iterator it;
   ptr_funct		ptr;
@@ -34,16 +34,16 @@ void ProtocolGameDetails::action(ushort instruction, PacketData &data, Client &c
       this->actionmap.end())
     {
       (void)this->actionError(data, client);
-    return;
+      return false;
     }
   ptr = it->second;
-  (this->*ptr)(data, client);
+  return ((this->*ptr)(data, client));
 }
 
 bool ProtocolGameDetails::actionError(PacketData &data, Client &)
 {
   (void)data;
-  return (true);
+  return (false);
 }
 
 bool ProtocolGameDetails::actionPlayerLogin(PacketData &data, Client &)
@@ -61,7 +61,7 @@ bool ProtocolGameDetails::actionPlayerLogin(PacketData &data, Client &)
       // TODO: add la string au data de la game
       ++i;
     }
-  return (true);
+  return (false);
 }
 
 bool ProtocolGameDetails::actionScore(PacketData &data, Client &)
@@ -81,13 +81,13 @@ bool ProtocolGameDetails::actionScore(PacketData &data, Client &)
       // TODO: modif le score du player
       ++i;
     }
-  return (true);
+  return (false);
 }
 
 bool ProtocolGameDetails::actionGetMap(PacketData &, Client &)
 {
   // TODO a definir
-  return (true);
+  return (false);
 }
 
 bool ProtocolGameDetails::actionPlayerLife(PacketData &data, Client &)
@@ -98,6 +98,6 @@ bool ProtocolGameDetails::actionPlayerLife(PacketData &data, Client &)
   id_player = data.getNextChar();
   lives = data.getNextChar();
   // TODO: update les vie du player.
-  return (true);
+  return (false);
 }
 

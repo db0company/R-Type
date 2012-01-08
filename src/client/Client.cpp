@@ -37,13 +37,16 @@ bool Client::init(void)
   this->cNetwork.setPort(12348);
 }
 
-bool Client::gereAction(LibGraphic::Event e)
+bool Client::gereAction(LibGraphic::Event e, bool state_network)
 {
   switch (e)
     {
     case LibGraphic::EVENT_CHANGE_STATE :
-      this->cGraphic.goToNextState();
-      break;
+      {
+	// todo state network;
+	this->cGraphic.goToNextState();
+	break;
+      }
     default : break;
     }
   return (true);
@@ -52,6 +55,7 @@ bool Client::gereAction(LibGraphic::Event e)
 bool Client::run(void)
 {
   LibGraphic::Event e;
+  bool state_network;
 
   if (!this->cNetwork.connect("127.0.0.1", 12348))
     {
@@ -66,12 +70,12 @@ bool Client::run(void)
       	}
       this->cNetwork.feedPacketAggregatorTCP();
       this->cNetwork.feedPacketAggregatorUDP();
+      this->cNetwork.sendPacketToServer();
+      state_network = this->cNetwork.process(*this);
       e = this->cGraphic.getEvent();
-      this->gereAction(e);
+      this->gereAction(e, state_network);
       this->cGraphic.clean();
       this->cGraphic.draw();
-      this->cNetwork.sendPacketToServer();
-      this->cNetwork.process(*this);
     }
   return (true);
 }

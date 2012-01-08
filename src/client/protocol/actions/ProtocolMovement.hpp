@@ -18,7 +18,7 @@ public:
   ~ProtocolMovement(void);
   ProtocolMovement(const ProtocolMovement&);
   ProtocolMovement&	operator=(const ProtocolMovement&);
-  virtual void		action(ushort instruction, PacketData & data, Client&);
+  virtual bool		action(ushort instruction, PacketData & data, Client&);
 private:
 
   bool		actionError(PacketData &data, Client &);

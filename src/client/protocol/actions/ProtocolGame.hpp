@@ -20,7 +20,7 @@ public:
   ~ProtocolGame(void);
 
 public:
-  virtual void		action(ushort instruction, PacketData & data, Client&);
+  virtual bool		action(ushort instruction, PacketData & data, Client&);
 private:
   bool			actionError(PacketData & data, Client &);
   bool			actionGet(PacketData & data, Client &);

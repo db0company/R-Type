@@ -11,7 +11,7 @@ class			IClientProtocolAction
   virtual ~IClientProtocolAction(void) {}
 
  public:
-  virtual void		action(ushort instruction, PacketData &data, Client&) = 0;
+  virtual bool		action(ushort instruction, PacketData &data, Client&) = 0;
 };
 
 #endif			// !CLIENTPROTOCOLACTION_H_

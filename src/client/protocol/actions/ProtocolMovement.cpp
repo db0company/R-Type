@@ -29,7 +29,7 @@ ProtocolMovement::~ProtocolMovement(void)
 {
 }
 
-void			ProtocolMovement::action(ushort instruction,
+bool			ProtocolMovement::action(ushort instruction,
 						 PacketData & data, Client&c)
 {
   std::map<eProtocolPacketMovement, ptr_funct>::iterator it;
@@ -40,43 +40,43 @@ void			ProtocolMovement::action(ushort instruction,
   if ((it = this->actionmap.find(static_cast<eProtocolPacketMovement>(instruction))) == this->actionmap.end())
     {
       (void)this->actionError(data, c);
-    return ;
+      return false;
     }
   ptr = it->second;
-  (this->*ptr)(data, c);
+  return ((this->*ptr)(data, c));
 }
 
 bool			ProtocolMovement::actionError(PacketData &, Client &)
 {
-  return (true);
+  return (false);
 }
 
 bool		ProtocolMovement::actionMove(PacketData &data, Client &)
 {
   (void)data;
-  return (true);
+  return (false);
 }
 
 bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &)
 {
   (void)data;
-  return (true);
+  return (false);
 }
 
 bool		ProtocolMovement::actionUpdateEnemy(PacketData &data, Client &)
 {
   (void)data;
-  return (true);
+  return (false);
 }
 
 bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &)
 {
   (void)data;
-  return (true);
+  return (false);
 }
 
 bool		ProtocolMovement::actionNewBullet(PacketData &data, Client &)
 {
   (void)data;
-  return (true);
+  return (false);
 }

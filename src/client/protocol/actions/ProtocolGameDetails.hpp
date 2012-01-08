@@ -18,7 +18,7 @@ public:
   ProtocolGameDetails(ProtocolGameDetails const &);
   ProtocolGameDetails & operator=(ProtocolGameDetails const &);
   ~ProtocolGameDetails(void);
-  virtual void action(ushort instruction, PacketData &data,Client&);
+  virtual bool action(ushort instruction, PacketData &data,Client&);
 
 private:
   bool		actionError(PacketData &data, Client &);

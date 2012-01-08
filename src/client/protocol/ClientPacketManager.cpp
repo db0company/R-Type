@@ -58,10 +58,10 @@ bool				ClientPacketManager::Process(ProtocolPacket *packet, Client& client)
 	std::cout << "ERROR@@@";
       std::cout << ") \033[32mInst\033[00m(" <<
 	PacketFactory::getPacketInstruction(packet) << ")" << std::endl;
-      this->groupaction[PacketFactory::getPacketGroup(packet)]->action
-      	(PacketFactory::getPacketInstruction(packet), *textData, client);
+      return (this->groupaction[PacketFactory::getPacketGroup(packet)]->action
+	      (PacketFactory::getPacketInstruction(packet), *textData, client));
     }
-  return (true);
+  return (false);
 }
 
 void				ClientPacketManager::actionError(void)
