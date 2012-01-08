@@ -32,7 +32,7 @@ struct TileStruct
   eTileName up;
   eTileName down;
   TileStruct() {}
-  TileStruct(eTileName u, eTileName d) 
+  TileStruct(const eTileName& u, const eTileName& d) 
     : up(u), down(d)
   { }
 

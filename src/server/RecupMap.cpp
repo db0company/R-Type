@@ -27,7 +27,7 @@ RecupMap::~RecupMap()
 
 }
 
-eTileName	RecupMap::getEnumFromString(const std::string& s1)const
+const eTileName&	RecupMap::getEnumFromString(const std::string& s1)const
 {
   std::map<std::string, eTileName>::const_iterator	tile;
 
@@ -58,10 +58,7 @@ void		RecupMap::recupFromFile(const std::string& file)
       tmp = buff2;
       if ((y = tmp.find("\n")) != 0)
 	  buff2[y] = '\0';
-      mapContent.insert(std::pair<int, TileStruct
-				  (i, TileStruct(
-						 getEnumFromString(buff1),
-						 getEnumFromString(buff2))));
+      mapContent.insert(std::pair<int, TileStruct>(i, TileStruct(getEnumFromString(buff1), getEnumFromString(buff2))));
       ++i;
     }
 }

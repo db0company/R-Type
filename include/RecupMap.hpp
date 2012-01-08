@@ -13,7 +13,7 @@ private:
 public:
   RecupMap();
   ~RecupMap();
-  eTileName	getEnumFromString(const std::string& s1)const;
+  const eTileName&	getEnumFromString(const std::string& s1)const;
   void	recupFromFile(const std::string& file);
   const TileStruct&	operator[](int i);
   int		size()const;
