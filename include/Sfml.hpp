@@ -32,9 +32,11 @@ namespace LibGraphic
     virtual void clean();
     virtual void draw();
     // Getter/Setter pour le reseau
+
   public:
-    void		goToNextState(void);
-    void	   setNextState(eStates s);
+    void	   setCurrentState(eStates);
+    void	   goToNextState(void);
+    void	   setNextState(eState s, eStates d);
     std::string const & getIp() const;
     std::string const & getLogin() const;
     int getPort() const;

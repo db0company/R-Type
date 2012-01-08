@@ -253,3 +253,7 @@ std::string const & LibGraphic::StateRoom::getMessage() const
   return this->_chat;
 }
 
+void LibGraphic::StateRoom::setNextState(eState d)
+{
+  this->_nextState = UNKNOWN_STATE;
+}

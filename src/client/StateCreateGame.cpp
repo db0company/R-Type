@@ -474,3 +474,8 @@ std::string const & LibGraphic::StateCreateGame::getGameName() const
 {
   return this->_name;
 }
+
+void LibGraphic::StateCreateGame::setNextState(eState d)
+{
+  this->_nextState = UNKNOWN_STATE;
+}

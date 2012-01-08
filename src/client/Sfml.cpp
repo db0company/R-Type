@@ -310,3 +310,14 @@ std::string const & LibGraphic::Sfml::getGameName() const
 {
   return this->_graphicState->getGameName();
 }
+
+// void LibGraphic::Sfml::setNextState(eState s, eState d)
+// {
+//   this->_currentState = d;
+//   this->_graphicState->setNextState(s, d);
+// }
+
+void LibGraphic::Sfml::setCurrentState(eStates s)
+{
+  this->_currentState = s;
+}

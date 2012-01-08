@@ -289,7 +289,8 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		else if (this->_currentButton == BUTTON_PLAY)
 		  {
 		    this->_nextState = ROOMLIST;
-		    return EVENT_CHANGE_STATE;
+		    // return EVENT_CHANGE_STATE;
+		    return (EVENT_START_PLAY);
 		  }
 		break;
 	      }
@@ -315,7 +316,8 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		else if (this->_currentButton == BUTTON_PLAY)
 		  {
 		    this->_nextState = ROOMLIST;
-		    return EVENT_CHANGE_STATE;
+		    // return EVENT_CHANGE_STATE;
+		    return (EVENT_START_PLAY);
 		  }
  		break;
 	      }
@@ -434,4 +436,9 @@ sf::Font * LibGraphic::StateStart::getFont(std::string const & fontName) const
 inline sf::String * LibGraphic::StateStart::getStdToSfString(std::string const & s, sf::Font * daFont)
 {
   return (new sf::String(s, *daFont));
+}
+
+void LibGraphic::StateStart::setNextState(eState d)
+{
+  this->_nextState = UNKNOWN_STATE;
 }

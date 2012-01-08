@@ -41,6 +41,23 @@ bool Client::gereAction(LibGraphic::Event e, bool state_network)
 {
   switch (e)
     {
+    case LibGraphic::EVENT_START_PLAY :
+      {
+	if (!this->cNetwork.isConnected())
+	  {
+	    std::cout << "je suis pas co" << std::endl;
+	    if (this->cNetwork.connect(this->cGraphic.getIp(),
+				       this->cGraphic.getPort()))
+	      {
+		this->cGraphic.setCurrentState(LibGraphic::ROOM);
+		std::cout << "connection ok" << std::endl;
+	      }
+	    else
+	      std::cout << "connection ko " << std::endl;
+	  }
+	this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
+	break;
+      }
     case LibGraphic::EVENT_CHANGE_STATE :
       {
 	// todo state network;
@@ -54,13 +71,9 @@ bool Client::gereAction(LibGraphic::Event e, bool state_network)
 
 bool Client::run(void)
 {
-  LibGraphic::Event e;
+  LibGraphic::Event event;
   bool state_network;
 
-  if (!this->cNetwork.connect("127.0.0.1", 12348))
-    {
-      return (false);
-    }
   while (true)
     {
       if (!this->cNetwork.select())
@@ -72,8 +85,8 @@ bool Client::run(void)
       this->cNetwork.feedPacketAggregatorUDP();
       this->cNetwork.sendPacketToServer();
       state_network = this->cNetwork.process(*this);
-      e = this->cGraphic.getEvent();
-      this->gereAction(e, state_network);
+      event = this->cGraphic.getEvent();
+      this->gereAction(event, state_network);
       this->cGraphic.clean();
       this->cGraphic.draw();
     }

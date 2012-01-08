@@ -37,6 +37,7 @@ namespace LibGraphic
     inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
   private:
+    void setNextState(eState d);
     void drawText();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);

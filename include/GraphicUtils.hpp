@@ -51,6 +51,7 @@ namespace LibGraphic
     sf::Input Input;
   };
 
+  typedef eStates eState;
 }
 
 #endif //GRAPHICUTILS_H_

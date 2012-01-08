@@ -18,6 +18,7 @@ namespace LibGraphic
     virtual void draw() = 0;
     virtual Event gereEvent() = 0;
     virtual eStates getNextState() = 0;
+    virtual void setNextState(eStates) = 0;
   public:
     virtual sf::Sprite & getSprite(std::string const &) const = 0;
     virtual MyMusic * getMusic(std::string const &) const = 0;

@@ -8,6 +8,7 @@ namespace LibGraphic
   enum Event
     {
       EVENT_CHANGE_STATE,
+      EVENT_START_PLAY,
       EVENT_NONE,
       EVENT_QUIT
     };

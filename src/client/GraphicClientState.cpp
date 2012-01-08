@@ -137,3 +137,7 @@ std::string const & LibGraphic::GraphicClientState::getMessage() const
   return reinterpret_cast <StateRoom const *>(getValue(this->_stateInfos, ROOM))->getMessage();
 }
 
+void LibGraphic::GraphicClientState::setNextState(eState s, eState d)
+{
+  this->_stateInfos[s]->setNextState(d);
+}

@@ -484,3 +484,8 @@ inline sf::String * LibGraphic::StateRoomList::getStdToSfString(std::string cons
 {
   return (new sf::String(s, *daFont));
 }
+
+void LibGraphic::StateRoomList::setNextState(eState d)
+{
+  this->_nextState = UNKNOWN_STATE;
+}
