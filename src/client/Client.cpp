@@ -178,3 +178,8 @@ bool Client::run(void)
     }
   return (true);
 }
+
+LibGraphic::Sfml &Client::getGraphic(void)
+{
+  return (this->cGraphic);
+}

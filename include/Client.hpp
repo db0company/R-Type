@@ -23,6 +23,7 @@ public:
   bool actionCreate(std::string const &log, std::string const &name,
 		    std::string const &lvl, int slot, bool spec);
 
+  LibGraphic::Sfml	&getGraphic(void);
 private:
   ClientNetwork		cNetwork;
   LibGraphic::Sfml	cGraphic;

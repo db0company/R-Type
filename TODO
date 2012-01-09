@@ -1,5 +1,10 @@
-IDRISS: create game -> setter/getter + create + this->_action = CREATE_CREATE;
-        State room -> chat validation + set/get + this->_action = ROOM_CHAT
+Joystick pour le create game.
+Esc pour quioter message popup/ sinon pas d'action.
+Jolie message popup.
+boutton start dans room.
+
+
+
 
 Client:
 	eGraphicAction

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "GameParameter.hpp"
 #include "ProtocolGame.hpp"
+#include "Client.hpp"
 
 ProtocolGame::ProtocolGame()
 {
@@ -54,7 +55,7 @@ bool			ProtocolGame::actionError(PacketData &, Client &)
   return (false);
 }
 
-bool			ProtocolGame::actionGet(PacketData & data, Client &)
+bool			ProtocolGame::actionGet(PacketData & data, Client &client)
 {
   short nb_game = 0;
   short i;
@@ -89,7 +90,7 @@ bool			ProtocolGame::actionGetLevel(PacketData & data, Client &)
     return (false);
 }
 
-bool			ProtocolGame::actionCreate(PacketData & data, Client &)
+bool			ProtocolGame::actionCreate(PacketData & data, Client &client)
 {
   char			status;
   std::string		details;
@@ -99,17 +100,16 @@ bool			ProtocolGame::actionCreate(PacketData & data, Client &)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
  if (status)
     {
-      // TODO la creation de la game a reussi
-      //  -> on passe en affichage room (join ?)
+      client.getGraphic().errorMessage("SUCCESS TODO");
     }
   else
     {
-      // TODO creation fail. popup error
+      client.getGraphic().errorMessage("Error From Server. " + details + "\n");
     }
   return (false);
 }
 
-bool			ProtocolGame::actionJoin(PacketData & data, Client &)
+bool			ProtocolGame::actionJoin(PacketData & data, Client &client)
 {
   char			status;
   std::string		details;
@@ -119,12 +119,11 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
-      // TODO join de la game a reussi
-      // -> on passe en affichage room
+      client.getGraphic().errorMessage("SUCCESS TODO");
     }
   else
     {
-      // TODO join fail. popup error
+      client.getGraphic().errorMessage("Error From Server. " + details + "\n");
     }
   return (false);
 }
@@ -141,7 +140,7 @@ bool			ProtocolGame::actionEnd(PacketData &, Client &)
   return (false);
 }
 
-bool			ProtocolGame::actionStart(PacketData & data, Client &)
+bool			ProtocolGame::actionStart(PacketData & data, Client &client)
 {
   char			status;
   std::string		details;
@@ -151,11 +150,11 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
-      // Todo
+      client.getGraphic().errorMessage("SUCCESS TODO");
     }
   else
     {
-      // Todo
+      client.getGraphic().errorMessage("Error From Server. " + details + "\n");
     }
   return (false);
   (void)data;
