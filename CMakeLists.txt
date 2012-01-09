@@ -231,3 +231,15 @@ target_link_libraries(
 )
 
 endif(UNIX)
+
+include_directories(include)
+
+include_directories(shared)
+
+add_library(
+	MonsterBase
+	SHARED
+	./shared/MonsterBase.cpp
+)
+
+
