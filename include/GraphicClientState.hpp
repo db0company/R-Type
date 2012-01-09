@@ -42,6 +42,7 @@ namespace LibGraphic
     bool getSpectator() const;
     std::string const & getMessage() const;
     std::string const & getGameName() const;
+    void setMessage(std::string const &);
 
   private:
     Event eventStart(eStates & scene);

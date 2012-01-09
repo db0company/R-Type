@@ -137,3 +137,14 @@ std::string const & LibGraphic::GraphicClientState::getMessage() const
   return reinterpret_cast <StateRoom const *>(getValue(this->_stateInfos, ROOM))->getMessage();
 }
 
+void LibGraphic::GraphicClientState::setMessage(std::string const &m)
+{
+  // TODO ! IDRISS :)
+  // std::map<eStates, IState*>::const_iterator it;
+  // it = m.find(ROOM);
+  // // if (it == m.end())
+  // //   return ;
+  // // return it->second;
+  // // StateRoom *s = reinterpret_cast<StateRoom *>it->second;
+  // // s->setMessage(m);
+}

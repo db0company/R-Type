@@ -142,7 +142,7 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 		if (this->_currentButton == BUTTON_ROOM_CHAT)
 		  {
 		    std::cout << "chat:" << this->_chat << std::endl;
-		  return (EVENT_ROOM_CHAT);
+		    return (EVENT_ROOM_CHAT);
 		  }
 		break;
 	      }
@@ -263,4 +263,9 @@ inline sf::String * LibGraphic::StateRoom::getStdToSfString(std::string const & 
 std::string const & LibGraphic::StateRoom::getMessage() const
 {
   return this->_chat;
+}
+
+void LibGraphic::StateRoom::setMessage(std::string const &s)
+{
+  this->_chat = s;
 }

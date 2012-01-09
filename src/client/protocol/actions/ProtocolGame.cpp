@@ -100,7 +100,8 @@ bool			ProtocolGame::actionCreate(PacketData & data, Client &client)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
  if (status)
     {
-      client.getGraphic().errorMessage("SUCCESS TODO");
+      client.getGraphic().setCurrentState(LibGraphic::ROOM);
+      return (true);
     }
   else
     {
@@ -119,7 +120,7 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &client)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
-      client.getGraphic().errorMessage("SUCCESS TODO");
+      client.getGraphic().setCurrentState(LibGraphic::ROOM);
     }
   else
     {
@@ -150,6 +151,7 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &client)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
+      //this->cGraphic.setCurrentState(LibGraphic::INGAME); //todo !
       client.getGraphic().errorMessage("SUCCESS TODO");
     }
   else

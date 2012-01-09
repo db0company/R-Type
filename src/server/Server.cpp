@@ -216,14 +216,14 @@ bool Server::run(void)
   while (true)
     {
       this->_listener->SNAddRead();
-      // this->_selector->setTimer(1, 0);
+      this->_selector->setTimer(1, 0);
       if (!this->_selector->SNSelect())
 	{
 	  std::cerr << "Error: Select" << std::endl;
 	  return (false);
 	}
-      // if (this->_selector->getSec() == 0 && this->_selector->getUsec() == 0)
-      // 	std::cout << "It's time to packet." << std::endl;
+      if (this->_selector->getSec() == 0 && this->_selector->getUsec() == 0)
+      	std::cout << "It's time to packet." << std::endl;
       this->getNewClient();
       this->readFromClients();
       this->processPackets();

@@ -336,3 +336,8 @@ void LibGraphic::Sfml::errorMessage(std::string const & message)
   this->_errorMessage += " Press escape to erase the message.";
   errorToPrint = true;
 }
+
+void LibGraphic::Sfml::setMessage(std::string const &m)
+{
+  this->_graphicState->setMessage(m);
+}

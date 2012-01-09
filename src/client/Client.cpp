@@ -112,6 +112,26 @@ bool Client::actionRefresh(void)
   return (true);
 }
 
+bool Client::actionChat(std::string const &log, std::string const &msg)
+{
+  ProtocolPacket	*packet;
+  PacketData		*data;
+
+  data = new PacketData;
+  data->addString(log);
+  data->addString(msg);
+
+  packet = new ProtocolPacket;
+  packet->header.size = data->getDataSize();
+  packet->header.group = LOBBY;
+  packet->header.instruction = CHAT;
+  packet->header.magic = PACKET_MAGIC;
+
+  packet->data = data->getData();
+  this->cNetwork.pushTCP(packet);
+  return (true);
+}
+
 bool Client::gereAction(LibGraphic::Event e, bool state_network)
 {
   switch (e)
@@ -143,6 +163,11 @@ bool Client::gereAction(LibGraphic::Event e, bool state_network)
 	this->actionCreate(this->cGraphic.getLogin(), this->cGraphic.getGameName(),
 			   this->cGraphic.getLevel(), this->cGraphic.getSlot(),
 			   this->cGraphic.getSpectator());
+	break;
+      }
+    case LibGraphic::EVENT_ROOM_CHAT :
+      {
+	this->actionChat(this->cGraphic.getLogin(), this->cGraphic.getMessage());
 	break;
       }
     case LibGraphic::EVENT_CHANGE_STATE :

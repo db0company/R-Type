@@ -35,6 +35,7 @@ namespace LibGraphic
     MyMusic * getMusic(std::string const &) const;
     sf::Font * getFont(std::string const &) const;
     inline sf::String * getStdToSfString(std::string const &, sf::Font *);
+    void setMessage(std::string const &s);
 
   private:
     void setNextState(eState d);

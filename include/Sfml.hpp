@@ -46,6 +46,7 @@ namespace LibGraphic
     bool getSpectator() const;
     std::string const & getMessage() const;
     std::string const & getGameName() const;
+    void setMessage(std::string const &s);
 
   public:
     void errorMessage(std::string const &);

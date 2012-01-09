@@ -2,8 +2,9 @@ Joystick pour le create game.
 Esc pour quioter message popup/ sinon pas d'action.
 Jolie message popup.
 boutton start dans room.
-
-
+getValue du GraphicClientState unsafe ++ ?!
+GraphicClientState setMEssage (du chat) pour que je set a message vide quand le mec
+a send son message. this->les states[ROOM]->setMEssage(m)
 
 
 Client:

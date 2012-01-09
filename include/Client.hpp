@@ -22,6 +22,7 @@ public:
   bool actionJoin(std::string const &id, int id_game, bool obs);
   bool actionCreate(std::string const &log, std::string const &name,
 		    std::string const &lvl, int slot, bool spec);
+  bool actionChat(std::string const &, std::string const &);
 
   LibGraphic::Sfml	&getGraphic(void);
 private:
