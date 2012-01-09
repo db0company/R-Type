@@ -550,7 +550,3 @@ bool LibGraphic::StateOptions::isDefaultPort() const
   return this->_isDefaultPort;
 }
 
-void LibGraphic::StateOptions::setNextState(eState d)
-{
-  this->_nextState = UNKNOWN_STATE;
-}

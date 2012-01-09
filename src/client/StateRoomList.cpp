@@ -266,7 +266,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_REFRESH)
 		  {
-		    break;
+		    return (EVENT_ROOMLIST_REFRESH);
 		  }
 		break;
 	      }
@@ -301,7 +301,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_REFRESH)
 		  {
-		    break;
+		    return (EVENT_ROOMLIST_REFRESH);
 		  }
 		break;
 	      }
@@ -489,9 +489,4 @@ sf::Font * LibGraphic::StateRoomList::getFont(std::string const & fontName) cons
 inline sf::String * LibGraphic::StateRoomList::getStdToSfString(std::string const & s, sf::Font * daFont)
 {
   return (new sf::String(s, *daFont));
-}
-
-void LibGraphic::StateRoomList::setNextState(eState d)
-{
-  this->_nextState = UNKNOWN_STATE;
 }

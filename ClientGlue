@@ -33,6 +33,8 @@ CREATE:
 	       REACTION : PACKET CREATE
 
 
+->> TODO ! didi, jaimerai savoir quand le user tape ENTER quand ile st ds la chat box
+dans StateRoom::gereEvent. Quand c'est le cas retourne EVENT_ROOM_CHAT :) merci 
 ROOM:
 	ACTION : CHAT
    	       GETNAME  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML

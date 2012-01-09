@@ -89,8 +89,3 @@ inline sf::String * LibGraphic::StateGameParameters::getStdToSfString(std::strin
 {
   return (new sf::String(s, *daFont));
 }
-
-void LibGraphic::StateGameParameters::setNextState(eState d)
-{
-  this->_nextState = UNKNOWN_STATE;
-}
