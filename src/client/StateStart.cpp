@@ -443,8 +443,3 @@ inline sf::String * LibGraphic::StateStart::getStdToSfString(std::string const &
 {
   return (new sf::String(s, *daFont));
 }
-
-void LibGraphic::StateStart::setNextState(eState d)
-{
-  this->_nextState = UNKNOWN_STATE;
-}
