@@ -321,6 +321,6 @@ std::string const & LibGraphic::Sfml::getGameName() const
 void LibGraphic::Sfml::errorMessage(std::string const & message)
 {
   this->_errorMessage = message;
-  this->_errorMessage += " Press escape to erase the message."
+  this->_errorMessage += " Press escape to erase the message.";
   errorToPrint = true;
 }
