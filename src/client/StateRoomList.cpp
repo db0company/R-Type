@@ -1,3 +1,4 @@
+#include <iostream>
 #include "StateRoomList.hpp"
 #include "Language.hpp"
 
@@ -251,13 +252,17 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
 		  {
-		    this->_nextState = ROOM;
-		    return EVENT_CHANGE_STATE;
+		    //this->_nextState = ROOM;
+		    //return EVENT_CHANGE_STATE;
+		    std::cout << "EVENT_ROOMLIST_JOIN" << std::endl;
+		    return EVENT_ROOMLIST_JOIN;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
-		    this->_nextState = ROOM;
-		    return EVENT_CHANGE_STATE;
+		    // this->_nextState = ROOM;
+		    // return EVENT_CHANGE_STATE;
+		    std::cout << "EVENT_ROOMLIST_SPECTATE" << std::endl;
+		    return EVENT_ROOMLIST_SPECTATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
 		  {
@@ -286,13 +291,15 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
 		  {
-		    this->_nextState = ROOM;
-		    return EVENT_CHANGE_STATE;
+		    // this->_nextState = ROOM;
+		    // return EVENT_CHANGE_STATE;
+		    return EVENT_ROOMLIST_JOIN;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
-		    this->_nextState = ROOM;
-		    return EVENT_CHANGE_STATE;
+		    // this->_nextState = ROOM;
+		    // return EVENT_CHANGE_STATE;
+		    return EVENT_ROOMLIST_SPECTATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
 		  {

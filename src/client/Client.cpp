@@ -63,8 +63,9 @@ bool Client::actionJoin(std::string const &id, int id_game, bool obs)
   packet->header.size = data->getDataSize();
   packet->header.group = THE_GAME;
   packet->header.instruction = JOINGAME;
-  packet->data = data->getData();
+  packet->header.magic = PACKET_MAGIC;
 
+  packet->data = data->getData();
   this->cNetwork.pushTCP(packet);
   return (true);
 }
@@ -86,8 +87,9 @@ bool Client::actionCreate(std::string const &log, std::string const &name,
   packet->header.size = data->getDataSize();
   packet->header.group = THE_GAME;
   packet->header.instruction = CREATEGAME;
-  packet->data = data->getData();
+  packet->header.magic = PACKET_MAGIC;
 
+  packet->data = data->getData();
   this->cNetwork.pushTCP(packet);
   return (true);
 }
@@ -96,11 +98,15 @@ bool Client::actionCreate(std::string const &log, std::string const &name,
 bool Client::actionRefresh(void)
 {
   ProtocolPacket	*packet;
+  PacketData		*data;
 
+  data = new PacketData;
   packet = new ProtocolPacket;
   packet->header.size = 0;
   packet->header.group = THE_GAME;
   packet->header.instruction = GETGAME;
+  packet->header.magic = PACKET_MAGIC;
+  packet->data = data->getData();
 
   this->cNetwork.pushTCP(packet);
   return (true);
@@ -137,6 +143,7 @@ bool Client::gereAction(LibGraphic::Event e, bool state_network)
 	this->actionCreate(this->cGraphic.getLogin(), this->cGraphic.getGameName(),
 			   this->cGraphic.getLevel(), this->cGraphic.getSlot(),
 			   this->cGraphic.getSpectator());
+	break;
       }
     case LibGraphic::EVENT_CHANGE_STATE :
       {

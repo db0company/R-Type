@@ -117,6 +117,7 @@ bool PacketAggregator::erase(void)
       this->_packetQueue.pop();
     }
   memset(this->_buffer, 0, 4096);
+  this->_index = 0;
   return (0);
 }
 
