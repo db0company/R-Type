@@ -61,6 +61,10 @@ bool Server::init(int port)
     }
   this->_listener->SNAddRead();
   this->_udp->SNAddRead();
+  //debug test//
+  Game *g = new Game;
+  g->setName("toto");
+  this->_gameManager.addGame(g);
   return (true);
 }
 

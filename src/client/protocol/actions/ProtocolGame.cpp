@@ -2,6 +2,7 @@
 #include "GameParameter.hpp"
 #include "ProtocolGame.hpp"
 #include "Client.hpp"
+#include "InfoGame.hpp"
 
 ProtocolGame::ProtocolGame()
 {
@@ -60,6 +61,16 @@ bool			ProtocolGame::actionGet(PacketData & data, Client &client)
   short nb_game = 0;
   short i;
   GameParameter *gameParam = new GameParameter;
+  int id;
+  std::string owner;
+  std::string name;
+  std::string lvl;
+  char slot;
+  char observer;
+  std::map<int, InfoGame *> const &rmap = client.getGraphic().getInfoGameMap();
+  std::map<int, InfoGame *>::const_iterator it;
+  InfoGame *newGame;
+  char nb_player;
 
   i = 0;
   nb_game = data.getNextShort();
@@ -67,18 +78,38 @@ bool			ProtocolGame::actionGet(PacketData & data, Client &client)
     return (false);
   while (i < nb_game)
     {
-      gameParam->id = data.getNextShort();
-      gameParam->owner = data.getNextString();
-      gameParam->name = data.getNextString();
-      gameParam->lvl = data.getNextString();
-      gameParam->slot = data.getNextChar();
-      //gameParam->observer = data.getNextChar();
-      gameParam->nb_player = data.getNextChar();
-      // TODO: verif toutes les donnees sont ok puis ajouter a la
-      // map des games du client
-      // pour lafficher dans le Game list.
-      // truc du genre:
-      // client->addNewGame(gameParam);
+      id = data.getNextShort();
+      owner = data.getNextString();
+      name = data.getNextString();
+      lvl = data.getNextString();
+      slot = data.getNextChar();
+      observer = data.getNextChar();
+      nb_player = data.getNextChar();
+      // if ((it = rmap.find(id)) == rmap.end())
+      // 	{
+      // 	  newGame = new InfoGame;
+
+      // 	  newGame->setId(id);
+      // 	  newGame->setOwner(owner);
+      // 	  newGame->setName(name);
+      // 	  newGame->setMap(lvl);
+      // 	  newGame->setObs(observer);
+      // 	  newGame->setPlayers(nb_player);
+      // 	  newGame->setPlayerMax(slot);
+      // 	  //rmap[id] = newGame;
+      // 	}
+      // else
+      // 	{
+      // 	  newGame = it->second;
+
+      // 	  newGame->setId(id);
+      // 	  newGame->setOwner(owner);
+      // 	  newGame->setName(name);
+      // 	  newGame->setMap(lvl);
+      // 	  newGame->setObs(observer);
+      // 	  newGame->setPlayers(nb_player);
+      // 	  newGame->setPlayerMax(slot);
+      // 	}
       ++i;
     }
   return (false);

@@ -319,6 +319,11 @@ std::string const & LibGraphic::Sfml::getGameName() const
   return this->_graphicState->getGameName();
 }
 
+std::map<int, InfoGame *> const &LibGraphic::Sfml::getInfoGameMap()const
+{
+  return this->_graphicState->getInfoGameMap();
+}
+
 // void LibGraphic::Sfml::setNextState(eState s, eState d)
 // {
 //   this->_currentState = d;

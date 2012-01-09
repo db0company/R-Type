@@ -137,6 +137,11 @@ std::string const & LibGraphic::GraphicClientState::getMessage() const
   return reinterpret_cast <StateRoom const *>(getValue(this->_stateInfos, ROOM))->getMessage();
 }
 
+std::map<int, InfoGame *> const & LibGraphic::GraphicClientState::getInfoGameMap() const
+{
+  return reinterpret_cast <StateRoomList const *>(getValue(this->_stateInfos, ROOM))->getInfoGameMap();
+}
+
 void LibGraphic::GraphicClientState::setMessage(std::string const &m)
 {
   // TODO ! IDRISS :)

@@ -8,6 +8,7 @@
 #include "GraphicUtils.hpp"
 #include "GraphicClientState.hpp"
 #include "EGraphicAction.hpp"
+#include "InfoGame.hpp"
 //#include "ClientNetwork.hpp"
 
 #define WINDOWNAME "R-Type"
@@ -37,6 +38,8 @@ namespace LibGraphic
     void	   setCurrentState(eStates);
     void	   goToNextState(void);
     void	   setNextState(eState s, eStates d);
+    std::map<int, InfoGame *> const&getInfoGameMap()const;
+
     std::string const & getIp() const;
     std::string const & getLogin() const;
     int getPort() const;

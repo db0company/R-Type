@@ -8,6 +8,7 @@
 #include "IGraphic.hpp"
 #include "Istate.hpp"
 #include "EGraphicAction.hpp"
+#include "InfoGame.hpp"
 
 namespace LibGraphic
 {
@@ -32,6 +33,7 @@ namespace LibGraphic
     eGraphicAction getAction(eStates scene);
     void setAction(eGraphicAction, eStates);
     void setNextState(eStates, eStates);
+    std::map<int, InfoGame *> const &getInfoGameMap(void) const;
 
     std::string const & getIp() const;
     std::string const & getLogin() const;

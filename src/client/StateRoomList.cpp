@@ -155,6 +155,13 @@ void LibGraphic::StateRoomList::draw()
     Join->SetColor(sf::Color(255,255,255, 205));
   this->_app.Draw(*Join);
   this->drawText();
+
+  // debug
+   std::map<int, InfoGame *>::iterator it;
+   for (it = this->_infoGameMap.begin(); it != this->_infoGameMap.end(); ++it)
+     {
+       it->second->print();
+     }
 }
 
 void LibGraphic::StateRoomList::drawText()
@@ -496,4 +503,14 @@ sf::Font * LibGraphic::StateRoomList::getFont(std::string const & fontName) cons
 inline sf::String * LibGraphic::StateRoomList::getStdToSfString(std::string const & s, sf::Font * daFont)
 {
   return (new sf::String(s, *daFont));
+}
+
+std::map<int, InfoGame *> const &LibGraphic::StateRoomList::getInfoGameMap(void) const
+{
+  return (this->_infoGameMap);
+}
+
+void LibGraphic::StateRoomList::setInfoGameMap(std::map<int, InfoGame *> &nmap)
+{
+  this->_infoGameMap = nmap;
 }
