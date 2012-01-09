@@ -3,6 +3,7 @@
 
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
+extern bool errorToPrint;
 
 LibGraphic::StateGameParameters::StateGameParameters(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
@@ -44,8 +45,13 @@ LibGraphic::Event LibGraphic::StateGameParameters::gereEvent()
 	    case sf::Key::Escape :
 	      //return LibGraphic::__EVENT_QUIT;
 	      {
-		this->_app.Close();
-		exit(EXIT_SUCCESS);
+		if (errorToPrint)
+		  errorToPrint = false;
+		else
+		  {
+		    this->_app.Close();
+		    exit(EXIT_SUCCESS);
+		  }
 	      }
 	    default : break;
 	    }

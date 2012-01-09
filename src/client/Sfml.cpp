@@ -9,9 +9,8 @@
 
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
-// LibGraphic::Sfml::Sfml(void)
-// {
-//}
+
+bool errorToPrint = false;
 
 LibGraphic::Sfml::Sfml(ClientNetwork &cn) :
   _network(cn)
@@ -76,7 +75,16 @@ void LibGraphic::Sfml::clean()
 
 void LibGraphic::Sfml::draw()
 {
+  sf::String tmp;
+
   this->_graphicState->draw(this->_currentState);
+  if (errorToPrint)
+    {
+      tmp.SetText(this->_errorMessage);
+      tmp.SetColor(sf::Color(255,0,0, 255));
+      tmp.SetPosition(300, 300);
+      this->_app.Draw(tmp);
+    }
   this->_app.Display();
 }
 
@@ -320,4 +328,11 @@ std::string const & LibGraphic::Sfml::getGameName() const
 void LibGraphic::Sfml::setCurrentState(eStates s)
 {
   this->_currentState = s;
+}
+
+void LibGraphic::Sfml::errorMessage(std::string const & message)
+{
+  this->_errorMessage = message;
+  this->_errorMessage += " Press escape to erase the message.";
+  errorToPrint = true;
 }

@@ -49,13 +49,18 @@ bool Client::gereAction(LibGraphic::Event e, bool state_network)
 	    if (this->cNetwork.connect(this->cGraphic.getIp(),
 				       this->cGraphic.getPort()))
 	      {
-		this->cGraphic.setCurrentState(LibGraphic::ROOM);
+		this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
 		std::cout << "connection ok" << std::endl;
 	      }
 	    else
-	      std::cout << "connection ko " << std::endl;
+	      {
+		this->cGraphic.errorMessage("connection ko\n");
+		// std::cout << "connection ko " << std::endl;
+		// this->cGraphic.setCurrentState(LibGraphic::START);
+	      }
 	  }
-	this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
+	else
+	  this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
 	break;
       }
     case LibGraphic::EVENT_CHANGE_STATE :
