@@ -299,6 +299,11 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		    // return EVENT_CHANGE_STATE;
 		    return (EVENT_START_PLAY);
 		  }
+		else if (this->_currentButton == BUTTON_EXIT)
+		  {
+		    this->_app.Close();
+		    exit(EXIT_SUCCESS);
+		  }
 		break;
 	      }
 	    default: break;
