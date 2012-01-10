@@ -117,7 +117,7 @@ void LibGraphic::StateRoomList::draw()
 	{
 	  if (this->_selectedGame == it->second)
 	    {
-	      SelectedGame.SetPosition(300, 350 + (50 * ind));
+	      SelectedGame.SetPosition(299, 350 + (50 * ind));
 	      this->_app.Draw(SelectedGame);
 	    }
 	  ++ind;

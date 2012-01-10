@@ -97,58 +97,6 @@ bool Client::actionCreate(std::string const &log, std::string const &name,
   return (true);
 }
 
-
-bool Client::actionRefresh(void)
-{
-  ProtocolPacket	*packet;
-  PacketData		*data;
-
-  data = new PacketData;
-  packet = new ProtocolPacket;
-  packet->header.size = 0;
-  packet->header.group = THE_GAME;
-  packet->header.instruction = GETGAME;
-  packet->header.magic = PACKET_MAGIC;
-  packet->data = data->getData();
-
-  this->cNetwork.pushTCP(packet);
-  return (true);
-}
-
-bool Client::actionStart(void)
-{
-  ProtocolPacket	*packet;
-  PacketData		*data;
-
-  data = new PacketData;
-  packet = new ProtocolPacket;
-  packet->header.size = 0;
-  packet->header.group = THE_GAME;
-  packet->header.instruction = STARTGAME;
-  packet->header.magic = PACKET_MAGIC;
-  packet->data = data->getData();
-
-  this->cNetwork.pushTCP(packet);
-  return (true);
-}
-
-bool Client::actionGetLvl(void)
-{
-  ProtocolPacket	*packet;
-  PacketData		*data;
-
-  data = new PacketData;
-  packet = new ProtocolPacket;
-  packet->header.size = 0;
-  packet->header.group = THE_GAME;
-  packet->header.instruction = GETLEVELGAME;
-  packet->header.magic = PACKET_MAGIC;
-  packet->data = data->getData();
-
-  this->cNetwork.pushTCP(packet);
-  return (true);
-}
-
 bool Client::actionChat(std::string const &log, std::string const &msg)
 {
   ProtocolPacket	*packet;
@@ -170,7 +118,7 @@ bool Client::actionChat(std::string const &log, std::string const &msg)
   return (true);
 }
 
-bool Client::gereAction(LibGraphic::Event e, bool state_network)
+bool Client::gereAction(LibGraphic::Event e)
 {
   switch (e)
     {
@@ -214,9 +162,15 @@ bool Client::gereAction(LibGraphic::Event e, bool state_network)
 	this->cGraphic.goToNextState();
 	break;
       }
+    case LibGraphic::EVENT_ROOM_QUIT :
+      {
+	this->actionQuit();
+	break;
+      }
     case LibGraphic::EVENT_ROOM_START :
       {
 	this->actionStart();
+	break;
       }
     default : break;
     }
@@ -226,7 +180,7 @@ bool Client::gereAction(LibGraphic::Event e, bool state_network)
 bool Client::run(void)
 {
   LibGraphic::Event event;
-  bool state_network;
+  // bool state_network;
 
   while (true)
     {
@@ -238,9 +192,10 @@ bool Client::run(void)
       this->cNetwork.feedPacketAggregatorTCP();
       this->cNetwork.feedPacketAggregatorUDP();
       this->cNetwork.sendPacketToServer();
-      state_network = this->cNetwork.process(*this);
+      // state_network =
+      this->cNetwork.process(*this);
       event = this->cGraphic.getEvent();
-      this->gereAction(event, state_network);
+      this->gereAction(event);
       this->cGraphic.clean();
       this->cGraphic.draw();
     }
@@ -250,4 +205,73 @@ bool Client::run(void)
 LibGraphic::Sfml &Client::getGraphic(void)
 {
   return (this->cGraphic);
+}
+
+bool Client::actionRefresh(void)
+{
+  ProtocolPacket	*packet;
+  PacketData		*data;
+
+  data = new PacketData;
+  packet = new ProtocolPacket;
+  packet->header.size = 0;
+  packet->header.group = THE_GAME;
+  packet->header.instruction = GETGAME;
+  packet->header.magic = PACKET_MAGIC;
+  packet->data = data->getData();
+
+  this->cNetwork.pushTCP(packet);
+  return (true);
+}
+
+bool Client::actionStart(void)
+{
+  ProtocolPacket	*packet;
+  PacketData		*data;
+
+  data = new PacketData;
+  packet = new ProtocolPacket;
+  packet->header.size = 0;
+  packet->header.group = THE_GAME;
+  packet->header.instruction = STARTGAME;
+  packet->header.magic = PACKET_MAGIC;
+  packet->data = data->getData();
+
+  this->cNetwork.pushTCP(packet);
+  return (true);
+}
+
+bool Client::actionQuit(void)
+{
+  ProtocolPacket	*packet;
+  PacketData		*data;
+
+  data = new PacketData;
+  data->addString(this->cGraphic.getLogin());
+  packet = new ProtocolPacket;
+  packet->header.size = 0;
+  packet->header.group = THE_GAME;
+  packet->header.instruction = STARTGAME;
+  packet->header.magic = PACKET_MAGIC;
+  packet->data = data->getData();
+
+  this->cNetwork.pushTCP(packet);
+  return (true);
+}
+
+bool Client::actionGetLvl(void)
+{
+  ProtocolPacket	*packet;
+  PacketData		*data;
+
+  data = new PacketData;
+  packet = new ProtocolPacket;
+  packet->header.size = 0;
+  packet->header.group = THE_GAME;
+  packet->header.instruction = GETLEVELGAME;
+  packet->header.magic = PACKET_MAGIC;
+  packet->data = data->getData();
+
+  this->cNetwork.pushTCP(packet);
+  return (true);
 }

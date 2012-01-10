@@ -2,7 +2,7 @@
 #include	"Server.hpp"
 #include	"RecupMap.hpp"
 
-uint		v = 1;
+// uint		v = 1;
 // todo: parameters to set verbose mode
 
 bool		rtype_server(void)
@@ -14,7 +14,7 @@ bool		rtype_server(void)
   return (server.run());
 }
 
-int		main(int ac, char **av)
+int		main(int , char **)
 {
   return (rtype_server() ? EXIT_SUCCESS : EXIT_FAILURE);
 }

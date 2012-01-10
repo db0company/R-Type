@@ -16,7 +16,7 @@ public:
 
   bool init(void);
   bool run(void);
-  bool gereAction(LibGraphic::Event e, bool);
+  bool gereAction(LibGraphic::Event e);
   bool actionRefresh(void);
   bool actionConnect(void);
   bool actionJoin(std::string const &id, int id_game, bool obs);
@@ -25,6 +25,7 @@ public:
   bool actionChat(std::string const &, std::string const &);
   bool actionStart(void);
   bool actionGetLvl(void);
+  bool actionQuit(void);
 
   LibGraphic::Sfml	&getGraphic(void);
 private:

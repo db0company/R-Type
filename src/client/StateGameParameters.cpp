@@ -67,7 +67,7 @@ LibGraphic::eStates LibGraphic::StateGameParameters::getNextState()
   return this->_nextState;
 }
 
-void LibGraphic::StateGameParameters::cursorMenuPos(const sf::Event & Event)
+void LibGraphic::StateGameParameters::cursorMenuPos(const sf::Event &)
 {
 }
 

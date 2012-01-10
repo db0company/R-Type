@@ -66,9 +66,11 @@ bool Server::init(int port)
   Game *g = new Game;
   Game *f = new Game;
   g->setName("toto");
+  g->setObs(false);
   this->_gameManager.addGame(g);
   f->setName("nom");
   f->setOwnerId("didi");
+  f->setObs(true);
   this->_gameManager.addGame(f);
   return (true);
 }
@@ -142,6 +144,7 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
 		      static_cast<ushort>(QUITGAME), to_send);
 		  it->second->addPacketToSend(packet_to_send);
 		}
+	      game->setStatus(ENDED);
 	    }
 	  this->_quitQueue.push(socket->getIp());
 	}

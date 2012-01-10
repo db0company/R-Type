@@ -13,7 +13,7 @@ ProtocolGame::ProtocolGame()
   this->actionmap[GETLEVELGAME] = &ProtocolGame::actionGetLevel;
   this->actionmap[CREATEGAME] = &ProtocolGame::actionCreate;
   this->actionmap[JOINGAME] = &ProtocolGame::actionJoin;
-  this->actionmap[QUITGAME] = &ProtocolGame::actionError;
+  this->actionmap[QUITGAME] = &ProtocolGame::actionQuit;
   this->actionmap[ENDGAME] = &ProtocolGame::actionEnd;
   this->actionmap[STARTGAME] = &ProtocolGame::actionStart;
 }
@@ -181,12 +181,6 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &client)
   return (false);
 }
 
-// bool			ProtocolGame::actionQuit(PacketData & data, Client &)
-// {
-//   (void)data;
-//   return (true);
-// }
-
 bool			ProtocolGame::actionEnd(PacketData &, Client &)
 {
   // TODO: la game est fini. clean memoire + go ecran de fin (puis game list)
@@ -211,5 +205,23 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &client)
       client.getGraphic().errorMessage("Error From Server. " + details + "\n");
     }
   return (false);
-  (void)data;
+}
+
+bool			ProtocolGame::actionQuit(PacketData & data, Client &client)
+{
+  std::string	log;
+  int		quit;
+
+  quit = data.getNextShort();
+  log = data.getNextString();
+  if (quit)
+    {
+      client.getGraphic().errorMessage("The Creator "+ log +" deleted this game" + "\n");
+      client.getGraphic().setCurrentState(LibGraphic::ROOMLIST);
+    }
+  else
+    {
+      // un mec a quit. what u wanna do 'bout it ?
+    }
+  return (false);
 }

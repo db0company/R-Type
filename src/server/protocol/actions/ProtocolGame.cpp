@@ -1,11 +1,11 @@
-#include	<iostream>
-#include	"PacketFactory.hpp"
-#include	"ProtocolPacket.h"
-#include	"ProtocolGame.hpp"
-#include	"User.hpp"
-#include	"TaskNetwork.hpp"
-#include	"PacketTask.hpp"
-#include	"Server.hpp"
+#include <iostream>
+#include "PacketFactory.hpp"
+#include "ProtocolPacket.h"
+#include "ProtocolGame.hpp"
+#include "User.hpp"
+#include "TaskNetwork.hpp"
+#include "PacketTask.hpp"
+#include "Server.hpp"
 
 ProtocolGame::ProtocolGame()
 {
@@ -181,7 +181,8 @@ bool		ProtocolGame::actionJoin(PacketData & received,
   login = received.getNextString();
   id_game = received.getNextShort();
   observer = received.getNextChar();
-  if ((game = server.getGameManager().getGameFromId(id_game)) == NULL)
+  if ((game = server.getGameManager().getGameFromId(id_game)) == NULL ||
+      game->getStatus() == ENDED)
     {
       to_send->addChar(0);
       to_send->addString("This Game don't Exist");
