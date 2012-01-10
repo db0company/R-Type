@@ -7,12 +7,12 @@
 #include "PacketManager.hpp"
 
 User::User(ATCPClientSocket * socket, std::string const & ip, PacketManager &pamanager)
-  : safe(true), log(false), login(""), ip(ip), pm(pamanager), tcp(socket)
+  : safe(true), log(false), login(""), ip(ip), pm(pamanager), tcp(socket), _player(NULL), _state(USER_ROOMLIST), _game(NULL)
 {}
 
 User::User(User const & other)
   : safe(other.safe), log(other.log), login(other.login),
-    ip(other.ip), pm(other.pm), tcp(other.tcp)
+    ip(other.ip), pm(other.pm), tcp(other.tcp), _state(other._state), _game(NULL)
 {}
 
 User &			User::operator=(User const & other)
@@ -24,22 +24,19 @@ User &			User::operator=(User const & other)
       this->login = other.login;
       this->ip = other.ip;
       this->tcp = other.tcp;
+      this->paRead = other.paRead;
+      this->paWrite = other.paWrite;
+      this->paWriteUDP = other.paWriteUDP;
+      this->paReadUDP = other.paReadUDP;
+      this->_state = other._state;
+      this->_player = other._player;
+      this->_game = other._game;
     }
   return (*this);
 }
 
 User::~User(void)
 {}
-
-bool				User::isSafe(void)const
-{
-  return (this->safe);
-}
-
-void				User::setSafe(bool state)
-{
-  this->safe = state;
-}
 
 bool				User::isLog(void)const
 {
@@ -56,12 +53,21 @@ ATCPClientSocket *		User::getSocketTCP(void)
   return (this->tcp);
 }
 
+bool				User::isSafe(void)const
+{
+  return (this->safe);
+}
+
+void				User::setSafe(bool state)
+{
+  this->safe = state;
+}
+
 std::string const &		User::getIp(void)const
 {
   return (this->ip);
 }
 
-//tcp
 bool				User::feedPacketAggregator(void)
 {
   char buffer[1024] = {0};
@@ -75,14 +81,22 @@ bool				User::feedPacketAggregator(void)
   return (true);
 }
 
-//udp
 bool				User::feedPacketAggregator(char *data, int size)
 {
   this->paReadUDP.concat(data, size);
   return (true);
 }
 
-// tcp
+std::string const &User::getLogin(void)const
+{
+  return (this->login);
+}
+
+void		User::setLogin(std::string const &log)
+{
+  this->login = log;
+}
+
 bool			User::aggregatePacketToSend(void)
 {
   unsigned int size;
@@ -118,7 +132,6 @@ bool			User::addPacketToSendUDP(ProtocolPacket *packer)
   return (true);
 }
 
-// udp
 bool			User::aggregatePacketToSend(AUDPServerSocket *so)
 {
   unsigned int size;
@@ -139,16 +152,11 @@ bool			User::aggregatePacketToSend(AUDPServerSocket *so)
 
 bool				User::processPackets(Server &serv)
 {
-  int				nb_packet = 0;
   ProtocolPacket		*packet = NULL;
   int				tmp_i = 0;
 
-  nb_packet = this->paRead.aggregateCharToPackets();
-  // if (nb_packet > 0)
-  //   std::cout << "TCP PacketQueue.size() == " << nb_packet << std::endl;
-  nb_packet = this->paReadUDP.aggregateCharToPackets();
-  // if (nb_packet > 0)
-  //   std::cout << "UDP PacketQueue.size() == " << nb_packet << std::endl;
+  this->paRead.aggregateCharToPackets();
+  this->paReadUDP.aggregateCharToPackets();
   if (this->paRead.empty() && this->paReadUDP.empty())
     {
       return (false);
@@ -171,4 +179,24 @@ bool				User::processPackets(Server &serv)
       ++tmp_i;
     }
   return (true);
+}
+
+cState		User::getState(void)const
+{
+  return (this->_state);
+}
+
+void			User::setState(cState s)
+{
+  this->_state = s;
+}
+
+void User::setGame(Game *h)
+{
+  this->_game = h;
+}
+
+Game *User::getGame(void)
+{
+  return (this->_game);
 }

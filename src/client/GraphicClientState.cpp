@@ -124,7 +124,7 @@ int LibGraphic::GraphicClientState::getIdGame() const
 
 std::string const & LibGraphic::GraphicClientState::getLevel() const
 {
-  std::string * toto = new std::string("bite");
+  std::string * toto = new std::string("Star");
   return *toto;
 }
 

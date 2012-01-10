@@ -52,7 +52,6 @@ Game::Game(const Game& old)
   this->_map = old._map;
   this->_bullets = old._bullets;
   this->_userMap = old._userMap;
-  this->_userObsMap = old._userObsMap;
   this->_owner_login = old._owner_login;
   this->_name = old._name;
   this->_lvlname = old._lvlname;
@@ -70,7 +69,6 @@ Game&	Game::operator=(const Game& old)
   this->_map = old._map;
   this->_bullets = old._bullets;
   this->_userMap = old._userMap;
-  this->_userObsMap = old._userObsMap;
   this->_owner_login = old._owner_login;
   this->_name = old._name;
   this->_lvlname = old._lvlname;
@@ -295,16 +293,19 @@ void	Game::fireBullet(PacketData &)
   sendToAllClient(data, MOVEMENT, UPDATEBULLET);
 }
 
-bool Game::addUser(User *user, bool root, bool observer, std::string const &login)
+bool Game::addUser(User *user, bool root, bool , std::string const &login)
 {
   if (this->_userMap.size() > this->player_max)
     return (false);
   if (root)
     this->_owner_login = login;
-  if (observer)
-    this->_userMap.insert(std::pair<std::string, User *>(user->getIp(), user));
-  else
-    this->_userObsMap.insert(std::pair<std::string, User *>(user->getIp(), user));
+  this->_userMap.insert(std::pair<std::string, User *>(user->getIp(), user));
+  return (true);
+}
+
+bool Game::delUser(std::string const &log)
+{
+  this->_userMap.erase(log);
   return (true);
 }
 
@@ -375,4 +376,19 @@ IMutex		*Game::getMutex()
 std::map<std::string, AObject *>& Game::getPlayerList()
 {
   return (this->_players);
+}
+
+void		Game::setStatus(eGameStatus e)
+{
+  this->_status = e;
+}
+
+eGameStatus	Game::getStatus(void)const
+{
+  return (this->_status);
+}
+
+std::map<std::string, User *> &Game::getUserMap()
+{
+  return (this->_userMap);
 }

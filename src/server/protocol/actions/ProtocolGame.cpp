@@ -71,13 +71,16 @@ bool			ProtocolGame::actionGet(PacketData &, User *user, Server &server)
   for (it = map.begin(); it != map.end(); ++it)
     {
       tmp = (*it).second;
-      to_send->addShort(tmp->getId());
-      to_send->addString(tmp->getOwnerLogin());
-      to_send->addString(tmp->getName());
-      to_send->addString(tmp->getLvlName());
-      to_send->addChar(tmp->getPlayerMax());
-      to_send->addChar(tmp->getObs());
-      to_send->addChar(tmp->getNbPlayer());
+      if (tmp->getStatus() != ENDED)
+	{
+	  to_send->addShort(tmp->getId());
+	  to_send->addString(tmp->getOwnerLogin());
+	  to_send->addString(tmp->getName());
+	  to_send->addString(tmp->getLvlName());
+	  to_send->addChar(tmp->getPlayerMax());
+	  to_send->addChar(tmp->getObs());
+	  to_send->addChar(tmp->getNbPlayer());
+	}
     }
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(GETGAME), to_send);
   user->addPacketToSend(packet_to_send);
@@ -90,7 +93,8 @@ bool			ProtocolGame::actionGetLevel(PacketData &, User *user, Server &)
   ProtocolPacket *packet_to_send;
 
   to_send->addShort(1);
-  to_send->addString("level1");
+  to_send->addString("Star");
+  //  to_send->addString("Moon"); + add 1 au short!
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(GETLEVELGAME), to_send);
   user->addPacketToSend(packet_to_send);
   return (true);
@@ -112,10 +116,6 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
   game_lvl = received.getNextString();
   player_max = received.getNextChar();
   observer = received.getNextChar();
-  std::cout << "login(" << name << ") game(" << game_name << ") lvl("
-	    << game_lvl << ") max(" << (int)player_max << ") observer("
-	    << (int)observer << ")" << std::endl;
-
   if (game_name.size() < 3)
     {
       to_send->addChar(0);
@@ -132,7 +132,14 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
       user->addPacketToSend(packet_to_send);
       return (false);
     }
-  // TODO : verrifier si le lvl existe
+  if (!(game_lvl == "Star"))
+    {
+      to_send->addChar(0);
+      to_send->addString("The map " + game_lvl + "don't exist");
+      packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
+      user->addPacketToSend(packet_to_send);
+      return (false);
+    }
   if (player_max < 1 || player_max > 4)
     {
       to_send->addChar(0);
@@ -155,6 +162,8 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
   to_send->addChar(1);
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
   user->addPacketToSend(packet_to_send);
+  user->setState(USER_GAME_ROOT);
+  user->setGame(game);
   return (true);
 }
 
@@ -167,46 +176,109 @@ bool		ProtocolGame::actionJoin(PacketData & received,
   short		id_game;
   char		observer;
   Game		*game;
+  std::map<std::string, User *> map;
 
   login = received.getNextString();
   id_game = received.getNextShort();
   observer = received.getNextChar();
-  std::cout << "login(" << login << ") id_game(" << id_game << ") observer("
-	    << (int)observer << ")" << std::endl;
   if ((game = server.getGameManager().getGameFromId(id_game)) == NULL)
     {
       to_send->addChar(0);
       to_send->addString("This Game don't Exist");
       packet_to_send = PacketFactory::createPacket(THE_GAME,
-                static_cast<ushort>(JOINGAME), to_send);
+						   static_cast<ushort>(JOINGAME), to_send);
       user->addPacketToSend(packet_to_send);
       return (false);
     }
-  // TODO: verrif si login dispo pour la game
+  if (user->getGame() != NULL)
+    game = user->getGame();
+  if (map.find(login) != map.end())
+    {
+      to_send->addChar(0);
+      to_send->addString("This login is already Taken for this Game");
+      packet_to_send = PacketFactory::createPacket(THE_GAME,
+		       static_cast<ushort>(JOINGAME), to_send);
+      user->addPacketToSend(packet_to_send);
+      return (false);
+    }
   if (observer)
     {
       if (game->getObs() == false)
 	{
 	  to_send->addChar(0);
-	  to_send->addString("This login is already Taken for this Game");
+	  to_send->addString("This game don't accept Spectators");
 	  packet_to_send = PacketFactory::createPacket(THE_GAME,
-                 static_cast<ushort>(JOINGAME), to_send);
+		           static_cast<ushort>(JOINGAME), to_send);
 	  user->addPacketToSend(packet_to_send);
 	  return (false);
 	}
     }
+  else
+    {
+      if (game->getNbPlayer() >= game->getPlayerMax())
+	{
+	  to_send->addChar(0);
+	  to_send->addString("This game is full.");
+	  packet_to_send = PacketFactory::createPacket(THE_GAME,
+		           static_cast<ushort>(JOINGAME), to_send);
+	  user->addPacketToSend(packet_to_send);
+	  return (false);
+	}
+    }
+  if (observer)
+    user->setState(USER_GAME_SPECTATE);
+  else
+    user->setState(USER_GAME_PLAYER);
   game->addUser(user, false, (observer == 0 ? false : true), login);
   to_send->addChar(1);
-  packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(JOINGAME), to_send);
+  packet_to_send = PacketFactory::createPacket(THE_GAME,
+	       static_cast<ushort>(JOINGAME), to_send);
   user->addPacketToSend(packet_to_send);
   return (true);
 }
 
-bool			ProtocolGame::actionQuit(PacketData &, User *, Server &)
+bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &s)
 {
-  // TODO: enlever le player de la game.
-  // ne renvoi rien
-  // BIG TODO: dire au autre clients qu'il se barre (add protocol)
+  PacketData	*to_send = new PacketData;
+  ProtocolPacket *packet_to_send;
+  std::string log = data.getNextString();
+  Game *g;
+  std::map<std::string, User *>maap;
+  std::map<std::string, User *>::iterator it;
+
+  if ((g = user->getGame()) == NULL)
+    return (false);
+  maap = g->getUserMap();
+  if (user->getState() == USER_GAME_ROOT)
+    {
+      if (g->getStatus() == LOBBYROOM)
+	{
+	  user->getGame()->setStatus(ENDED);
+	  to_send->addShort(1);
+	  to_send->addString(log);
+	  for (it = maap.begin(); it != maap.end(); ++it)
+	    {
+	      packet_to_send = PacketFactory::createPacket(THE_GAME,
+			       static_cast<ushort>(QUITGAME), to_send);
+	      it->second->addPacketToSend(packet_to_send);
+	    }
+	  g->setStatus(ENDED);
+	  return (false);
+	}
+      g->delUser(log);
+    }
+  else
+    {
+      to_send->addShort(0);
+      to_send->addString(log);
+      for (it = maap.begin(); it != maap.end(); ++it)
+	{
+	  packet_to_send = PacketFactory::createPacket(THE_GAME,
+			   static_cast<ushort>(QUITGAME), to_send);
+	  it->second->addPacketToSend(packet_to_send);
+	}
+      g->delUser(log);
+    }
   return (true);
 }
 
@@ -214,14 +286,39 @@ bool			ProtocolGame::actionStart(PacketData &, User *user, Server &)
 {
   PacketData	*to_send = new PacketData;
   ProtocolPacket *packet_to_send;
+  std::map<std::string, User *> map;
+  std::map<std::string, User *>::iterator it;
 
-  // TODO: actionstart
-  // verrifier si le user a bien creer la game (rootgame) et pas quit
-  // et si la game est bien en mode lobby(attente dautre personne/chat)
-  // si oui -> start game + envoyer packet ok. sinon envoyer packet failure
-  to_send->addChar(0);
-  to_send->addString("Not Yet implemented");
-  packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(STARTGAME), to_send);
-  user->addPacketToSend(packet_to_send);
+  if (user->getState() == USER_GAME_ROOT && user->getGame() != NULL)
+    {
+      if (user->getGame()->getStatus() == LOBBYROOM)
+	{
+	  to_send->addChar(0); // todo 1
+	  to_send->addString("Not Yet implemented"); // todo del
+	  user->getGame()->setStatus(INGAME);
+	  packet_to_send = PacketFactory::createPacket(THE_GAME,
+                           static_cast<ushort>(STARTGAME), to_send);
+
+	  map = user->getGame()->getUserMap();
+	  for (it = map.begin(); it != map.end(); ++it)
+	    {
+	      it->second->addPacketToSend(packet_to_send);
+	    }
+	}
+      else
+	{
+	  to_send->addChar(0);
+	  to_send->addString("Game Already Started");
+	  packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(STARTGAME), to_send);
+	  user->addPacketToSend(packet_to_send);
+	}
+    }
+  else
+    {
+      to_send->addChar(0);
+      to_send->addString("You must be the game creator");
+      packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(STARTGAME), to_send);
+      user->addPacketToSend(packet_to_send);
+    }
   return (true);
 }

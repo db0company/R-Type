@@ -41,14 +41,14 @@ bool Client::actionConnect(void)
     {
       if (!this->cNetwork.connect(this->cGraphic.getIp(),
 				  this->cGraphic.getPort()))
-	this->cGraphic.errorMessage("Can't connect to Server " +
-				    this->cGraphic.getIp() + "\n");
+	{
+	  this->cGraphic.errorMessage("Can't connect to Server " +
+				      this->cGraphic.getIp() + "\n");
+	  return (false);
+	}
     }
-  else
-    {
-      this->actionRefresh();
-      this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
-    }
+  this->actionRefresh();
+  this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
   return (true);
 }
 
@@ -60,7 +60,7 @@ bool Client::actionJoin(std::string const &id, int id_game, bool obs)
   data = new PacketData;
   data->addString(id);
   data->addShort(id_game);
-  data->addChar(obs);
+  data->addChar(obs ? 1 : 0);
 
   packet = new ProtocolPacket;
   packet->header.size = data->getDataSize();
@@ -231,10 +231,10 @@ bool Client::run(void)
   while (true)
     {
       if (!this->cNetwork.select())
-      	{
-      	  std::cerr << "Error: Can't Monitor Sockets" << std::endl;
-      	  return (false);
-      	}
+	{
+	  std::cerr << "Error: Can't Monitor Sockets" << std::endl;
+	  return (false);
+	}
       this->cNetwork.feedPacketAggregatorTCP();
       this->cNetwork.feedPacketAggregatorUDP();
       this->cNetwork.sendPacketToServer();

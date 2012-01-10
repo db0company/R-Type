@@ -1,44 +1,15 @@
-boutton start dans room.
-getValue du GraphicClientState unsafe ++ ?!
-GraphicClientState setMEssage (du chat) pour que je set a message vide quand le mec
-a send son message. this->les states[ROOM]->setMEssage(m)
-Jolie message popup.
-Esc pour quioter message popup/ sinon pas d'action.
-Joystick pour le create game.
-
-
-Client:
-	eGraphicAction
-	getAction
-	Envoi bon packet
-
-	Reception
-	Setter/Change State
-
-	Test
-
-	Starfield/Timer
-
 /!\ TODO: /!\
 
 -> General:
-  * definir comment ca marche les dll de monstres (linterface etc. vincent tu a p'tetre
-  + une vision de ce que ca represente)
-  * definir comment representer un lvl (cote serveur un lvl a une map charge depuis
-    un fichier (.txt? autre) avec plusieurs donnee (nom du lvl, description, map... etc)
-    A DEFINIR (format)
   * throw les exeption, les catcher (si on catch ds le serveur ca fait quoi avec les thread?)
   * CP le githug ds le koalagit !
 
--> Client: [Graphic Menu]
-	// OK * Faire la selection des games dans le menu gamelist
-	// OK * Faire le Menu de creation de game
-	// OK * Faire le Lobby (attente de lancement de partie) + Chat
-   * Faire une minifenetre genre popup pour info
-     (genre void sfml::pop(std::string const &msg) qui affiche ds la
-     minifenetre le message avec un boutton OK pour lenlever)
-
--> Client: [Graphic InGame]
+-> Client:
+   * refaire image selection
+   * faire image pour input text
+   * idriss: ton getvalu est unsafe + tu ferifi pas si tes map.find() retourne pas un map.end() (getValue + Sfml.cpp)
+   * verif les break et le joystick pour les menu (rapide)
+   * affichage derreure + classe
    * Afficher un starfield qui s'ecoule (par rapport a un timer cote client
    et non le cpu ou whatever)
    * Afficher les info ds une barre en bas (nnombres de vie/score/nom du lvl)
@@ -48,30 +19,12 @@ Client:
    * Affichage des bullet
    * Decoupage intensive des autres sprites.
 
--> Client: [Graphic + Reseau]
+-> Client/Server/Game
    * Lier les actions a des packets a envoye au network (Graphic et reseau)
    * Lier les packets recu a des actions du client (sauvegarde et modif des donnees)
-
--> Server [Thread]
-	   // OK * Enlever Segfault Thread/Mutex
-	   // OK * Tester les thread avec la task network
-
--> Server [Game/Corp]
-   	  // OK * Faire les Task Game (Vincent)
-   	  // OK * Faire les Aobject/IElem/je ne sais pas comment ils s'appel (Missile Monster Player)
-   * Finir le game manager (il contiens les games)
-     	  // OK * Finir la classe game (contient info d'une game)
-   * Faire le systeme de colision
-   * Faire un systeme de timer
-   * Lier les packets recu a des actions (jai commencer mais il manques des classes
-     Pour continuer)
+   * Faire Collisions/Movement/Lier les packet au packet task etc.
 
 -> Server [Exec]
    * Quand un player quite, informer les autres, le del
    * quand une game fini: del
    * quand root quitte en mode lobby: si autre player: devient root, sinon del game.
-
--> Divers
-   * Faire les dll de monstres.
-   * creer des lvl
-   * comment gerer la map?

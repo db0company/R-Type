@@ -340,14 +340,12 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  {
 		    //this->_nextState = ROOM;
 		    //return EVENT_CHANGE_STATE;
-		    std::cout << "EVENT_ROOMLIST_JOIN" << std::endl;
 		    return EVENT_ROOMLIST_JOIN;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
 		    // this->_nextState = ROOM;
 		    // return EVENT_CHANGE_STATE;
-		    std::cout << "EVENT_ROOMLIST_SPECTATE" << std::endl;
 		    return EVENT_ROOMLIST_SPECTATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)

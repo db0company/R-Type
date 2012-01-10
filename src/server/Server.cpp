@@ -1,6 +1,7 @@
 #include "Server.hpp"
 #include "Selector.hpp"
 #include "PacketManager.hpp"
+#include "eProtocolPacketGame.hpp"
 #ifndef _WIN32
 # include "TCPServerSocketUnix.h"
 # include "UDPServerSocketUnix.h"
@@ -116,6 +117,12 @@ bool Server::getNewClient(void)
 
 bool Server::removeClient(User *user, ATCPClientSocket *socket)
 {
+  PacketData	*to_send = new PacketData;
+  ProtocolPacket *packet_to_send;
+  Game *game;
+  std::map<std::string, User *>maap;
+  std::map<std::string, User *>::iterator it;
+
   if (socket && user)
     {
       std::cout << "Info: User " <<
@@ -123,7 +130,21 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
 	std::endl;
       user->setSafe(false);
       if (socket->getIp())
-	this->_quitQueue.push(socket->getIp());
+	{
+	  if ((game = user->getGame()) != NULL)
+	    {
+	      maap = game->getUserMap();
+	      to_send->addShort(0);
+	      to_send->addString(user->getLogin());
+	      for (it = maap.begin(); it != maap.end(); ++it)
+		{
+		  packet_to_send = PacketFactory::createPacket(THE_GAME,
+		      static_cast<ushort>(QUITGAME), to_send);
+		  it->second->addPacketToSend(packet_to_send);
+		}
+	    }
+	  this->_quitQueue.push(socket->getIp());
+	}
       socket->SNDelRead();
       socket->SNDelWrite();
       socket->SNClose();

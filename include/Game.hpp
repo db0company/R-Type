@@ -13,10 +13,12 @@
 #include "Player.hpp"
 #include "RecupMap.hpp"
 #include "IMutex.hpp"
+
 enum eGameStatus
   {
     INGAME,
-    LOBBYROOM
+    LOBBYROOM,
+    ENDED
   };
 
 class	Game
@@ -48,6 +50,7 @@ public:
   std::string	&getLvlName(void);
   void		setLvlName(std::string const &);
   bool		addUser(User *user, bool root, bool observer, std::string const &);
+  bool		delUser(std::string const &);
   unsigned int	getPlayerMax(void)const;
   void		setPlayerMax(unsigned int);
   bool		getObs(void)const;
@@ -57,6 +60,7 @@ public:
   void		setStatus(eGameStatus e);
   IMutex	*getMutex();
   std::map<std::string, AObject *>& getPlayerList();
+  std::map<std::string, User *> &getUserMap();
 private:
   unsigned int _id;
   GameParameter        _param;
