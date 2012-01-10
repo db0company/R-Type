@@ -41,7 +41,7 @@ namespace LibGraphic
     MyMusic * getMusic(std::string const &) const;
     sf::Font * getFont(std::string const &) const;
     inline sf::String * getStdToSfString(std::string const &, sf::Font *);
-    std::map<int, InfoGame *> const &getInfoGameMap(void) const;
+    std::map<int, InfoGame *> &getInfoGameMap(void);
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
 
   private:

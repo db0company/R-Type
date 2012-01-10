@@ -1,10 +1,10 @@
-Joystick pour le create game.
-Esc pour quioter message popup/ sinon pas d'action.
-Jolie message popup.
 boutton start dans room.
 getValue du GraphicClientState unsafe ++ ?!
 GraphicClientState setMEssage (du chat) pour que je set a message vide quand le mec
 a send son message. this->les states[ROOM]->setMEssage(m)
+Jolie message popup.
+Esc pour quioter message popup/ sinon pas d'action.
+Joystick pour le create game.
 
 
 Client:
@@ -60,7 +60,7 @@ Client:
    	  // OK * Faire les Task Game (Vincent)
    	  // OK * Faire les Aobject/IElem/je ne sais pas comment ils s'appel (Missile Monster Player)
    * Finir le game manager (il contiens les games)
-   * Finir la classe game (contient info d'une game)
+     	  // OK * Finir la classe game (contient info d'une game)
    * Faire le systeme de colision
    * Faire un systeme de timer
    * Lier les packets recu a des actions (jai commencer mais il manques des classes

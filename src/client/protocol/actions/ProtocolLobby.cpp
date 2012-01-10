@@ -1,5 +1,6 @@
-#include		<iostream>
-#include		"ProtocolLobby.hpp"
+#include <iostream>
+#include "ProtocolLobby.hpp"
+#include "Client.hpp"
 
 ProtocolLobby::ProtocolLobby()
 {
@@ -47,13 +48,13 @@ bool			ProtocolLobby::actionError(PacketData &, Client &)
   return (false);
 }
 
-bool			ProtocolLobby::actionChat(PacketData & data, Client &)
+bool			ProtocolLobby::actionChat(PacketData & data, Client &c)
 {
   std::string login;
   std::string msg;
 
   login = data.getNextString();
   msg = data.getNextString();
-  // TODO: afficher ds le char si on est ds le chat (LOBBY ROOM)
+  c.getGraphic().addToConversation("<" + login + "> " + msg);
   return (false);
 }

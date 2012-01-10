@@ -36,6 +36,9 @@ namespace LibGraphic
     sf::Font * getFont(std::string const &) const;
     inline sf::String * getStdToSfString(std::string const &, sf::Font *);
     void setMessage(std::string const &s);
+    std::string const & getMessage() const;
+    std::string const & getConversation() const;
+    void addToConversation(std::string const &);
 
   private:
     void setNextState(eState d);
@@ -44,7 +47,6 @@ namespace LibGraphic
     void readText(const sf::Event &);
 
   public:
-    std::string const & getMessage() const;
 
   private:
     std::map<std::string const, GraphicRessource *>
@@ -59,6 +61,7 @@ namespace LibGraphic
     eSelectedButton _currentButton;
     sf::Clock Clock;
     std::string _chat;
+    std::string _conversation;
     bool _isDefaultText;
   };
 

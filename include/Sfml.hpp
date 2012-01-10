@@ -38,7 +38,6 @@ namespace LibGraphic
     void	   setCurrentState(eStates);
     void	   goToNextState(void);
     void	   setNextState(eState s, eStates d);
-    std::map<int, InfoGame *> const&getInfoGameMap()const;
 
     std::string const & getIp() const;
     std::string const & getLogin() const;
@@ -50,6 +49,12 @@ namespace LibGraphic
     std::string const & getMessage() const;
     std::string const & getGameName() const;
     void setMessage(std::string const &s);
+
+    std::string const & getConversation() const;
+    void addToConversation(std::string const &);
+
+    std::map<int, InfoGame *> &getInfoGameMap(void) const;
+    void setInfoGameMap(std::map<int, InfoGame *> &nmap);
 
   public:
     void errorMessage(std::string const &);

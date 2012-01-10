@@ -33,7 +33,6 @@ namespace LibGraphic
     eGraphicAction getAction(eStates scene);
     void setAction(eGraphicAction, eStates);
     void setNextState(eStates, eStates);
-    std::map<int, InfoGame *> const &getInfoGameMap(void) const;
 
     std::string const & getIp() const;
     std::string const & getLogin() const;
@@ -45,6 +44,12 @@ namespace LibGraphic
     std::string const & getMessage() const;
     std::string const & getGameName() const;
     void setMessage(std::string const &);
+
+    std::string const & getConversation() const;
+    void addToConversation(std::string const &);
+
+    std::map<int, InfoGame *> &getInfoGameMap(void);
+    void setInfoGameMap(std::map<int, InfoGame *> &nmap);
 
   private:
     Event eventStart(eStates & scene);

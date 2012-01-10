@@ -18,7 +18,7 @@ LibGraphic::StateRoomList::StateRoomList(std::map<std::string const, GraphicRess
   this->_currentButton = BUTTON_ROOMLIST_GAME;
   this->_nextState = UNKNOWN_STATE;
   this->_deepList = 0;
-  this->_nbGame = 9;
+  this->_nbGame = 0;
 }
 
 LibGraphic::StateRoomList::~StateRoomList()
@@ -52,6 +52,8 @@ void LibGraphic::StateRoomList::draw()
   sf::Sprite &Cursor = this->getSprite("RoomListCursor");
   sf::Sprite &SelectedGame = this->getSprite("RoomListSelectedGame");
 
+  if ((this->_nbGame = this->_infoGameMap.size()) > 9)
+    this->_nbGame = 9;
   if (language == ENGLISH)
     Back = this->getStdToSfString("Back", this->getFont("StartFontF"));
   else
@@ -157,11 +159,13 @@ void LibGraphic::StateRoomList::draw()
   this->drawText();
 
   // debug
+  std::cout << "debut" << std::endl;
    std::map<int, InfoGame *>::iterator it;
    for (it = this->_infoGameMap.begin(); it != this->_infoGameMap.end(); ++it)
      {
        it->second->print();
      }
+  std::cout << "end" << std::endl;
 }
 
 void LibGraphic::StateRoomList::drawText()
@@ -505,7 +509,7 @@ inline sf::String * LibGraphic::StateRoomList::getStdToSfString(std::string cons
   return (new sf::String(s, *daFont));
 }
 
-std::map<int, InfoGame *> const &LibGraphic::StateRoomList::getInfoGameMap(void) const
+std::map<int, InfoGame *> &LibGraphic::StateRoomList::getInfoGameMap(void)
 {
   return (this->_infoGameMap);
 }
