@@ -265,6 +265,7 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
+		break;
 	      }
 	    case sf::Key::Back :
 	      {

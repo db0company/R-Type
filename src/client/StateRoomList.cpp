@@ -327,6 +327,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
+		break;
 	      }
 	    case sf::Key::Return :
 	      {

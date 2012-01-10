@@ -52,6 +52,7 @@ LibGraphic::Event LibGraphic::StateGameParameters::gereEvent()
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
+		break;
 	      }
 	    default : break;
 	    }

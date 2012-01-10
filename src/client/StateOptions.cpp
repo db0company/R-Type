@@ -269,6 +269,7 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
+		break;
 	      }
 	    case sf::Key::Back :
 	      {
@@ -292,6 +293,7 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 		  language = FRANCAIS;
 		else if (this->_currentButton == BUTTON_OPTIONS_LANG_EN)
 		  language = ENGLISH;
+		break;
 	      }
 	    default: break;
 	    }
@@ -315,6 +317,7 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 		  language = FRANCAIS;
 		else if (this->_currentButton == BUTTON_OPTIONS_LANG_EN)
 		  language = ENGLISH;
+		break;
 	      }
 	    case 1:
 	      {
