@@ -45,7 +45,10 @@ bool Client::actionConnect(void)
 				    this->cGraphic.getIp() + "\n");
     }
   else
-    this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
+    {
+      this->actionRefresh();
+      this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
+    }
   return (true);
 }
 
@@ -112,6 +115,40 @@ bool Client::actionRefresh(void)
   return (true);
 }
 
+bool Client::actionStart(void)
+{
+  ProtocolPacket	*packet;
+  PacketData		*data;
+
+  data = new PacketData;
+  packet = new ProtocolPacket;
+  packet->header.size = 0;
+  packet->header.group = THE_GAME;
+  packet->header.instruction = STARTGAME;
+  packet->header.magic = PACKET_MAGIC;
+  packet->data = data->getData();
+
+  this->cNetwork.pushTCP(packet);
+  return (true);
+}
+
+bool Client::actionGetLvl(void)
+{
+  ProtocolPacket	*packet;
+  PacketData		*data;
+
+  data = new PacketData;
+  packet = new ProtocolPacket;
+  packet->header.size = 0;
+  packet->header.group = THE_GAME;
+  packet->header.instruction = GETLEVELGAME;
+  packet->header.magic = PACKET_MAGIC;
+  packet->data = data->getData();
+
+  this->cNetwork.pushTCP(packet);
+  return (true);
+}
+
 bool Client::actionChat(std::string const &log, std::string const &msg)
 {
   ProtocolPacket	*packet;
@@ -145,6 +182,7 @@ bool Client::gereAction(LibGraphic::Event e, bool state_network)
     case LibGraphic::EVENT_ROOMLIST_REFRESH :
       {
 	this->actionRefresh();
+	this->actionGetLvl();
 	break;
       }
     case LibGraphic::EVENT_ROOMLIST_JOIN :
@@ -175,6 +213,10 @@ bool Client::gereAction(LibGraphic::Event e, bool state_network)
       {
 	this->cGraphic.goToNextState();
 	break;
+      }
+    case LibGraphic::EVENT_ROOM_START :
+      {
+	this->actionStart();
       }
     default : break;
     }

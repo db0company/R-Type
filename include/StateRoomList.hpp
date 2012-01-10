@@ -43,7 +43,7 @@ namespace LibGraphic
     inline sf::String * getStdToSfString(std::string const &, sf::Font *);
     std::map<int, InfoGame *> &getInfoGameMap(void);
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
-
+    int getIdGame() const;
   private:
     void drawText();
     void drawGames();

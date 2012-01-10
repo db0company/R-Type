@@ -1,6 +1,7 @@
 #ifndef GRAPHICCLIENTSTATE_H_
 # define GRAPHICCLIENTSTATE_H_
 
+#include <list>
 #include <SFML/Graphics.hpp>
 #include "MySound.hpp"
 #include "MyMusic.hpp"
@@ -33,7 +34,7 @@ namespace LibGraphic
     eGraphicAction getAction(eStates scene);
     void setAction(eGraphicAction, eStates);
     void setNextState(eStates, eStates);
-
+    std::list<std::string> &getLvlList(void);
     std::string const & getIp() const;
     std::string const & getLogin() const;
     int getPort();
@@ -61,8 +62,8 @@ namespace LibGraphic
     std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
     std::map<std::string const, MySound *> const & _ressourcesSounds;
     std::map<std::string const, sf::Font *> const & _ressourcesFont;
-    std::map<eStates, IState *> _stateInfos;
   private:
+    std::map<eStates, IState *> _stateInfos;
     sf::RenderWindow & _app;
     sf::Event _catchedEvent;
   };

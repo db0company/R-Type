@@ -1,6 +1,9 @@
 #ifndef STATECREATEGAME_H
 # define STATECREATEGAME_H
 
+#include <iostream>
+#include <list>
+#include <string>
 #include "Sfml.hpp"
 #include "Istate.hpp"
 
@@ -47,6 +50,7 @@ namespace LibGraphic
     bool getSpectator() const;
     int getSlot() const;
     std::string const & getGameName() const;
+    std::list<std::string> &getLvlList(void);
 
   private:
     void drawText();
@@ -62,6 +66,7 @@ namespace LibGraphic
     sf::RenderWindow & _app;
 
   private:
+    std::list<std::string> _lvlList;
     eStates _nextState;
     eSelectedButton _currentButton;
     sf::Clock Clock;

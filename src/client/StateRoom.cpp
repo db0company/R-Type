@@ -149,6 +149,10 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 		  {
 		    return (EVENT_ROOM_CHAT);
 		  }
+		else if (this->_currentButton == BUTTON_ROOM_START)
+		  {
+		    return (EVENT_ROOM_START);
+		  }
 		break;
 	      }
 	    case sf::Key::Back :
@@ -175,6 +179,15 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 		    this->_nextState = ROOMLIST;
 		    return EVENT_CHANGE_STATE;
 		  }
+		else if (this->_currentButton == BUTTON_ROOM_CHAT)
+		  {
+		    return (EVENT_ROOM_CHAT);
+		  }
+		else if (this->_currentButton == BUTTON_ROOM_START)
+		  {
+		    return (EVENT_ROOM_START);
+		  }
+		break;
 	      }
 	    case 1:
 	      {

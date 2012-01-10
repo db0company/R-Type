@@ -481,3 +481,8 @@ std::string const & LibGraphic::StateCreateGame::getGameName() const
 {
   return this->_name;
 }
+
+std::list<std::string> &LibGraphic::StateCreateGame::getLvlList(void)
+{
+  return this->_lvlList;
+}

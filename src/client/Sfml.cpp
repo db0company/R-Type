@@ -362,3 +362,8 @@ void LibGraphic::Sfml::setInfoGameMap(std::map<int, InfoGame *> &nmap)
 {
   this->_graphicState->setInfoGameMap(nmap);
 }
+
+std::list<std::string> &LibGraphic::Sfml::getLvlList(void)
+{
+  return this->_graphicState->getLvlList();
+}

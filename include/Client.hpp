@@ -23,6 +23,8 @@ public:
   bool actionCreate(std::string const &log, std::string const &name,
 		    std::string const &lvl, int slot, bool spec);
   bool actionChat(std::string const &, std::string const &);
+  bool actionStart(void);
+  bool actionGetLvl(void);
 
   LibGraphic::Sfml	&getGraphic(void);
 private:

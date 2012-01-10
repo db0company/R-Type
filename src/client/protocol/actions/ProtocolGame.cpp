@@ -1,3 +1,5 @@
+#include <list>
+#include <string>
 #include <iostream>
 #include "GameParameter.hpp"
 #include "ProtocolGame.hpp"
@@ -113,10 +115,31 @@ bool			ProtocolGame::actionGet(PacketData & data, Client &client)
   return (false);
 }
 
-bool			ProtocolGame::actionGetLevel(PacketData & data, Client &)
+bool			ProtocolGame::actionGetLevel(PacketData & data, Client &client)
 {
-  (void)data;
-    return (false);
+  std::string lvl;
+  short nb;
+  short i;
+  std::list<std::string>&list = client.getGraphic().getLvlList();
+  std::list<std::string>::iterator it;
+  bool exist = false;
+
+  i = 0;
+  nb = data.getNextShort();
+  while (i < nb)
+    {
+      lvl = data.getNextString();
+      exist = false;
+      for (it = list.begin(); it != list.end(); ++it)
+	{
+	  if (*it == lvl)
+	    exist = true;
+	}
+      if (!exist)
+	list.push_front(lvl);
+      ++i;
+    }
+  return (false);
 }
 
 bool			ProtocolGame::actionCreate(PacketData & data, Client &client)
@@ -180,8 +203,8 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &client)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
-      //this->cGraphic.setCurrentState(LibGraphic::INGAME); //todo !
-      client.getGraphic().errorMessage("SUCCESS TODO");
+      // client.getGraphic().setCurrentState(LibGraphic::INGAME);
+      client.getGraphic().errorMessage("la game peut commencer... todo didi :)");
     }
   else
     {

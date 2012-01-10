@@ -360,7 +360,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton ==  BUTTON_ROOMLIST_GAME)
 		  {
-		    int ind = 0;
+		    unsigned int ind = 0;
 		    std::map<int, InfoGame *>::iterator it;
 		    for (it = this->_infoGameMap.begin();
 			 it != this->_infoGameMap.end(); ++it)
@@ -411,7 +411,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton ==  BUTTON_ROOMLIST_GAME)
 		  {
-		    int ind = 0;
+		    unsigned int ind = 0;
 		    std::map<int, InfoGame *>::iterator it;
 		    for (it = this->_infoGameMap.begin();
 			 it != this->_infoGameMap.end(); ++it)
@@ -617,4 +617,11 @@ std::map<int, InfoGame *> &LibGraphic::StateRoomList::getInfoGameMap(void)
 void LibGraphic::StateRoomList::setInfoGameMap(std::map<int, InfoGame *> &nmap)
 {
   this->_infoGameMap = nmap;
+}
+
+int LibGraphic::StateRoomList::getIdGame() const
+{
+  if (this->_selectedGame)
+    return this->_selectedGame->getId();
+  return -1;
 }

@@ -1,6 +1,7 @@
 #ifndef SFML_H_
 # define SFML_H_
 
+#include <list>
 #include <SFML/Graphics.hpp>
 #include "MyMusic.hpp"
 #include "MySound.hpp"
@@ -39,6 +40,7 @@ namespace LibGraphic
     void	   goToNextState(void);
     void	   setNextState(eState s, eStates d);
 
+    std::list<std::string> &getLvlList(void);
     std::string const & getIp() const;
     std::string const & getLogin() const;
     int getPort() const;
@@ -72,7 +74,7 @@ namespace LibGraphic
 
   private:
     std::string _errorMessage;
-   int _width;
+    int _width;
     int _height;
     sf::RenderWindow _app;
     eStates _currentState;

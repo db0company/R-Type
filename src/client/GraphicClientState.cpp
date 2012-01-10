@@ -1,6 +1,8 @@
 //#include <Rect.hpp>
 #include <iostream>
 #include <sstream>
+#include <list>
+#include <string>
 //#include "Istate.hpp"
 #include "StateStart.hpp"
 #include "StateOptions.hpp"
@@ -117,7 +119,7 @@ int LibGraphic::GraphicClientState::getPort()
 
 int LibGraphic::GraphicClientState::getIdGame() const
 {
-  return -1;
+  return reinterpret_cast <StateRoomList const *>(getValue(this->_stateInfos, ROOMLIST))->getIdGame();
 }
 
 std::string const & LibGraphic::GraphicClientState::getLevel() const
@@ -169,4 +171,9 @@ std::map<int, InfoGame *> & LibGraphic::GraphicClientState::getInfoGameMap(void)
 void LibGraphic::GraphicClientState::setInfoGameMap(std::map<int, InfoGame *> &nmap)
 {
   reinterpret_cast <StateRoomList *>(getValue(this->_stateInfos, ROOMLIST))->setInfoGameMap(nmap);
+}
+
+std::list<std::string > &LibGraphic::GraphicClientState::getLvlList(void)
+{
+  return reinterpret_cast <StateCreateGame *>(getValue(this->_stateInfos, CREATEGAME))->getLvlList();
 }

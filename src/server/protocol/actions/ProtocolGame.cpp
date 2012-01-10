@@ -89,8 +89,8 @@ bool			ProtocolGame::actionGetLevel(PacketData &, User *user, Server &)
   PacketData  *to_send = new PacketData;
   ProtocolPacket *packet_to_send;
 
-  // TODO: creer des lvl !
-  to_send->addString("NoLvlOnServer");
+  to_send->addShort(1);
+  to_send->addString("level1");
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(GETLEVELGAME), to_send);
   user->addPacketToSend(packet_to_send);
   return (true);
@@ -219,9 +219,9 @@ bool			ProtocolGame::actionStart(PacketData &, User *user, Server &)
   // verrifier si le user a bien creer la game (rootgame) et pas quit
   // et si la game est bien en mode lobby(attente dautre personne/chat)
   // si oui -> start game + envoyer packet ok. sinon envoyer packet failure
-  packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(STARTGAME), to_send);
   to_send->addChar(0);
   to_send->addString("Not Yet implemented");
+  packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(STARTGAME), to_send);
   user->addPacketToSend(packet_to_send);
   return (true);
 }
