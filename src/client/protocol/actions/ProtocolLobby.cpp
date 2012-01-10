@@ -55,6 +55,6 @@ bool			ProtocolLobby::actionChat(PacketData & data, Client &c)
 
   login = data.getNextString();
   msg = data.getNextString();
-  c.getGraphic().addToConversation("<" + login + "> " + msg);
+  c.getGraphic().addToConversation("<" + login + "> " + msg + "\n");
   return (false);
 }

@@ -50,7 +50,6 @@ void LibGraphic::StateRoom::draw()
   this->_app.Draw(menu);
   this->_app.Draw(menu_coins);
 
-
   Button.SetPosition(1225, 870);
   this->_app.Draw(Button);
 
@@ -58,6 +57,16 @@ void LibGraphic::StateRoom::draw()
   this->_app.Draw(Button);
 
   this->drawText();
+}
+
+void LibGraphic::StateRoom::drawConv()
+{
+  sf::String *tmp;
+
+  tmp = this->getStdToSfString(this->_conversation, this->getFont("StartFontF"));
+  tmp->SetPosition(305, 290);
+  tmp->SetScale(0.5, 0.5);
+  this->_app.Draw(*tmp);
 }
 
 void LibGraphic::StateRoom::drawText()
@@ -104,6 +113,7 @@ void LibGraphic::StateRoom::drawText()
   if (this->_currentButton != BUTTON_ROOM_CHAT)
     tmp->SetColor(sf::Color(255, 255, 255, 155));
   this->_app.Draw(*tmp);
+  this->drawConv();
 }
 
 LibGraphic::Event LibGraphic::StateRoom::gereEvent()
@@ -126,11 +136,7 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
-	      }
-	    case sf::Key::Back :
-	      {
-		if (this->_currentButton == BUTTON_ROOM_CHAT)
-		  this->_chat = this->_chat.substr(0, this->_chat.length() - 1);
+		break;
 	      }
 	    case sf::Key::Return :
 	      {
@@ -139,11 +145,16 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 		    this->_nextState = ROOMLIST;
 		    return EVENT_CHANGE_STATE;
 		  }
-		if (this->_currentButton == BUTTON_ROOM_CHAT)
+		else if (this->_currentButton == BUTTON_ROOM_CHAT)
 		  {
-		    std::cout << "chat:" << this->_chat << std::endl;
 		    return (EVENT_ROOM_CHAT);
 		  }
+		break;
+	      }
+	    case sf::Key::Back :
+	      {
+		if (this->_currentButton == BUTTON_ROOM_CHAT)
+		  this->_chat = this->_chat.substr(0, this->_chat.length() - 1);
 		break;
 	      }
 	    default : break;

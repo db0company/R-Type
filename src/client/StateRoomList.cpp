@@ -1,3 +1,4 @@
+#include <sstream>
 #include <iostream>
 #include "StateRoomList.hpp"
 #include "Language.hpp"
@@ -5,6 +6,16 @@
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 extern bool errorToPrint;
+
+std::string stringOfInt(int v)
+{
+  std::stringstream ss;
+  std::string s;
+
+  ss << v;
+  ss >> s;
+  return s;
+}
 
 LibGraphic::StateRoomList::StateRoomList(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
@@ -18,7 +29,8 @@ LibGraphic::StateRoomList::StateRoomList(std::map<std::string const, GraphicRess
   this->_currentButton = BUTTON_ROOMLIST_GAME;
   this->_nextState = UNKNOWN_STATE;
   this->_deepList = 0;
-  this->_nbGame = 0;
+  this->_nbGame = 1;
+  this->_selectedGame = NULL;
 }
 
 LibGraphic::StateRoomList::~StateRoomList()
@@ -54,6 +66,9 @@ void LibGraphic::StateRoomList::draw()
 
   if ((this->_nbGame = this->_infoGameMap.size()) > 9)
     this->_nbGame = 9;
+  else if (!this->_nbGame)
+    this->_nbGame++;
+
   if (language == ENGLISH)
     Back = this->getStdToSfString("Back", this->getFont("StartFontF"));
   else
@@ -93,6 +108,21 @@ void LibGraphic::StateRoomList::draw()
   this->_app.Draw(menu_coins);
   this->_app.Draw(menu_diago);
 
+  if (this->_selectedGame)
+    {
+      int ind = 0;
+      std::map<int, InfoGame *>::iterator it;
+      for (it = this->_infoGameMap.begin();
+	   it != this->_infoGameMap.end(); ++it)
+	{
+	  if (this->_selectedGame == it->second)
+	    {
+	      SelectedGame.SetPosition(300, 350 + (50 * ind));
+	      this->_app.Draw(SelectedGame);
+	    }
+	  ++ind;
+	}
+    }
   Cursor.SetPosition(293, 345 + (50 * this->_deepList));
   this->_app.Draw(Cursor);
 
@@ -156,16 +186,8 @@ void LibGraphic::StateRoomList::draw()
   if (this->_currentButton != BUTTON_ROOMLIST_JOIN)
     Join->SetColor(sf::Color(255,255,255, 205));
   this->_app.Draw(*Join);
-  this->drawText();
 
-  // debug
-  std::cout << "debut" << std::endl;
-   std::map<int, InfoGame *>::iterator it;
-   for (it = this->_infoGameMap.begin(); it != this->_infoGameMap.end(); ++it)
-     {
-       it->second->print();
-     }
-  std::cout << "end" << std::endl;
+  this->drawText();
 }
 
 void LibGraphic::StateRoomList::drawText()
@@ -231,6 +253,58 @@ void LibGraphic::StateRoomList::drawText()
     }
   tmp->SetScale(0.6, 0.6);
   this->_app.Draw(*tmp);
+  this->drawGames();
+}
+
+void LibGraphic::StateRoomList::drawGames()
+{
+   sf::String *tmp;
+   std::string tronc;
+   InfoGame * game;
+   std::map<int, InfoGame *>::iterator it;
+   int ind = 0;
+
+   for (it = this->_infoGameMap.begin(); it != this->_infoGameMap.end(); ++it)
+     {
+       if (ind > 8)
+	 return;
+       game = it->second;
+       if ((tronc = game->getName()).size() > 15)
+	 tronc.erase(15, tronc.size());
+       tmp = this->getStdToSfString(tronc, this->getFont("StartFontF"));
+       tmp->SetScale(0.5, 0.5);
+       tmp->SetPosition(310, 360 + (50 * ind));
+       this->_app.Draw(*tmp);
+
+       if ((tronc = game->getOwner()).size() > 9)
+	 tronc.erase(10, tronc.size());
+       tmp = this->getStdToSfString(tronc, this->getFont("StartFontF"));
+       tmp->SetScale(0.5, 0.5);
+       tmp->SetPosition(515, 360 + (50 * ind));
+       this->_app.Draw(*tmp);
+
+       tmp = this->getStdToSfString(stringOfInt(game->getPlayers())
+				    + "/" + stringOfInt(game->getPlayerMax()),
+				    this->getFont("StartFontF"));
+       tmp->SetScale(0.5, 0.5);
+       tmp->SetPosition(655, 360 + (50 * ind));
+       this->_app.Draw(*tmp);
+
+       tmp = this->getStdToSfString((game->getObs() ? "yes" : "no"),
+				    this->getFont("StartFontF"));
+       tmp->SetScale(0.5, 0.5);
+       tmp->SetPosition(755, 360 + (50 * ind));
+       this->_app.Draw(*tmp);
+
+       if ((tronc = game->getMap()).size() > 15)
+	 tronc.erase(15, tronc.size());
+       tmp = this->getStdToSfString(tronc, this->getFont("StartFontF"));
+       tmp->SetScale(0.5, 0.5);
+       tmp->SetPosition(855, 360 + (50 * ind));
+       this->_app.Draw(*tmp);
+
+       ind++;
+    }
 }
 
 LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
@@ -284,6 +358,18 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  {
 		    return (EVENT_ROOMLIST_REFRESH);
 		  }
+		else if (this->_currentButton ==  BUTTON_ROOMLIST_GAME)
+		  {
+		    int ind = 0;
+		    std::map<int, InfoGame *>::iterator it;
+		    for (it = this->_infoGameMap.begin();
+			 it != this->_infoGameMap.end(); ++it)
+		      {
+			if (ind == _deepList)
+			  this->_selectedGame = it->second;
+			++ind;
+		      }
+		  }
 		break;
 	      }
 	    default : break;
@@ -319,7 +405,21 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_REFRESH)
 		  {
+		    if ((this->_nbGame = this->_infoGameMap.size()) > 9)
+		      this->_nbGame = 9;
 		    return (EVENT_ROOMLIST_REFRESH);
+		  }
+		else if (this->_currentButton ==  BUTTON_ROOMLIST_GAME)
+		  {
+		    int ind = 0;
+		    std::map<int, InfoGame *>::iterator it;
+		    for (it = this->_infoGameMap.begin();
+			 it != this->_infoGameMap.end(); ++it)
+		      {
+			if (ind == _deepList)
+			  this->_selectedGame = it->second;
+			++ind;
+		      }
 		  }
 		break;
 	      }

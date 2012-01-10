@@ -43,6 +43,7 @@ namespace LibGraphic
   private:
     void setNextState(eState d);
     void drawText();
+    void drawConv();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
 

@@ -36,7 +36,8 @@ bool LibGraphic::Sfml::init()
   gVolume.musicVolume = 5;
   gVolume.soundVolume = 50;
   language = ENGLISH;
-  this->loadRessources();
+  if (!this->loadRessources())
+    return false;
   this->createStates();
   this->_currentState = START;
   return true;
