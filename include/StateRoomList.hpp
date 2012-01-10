@@ -41,11 +41,12 @@ namespace LibGraphic
     MyMusic * getMusic(std::string const &) const;
     sf::Font * getFont(std::string const &) const;
     inline sf::String * getStdToSfString(std::string const &, sf::Font *);
-    std::map<int, InfoGame *> const &getInfoGameMap(void) const;
+    std::map<int, InfoGame *> &getInfoGameMap(void);
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
 
   private:
     void drawText();
+    void drawGames();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
 
@@ -56,14 +57,15 @@ namespace LibGraphic
     std::map<std::string const, MySound *> const & _ressourcesSounds;
     std::map<std::string const, sf::Font *> const & _ressourcesFont;
     sf::RenderWindow & _app;
-    std::map<int, InfoGame *> _infoGameMap;
 
   private:
+    std::map<int, InfoGame *> _infoGameMap;
     eStates _nextState;
     eSelectedButton _currentButton;
     sf::Clock Clock;
     unsigned int _deepList;
     unsigned int _nbGame;
+    InfoGame * _selectedGame;
  };
 
 }

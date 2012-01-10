@@ -106,7 +106,7 @@ void InfoGame::setPlayerMax(unsigned int p)
 void InfoGame::print(void) const
 {
   std::cout << "Game[" << this->_id << "] owner[" << this->_owner
-	    << "] name[" << "] obs[" << this->_obs
+	    << "] name[" << this->_name << "] obs[" << this->_obs
 	    << "] players[" << this->_players << "/"
 	    << this->_player_max << "]" << std::endl;
 }

@@ -60,15 +60,14 @@ bool			ProtocolGame::actionGet(PacketData & data, Client &client)
 {
   short nb_game = 0;
   short i;
-  GameParameter *gameParam = new GameParameter;
   int id;
   std::string owner;
   std::string name;
   std::string lvl;
   char slot;
   char observer;
-  std::map<int, InfoGame *> const &rmap = client.getGraphic().getInfoGameMap();
-  std::map<int, InfoGame *>::const_iterator it;
+  std::map<int, InfoGame *> &rmap = client.getGraphic().getInfoGameMap();
+  std::map<int, InfoGame *>::iterator it;
   InfoGame *newGame;
   char nb_player;
 
@@ -85,31 +84,30 @@ bool			ProtocolGame::actionGet(PacketData & data, Client &client)
       slot = data.getNextChar();
       observer = data.getNextChar();
       nb_player = data.getNextChar();
-      // if ((it = rmap.find(id)) == rmap.end())
-      // 	{
-      // 	  newGame = new InfoGame;
+      if ((it = rmap.find(id)) == rmap.end())
+      	{
+      	  newGame = new InfoGame;
 
-      // 	  newGame->setId(id);
-      // 	  newGame->setOwner(owner);
-      // 	  newGame->setName(name);
-      // 	  newGame->setMap(lvl);
-      // 	  newGame->setObs(observer);
-      // 	  newGame->setPlayers(nb_player);
-      // 	  newGame->setPlayerMax(slot);
-      // 	  //rmap[id] = newGame;
-      // 	}
-      // else
-      // 	{
-      // 	  newGame = it->second;
-
-      // 	  newGame->setId(id);
-      // 	  newGame->setOwner(owner);
-      // 	  newGame->setName(name);
-      // 	  newGame->setMap(lvl);
-      // 	  newGame->setObs(observer);
-      // 	  newGame->setPlayers(nb_player);
-      // 	  newGame->setPlayerMax(slot);
-      // 	}
+      	  newGame->setId(id);
+      	  newGame->setOwner(owner);
+      	  newGame->setName(name);
+      	  newGame->setMap(lvl);
+      	  newGame->setObs(observer);
+      	  newGame->setPlayers(nb_player);
+      	  newGame->setPlayerMax(slot);
+      	  rmap[id] = newGame;
+      	}
+      else
+      	{
+      	  newGame = it->second;
+      	  newGame->setId(id);
+      	  newGame->setOwner(owner);
+      	  newGame->setName(name);
+      	  newGame->setMap(lvl);
+      	  newGame->setObs(observer);
+      	  newGame->setPlayers(nb_player);
+      	  newGame->setPlayerMax(slot);
+      	}
       ++i;
     }
   return (false);

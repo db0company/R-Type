@@ -21,6 +21,15 @@ static IState const* getValue(std::map<eStates, IState*> const& m, eStates const
   return it->second;
 }
 
+static IState * getValue(std::map<eStates, IState*> & m, eStates const& key)
+{
+  std::map<eStates, IState*>::iterator it;
+  it = m.find(key);
+  if (it == m.end())
+    return 0;
+  return it->second;
+}
+
 LibGraphic::GraphicClientState::GraphicClientState(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
@@ -137,19 +146,27 @@ std::string const & LibGraphic::GraphicClientState::getMessage() const
   return reinterpret_cast <StateRoom const *>(getValue(this->_stateInfos, ROOM))->getMessage();
 }
 
-std::map<int, InfoGame *> const & LibGraphic::GraphicClientState::getInfoGameMap() const
-{
-  return reinterpret_cast <StateRoomList const *>(getValue(this->_stateInfos, ROOM))->getInfoGameMap();
-}
-
 void LibGraphic::GraphicClientState::setMessage(std::string const &m)
 {
-  // TODO ! IDRISS :)
-  // std::map<eStates, IState*>::const_iterator it;
-  // it = m.find(ROOM);
-  // // if (it == m.end())
-  // //   return ;
-  // // return it->second;
-  // // StateRoom *s = reinterpret_cast<StateRoom *>it->second;
-  // // s->setMessage(m);
+  reinterpret_cast <StateRoom *>(getValue(this->_stateInfos, ROOM))->setMessage(m);
+}
+
+std::string const & LibGraphic::GraphicClientState::getConversation() const
+{
+  return reinterpret_cast <StateRoom const *>(getValue(this->_stateInfos, ROOM))->getConversation();
+}
+
+void LibGraphic::GraphicClientState::addToConversation(std::string const & m)
+{
+  reinterpret_cast <StateRoom *>(getValue(this->_stateInfos, ROOM))->addToConversation(m);
+}
+
+std::map<int, InfoGame *> & LibGraphic::GraphicClientState::getInfoGameMap(void)
+{
+  return reinterpret_cast <StateRoomList *>(getValue(this->_stateInfos, ROOMLIST))->getInfoGameMap();
+}
+
+void LibGraphic::GraphicClientState::setInfoGameMap(std::map<int, InfoGame *> &nmap)
+{
+  reinterpret_cast <StateRoomList *>(getValue(this->_stateInfos, ROOMLIST))->setInfoGameMap(nmap);
 }

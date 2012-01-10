@@ -128,6 +128,7 @@ bool Client::actionChat(std::string const &log, std::string const &msg)
   packet->header.magic = PACKET_MAGIC;
 
   packet->data = data->getData();
+  this->cGraphic.setMessage("");
   this->cNetwork.pushTCP(packet);
   return (true);
 }

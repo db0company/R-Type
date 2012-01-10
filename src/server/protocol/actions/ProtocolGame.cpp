@@ -70,7 +70,7 @@ bool			ProtocolGame::actionGet(PacketData &, User *user, Server &server)
   to_send->addShort(map.size());
   for (it = map.begin(); it != map.end(); ++it)
     {
-      tmp = it->second;
+      tmp = (*it).second;
       to_send->addShort(tmp->getId());
       to_send->addString(tmp->getOwnerLogin());
       to_send->addString(tmp->getName());

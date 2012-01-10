@@ -36,7 +36,8 @@ bool LibGraphic::Sfml::init()
   gVolume.musicVolume = 5;
   gVolume.soundVolume = 50;
   language = ENGLISH;
-  this->loadRessources();
+  if (!this->loadRessources())
+    return false;
   this->createStates();
   this->_currentState = START;
   return true;
@@ -84,7 +85,7 @@ void LibGraphic::Sfml::draw()
       tmp.SetColor(sf::Color(255,0,0, 255));
       tmp.SetPosition(300, 300);
       this->_app.Draw(tmp);
-    }
+   }
   this->_app.Display();
 }
 
@@ -319,11 +320,6 @@ std::string const & LibGraphic::Sfml::getGameName() const
   return this->_graphicState->getGameName();
 }
 
-std::map<int, InfoGame *> const &LibGraphic::Sfml::getInfoGameMap()const
-{
-  return this->_graphicState->getInfoGameMap();
-}
-
 // void LibGraphic::Sfml::setNextState(eState s, eState d)
 // {
 //   this->_currentState = d;
@@ -345,4 +341,24 @@ void LibGraphic::Sfml::errorMessage(std::string const & message)
 void LibGraphic::Sfml::setMessage(std::string const &m)
 {
   this->_graphicState->setMessage(m);
+}
+
+std::string const & LibGraphic::Sfml::getConversation() const
+{
+  return this->_graphicState->getConversation();
+}
+
+void LibGraphic::Sfml::addToConversation(std::string const & m)
+{
+  this->_graphicState->addToConversation(m);
+}
+
+std::map<int, InfoGame *> & LibGraphic::Sfml::getInfoGameMap(void) const
+{
+  return this->_graphicState->getInfoGameMap();
+}
+
+void LibGraphic::Sfml::setInfoGameMap(std::map<int, InfoGame *> &nmap)
+{
+  this->_graphicState->setInfoGameMap(nmap);
 }
