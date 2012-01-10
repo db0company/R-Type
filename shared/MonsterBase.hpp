@@ -7,7 +7,7 @@
 # ifdef _WIN32
 class	LIBMONSTER_API MonsterBase : public IObject
 # else
-class	MonsterBase : public Monster
+class	MonsterBase : public IObject
 # endif // _WIN32
 {
  private:

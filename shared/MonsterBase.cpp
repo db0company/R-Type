@@ -19,7 +19,7 @@ extern "C"
 #ifdef _WIN32
   LIBMONSTER_API IObject	 *getMonsterBase()
 #else
-    Monster	 *getMonsterBase()
+   IObject	 *getMonsterBase()
 #endif /* _WIN32 */
   {
     return (new MonsterBase);
