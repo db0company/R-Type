@@ -18,7 +18,8 @@ enum eTileName
     TileSize2Diago = 9,
     TileAlien1 = 10,
     TileAlien2 = 11,
-    TileAlien3 = 12
+    TileAlien3 = 12,
+    TileEmpty
   };
 
 enum eTilePos
@@ -35,7 +36,12 @@ struct TileStruct
   TileStruct(const eTileName& u, const eTileName& d) 
     : up(u), down(d)
   { }
-
+  TileStruct&	operator=(const TileStruct & t)
+  {
+    this->up = t.up;
+    this->down = t.down;
+    return (*this);
+  }
 };
 
 #endif // __TILEINFO_HH

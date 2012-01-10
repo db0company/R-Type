@@ -57,7 +57,8 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *user, Server &serv)
       else
 	std::cout << "ERROR@@@";
       std::cout << ") \033[32mInst\033[00m(" <<
-	PacketFactory::getPacketInstruction(packet) << ")" << std::endl;
+	packet->header.instruction << ")" << std::endl;
+      uglyPrinter((char *)packet->data, packet->header.size);
       this->groupaction[PacketFactory::getPacketGroup(packet)]->action
       	(PacketFactory::getPacketInstruction(packet), *textData, user, serv);
     }

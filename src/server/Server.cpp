@@ -61,6 +61,10 @@ bool Server::init(int port)
     }
   this->_listener->SNAddRead();
   this->_udp->SNAddRead();
+  //debug test//
+  Game *g = new Game;
+  g->setName("toto");
+  this->_gameManager.addGame(g);
   return (true);
 }
 
@@ -223,7 +227,7 @@ bool Server::run(void)
 	  return (false);
 	}
       if (this->_selector->getSec() == 0 && this->_selector->getUsec() == 0)
-	std::cout << "It's time to packet." << std::endl;
+      	std::cout << "It's time to packet." << std::endl;
       this->getNewClient();
       this->readFromClients();
       this->processPackets();

@@ -19,6 +19,7 @@ public:
   unsigned int	getPlayers(void) const;
   unsigned int	getPlayerMax(void) const;
 
+  void print(void)const;
   void setId(unsigned int id);
   void setOwner(std::string const &owner);
   void setName(std::string const &);

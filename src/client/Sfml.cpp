@@ -82,6 +82,7 @@ void LibGraphic::Sfml::draw()
     {
       tmp.SetText(this->_errorMessage);
       tmp.SetColor(sf::Color(255,0,0, 255));
+      tmp.SetPosition(300, 300);
       this->_app.Draw(tmp);
    }
   this->_app.Display();
@@ -318,9 +319,30 @@ std::string const & LibGraphic::Sfml::getGameName() const
   return this->_graphicState->getGameName();
 }
 
+std::map<int, InfoGame *> const &LibGraphic::Sfml::getInfoGameMap()const
+{
+  return this->_graphicState->getInfoGameMap();
+}
+
+// void LibGraphic::Sfml::setNextState(eState s, eState d)
+// {
+//   this->_currentState = d;
+//   this->_graphicState->setNextState(s, d);
+// }
+
+void LibGraphic::Sfml::setCurrentState(eStates s)
+{
+  this->_currentState = s;
+}
+
 void LibGraphic::Sfml::errorMessage(std::string const & message)
 {
   this->_errorMessage = message;
-  this->_errorMessage += " Press escape to erase the message."
+  this->_errorMessage += " Press escape to erase the message.";
   errorToPrint = true;
+}
+
+void LibGraphic::Sfml::setMessage(std::string const &m)
+{
+  this->_graphicState->setMessage(m);
 }

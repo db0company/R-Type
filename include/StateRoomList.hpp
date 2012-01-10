@@ -1,6 +1,7 @@
 #ifndef STATEROOMLIST_H
 # define STATEROOMLIST_H
 
+#include <map>
 #include "Sfml.hpp"
 #include "Istate.hpp"
 #include "InfoGame.hpp"
@@ -35,10 +36,13 @@ namespace LibGraphic
     virtual eStates getNextState();
 
   public:
+    void setNextState(eState d);
     sf::Sprite & getSprite(std::string const &) const;
     MyMusic * getMusic(std::string const &) const;
     sf::Font * getFont(std::string const &) const;
-   inline sf::String * getStdToSfString(std::string const &, sf::Font *);
+    inline sf::String * getStdToSfString(std::string const &, sf::Font *);
+    std::map<int, InfoGame *> const &getInfoGameMap(void) const;
+    void setInfoGameMap(std::map<int, InfoGame *> &nmap);
 
   private:
     void drawText();
@@ -52,7 +56,7 @@ namespace LibGraphic
     std::map<std::string const, MySound *> const & _ressourcesSounds;
     std::map<std::string const, sf::Font *> const & _ressourcesFont;
     sf::RenderWindow & _app;
-    std::list<InfoGame *> _infoGame; // todo getter / setter
+    std::map<int, InfoGame *> _infoGameMap;
 
   private:
     eStates _nextState;

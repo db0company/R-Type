@@ -1,3 +1,4 @@
+#include <iostream>
 #include "StateRoom.hpp"
 #include "Language.hpp"
 
@@ -138,13 +139,18 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 		    this->_nextState = ROOMLIST;
 		    return EVENT_CHANGE_STATE;
 		  }
+		if (this->_currentButton == BUTTON_ROOM_CHAT)
+		  {
+		    std::cout << "chat:" << this->_chat << std::endl;
+		    return (EVENT_ROOM_CHAT);
+		  }
 		break;
 	      }
 	    default : break;
 	    }
 	}
       if (Event.Type == sf::Event::TextEntered &&
-	       (Event.Text.Unicode > 20 && Event.Text.Unicode < 128))
+	  (Event.Text.Unicode > 20 && Event.Text.Unicode < 128))
 	readText(Event);
       cursorMenuPos(Event);
       if (Event.Type == sf::Event::JoyButtonReleased)
@@ -259,3 +265,7 @@ std::string const & LibGraphic::StateRoom::getMessage() const
   return this->_chat;
 }
 
+void LibGraphic::StateRoom::setMessage(std::string const &s)
+{
+  this->_chat = s;
+}

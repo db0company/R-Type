@@ -8,6 +8,13 @@ namespace LibGraphic
   enum Event
     {
       EVENT_CHANGE_STATE,
+      EVENT_START_PLAY,
+      EVENT_ROOMLIST_REFRESH,
+      EVENT_ROOMLIST_JOIN,
+      EVENT_ROOMLIST_SPECTATE,
+      EVENT_CREATE_CREATE,
+      EVENT_ROOM_CHAT,
+      EVENT_ROOM_START,
       EVENT_NONE,
       EVENT_QUIT
     };

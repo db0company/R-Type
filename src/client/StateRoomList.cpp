@@ -1,3 +1,4 @@
+#include <iostream>
 #include "StateRoomList.hpp"
 #include "Language.hpp"
 
@@ -154,6 +155,13 @@ void LibGraphic::StateRoomList::draw()
     Join->SetColor(sf::Color(255,255,255, 205));
   this->_app.Draw(*Join);
   this->drawText();
+
+  // debug
+   std::map<int, InfoGame *>::iterator it;
+   for (it = this->_infoGameMap.begin(); it != this->_infoGameMap.end(); ++it)
+     {
+       it->second->print();
+     }
 }
 
 void LibGraphic::StateRoomList::drawText()
@@ -251,13 +259,17 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
 		  {
-		    this->_nextState = ROOM;
-		    return EVENT_CHANGE_STATE;
+		    //this->_nextState = ROOM;
+		    //return EVENT_CHANGE_STATE;
+		    std::cout << "EVENT_ROOMLIST_JOIN" << std::endl;
+		    return EVENT_ROOMLIST_JOIN;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
-		    this->_nextState = ROOM;
-		    return EVENT_CHANGE_STATE;
+		    // this->_nextState = ROOM;
+		    // return EVENT_CHANGE_STATE;
+		    std::cout << "EVENT_ROOMLIST_SPECTATE" << std::endl;
+		    return EVENT_ROOMLIST_SPECTATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
 		  {
@@ -266,7 +278,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_REFRESH)
 		  {
-		    break;
+		    return (EVENT_ROOMLIST_REFRESH);
 		  }
 		break;
 	      }
@@ -286,13 +298,15 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_JOIN)
 		  {
-		    this->_nextState = ROOM;
-		    return EVENT_CHANGE_STATE;
+		    // this->_nextState = ROOM;
+		    // return EVENT_CHANGE_STATE;
+		    return EVENT_ROOMLIST_JOIN;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
-		    this->_nextState = ROOM;
-		    return EVENT_CHANGE_STATE;
+		    // this->_nextState = ROOM;
+		    // return EVENT_CHANGE_STATE;
+		    return EVENT_ROOMLIST_SPECTATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
 		  {
@@ -301,7 +315,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_REFRESH)
 		  {
-		    break;
+		    return (EVENT_ROOMLIST_REFRESH);
 		  }
 		break;
 	      }
@@ -489,4 +503,14 @@ sf::Font * LibGraphic::StateRoomList::getFont(std::string const & fontName) cons
 inline sf::String * LibGraphic::StateRoomList::getStdToSfString(std::string const & s, sf::Font * daFont)
 {
   return (new sf::String(s, *daFont));
+}
+
+std::map<int, InfoGame *> const &LibGraphic::StateRoomList::getInfoGameMap(void) const
+{
+  return (this->_infoGameMap);
+}
+
+void LibGraphic::StateRoomList::setInfoGameMap(std::map<int, InfoGame *> &nmap)
+{
+  this->_infoGameMap = nmap;
 }

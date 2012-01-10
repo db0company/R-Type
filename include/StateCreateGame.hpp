@@ -43,6 +43,7 @@ namespace LibGraphic
     inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
   public:
+    void setNextState(eState d);
     bool getSpectator() const;
     int getSlot() const;
     std::string const & getGameName() const;

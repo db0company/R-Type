@@ -283,8 +283,9 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_CREATE_CREATE)
 		  {
-		    this->_nextState = ROOM;
-		    return EVENT_CHANGE_STATE;
+		    // this->_nextState = ROOM;
+		    // return EVENT_CHANGE_STATE;
+		    return (EVENT_CREATE_CREATE);
 		  }
 		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_1)
 		  this->_teamSize = 1;

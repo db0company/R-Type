@@ -10,8 +10,10 @@ START :
       	       REACTION : CONNECTION
 
 ROOMLIST:
-	ACTION : REFRESH
+->	ACTION : REFRESH
 	       REACTIONS : PACKET GETGAME, SETGAMELIST
+	       (mettre a jour infogame)
+	       (faire selection) sauv
 
 	ACTION : JOIN
        	       GETNAME  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
@@ -24,6 +26,10 @@ ROOMLIST:
 	       GETIDGAME : ROOMLIST -> GRAPHICCLIENTSTATE -> SFML
 	       REACTION : PACKET JOIN
 
+->	ACTION : START
+	       La plus importante et on l'oubli :3 !
+	       (un boutton) quand click: return EVENT_ROOM_START
+
 CREATE:
 	ACTION : CREATE
        	       GETNAME  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
@@ -32,12 +38,13 @@ CREATE:
 	       GETOBSERVER : CREATE_GAME -> GRAPHICCLIENTSTATE -> SFML
 	       REACTION : PACKET CREATE
 
-
 ROOM:
-	ACTION : CHAT
+->	ACTION : CHAT
    	       GETNAME  : OPTIONS -> GRAPHICCLIENTSTATE -> SFML
 	       GETMSG   : ROOM -> GRAPHICCLIENTSTATE ->SFML
-	       REACTION : PACKET CHAT
+	       REACTION : PACKET CHA
+  	       (setMessage)
+  	       (setDiscussion)
 
 
 			/----------\
@@ -45,10 +52,12 @@ ROOM:
 			\----------/
 
 PACKET GETGAME :
-       SETGAMELIST : Client -> Sfml -> GRAPHICCLientState -> RoomList
+->       SETGAMELIST : Client -> Sfml -> GRAPHICCLientState -> RoomList
+	 (setter/maj)
 
 PACKET GETLVL :
        SETLVLLIST :  Client -> Sfml -> GRAPHICCLientState -> RoomList
+->     (todo)
 
 PACKET CREATE :
        FAILURE: affichage erreure (pop)

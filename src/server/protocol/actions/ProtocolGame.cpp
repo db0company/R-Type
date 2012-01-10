@@ -116,6 +116,14 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
 	    << game_lvl << ") max(" << (int)player_max << ") observer("
 	    << (int)observer << ")" << std::endl;
 
+  if (game_name.size() < 3)
+    {
+      to_send->addChar(0);
+      to_send->addString("The Game's name must contain at least 3 characters");
+      packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
+      user->addPacketToSend(packet_to_send);
+      return (false);
+    }
   if (server.getGameManager().getGameFromName(game_name) != NULL)
     {
       to_send->addChar(0);

@@ -11,6 +11,7 @@
 #include "Position.hpp"
 #include "Bullet.hpp"
 #include "Player.hpp"
+#include "RecupMap.hpp"
 
 enum eGameStatus
   {
@@ -71,6 +72,7 @@ private:
   unsigned int player_max;
   bool _observer;
   eGameStatus _status;
+  RecupMap	_rMap;
 };
 
 #endif	// GAME_H_

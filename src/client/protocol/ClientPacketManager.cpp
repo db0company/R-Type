@@ -6,6 +6,7 @@
 # include "actions/ProtocolGameDetails.hpp"
 # include "actions/ProtocolMovement.hpp"
 # include "actions/ProtocolLobby.hpp"
+# include "PacketData.hpp"
 
 ClientPacketManager::ClientPacketManager(void)
 {
@@ -58,6 +59,7 @@ bool				ClientPacketManager::Process(ProtocolPacket *packet, Client& client)
 	std::cout << "ERROR@@@";
       std::cout << ") \033[32mInst\033[00m(" <<
 	PacketFactory::getPacketInstruction(packet) << ")" << std::endl;
+      uglyPrinter((char *)packet->data, packet->header.size);
       return (this->groupaction[PacketFactory::getPacketGroup(packet)]->action
 	      (PacketFactory::getPacketInstruction(packet), *textData, client));
     }

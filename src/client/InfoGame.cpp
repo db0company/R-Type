@@ -1,3 +1,4 @@
+#include <iostream>
 #include "InfoGame.hpp"
 
 InfoGame::InfoGame(void) : _id(0), _owner(""), _name(""), _map(""), _obs(false),
@@ -100,4 +101,12 @@ void InfoGame::setPlayers(unsigned int p)
 void InfoGame::setPlayerMax(unsigned int p)
 {
   this->_player_max = p;
+}
+
+void InfoGame::print(void) const
+{
+  std::cout << "Game[" << this->_id << "] owner[" << this->_owner
+	    << "] name[" << "] obs[" << this->_obs
+	    << "] players[" << this->_players << "/"
+	    << this->_player_max << "]" << std::endl;
 }

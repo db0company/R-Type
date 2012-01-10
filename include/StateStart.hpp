@@ -32,6 +32,7 @@ namespace LibGraphic
     virtual eStates getNextState();
 
   public:
+    void setNextState(eState d);
     sf::Sprite & getSprite(std::string const &) const;
     MyMusic * getMusic(std::string const &) const;
     sf::Font * getFont(std::string const &) const;

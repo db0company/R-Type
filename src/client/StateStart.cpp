@@ -295,7 +295,8 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		else if (this->_currentButton == BUTTON_PLAY)
 		  {
 		    this->_nextState = ROOMLIST;
-		    return EVENT_CHANGE_STATE;
+		    // return EVENT_CHANGE_STATE;
+		    return (EVENT_START_PLAY);
 		  }
 		break;
 	      }
@@ -321,7 +322,8 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		else if (this->_currentButton == BUTTON_PLAY)
 		  {
 		    this->_nextState = ROOMLIST;
-		    return EVENT_CHANGE_STATE;
+		    // return EVENT_CHANGE_STATE;
+		    return (EVENT_START_PLAY);
 		  }
  		break;
 	      }

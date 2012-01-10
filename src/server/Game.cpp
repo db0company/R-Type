@@ -1,7 +1,6 @@
 #include <iostream>
 #include <map>
 #include <string>
-// #include <pair>
 #include "Player.hpp"
 #include "Monster.hpp"
 #include "Tile.hpp"
@@ -23,6 +22,7 @@ Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
   // createNewMonster(NULL);
   // createWall();
 
+  //  _rMap.recupFromFile("nom_du_level.txt");
   this->_id = this->_sid;
   ++(this->_sid);
 }
@@ -251,13 +251,20 @@ void	Game::createWall()
   std::list<AObject *> newLine;
   int	i = 0;
   int	j;
+  TileStruct ts;
 
   while (i != this->_param.sizeCol)
     {
       j = 0;
+      ts = _rMap[i];
       while (j != this->_param.sizeLine)
 	{
-	  newLine.push_front(new Tile);
+	  if (j == 0)
+	    newLine.push_front(new Tile(ts.up));
+	  else if (j == this->_param.sizeLine - 1)
+	    newLine.push_front(new Tile(ts.down));
+	  else
+	    newLine.push_front(new Tile(TileEmpty));
 	  ++j;
 	}
       ++i;

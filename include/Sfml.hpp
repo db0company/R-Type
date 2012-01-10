@@ -8,6 +8,7 @@
 #include "GraphicUtils.hpp"
 #include "GraphicClientState.hpp"
 #include "EGraphicAction.hpp"
+#include "InfoGame.hpp"
 //#include "ClientNetwork.hpp"
 
 #define WINDOWNAME "R-Type"
@@ -32,9 +33,13 @@ namespace LibGraphic
     virtual void clean();
     virtual void draw();
     // Getter/Setter pour le reseau
+
   public:
-    void		goToNextState(void);
-    void	   setNextState(eStates s);
+    void	   setCurrentState(eStates);
+    void	   goToNextState(void);
+    void	   setNextState(eState s, eStates d);
+    std::map<int, InfoGame *> const&getInfoGameMap()const;
+
     std::string const & getIp() const;
     std::string const & getLogin() const;
     int getPort() const;
@@ -44,6 +49,7 @@ namespace LibGraphic
     bool getSpectator() const;
     std::string const & getMessage() const;
     std::string const & getGameName() const;
+    void setMessage(std::string const &s);
 
   public:
     void errorMessage(std::string const &);
