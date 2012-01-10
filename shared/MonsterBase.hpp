@@ -2,12 +2,12 @@
 # define __MONSTERBASE_HPP__
 
 # include "DefineExportMonster.hpp"
-# include "Monster.hpp"
+# include "AObject.hpp"
 
 # ifdef _WIN32
-class	LIBMONSTER_API MonsterBase : public MonsterBase
+class	LIBMONSTER_API MonsterBase : public IObject
 # else
-class	MonsterBase : public Monster
+class	MonsterBase : public IObject
 # endif // _WIN32
 {
  private:

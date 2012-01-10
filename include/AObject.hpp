@@ -1,10 +1,27 @@
 #ifndef		__AOBJECT_HPP__
 # define	__AOBJECT_HPP__
 
-#include <string>
-#include "Position.hpp"
+# include <string>
+# include "Position.hpp"
+# include "DefineExportMonster.hpp"
 
-class		AObject
+# ifdef _WIN32
+class		 IObject
+# else
+class		IObject
+# endif
+{
+public:
+	virtual ~IObject() {}
+};
+
+
+
+# ifdef _WIN32
+class		 AObject : public IObject
+# else
+class		 AObject : public IObject
+# endif
 {
 protected:
   Position	pos;
@@ -13,7 +30,7 @@ protected:
 public:
   AObject();
   AObject(const AObject& old);
-  ~AObject();
+  virtual ~AObject();
   const std::string &getName()const;
   void		setPos(const Position& newPos);
   const Position&	getPos()const;
