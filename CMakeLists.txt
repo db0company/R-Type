@@ -70,6 +70,7 @@ add_executable(
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
 	./src/client/Button.cpp
+	./src/server/RecupMap.cpp
 )
 
 
@@ -137,6 +138,7 @@ add_executable(
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
 	./src/client/Button.cpp
+	./src/server/RecupMap.cpp
 )
 
 

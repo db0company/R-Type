@@ -30,7 +30,7 @@ bool LibGraphic::StateInGame::init()
 void LibGraphic::StateInGame::draw()
 {
   // sf::Sprite &back = this->getSprite("StartMenuBackground");
-  sf::Sprite &back = this->getSprite("Starfield");
+  sf::Sprite &back = this->getSprite("Starfield2");
   this->_app.Draw(back);
   this->drawText();
 }
@@ -70,7 +70,7 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
       	{
       	  switch (Event.JoyButton.Button)
       	    {
-      	    case 0:
+	    case 0:
       	      {
 		break;
       	      }
@@ -112,4 +112,29 @@ sf::Font * LibGraphic::StateInGame::getFont(std::string const & fontName) const
 inline sf::String * LibGraphic::StateInGame::getStdToSfString(std::string const & s, sf::Font * daFont)
 {
   return (new sf::String(s, *daFont));
+}
+
+RecupMap &LibGraphic::StateInGame::getRecupMap(void)
+{
+  return (this->_rMap);
+}
+
+std::string const &LibGraphic::StateInGame::getGameName(void) const
+{
+  return (this->_gameName);
+}
+
+std::string const &LibGraphic::StateInGame::getGameLvl(void) const
+{
+  return (this->_gameLvl);
+}
+
+void LibGraphic::StateInGame::setGameName(std::string const &s)
+{
+  this->_gameName = s;
+}
+
+void LibGraphic::StateInGame::setGameLvl(std::string const &s)
+{
+  this->_gameLvl = s;
 }

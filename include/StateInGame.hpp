@@ -3,6 +3,7 @@
 
 #include "Sfml.hpp"
 #include "Istate.hpp"
+#include "RecupMap.hpp"
 
 namespace LibGraphic
 {
@@ -27,6 +28,12 @@ namespace LibGraphic
     MyMusic * getMusic(std::string const &) const;
     sf::Font * getFont(std::string const &) const;
     inline sf::String * getStdToSfString(std::string const &, sf::Font *);
+    RecupMap &getRecupMap(void);
+
+    void setGameName(std::string const &s);
+    void setGameLvl(std::string const &s);
+    std::string const &getGameName(void) const;
+    std::string const &getGameLvl(void) const;
 
   private:
     void setNextState(eState d);
@@ -44,10 +51,14 @@ namespace LibGraphic
     sf::RenderWindow & _app;
 
   private:
+
+    RecupMap	_rMap;
     eStates _nextState;
     sf::Clock Clock;
     unsigned int _lives;
     unsigned int _score;
+    std::string _gameName;
+    std::string _gameLvl;
     // monsters
     // players
   };

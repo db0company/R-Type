@@ -5,6 +5,7 @@
 #include "ProtocolGame.hpp"
 #include "Client.hpp"
 #include "InfoGame.hpp"
+#include "RecupMap.hpp"
 
 ProtocolGame::ProtocolGame()
 {
@@ -198,7 +199,7 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &client)
   if (status)
     {
       client.getGraphic().setCurrentState(LibGraphic::INGAME);
-      // client.getGraphic().errorMessage("la game peut commencer... todo didi :)");
+      // client.getGraphic().getRecupMap()->recupFromFile(client.getGraphic().getGameLvl() + ".map");
     }
   else
     {

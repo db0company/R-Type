@@ -67,6 +67,7 @@ bool			ProtocolGame::actionGet(PacketData &, User *user, Server &server)
   std::map<int, Game *>::iterator it;
   Game *tmp = NULL;
 
+  std::cout << "size of map: " << map.size()<< std::endl;
   to_send->addShort(map.size());
   for (it = map.begin(); it != map.end(); ++it)
     {
@@ -238,7 +239,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
   return (true);
 }
 
-bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &s)
+bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
 {
   PacketData	*to_send = new PacketData;
   ProtocolPacket *packet_to_send;

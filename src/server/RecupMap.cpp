@@ -33,8 +33,9 @@ const eTileName&	RecupMap::getEnumFromString(const std::string& s1)const
 
   if ((tile = st.find(s1)) == st.end())
     {
-      std::cout << s1 << " faudrait lancer une std::error" << std::endl;
-      //error
+      // std::cout << s1 << " faudrait lancer une std::error" << std::endl;
+      // error <- pas throw. faudrai pas quitter. return plutot un (EMPTY_TILE) qui affiche
+      // rien pour cette endroi;
     }
   return (tile->second);
 }
