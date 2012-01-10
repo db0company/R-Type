@@ -294,8 +294,9 @@ bool			ProtocolGame::actionStart(PacketData &, User *user, Server &)
     {
       if (user->getGame()->getStatus() == LOBBYROOM)
 	{
-	  to_send->addChar(0); // todo 1
-	  to_send->addString("Not Yet implemented"); // todo del
+	  // to_send->addChar(0); // todo 1
+	  // to_send->addString("Not Yet implemented"); // todo del
+	  to_send->addChar(1);
 	  user->getGame()->setStatus(INGAME);
 	  packet_to_send = PacketFactory::createPacket(THE_GAME,
                            static_cast<ushort>(STARTGAME), to_send);

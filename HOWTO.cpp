@@ -77,3 +77,26 @@ int	reponse_du_server_a_la_demande_de_creation_de_game_qui_fail(User *user,
   // Dans R-Type/src/server/protocol/action/*.cpp il y a plein d'exemple de packet creer
   // a la facon TCP (et un exemple UDP dans ProtocolGame::CreateGame
 }
+
+//cote serveur si tu recoi un packet Move d'un client ca sera dans /src/server/protocol/ProtocolMovement.cpp
+// dans la function ActionMove.
+// ca marche comme ca pour tout.
+// chaque packet a un group (== la classe ProtocolMovement ProtocolLobby ProtocolGame etc)
+// chaque packet a aussi une instruction (== une fonction de la classe associe au groupe)
+// la fonction en question contien un PacketData (la data du packet, logique)
+// elle contien aussi un user * (le user qui a envoye le packet)
+// et elle contien un Server & (reference sur le serveur pour pouvoir avoir access a tout par getter (safequeue pour push, game manager pour manager... etc))
+// pour envoyer un message a un user on fait user->addPacketToSend(ICI LE PACKET);
+// si un user a creer une game il a un pointeur vers sa game. user->getGame() (peut return null!)
+// on peut recuperer la liste des users de la game avec (game->getUserMap)
+// c'est utile pour envoyer un meme message a tout les client de la game (iterator FTW)
+
+
+// cote client si tu recoi un packet c'est pareil. c'est dans /src/CLIENT/protocol/Protocol*.cpp
+// meme style: si tu recoi une instruction GETGAME de group GAME c'est dans ProtocolGame.cpp la fonction ActionGetGame.
+// contrairement au cote serveur on a pas de User * (normal, c'est toujours le serveur qui envoi le packet), et a la place dun Server & on a un Client & (pour getter / setter partout comme on veut.)
+
+//cote client pour envoyer un packet on fait ClientNetwork->pushTCP(PACKET A SEND) ou pushUDP pour l'udp
+//					       (contenu ds class client)
+
+

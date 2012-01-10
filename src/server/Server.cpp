@@ -63,15 +63,16 @@ bool Server::init(int port)
   this->_listener->SNAddRead();
   this->_udp->SNAddRead();
   //debug test//
-  Game *g = new Game;
-  Game *f = new Game;
-  g->setName("toto");
-  g->setObs(false);
-  this->_gameManager.addGame(g);
-  f->setName("nom");
-  f->setOwnerId("didi");
-  f->setObs(true);
-  this->_gameManager.addGame(f);
+  // Game *g = new Game;
+  // // Game *f = new Game;
+  // // g->setName("toto");
+  // // f->setOwnerId("prout");
+  // // g->setObs(false);
+  // // this->_gameManager.addGame(g);
+  // // f->setName("nom");
+  // // f->setOwnerId("didi");
+  // // f->setObs(true);
+  // this->_gameManager.addGame(f);
   return (true);
 }
 

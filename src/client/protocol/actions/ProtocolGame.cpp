@@ -197,8 +197,8 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &client)
   std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
-      // client.getGraphic().setCurrentState(LibGraphic::INGAME);
-      client.getGraphic().errorMessage("la game peut commencer... todo didi :)");
+      client.getGraphic().setCurrentState(LibGraphic::INGAME);
+      // client.getGraphic().errorMessage("la game peut commencer... todo didi :)");
     }
   else
     {

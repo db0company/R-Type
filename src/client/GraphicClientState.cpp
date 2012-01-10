@@ -9,6 +9,7 @@
 #include "StateCreateGame.hpp"
 #include "StateRoomList.hpp"
 #include "StateRoom.hpp"
+#include "StateInGame.hpp"
 #include "GraphicClientState.hpp"
 #include "EGraphicAction.hpp"
 
@@ -57,24 +58,28 @@ void LibGraphic::GraphicClientState::loadStates(void)
 						  this->_ressourcesFont,
 						  this->_app);
   this->_stateInfos[CREATEGAME] = new StateCreateGame(this->_ressourcesSprite,
-						  this->_ressourcesPlayList,
-						  this->_ressourcesSounds,
-						  this->_ressourcesFont,
-						  this->_app);
+						      this->_ressourcesPlayList,
+						      this->_ressourcesSounds,
+						      this->_ressourcesFont,
+						      this->_app);
   this->_stateInfos[ROOM] = new StateRoom(this->_ressourcesSprite,
-					    this->_ressourcesPlayList,
-					    this->_ressourcesSounds,
-					    this->_ressourcesFont,
-					    this->_app);
+					  this->_ressourcesPlayList,
+					  this->_ressourcesSounds,
+					  this->_ressourcesFont,
+					  this->_app);
   this->_stateInfos[OPTIONS] = new StateOptions(this->_ressourcesSprite,
-					    this->_ressourcesPlayList,
-					    this->_ressourcesSounds,
-					    this->_ressourcesFont,
-					    this->_app);
+						this->_ressourcesPlayList,
+						this->_ressourcesSounds,
+						this->_ressourcesFont,
+						this->_app);
   this->_stateInfos[CREDITS] = NULL;
   this->_stateInfos[RANKING] = NULL;
   this->_stateInfos[INTRO] = NULL;
-  this->_stateInfos[INGAME] = NULL;
+  this->_stateInfos[INGAME] = new StateInGame(this->_ressourcesSprite,
+					      this->_ressourcesPlayList,
+					      this->_ressourcesSounds,
+					      this->_ressourcesFont,
+					      this->_app);
   this->_stateInfos[UNKNOWN_STATE] = NULL;
 }
 

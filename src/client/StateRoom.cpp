@@ -142,7 +142,7 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 	      {
 		if (this->_currentButton == BUTTON_ROOM_QUIT)
 		  {
-		    this->_nextState = ROOMLIST;
+		    // this->_nextState = ROOMLIST;
 		    return (EVENT_ROOM_QUIT);
 		  }
 		else if (this->_currentButton == BUTTON_ROOM_CHAT)
@@ -177,7 +177,7 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 		if (this->_currentButton == BUTTON_ROOM_QUIT)
 		  {
 		    this->_nextState = ROOMLIST;
-		    return EVENT_CHANGE_STATE;
+		    return EVENT_ROOM_QUIT;
 		  }
 		else if (this->_currentButton == BUTTON_ROOM_CHAT)
 		  {

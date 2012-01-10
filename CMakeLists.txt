@@ -112,6 +112,7 @@ find_package(SFML 1.6 REQUIRED system window graphics network audio)
 
 add_executable(
 	client
+	./src/client/StateInGame.cpp
 	./src/client/main.cpp
 	./src/client/Client.cpp
 	./src/client/ClientNetwork.cpp

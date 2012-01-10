@@ -251,7 +251,7 @@ bool Client::actionQuit(void)
   packet = new ProtocolPacket;
   packet->header.size = 0;
   packet->header.group = THE_GAME;
-  packet->header.instruction = STARTGAME;
+  packet->header.instruction = QUITGAME;
   packet->header.magic = PACKET_MAGIC;
   packet->data = data->getData();
 
