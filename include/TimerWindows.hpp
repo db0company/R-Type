@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include "ITimer.hpp"
 
-class		TimerWindows : ITimer
+class		TimerWindows : public ITimer
 {
 private:
   DWORD	start_time;

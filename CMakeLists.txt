@@ -148,6 +148,46 @@ include_directories(include)
 
 SET(EXECUTABLE_NAME "server")
 
+IF(WIN32)
+
+SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+add_executable(
+	server
+	./src/server/main.cpp
+	./src/protocol/PacketData.cpp
+	./src/protocol/PacketFactory.cpp
+	./src/server/protocol/PacketManager.cpp
+	./src/server/protocol/actions/ProtocolGame.cpp
+	./src/server/protocol/actions/ProtocolGameDetails.cpp
+	./src/server/protocol/actions/ProtocolMovement.cpp
+	./src/server/protocol/actions/ProtocolLobby.cpp
+	./src/server/Server.cpp
+	./src/server/GameManager.cpp
+	./src/server/User.cpp
+	./src/server/SafeQueue.cpp
+	./src/server/ThreadData.cpp
+	./src/server/ThreadPool.cpp
+	./src/protocol/PacketAggregator.cpp
+	./src/server/TaskManager.cpp
+	./src/server/TaskNetwork.cpp
+	./src/server/PacketTask.cpp
+	./src/server/Game.cpp
+	./src/server/Position.cpp
+	./src/server/Entities.cpp
+	./src/server/Monster.cpp
+	./src/server/Player.cpp
+	./src/server/Tile.cpp
+	./src/server/AObject.cpp
+	./src/server/Bullet.cpp
+	./src/server/TimerWindows.cpp
+	./src/server/RecupMap.cpp
+)
+
+
+ENDIF(WIN32)
+
+if(UNIX)
+
 SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 add_executable(
 	server
@@ -181,7 +221,7 @@ add_executable(
 	./src/server/RecupMap.cpp
 )
 
-if(UNIX)
+
 
 target_link_libraries(
 	server
@@ -235,6 +275,8 @@ endif(UNIX)
 include_directories(include)
 
 include_directories(shared)
+
+add_definitions(-DLIBMONSTER_EXPORTS)
 
 add_library(
 	MonsterBase
