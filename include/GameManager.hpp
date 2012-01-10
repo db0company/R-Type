@@ -22,6 +22,7 @@ public:
   Game *getGameFromId(unsigned int id);
   Game *getGameFromName(std::string const &);
   std::map<int, Game *>&getGames(void);
+  Game *getGameFromUser(User *us);
 private:
   std::map<int, Game *>		_gameMap;
 };

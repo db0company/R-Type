@@ -1,4 +1,6 @@
+#include "Server.hpp"
 #include		"ProtocolMovement.hpp"
+#include "PacketTask.hpp"
 
 ProtocolMovement::ProtocolMovement()
 {
@@ -50,29 +52,20 @@ bool			ProtocolMovement::actionError(PacketData &, User *, Server &)
   return (true);
 }
 
-bool		ProtocolMovement::actionMove(PacketData &data, User *, Server &)
+bool		ProtocolMovement::actionMove(PacketData &data, User *us, Server &serv)
 {
-  // MOVEMENT MOVE
-  // char tilex;
-  // char tiley;
-  // char posx;
-  // char posy;
-  // char dirx;
-  // char diry;
+  PacketTask	*pt;
+  Game		*tmp;
 
-  // tilex = data.getNextChar();
-  // tiley = data.getNextChar();
-  // posx = data.getNextChar();
-  // posy = data.getNextChar();
-  // dirx = data.getNextChar();
-  // diry = data.getNextChar();
-
-  // TODO: verif si le player est bien ds une game: sinon ignor msg :)
-  // voir avec vincent comment marche les positions : les set dans la game
-  // envoyer au clients de la game les info.
-  // va ptetre faloir changer le client->server pour cette instruction.
-  (void)data;
-  return (true);
+  tmp = serv.getGameByUser(us);
+  if (tmp != NULL)
+    {
+      pt = new PacketTask(&Game::changePlayerPos, data, tmp);
+      serv.getTaskQueue().push(pt);
+      serv.getCondVar()->signal();
+      return (true);
+    }
+  return (false);
 }
 
 // bool		ProtocolMovement::actionUpdatePlayer(PacketData &, User *, Server &)

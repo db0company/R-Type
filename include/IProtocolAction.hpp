@@ -3,6 +3,7 @@
 
 # include		"types.h"
 # include		"PacketData.hpp"
+
 class User;
 class Server;
 class			IProtocolAction

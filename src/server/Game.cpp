@@ -9,6 +9,12 @@
 #include "User.hpp"
 #include "eProtocolPacketMovement.hpp"
 #include "eProtocolPacketGame.hpp"
+#ifdef _WIN32
+#include "MutexWindows.hpp"
+#else
+#include "MutexUnix.hpp"
+#endif
+
 unsigned int Game::_sid = 0;
 
 Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
@@ -25,6 +31,11 @@ Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
   //  _rMap.recupFromFile("nom_du_level.txt");
   this->_id = this->_sid;
   ++(this->_sid);
+#ifdef _WIN32
+  this->_mutex = new MutexWindows;
+#else
+  this->_mutex = new MutexUnix;
+#endif
 }
 
 Game::~Game()
@@ -77,7 +88,7 @@ void	Game::sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc
 
   while (it != this->_players.end())
     {
-      ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, *data);
+      ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, data);
       us = static_cast<Player *>(it->second)->getUser();
       us->addPacketToSendUDP(packet_to_send);
       ++it;
@@ -86,14 +97,14 @@ void	Game::sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc
 
 void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player)
 {
-  ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, *data);
+  ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, data);
   User	*us;
 
   us = static_cast<Player *>(player)->getUser();
   us->addPacketToSendUDP(packet_to_send);
 }
 
-void	Game::changePlayerPos(PacketData *info)
+void	Game::changePlayerPos(PacketData &info)
 {
   std::string ip; // a extraire du packet
   std::string ret;
@@ -120,7 +131,7 @@ void	Game::changePlayerPos(PacketData *info)
   sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
 }
 
-void	Game::moveMonster(PacketData*)
+void	Game::moveMonster(PacketData&)
 {
   std::map<std::string, AObject *>::iterator it = this->_monster.begin();
 
@@ -145,7 +156,7 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
 }
 
-void	Game::createNewMonster(PacketData *)
+void	Game::createNewMonster(PacketData &)
 {
   AObject *truc;
   int	i = 0;
@@ -179,7 +190,7 @@ const std::string& Game::getPlayerByIp(const std::string& ip)
   return (it->second->getName()); // jai mis sa pour retirer le warning
 }
 
-void	Game::checkCollision(PacketData *)
+void	Game::checkCollision(PacketData &)
 {
   std::map<std::string, AObject *>::iterator itP = this->_players.begin();
   std::map<std::string, AObject *>::iterator itM = this->_monster.begin();
@@ -218,7 +229,7 @@ void	Game::checkCollision(PacketData *)
     }
 }
 
-void	Game::moveBullet(PacketData *)
+void	Game::moveBullet(PacketData &)
 {
   Position p;
   std::list<Bullet>::iterator it = this->_bullets.begin();
@@ -236,7 +247,7 @@ void	Game::moveBullet(PacketData *)
     }
 }
 
-void	Game::moveWall(PacketData *)
+void	Game::moveWall(PacketData &)
 {
   std::list<AObject *> line;
 
@@ -272,7 +283,7 @@ void	Game::createWall()
     }
 }
 
-void	Game::fireBullet(PacketData *)
+void	Game::fireBullet(PacketData &)
 {
   AObject *ent = NULL;
   eGroup	g;
@@ -354,4 +365,14 @@ void Game::setObs(bool o)
 unsigned int Game::getNbPlayer(void)const
 {
   return (this->_userMap.size());
+}
+
+IMutex		*Game::getMutex()
+{
+  return (this->_mutex);
+}
+
+std::map<std::string, AObject *>& Game::getPlayerList()
+{
+  return (this->_players);
 }

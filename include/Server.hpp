@@ -37,14 +37,13 @@ private:
   bool writeToClients(void);
   bool cleanClients(void);
   bool removeClient(User *user, ATCPClientSocket *socket);
-
 public:
 
   TaskManager &getTaskManager(void);
   SafeQueue<PacketTask *> &getTaskQueue(void);
   ICondVar *getCondVar(void);
   GameManager &getGameManager(void);
-
+  Game		*getGameByUser(User *us);
 private:
 
   SafeQueue<PacketTask *>		_taskQueue;
