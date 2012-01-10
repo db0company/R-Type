@@ -1,55 +1,50 @@
 #include "PacketTask.hpp"
 #include "TaskManager.hpp"
+#include "ScopedLock.hpp"
 
-PacketTask::PacketTask(TaskManager& man, void (TaskNetwork::*point)(void *), void *p)
-  : manager(man)
+PacketTask::PacketTask(void (TaskNetwork::*point)(PacketData&), PacketData& d, TaskNetwork *t)
+  : param(d)
 {
-  // this->gameFunc = NULL;
+  this->gameFunc = NULL;
   this->netFunc = point;
-  this->param = p;
+  this->network = t;
+}
+
+PacketTask::PacketTask(void (Game::*point)(PacketData&), PacketData& d, Game *g)
+  : param(d)
+{
+  this->netFunc = NULL;
+  this->gameFunc = point;
+  this->game = g;
 }
 
 
-PacketTask::PacketTask(PacketTask const &other) : manager(other.manager),
-						  param(other.param),
-						  netFunc(other.netFunc)
-
+PacketTask::PacketTask(PacketTask const &other)
+  : param(other.param), netFunc(other.netFunc)
 {
+
 }
 
 PacketTask& PacketTask::operator=(PacketTask const &other)
 {
-  this->manager = other.manager;
-  this->param = other.param;
+  this->param = other.param;  
   this->netFunc = other.netFunc;
   return *this;
 }
 
-
-// PacketTask::PacketTask(TaskManager& man, void (Game::*point)(void *), void *p)
-
-//   : manager(man)
-// {
-//   this->netFunc = NULL;
-// this->gameFunc = point;
-//   this->param = p;
-// }
-
-// TODO: pourquoi on utilise pas la icondvar ?
 void	PacketTask::launchTask(ICondVar *)
 {
-  // if (this->netFunc == NULL && this->gameFunc != NULL)
-  //   {
-  //     Game	g = manager.getGame();
-
-  //     (g.*gameFunc)(this->param);
-  //   }
-  // else
-  if (/* this->gameFunc == NULL &*/ this->netFunc != NULL)
+  if (this->netFunc == NULL && this->gameFunc != NULL && this->game != NULL)
     {
-      TaskNetwork n = manager.getNet();
+      ScopedLock	sc(this->game->getMutex());
 
-      (n.*netFunc)(this->param);
+      (this->game->*gameFunc)(this->param);
+    }
+  else if (this->gameFunc == NULL && this->netFunc != NULL && this->network != NULL)
+    {
+      ScopedLock	sc(this->game->getMutex());
+
+      (this->network->*netFunc)(this->param);
     }
 }
 

@@ -65,3 +65,25 @@ std::map<int, Game *> &GameManager::getGames(void)
 {
   return (this->_gameMap);
 }
+
+Game *GameManager::getGameFromUser(User *us)
+{
+  std::map<int, Game *>::iterator it;
+  std::map<std::string, AObject *> list;
+  std::map<std::string, AObject *>::iterator it2;
+  Game *tmp;
+
+  for (it = this->_gameMap.begin(); it != this->_gameMap.end(); ++it)
+    {
+      tmp = it->second;
+      list = tmp->getPlayerList();
+      it2 = list.begin();
+      while (it2 != list.end())
+	{
+	  if (static_cast<Player *>(it2->second)->getUser() == us)
+	    return (tmp);
+	  ++it;
+	}
+    }
+  return (NULL);
+}

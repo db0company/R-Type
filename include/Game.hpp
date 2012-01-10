@@ -12,7 +12,7 @@
 #include "Bullet.hpp"
 #include "Player.hpp"
 #include "RecupMap.hpp"
-
+#include "IMutex.hpp"
 enum eGameStatus
   {
     INGAME,
@@ -27,16 +27,16 @@ public:
   Game(const Game&);
   Game&	operator=(const Game&);
 
-  void	changePlayerPos(PacketData *info);
-  void	moveMonster(PacketData *);
+  void	changePlayerPos(PacketData &info);
+  void	moveMonster(PacketData &);
   void	createNewPlayer(User *us, const std::string& name);
-  void	createNewMonster(PacketData *);
+  void	createNewMonster(PacketData &);
   const std::string& getPlayerByIp(const std::string& ip);
-  void	checkCollision(PacketData *);
-  void	moveBullet(PacketData *);
-  void	moveWall(PacketData *);
+  void	checkCollision(PacketData &);
+  void	moveBullet(PacketData &);
+  void	moveWall(PacketData &);
   void	createWall();
-  void	fireBullet(PacketData *);
+  void	fireBullet(PacketData &);
   void	sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc);
   void	sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player);
   // getter // setter
@@ -55,7 +55,8 @@ public:
   unsigned int	getNbPlayer(void)const;
   eGameStatus	getStatus(void)const;
   void		setStatus(eGameStatus e);
-
+  IMutex	*getMutex();
+  std::map<std::string, AObject *>& getPlayerList();
 private:
   unsigned int _id;
   GameParameter        _param;
@@ -73,6 +74,7 @@ private:
   bool _observer;
   eGameStatus _status;
   RecupMap	_rMap;
+  IMutex	*_mutex;
 };
 
 #endif	// GAME_H_

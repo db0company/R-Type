@@ -5,18 +5,20 @@
 #include "Game.hpp"
 #include "TaskNetwork.hpp"
 #include "ICondVar.hpp"
+
 class PacketTask
 {
 private:
-  TaskManager	&manager;
-  void *param;
-  void (TaskNetwork::*netFunc)(void *);
-  //  void (Game::*gameFunc)(void *);
+  PacketData&	param;
+  Game		*game;
+  TaskNetwork	*network;
+  void (TaskNetwork::*netFunc)(PacketData&);
+  void (Game::*gameFunc)(PacketData&);
 public:
   PacketTask(PacketTask const &other);
   PacketTask&operator=(PacketTask const &other);
-  PacketTask(TaskManager& man, void (TaskNetwork::*point)(void *),void *param);
-  PacketTask(TaskManager& man, void (Game::*point)(void *), void *param);
+  PacketTask(void (TaskNetwork::*point)(PacketData&), PacketData&, TaskNetwork *);
+  PacketTask(void (Game::*point)(PacketData&), PacketData&, Game*);
   void	launchTask(ICondVar *);
 };
 

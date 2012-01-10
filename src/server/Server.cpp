@@ -236,6 +236,11 @@ bool Server::run(void)
     }
 }
 
+Game		*Server::getGameByUser(User *us)
+{
+  return (this->_gameManager.getGameFromUser(us));
+}
+
 TaskManager &Server::getTaskManager(void)
 {
   return (this->_taskManager);
