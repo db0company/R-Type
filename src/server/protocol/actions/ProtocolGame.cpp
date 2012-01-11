@@ -207,7 +207,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
       to_send->addChar(0);
       to_send->addString("This login is already Taken for this Game");
       packet_to_send = PacketFactory::createPacket(THE_GAME,
-		       static_cast<ushort>(JOINGAME), to_send);
+						   static_cast<ushort>(JOINGAME), to_send);
       user->addPacketToSend(packet_to_send);
       return (false);
     }
@@ -218,7 +218,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
 	  to_send->addChar(0);
 	  to_send->addString("This game don't accept Spectators");
 	  packet_to_send = PacketFactory::createPacket(THE_GAME,
-		           static_cast<ushort>(JOINGAME), to_send);
+						       static_cast<ushort>(JOINGAME), to_send);
 	  user->addPacketToSend(packet_to_send);
 	  return (false);
 	}
@@ -230,7 +230,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
 	  to_send->addChar(0);
 	  to_send->addString("This game is full.");
 	  packet_to_send = PacketFactory::createPacket(THE_GAME,
-		           static_cast<ushort>(JOINGAME), to_send);
+						       static_cast<ushort>(JOINGAME), to_send);
 	  user->addPacketToSend(packet_to_send);
 	  return (false);
 	}
@@ -240,9 +240,10 @@ bool		ProtocolGame::actionJoin(PacketData & received,
   else
     user->setState(USER_GAME_PLAYER);
   game->addUser(user, false, (observer == 0 ? false : true), login);
+  user->setGame(game);
   to_send->addChar(1);
   packet_to_send = PacketFactory::createPacket(THE_GAME,
-	       static_cast<ushort>(JOINGAME), to_send);
+					       static_cast<ushort>(JOINGAME), to_send);
   user->addPacketToSend(packet_to_send);
   return (true);
 }
