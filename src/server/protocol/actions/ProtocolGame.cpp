@@ -66,9 +66,17 @@ bool			ProtocolGame::actionGet(PacketData &, User *user, Server &server)
   std::map<int, Game *> &map =  server.getGameManager().getGames();
   std::map<int, Game *>::iterator it;
   Game *tmp = NULL;
+  int nb_game = 0;
 
   std::cout << "size of map: " << map.size()<< std::endl;
-  to_send->addShort(map.size());
+  for (it = map.begin(); it != map.end(); ++it)
+    {
+      if ((*it).second->getStatus() != ENDED)
+	{
+	  ++nb_game;
+	}
+    }
+  to_send->addShort(nb_game);
   for (it = map.begin(); it != map.end(); ++it)
     {
       tmp = (*it).second;

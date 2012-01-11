@@ -180,7 +180,6 @@ bool Client::gereAction(LibGraphic::Event e)
 bool Client::run(void)
 {
   LibGraphic::Event event;
-  // bool state_network;
 
   while (true)
     {
@@ -192,7 +191,6 @@ bool Client::run(void)
       this->cNetwork.feedPacketAggregatorTCP();
       this->cNetwork.feedPacketAggregatorUDP();
       this->cNetwork.sendPacketToServer();
-      // state_network =
       this->cNetwork.process(*this);
       event = this->cGraphic.getEvent();
       this->gereAction(event);

@@ -17,6 +17,7 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   _app(app), _lives(0), _score(0)
 {
   this->_nextState = UNKNOWN_STATE;
+  this->_mapClock.Reset();
   this->Clock.Reset();
 }
 
@@ -52,7 +53,6 @@ void LibGraphic::StateInGame::drawStarField()
       this->_app.Draw(b);
       b2.SetPosition(1680 - scale, 0);
       this->_app.Draw(b2);
-      return;
     }
   else
     {
@@ -73,25 +73,43 @@ void LibGraphic::StateInGame::drawMap()
   int		spos = 0;
   sf::Sprite &test = this->getSprite("SpriteMap");
   int i;
-  float time = this->Clock.GetElapsedTime();
+  float time = this->_mapClock.GetElapsedTime();
 
   if (time < 0.1)
     {
       gpos -= 1;
+      i = 0;
+      this->_rMap.recupFromFile("ressources/map/"+ this->_gameLvl + ".map");
+      while (i < this->_rMap.size())
+	{
+	  test.SetPosition(MapX(i) + gpos, 0);
+	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
+				      MapX(this->_rMap[i].up + 1), MapY(1)));
+	  this->_app.Draw(test);
+	  test.SetPosition(MapX(i) + gpos, 1050 - MapY(1));
+	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].down), MapY(1),
+				      MapX(this->_rMap[i].down + 1), MapY(2)));
+	  this->_app.Draw(test);
+	  ++i;
+	}
     }
-  i = 0;
-  this->_rMap.recupFromFile("ressources/map/"+ this->_gameLvl + ".map");
-  while (i < this->_rMap.size())
+  else
     {
-      test.SetPosition(MapX(i) + gpos, 0);
-      test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
-				  MapX(this->_rMap[i].up + 1), MapY(1)));
-      this->_app.Draw(test);
-      test.SetPosition(MapX(i) + gpos, 1050 - MapY(1));
-      test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].down), MapY(1),
-				  MapX(this->_rMap[i].down + 1), MapY(2)));
-      this->_app.Draw(test);
-      ++i;
+      i = 0;
+      this->_rMap.recupFromFile("ressources/map/"+ this->_gameLvl + ".map");
+      while (i < this->_rMap.size())
+	{
+	  test.SetPosition(MapX(i) + gpos, 0);
+	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
+				      MapX(this->_rMap[i].up + 1), MapY(1)));
+	  this->_app.Draw(test);
+	  test.SetPosition(MapX(i) + gpos, 1050 - MapY(1));
+	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].down), MapY(1),
+				      MapX(this->_rMap[i].down + 1), MapY(2)));
+	  this->_app.Draw(test);
+	  ++i;
+	}
+      this->_mapClock.Reset();
     }
 }
 
