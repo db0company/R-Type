@@ -1,5 +1,6 @@
 #include <iostream>
 #include "StateInGame.hpp"
+#include "TileInfo.hpp"
 #include "Language.hpp"
 
 extern LibGraphic::Volume gVolume;
@@ -16,6 +17,7 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   _app(app), _lives(0), _score(0)
 {
   this->_nextState = UNKNOWN_STATE;
+  this->Clock.Reset();
 }
 
 LibGraphic::StateInGame::~StateInGame()
@@ -27,11 +29,76 @@ bool LibGraphic::StateInGame::init()
   return true;
 }
 
+int LibGraphic::StateInGame::MapX(int x)
+{
+  return (x * TILE_SIZE_X);
+}
+
+int LibGraphic::StateInGame::MapY(int y)
+{
+  return (y * TILE_SIZE_Y);
+}
+
+void LibGraphic::StateInGame::drawStarField()
+{
+  static int scale = 0;
+  sf::Sprite &b = this->getSprite("Starfield2");
+  sf::Sprite &b2 = this->getSprite("Starfield2");
+  float time = this->Clock.GetElapsedTime();
+
+  if (time < 0.1)
+    {
+      b.SetPosition(0 - scale, 0);
+      this->_app.Draw(b);
+      b2.SetPosition(1680 - scale, 0);
+      this->_app.Draw(b2);
+      return;
+    }
+  else
+    {
+      scale += 2;
+      if (scale >= 1680)
+	scale = 0;
+      b.SetPosition(0 - scale, 0);
+      this->_app.Draw(b);
+      b2.SetPosition(1680 - scale, 0);
+      this->_app.Draw(b2);
+      this->Clock.Reset();
+    }
+}
+
+void LibGraphic::StateInGame::drawMap()
+{
+  static int gpos = 0;
+  int		spos = 0;
+  sf::Sprite &test = this->getSprite("SpriteMap");
+  int i;
+  float time = this->Clock.GetElapsedTime();
+
+  if (time < 0.1)
+    {
+      gpos -= 1;
+    }
+  i = 0;
+  this->_rMap.recupFromFile("ressources/map/"+ this->_gameLvl + ".map");
+  while (i < this->_rMap.size())
+    {
+      test.SetPosition(MapX(i) + gpos, 0);
+      test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
+				  MapX(this->_rMap[i].up + 1), MapY(1)));
+      this->_app.Draw(test);
+      test.SetPosition(MapX(i) + gpos, 1050 - MapY(1));
+      test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].down), MapY(1),
+				  MapX(this->_rMap[i].down + 1), MapY(2)));
+      this->_app.Draw(test);
+      ++i;
+    }
+}
+
 void LibGraphic::StateInGame::draw()
 {
-  // sf::Sprite &back = this->getSprite("StartMenuBackground");
-  sf::Sprite &back = this->getSprite("Starfield2");
-  this->_app.Draw(back);
+  this->drawStarField();
+  this->drawMap();
   this->drawText();
 }
 

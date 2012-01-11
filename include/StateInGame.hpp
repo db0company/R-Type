@@ -39,8 +39,12 @@ namespace LibGraphic
     void setNextState(eState d);
     void drawText();
     void drawConv();
+    void drawStarField();
+    void drawMap();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
+    int MapX(int x);
+    int MapY(int y);
 
   private:
     std::map<std::string const, GraphicRessource *>
