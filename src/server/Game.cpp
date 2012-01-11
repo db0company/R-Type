@@ -281,13 +281,36 @@ void	Game::createWall()
     }
 }
 
-void	Game::fireBullet(PacketData &)
+AObject		*Game::getEntitiesbyName(const std::string& name)
 {
-  AObject *ent = NULL;
+  std::map<std::string, AObject *>::iterator it = this->_players.begin();
+
+  while (it != this->_players.end())
+    {
+      if (it->first == name)
+	return (it->second);
+      ++it;
+    }
+  it = this->_monster.begin();
+  while (it != this->_monster.end())
+    {
+      if (it->first == name)
+	return (it->second);
+      ++it;
+    }
+  return (NULL);
+}
+
+void	Game::fireBullet(PacketData &info)
+{
+  Entities	*ent;
   eGroup	g;
   PacketData *data = new PacketData;
 
-  g = reinterpret_cast<Entities *>(ent)->getGroup();
+  if ((ent = reinterpret_cast<Entities *>
+       (getEntitiesbyName(info.getNextString()))) == NULL)
+    return ; // error
+  g = ent->getGroup();
   this->_bullets.push_front(Bullet(ent->getPos(), g));
   //  data->addData<Position>(ent->getPos());
   sendToAllClient(data, MOVEMENT, UPDATEBULLET);

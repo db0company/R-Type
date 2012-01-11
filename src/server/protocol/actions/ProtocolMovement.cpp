@@ -6,9 +6,9 @@ ProtocolMovement::ProtocolMovement()
 {
   this->actionmap[MOVEMENT_ERROR]	= &ProtocolMovement::actionError;
   this->actionmap[MOVE]			= &ProtocolMovement::actionMove ;
-  this->actionmap[UPDATEPLAYER]		= &ProtocolMovement::actionError;
-  this->actionmap[UPDATEENEMY]		= &ProtocolMovement::actionError;
-  this->actionmap[UPDATEBULLET]		= &ProtocolMovement::actionError;
+  //  this->actionmap[UPDATEPLAYER]		= &ProtocolMovement::actionError;
+  //  this->actionmap[UPDATEENEMY]		= &ProtocolMovement::actionError;
+  //  this->actionmap[UPDATEBULLET]		= &ProtocolMovement::actionError;
   this->actionmap[NEWBULLET]		= &ProtocolMovement::actionNewBullet;
 }
 
@@ -68,29 +68,18 @@ bool		ProtocolMovement::actionMove(PacketData &data, User *us, Server &serv)
   return (false);
 }
 
-// bool		ProtocolMovement::actionUpdatePlayer(PacketData &, User *, Server &)
-// {
-//   // nothing to do ;)
-//   return (true);
-// }
-
-// bool		ProtocolMovement::actionUpdateEnemy(PacketData &, User *, Server &)
-// {
-//   // nothing to do ;)
-//   return (true);
-// }
-
-// bool		ProtocolMovement::actionUpdateBullet(PacketData &, User *, Server &)
-// {
-//   // nothing to do ;)
-//   return (true);
-// }
-
-bool		ProtocolMovement::actionNewBullet(PacketData &, User *, Server &)
+bool		ProtocolMovement::actionNewBullet(PacketData &data, User *us, Server &serv)
 {
-  // TODO: si le client nest pas dans une game qui a start: ignor msg
-  // sinon on creer un AOBject bullet associe a ce client et on envoi a tt les
-  // client de la game (y compri le lanceur) par UDP qu'il y a un new bullet
-  // avec les positions
-  return (true);
+  PacketTask	*pt;
+  Game		*tmp;
+
+  tmp = serv.getGameByUser(us);
+  if (tmp != NULL)
+    {
+      pt = new PacketTask(&Game::fireBullet, data, tmp);
+      serv.getTaskQueue().push(pt);
+      serv.getCondVar()->signal();
+      return (true);
+    }
+  return (false);
 }

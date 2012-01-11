@@ -61,6 +61,7 @@ public:
   IMutex	*getMutex();
   std::map<std::string, AObject *>& getPlayerList();
   std::map<std::string, User *> &getUserMap();
+  AObject	*getEntitiesbyName(const std::string& name);
 private:
   unsigned int _id;
   GameParameter        _param;

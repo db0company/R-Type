@@ -9,7 +9,7 @@ enum		eProtocolPacketMovement
     UPDATEBULLET	= 3,
     NEWBULLET		= 4,
     MOVEMENT_MAX	= 5,
-    MOVEMENT_ERROR	= 99
+    MOVEMENT_ERROR
   };
 
 #endif // __EPROTOCOLPACKET_MOVEMENT_HPP_
