@@ -4,6 +4,7 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include "MySound.hpp"
+#include "RecupMap.hpp"
 #include "MyMusic.hpp"
 #include "GraphicUtils.hpp"
 #include "IGraphic.hpp"
@@ -31,6 +32,10 @@ namespace LibGraphic
 
     // Getter/Setter pour le reseau
   public:
+    std::string const &getGameName(void) const;
+    std::string const &getGameLvl(void) const;
+    void setGameName(std::string const &);
+    void setGameLvl(std::string const &);
     eGraphicAction getAction(eStates scene);
     void setAction(eGraphicAction, eStates);
     void setNextState(eStates, eStates);
@@ -43,11 +48,12 @@ namespace LibGraphic
     int getSlot() const;
     bool getSpectator() const;
     std::string const & getMessage() const;
-    std::string const & getGameName() const;
     void setMessage(std::string const &);
+    RecupMap &getRecupMap(void);
 
     std::string const & getConversation() const;
     void addToConversation(std::string const &);
+    std::string const &getInGameName(void) const;
 
     std::map<int, InfoGame *> &getInfoGameMap(void);
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);

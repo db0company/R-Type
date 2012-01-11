@@ -119,7 +119,7 @@ RecupMap &LibGraphic::StateInGame::getRecupMap(void)
   return (this->_rMap);
 }
 
-std::string const &LibGraphic::StateInGame::getGameName(void) const
+std::string const &LibGraphic::StateInGame::getInGameName(void) const
 {
   return (this->_gameName);
 }

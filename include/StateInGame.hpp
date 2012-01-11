@@ -32,7 +32,7 @@ namespace LibGraphic
 
     void setGameName(std::string const &s);
     void setGameLvl(std::string const &s);
-    std::string const &getGameName(void) const;
+    std::string const &getInGameName(void) const;
     std::string const &getGameLvl(void) const;
 
   private:

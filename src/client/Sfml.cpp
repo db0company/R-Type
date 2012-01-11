@@ -363,7 +363,32 @@ void LibGraphic::Sfml::setInfoGameMap(std::map<int, InfoGame *> &nmap)
   this->_graphicState->setInfoGameMap(nmap);
 }
 
+RecupMap &LibGraphic::Sfml::getRecupMap(void)
+{
+  return (this->_graphicState->getRecupMap());
+}
+
 std::list<std::string> &LibGraphic::Sfml::getLvlList(void)
 {
   return this->_graphicState->getLvlList();
+}
+
+std::string const &LibGraphic::Sfml::getInGameName(void) const
+{
+  return this->_graphicState->getInGameName();
+}
+
+std::string const &LibGraphic::Sfml::getGameLvl(void) const
+{
+  return this->_graphicState->getGameLvl();
+}
+
+void LibGraphic::Sfml::setGameName(std::string const &s)
+{
+  this->_graphicState->setGameName(s);
+}
+
+void LibGraphic::Sfml::setGameLvl(std::string const &s)
+{
+  this->_graphicState->setGameLvl(s);
 }

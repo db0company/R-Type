@@ -284,7 +284,7 @@ bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
   return (true);
 }
 
-bool			ProtocolGame::actionStart(PacketData &, User *user, Server &)
+bool		ProtocolGame::actionStart(PacketData &, User *user, Server &)
 {
   PacketData	*to_send = new PacketData;
   ProtocolPacket *packet_to_send;
@@ -295,13 +295,12 @@ bool			ProtocolGame::actionStart(PacketData &, User *user, Server &)
     {
       if (user->getGame()->getStatus() == LOBBYROOM)
 	{
-	  // to_send->addChar(0); // todo 1
-	  // to_send->addString("Not Yet implemented"); // todo del
 	  to_send->addChar(1);
+	  to_send->addString(user->getGame()->getName());
+	  to_send->addString(user->getGame()->getLvlName());
 	  user->getGame()->setStatus(INGAME);
 	  packet_to_send = PacketFactory::createPacket(THE_GAME,
                            static_cast<ushort>(STARTGAME), to_send);
-
 	  map = user->getGame()->getUserMap();
 	  for (it = map.begin(); it != map.end(); ++it)
 	    {

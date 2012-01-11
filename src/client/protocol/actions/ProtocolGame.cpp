@@ -192,17 +192,23 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &client)
 {
   char			status;
   std::string		details;
+  std::string		name;
+  std::string		lvl;
 
   status = data.getNextChar();
-  details = data.getNextString();
-  std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
+  std::cout << "status(" << (int)status << ") details(" << details
+	    << ")" << std::endl;
   if (status)
     {
+      name = data.getNextString();
+      lvl = data.getNextString();
+      client.getGraphic().setGameName(name);
+      client.getGraphic().setGameLvl(lvl);
       client.getGraphic().setCurrentState(LibGraphic::INGAME);
-      // client.getGraphic().getRecupMap()->recupFromFile(client.getGraphic().getGameLvl() + ".map");
     }
   else
     {
+      details = data.getNextString();
       client.getGraphic().errorMessage("Error From Server. " + details + "\n");
     }
   return (false);

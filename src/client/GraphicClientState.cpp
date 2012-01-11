@@ -182,3 +182,29 @@ std::list<std::string > &LibGraphic::GraphicClientState::getLvlList(void)
 {
   return reinterpret_cast <StateCreateGame *>(getValue(this->_stateInfos, CREATEGAME))->getLvlList();
 }
+
+RecupMap &LibGraphic::GraphicClientState::getRecupMap(void)
+{
+  return reinterpret_cast <StateInGame *> (getValue(this->_stateInfos, INGAME))->getRecupMap();
+}
+
+//
+std::string const &LibGraphic::GraphicClientState::getInGameName(void) const
+{
+  return reinterpret_cast <StateInGame const *> (getValue(this->_stateInfos, INGAME))->getInGameName();
+}
+
+std::string const &LibGraphic::GraphicClientState::getGameLvl(void) const
+{
+  return reinterpret_cast <StateInGame const *> (getValue(this->_stateInfos, INGAME))->getGameLvl();
+}
+
+void LibGraphic::GraphicClientState::setGameName(std::string const &s)
+{
+  reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setGameName(s);
+}
+
+void LibGraphic::GraphicClientState::setGameLvl(std::string const &s)
+{
+  reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setGameLvl(s);
+}

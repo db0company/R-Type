@@ -10,6 +10,7 @@
 #include "GraphicClientState.hpp"
 #include "EGraphicAction.hpp"
 #include "InfoGame.hpp"
+#include "RecupMap.hpp"
 //#include "ClientNetwork.hpp"
 
 #define WINDOWNAME "R-Type"
@@ -39,6 +40,10 @@ namespace LibGraphic
     void	   setCurrentState(eStates);
     void	   goToNextState(void);
     void	   setNextState(eState s, eStates d);
+    std::string const &getGameName(void) const;
+    std::string const &getGameLvl(void) const;
+    void setGameName(std::string const &);
+    void setGameLvl(std::string const &);
 
     std::list<std::string> &getLvlList(void);
     std::string const & getIp() const;
@@ -49,9 +54,9 @@ namespace LibGraphic
     int getSlot() const;
     bool getSpectator() const;
     std::string const & getMessage() const;
-    std::string const & getGameName() const;
+    std::string const & getInGameName() const;
     void setMessage(std::string const &s);
-
+    RecupMap &getRecupMap(void);
     std::string const & getConversation() const;
     void addToConversation(std::string const &);
 
