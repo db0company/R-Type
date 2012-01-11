@@ -172,6 +172,12 @@ bool Client::gereAction(LibGraphic::Event e)
 	this->actionStart();
 	break;
       }
+    case LibGraphic::EVENT_ROOMLIST_CREATE :
+      {
+	this->actionGetLvl();
+	this->cGraphic.setCurrentState(LibGraphic::CREATEGAME);
+	break;
+      }
     default : break;
     }
   return (true);

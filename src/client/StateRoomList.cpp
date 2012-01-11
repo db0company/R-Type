@@ -350,8 +350,9 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
 		  {
-		    this->_nextState = CREATEGAME;
-		    return EVENT_CHANGE_STATE;
+		    // this->_nextState = CREATEGAME;
+		    // return EVENT_CHANGE_STATE;
+		    return (EVENT_ROOMLIST_CREATE);
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_REFRESH)
 		  {

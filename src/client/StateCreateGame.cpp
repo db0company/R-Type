@@ -150,7 +150,13 @@ void LibGraphic::StateCreateGame::draw()
 void LibGraphic::StateCreateGame::drawText()
 {
   sf::String *tmp;
+  // std::list<std::string>::iterator it;
 
+  // std::cout << "avant" << std::endl;
+  // for (it = this->_lvlList.begin(); it != this->_lvlList.end(); ++it)
+  //   {
+  //     std::cout << "elem: " << *it << std::endl;
+  //   }
   if (language == ENGLISH)
     {
       tmp = this->getStdToSfString("Back", this->getFont("StartFontF"));
