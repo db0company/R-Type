@@ -54,8 +54,11 @@ namespace LibGraphic
 
   private:
     void drawText();
+    void drawMap();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
+    void incMap();
+    void decMap();
 
   private:
     std::map<std::string const, GraphicRessource *>
@@ -73,6 +76,8 @@ namespace LibGraphic
     bool _isSpectatorChecked;
     unsigned char _teamSize;
     std::string _name;
+    std::string _previewSelected;
+    bool _isDefaultMap;
   };
 
 }

@@ -83,7 +83,7 @@ void LibGraphic::Sfml::draw()
     {
       tmp.SetText(this->_errorMessage);
       tmp.SetColor(sf::Color(255,0,0, 255));
-      tmp.SetPosition(300, 300);
+      //      tmp.SetPosition(300, 300);
       this->_app.Draw(tmp);
    }
   this->_app.Display();

@@ -19,6 +19,7 @@ LibGraphic::StateCreateGame::StateCreateGame(std::map<std::string const, Graphic
   this->_currentButton = BUTTON_CREATE_SPECTATOR;
   this->_isSpectatorChecked = false;
   this->_teamSize = 1;
+  this->_isDefaultMap = true;
 }
 
 LibGraphic::StateCreateGame::~StateCreateGame()
@@ -144,7 +145,17 @@ void LibGraphic::StateCreateGame::draw()
   tmp->SetPosition(928, 411);
   this->_app.Draw(*tmp);
 
+  this->drawMap();
   this->drawText();
+}
+
+void LibGraphic::StateCreateGame::drawMap()
+{
+  this->_previewSelected = "Star";
+  sf::Sprite &preview = this->getSprite("Preview" + this->_previewSelected);
+  preview.SetScale(0.5, 0.5);
+  preview.SetPosition(725, 550);
+  this->_app.Draw(preview);
 }
 
 void LibGraphic::StateCreateGame::drawText()
@@ -249,6 +260,18 @@ void LibGraphic::StateCreateGame::drawText()
     tmp->SetColor(sf::Color(0, 0, 0, 155));
  this->_app.Draw(*tmp);
 
+ tmp = this->getStdToSfString("Map : ", this->getFont("StartFontF"));
+ tmp->SetPosition(550, 550);
+ tmp->SetScale(0.6, 0.6);
+ tmp->SetColor(sf::Color(255,255,0, 255));
+ if (this->_currentButton != BUTTON_CREATE_MAP)
+   tmp->SetColor(sf::Color(255,255,255, 205));
+ this->_app.Draw(*tmp);
+
+ tmp = this->getStdToSfString(this->_previewSelected, this->getFont("StartFontF"));
+ tmp->SetPosition(620, 550);
+ tmp->SetScale(0.6, 0.6);
+ this->_app.Draw(*tmp);
 }
 
 LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
@@ -413,27 +436,43 @@ void LibGraphic::StateCreateGame::cursorMenuPos(const sf::Event & Event)
 	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_3;
 	break;
       }
-    case BUTTON_CREATE_NAME :
+    case BUTTON_CREATE_MAP :
       {
 	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
 	  this->_currentButton = BUTTON_CREATE_CREATE;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
+	  this->_currentButton = BUTTON_CREATE_NAME;
+	break;
+      }
+    case BUTTON_CREATE_NAME :
+      {
+	if ((JoystickPOV > 135 && JoystickPOV < 225) ||
+	    (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
+	  this->_currentButton = BUTTON_CREATE_MAP;
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
+		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_1;
+	else if ((JoystickPOV > 45 && JoystickPOV < 135) ||
+		 Event.Key.Code == sf::Key::Right)
+	  this->incMap();
+	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
+		 Event.Key.Code == sf::Key::Left)
+	  this->decMap();
 	break;
       }
     case BUTTON_CREATE_BACK :
       {
 	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
 	    Event.Key.Code == sf::Key::Right)
-	    this->_currentButton = BUTTON_CREATE_CREATE;
+	  this->_currentButton = BUTTON_CREATE_CREATE;
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down || Event.Key.Code == sf::Key::Tab))
 	  this->_currentButton = BUTTON_CREATE_SPECTATOR;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
-	  this->_currentButton = BUTTON_CREATE_NAME;
+	  this->_currentButton = BUTTON_CREATE_MAP;
 	break;
       }
     case BUTTON_CREATE_CREATE :
@@ -446,12 +485,55 @@ void LibGraphic::StateCreateGame::cursorMenuPos(const sf::Event & Event)
 	  this->_currentButton = BUTTON_CREATE_SPECTATOR;
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
-	  this->_currentButton = BUTTON_CREATE_NAME;
+	  this->_currentButton = BUTTON_CREATE_MAP;
 	break;
       }
     default : break;
     }
   this->Clock.Reset();
+}
+
+void LibGraphic::StateCreateGame::incMap()
+{
+  if (this->_lvlList.empty())
+    return;
+
+  std::list<std::string>::iterator it;
+
+  for (it = this->_lvlList.begin(); it != this->_lvlList.end(); ++it)
+    {
+      if (*it == this->_previewSelected)
+	{
+	  if (++it == this->_lvlList.end())
+	    this->_previewSelected = *(this->_lvlList.begin());
+	  else
+	    this->_previewSelected = *it;
+	  break;
+	}
+    }
+}
+
+void LibGraphic::StateCreateGame::decMap()
+{
+  if (this->_lvlList.empty())
+    return;
+  std::list<std::string>::iterator it;
+
+  for (it = this->_lvlList.begin(); it != this->_lvlList.end(); ++it)
+    {
+      if (*it == this->_previewSelected)
+	{
+	  if (it == this->_lvlList.begin())
+	    {
+	      it = this->_lvlList.end();
+	      --it;
+	      this->_previewSelected = *it;
+	    }
+	  else
+	    this->_previewSelected = *(--it);
+	  break;
+	}
+    }
 }
 
 sf::Sprite & LibGraphic::StateCreateGame::getSprite(std::string const & spriteName) const
