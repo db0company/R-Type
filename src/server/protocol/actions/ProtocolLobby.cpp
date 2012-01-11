@@ -3,6 +3,7 @@
 #include "ProtocolPacket.h"
 #include "ProtocolLobby.hpp"
 #include "User.hpp"
+#include "Game.hpp"
 
 ProtocolLobby::ProtocolLobby()
 {
@@ -65,7 +66,17 @@ bool			ProtocolLobby::actionChat(PacketData & data, User *user, Server &)
       to_send->addString(login);
       to_send->addString(msg);
       packet_to_send = PacketFactory::createPacket(LOBBY, static_cast<ushort>(CHAT), to_send);
-      user->addPacketToSend(packet_to_send); // pour tt les clients de la game
+      std::cout << user->getIp() << login << std::endl;
+      if (user->getGame() && user->getState() != USER_ROOMLIST)
+	{
+	  std::map<std::string, User *> &umap = user->getGame()->getUserMap();
+	  std::map<std::string, User *>::iterator it;
+	  for (it = umap.begin(); it != umap.end(); ++it)
+	    {
+	      std::cout << "list player "<< it->first << std::endl;
+	      it->second->addPacketToSend(packet_to_send);
+	    }
+	}
     }
   return (false);
 }
