@@ -171,6 +171,7 @@ bool Client::gereAction(LibGraphic::Event e)
     case LibGraphic::EVENT_ROOM_QUIT :
       {
 	this->actionQuit();
+	this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
 	break;
       }
     case LibGraphic::EVENT_ROOM_START :
