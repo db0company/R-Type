@@ -6,6 +6,7 @@
 #include <string>
 #include "Sfml.hpp"
 #include "Istate.hpp"
+#include "AnnimTest.hpp"
 
 namespace LibGraphic
 {
@@ -80,6 +81,8 @@ namespace LibGraphic
     std::string _name;
     std::string _previewSelected;
     bool _isDefaultMap;
+
+    AnnimTest * test;
   };
 
 }
