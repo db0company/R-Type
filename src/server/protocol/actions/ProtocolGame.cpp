@@ -101,8 +101,9 @@ bool			ProtocolGame::actionGetLevel(PacketData &, User *user, Server &)
   PacketData  *to_send = new PacketData;
   ProtocolPacket *packet_to_send;
 
-  to_send->addShort(1);
+  to_send->addShort(2);
   to_send->addString("Star");
+  to_send->addString("Sun");
   //  to_send->addString("Moon"); + add 1 au short!
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(GETLEVELGAME), to_send);
   user->addPacketToSend(packet_to_send);
@@ -141,10 +142,10 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
       user->addPacketToSend(packet_to_send);
       return (false);
     }
-  if (!(game_lvl == "Star"))
+  if (!(game_lvl == "Star" || game_lvl == "Sun"))
     {
       to_send->addChar(0);
-      to_send->addString("The map " + game_lvl + "don't exist");
+      to_send->addString("The map " + game_lvl + " don't exist");
       packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
       user->addPacketToSend(packet_to_send);
       return (false);
@@ -193,21 +194,24 @@ bool		ProtocolGame::actionJoin(PacketData & received,
   if ((game = server.getGameManager().getGameFromId(id_game)) == NULL ||
       game->getStatus() == ENDED)
     {
+      //ScopedLock s(game->getMutex()); // Mserver
       to_send->addChar(0);
       to_send->addString("This Game don't Exist");
       packet_to_send = PacketFactory::createPacket(THE_GAME,
-						   static_cast<ushort>(JOINGAME), to_send);
+		   static_cast<ushort>(JOINGAME), to_send);
       user->addPacketToSend(packet_to_send);
       return (false);
     }
   if (user->getGame() != NULL)
-    game = user->getGame();
+    {
+      game = user->getGame();
+    }
   if (map.find(login) != map.end())
     {
       to_send->addChar(0);
       to_send->addString("This login is already Taken for this Game");
       packet_to_send = PacketFactory::createPacket(THE_GAME,
-						   static_cast<ushort>(JOINGAME), to_send);
+				static_cast<ushort>(JOINGAME), to_send);
       user->addPacketToSend(packet_to_send);
       return (false);
     }
@@ -218,7 +222,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
 	  to_send->addChar(0);
 	  to_send->addString("This game don't accept Spectators");
 	  packet_to_send = PacketFactory::createPacket(THE_GAME,
-						       static_cast<ushort>(JOINGAME), to_send);
+	       static_cast<ushort>(JOINGAME), to_send);
 	  user->addPacketToSend(packet_to_send);
 	  return (false);
 	}
@@ -230,7 +234,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
 	  to_send->addChar(0);
 	  to_send->addString("This game is full.");
 	  packet_to_send = PacketFactory::createPacket(THE_GAME,
-						       static_cast<ushort>(JOINGAME), to_send);
+	       static_cast<ushort>(JOINGAME), to_send);
 	  user->addPacketToSend(packet_to_send);
 	  return (false);
 	}
@@ -239,6 +243,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
     user->setState(USER_GAME_SPECTATE);
   else
     user->setState(USER_GAME_PLAYER);
+  //ScopedLock s(game->getMutex()); // Mserver
   game->addUser(user, false, (observer == 0 ? false : true), login);
   user->setGame(game);
   to_send->addChar(1);
@@ -259,6 +264,7 @@ bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
 
   if ((g = user->getGame()) == NULL)
     return (false);
+  //ScopedLock s(g->getMutex()); //Mserver
   maap = g->getUserMap();
   if (user->getState() == USER_GAME_ROOT)
     {
@@ -304,6 +310,7 @@ bool		ProtocolGame::actionStart(PacketData &, User *user, Server &)
     {
       if (user->getGame()->getStatus() == LOBBYROOM)
 	{
+	  //ScopedLock s(user->getGame()->getMutex()); // Mserver
 	  to_send->addChar(1);
 	  to_send->addString(user->getGame()->getName());
 	  to_send->addString(user->getGame()->getLvlName());

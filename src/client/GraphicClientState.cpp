@@ -129,8 +129,7 @@ int LibGraphic::GraphicClientState::getIdGame() const
 
 std::string const & LibGraphic::GraphicClientState::getLevel() const
 {
-  std::string * toto = new std::string("Star");
-  return *toto;
+  return reinterpret_cast <StateCreateGame const *>(getValue(this->_stateInfos, CREATEGAME))->getLevel();
 }
 
 int LibGraphic::GraphicClientState::getSlot() const

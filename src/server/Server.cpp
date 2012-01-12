@@ -62,17 +62,18 @@ bool Server::init(int port)
     }
   this->_listener->SNAddRead();
   this->_udp->SNAddRead();
-  //debug test//
-  // Game *g = new Game;
-  // // Game *f = new Game;
-  // // g->setName("toto");
-  // // f->setOwnerId("prout");
-  // // g->setObs(false);
-  // // this->_gameManager.addGame(g);
-  // // f->setName("nom");
-  // // f->setOwnerId("didi");
-  // // f->setObs(true);
-  // this->_gameManager.addGame(f);
+  Game *g = new Game;
+  g->setName("ti");
+  g->setLvlName("Sun");
+  g->setOwnerId("toto");
+  g->setPlayerMax(1);
+  this->_gameManager.addGame(g);
+  Game *f = new Game;
+  f->setName("starship");
+  f->setLvlName("Star");
+  f->setOwnerId("titipr");
+  f->setPlayerMax(1);
+  this->_gameManager.addGame(f);
   return (true);
 }
 
@@ -136,6 +137,7 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
 	{
 	  if ((game = user->getGame()) != NULL)
 	    {
+	      // game->getMutex()->Lock(); //Mserver
 	      maap = game->getUserMap();
 	      to_send->addShort(0);
 	      to_send->addString(user->getLogin());
@@ -146,6 +148,7 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
 		  it->second->addPacketToSend(packet_to_send);
 		}
 	      game->setStatus(ENDED);
+	      // game->getMutex()->Unlock(); //Mserver
 	    }
 	  this->_quitQueue.push(socket->getIp());
 	}

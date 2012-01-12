@@ -51,7 +51,7 @@ namespace LibGraphic
     int getSlot() const;
     std::string const & getGameName() const;
     std::list<std::string> &getLvlList(void);
-
+    std::string const &getLevel() const;
   private:
     void drawText();
     void drawMap();

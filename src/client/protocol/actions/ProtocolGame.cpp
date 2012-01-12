@@ -130,14 +130,21 @@ bool			ProtocolGame::actionGetLevel(PacketData & data, Client &client)
   while (i < nb)
     {
       lvl = data.getNextString();
+      std::cout << "[" << i << "] "<< lvl << std::endl;
       exist = false;
       for (it = list.begin(); it != list.end(); ++it)
 	{
 	  if (*it == lvl)
-	    exist = true;
+	    {
+	      std::cout << lvl << "exist deja" << std::endl;
+	      exist = true;
+	    }
 	}
       if (!exist)
-	list.push_front(lvl);
+	{
+	  std::cout << "jajoute " << lvl << std::endl;
+	  list.push_front(lvl);
+	}
       ++i;
     }
   return (false);

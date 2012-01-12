@@ -49,6 +49,7 @@ namespace LibGraphic
     void drawGames();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
+    void drawSelectedMap(void);
 
   private:
     std::map<std::string const, GraphicRessource *>
