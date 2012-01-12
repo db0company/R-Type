@@ -6,6 +6,7 @@
 #include <string>
 #include "Sfml.hpp"
 #include "Istate.hpp"
+#include "AnnimTest.hpp"
 
 namespace LibGraphic
 {
