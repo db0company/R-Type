@@ -580,3 +580,12 @@ std::string const & LibGraphic::StateCreateGame::getLevel() const
 {
   return this->_previewSelected;
 }
+
+InfoGame *LibGraphic::StateCreateGame::getGamePreview()
+{
+  InfoGame *g = new InfoGame;
+
+  g->setName(_name);
+  g->setMap(_previewSelected);
+  return (g);
+}

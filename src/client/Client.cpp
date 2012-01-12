@@ -137,12 +137,16 @@ bool Client::gereAction(LibGraphic::Event e)
       {
 	this->actionJoin(this->cGraphic.getLogin(),
 			 this->cGraphic.getIdGame(), false);
+	this->cGraphic.setGameForPreview(
+	this->cGraphic.getGameForPreviewFromRoomlist());
 	break;
       }
     case LibGraphic::EVENT_ROOMLIST_SPECTATE :
       {
 	this->actionJoin(this->cGraphic.getLogin(),
 			 this->cGraphic.getIdGame(), true);
+	this->cGraphic.setGameForPreview(
+	this->cGraphic.getGameForPreviewFromRoomlist());
 	break;
       }
     case LibGraphic::EVENT_CREATE_CREATE :
@@ -150,6 +154,8 @@ bool Client::gereAction(LibGraphic::Event e)
 	this->actionCreate(this->cGraphic.getLogin(), this->cGraphic.getGameName(),
 			   this->cGraphic.getLevel(), this->cGraphic.getSlot(),
 			   this->cGraphic.getSpectator());
+	this->cGraphic.setGameForPreview(
+	this->cGraphic.getGameForPreviewFromCreate());
 	break;
       }
     case LibGraphic::EVENT_ROOM_CHAT :

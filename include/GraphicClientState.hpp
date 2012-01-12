@@ -54,9 +54,11 @@ namespace LibGraphic
     std::string const & getConversation() const;
     void addToConversation(std::string const &);
     std::string const &getInGameName(void) const;
-
+    void setGameForPreview(InfoGame *);
     std::map<int, InfoGame *> &getInfoGameMap(void);
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
+    InfoGame * getGameForPreviewFromRoomlist(void);
+    InfoGame * getGameForPreviewFromCreate(void);
 
   private:
     Event eventStart(eStates & scene);

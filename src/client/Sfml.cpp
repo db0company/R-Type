@@ -51,16 +51,6 @@ void		LibGraphic::Sfml::goToNextState(void)
 LibGraphic::Event LibGraphic::Sfml::getEvent()
 {
   LibGraphic::Event event = this->_graphicState->getEventFromState(this->_currentState);
-  // switch (this->_graphicState->getEventFromState(this->_currentState))
-  //   {
-  //   case EVENT_CHANGE_STATE :
-  //     {
-  // 	this->_currentState = this->_graphicState->goToNextState(this->_currentState);
-  // 	break;
-  //     }
-  //   default : break;
-  //   }
-  // return LibGraphic::EVENT_NONE;
   return (event);
 }
 
@@ -391,4 +381,19 @@ void LibGraphic::Sfml::setGameName(std::string const &s)
 void LibGraphic::Sfml::setGameLvl(std::string const &s)
 {
   this->_graphicState->setGameLvl(s);
+}
+
+void LibGraphic::Sfml::setGameForPreview(InfoGame*g)
+{
+  this->_graphicState->setGameForPreview(g);
+}
+
+InfoGame * LibGraphic::Sfml::getGameForPreviewFromRoomlist(void)
+{
+  return this->_graphicState->getGameForPreviewFromRoomlist();
+}
+
+InfoGame * LibGraphic::Sfml::getGameForPreviewFromCreate(void)
+{
+  return this->_graphicState->getGameForPreviewFromCreate();
 }

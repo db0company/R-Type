@@ -13,7 +13,7 @@ LibGraphic::StateRoom::StateRoom(std::map<std::string const, GraphicRessource *>
 						   sf::RenderWindow & app):
   _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app), _chat(""), _conversation("")
+  _app(app), _chat(""), _conversation(""), _game(NULL)
 {
   this->_currentButton = BUTTON_ROOM_CHAT;
   this->_nextState = UNKNOWN_STATE;
@@ -33,6 +33,35 @@ bool LibGraphic::StateRoom::init()
   return true;
 }
 
+void LibGraphic::StateRoom::drawInputButton()
+{
+  if (this->_currentButton == BUTTON_ROOM_CHAT)
+    {
+      sf::Sprite &input = this->getSprite("Input");
+      input.SetPosition(300, 758);
+      this->_app.Draw(input);
+    }
+}
+
+void LibGraphic::StateRoom::drawSelectedMap(void)
+{
+  if (!(this->_game))
+    return ;
+  if ((this->_game->getMap() != "Sun" &&
+       this->_game->getMap() != "Star"))
+    return ;
+  sf::Sprite &preview = this->getSprite("Preview" + this->_game->getMap());
+  sf::String *tmp;
+
+  tmp = this->getStdToSfString(this->_game->getMap(), this->getFont("StartFontF"));
+  tmp->SetPosition(1200, 290);
+  tmp->SetScale(0.6, 0.6);
+  preview.SetPosition(1090, 328);
+  preview.SetScale(1, 1);
+  this->_app.Draw(preview);
+  this->_app.Draw(*tmp);
+}
+
 void LibGraphic::StateRoom::draw()
 {
   sf::Sprite &back = this->getSprite("StartMenuBackground");
@@ -48,6 +77,8 @@ void LibGraphic::StateRoom::draw()
 
   this->_app.Draw(back);
   this->_app.Draw(menu);
+  this->drawSelectedMap();
+  this->drawInputButton();
   this->_app.Draw(menu_coins);
 
   Button.SetPosition(1225, 870);
@@ -304,3 +335,7 @@ void LibGraphic::StateRoom::addToConversation(std::string const & add)
   this->_conversation += add;
 }
 
+void LibGraphic::StateRoom::setGameForPreview(InfoGame *g)
+{
+  this->_game = g;
+}

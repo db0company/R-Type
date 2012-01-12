@@ -645,3 +645,8 @@ int LibGraphic::StateRoomList::getIdGame() const
     return this->_selectedGame->getId();
   return -1;
 }
+
+InfoGame *LibGraphic::StateRoomList::getGamePreview()
+{
+  return (this->_selectedGame);
+}

@@ -59,7 +59,9 @@ namespace LibGraphic
     RecupMap &getRecupMap(void);
     std::string const & getConversation() const;
     void addToConversation(std::string const &);
-
+    void setGameForPreview(InfoGame*);
+    InfoGame * getGameForPreviewFromRoomlist(void);
+    InfoGame * getGameForPreviewFromCreate(void);
     std::map<int, InfoGame *> &getInfoGameMap(void) const;
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
 

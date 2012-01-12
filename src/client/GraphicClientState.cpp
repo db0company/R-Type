@@ -207,3 +207,18 @@ void LibGraphic::GraphicClientState::setGameLvl(std::string const &s)
 {
   reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setGameLvl(s);
 }
+
+void LibGraphic::GraphicClientState::setGameForPreview(InfoGame *g)
+{
+  reinterpret_cast <StateRoom *>(getValue(this->_stateInfos, ROOM))->setGameForPreview(g);
+}
+
+InfoGame * LibGraphic::GraphicClientState::getGameForPreviewFromRoomlist(void)
+{
+  return reinterpret_cast <StateRoomList *>(getValue(this->_stateInfos, ROOMLIST))->getGamePreview();
+}
+
+InfoGame * LibGraphic::GraphicClientState::getGameForPreviewFromCreate(void)
+{
+  return reinterpret_cast <StateCreateGame *>(getValue(this->_stateInfos, CREATEGAME))->getGamePreview();
+}

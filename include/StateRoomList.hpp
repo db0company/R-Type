@@ -44,13 +44,14 @@ namespace LibGraphic
     std::map<int, InfoGame *> &getInfoGameMap(void);
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
     int getIdGame() const;
+    InfoGame *getGamePreview();
+
   private:
     void drawText();
     void drawGames();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
     void drawSelectedMap(void);
-
   private:
     std::map<std::string const, GraphicRessource *>
     const & _ressourcesSprite;

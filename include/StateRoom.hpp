@@ -39,14 +39,15 @@ namespace LibGraphic
     std::string const & getMessage() const;
     std::string const & getConversation() const;
     void addToConversation(std::string const &);
-
+    void setGameForPreview(InfoGame *);
   private:
     void setNextState(eState d);
     void drawText();
     void drawConv();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
-
+    void drawInputButton();
+    void drawSelectedMap(void);
   public:
 
   private:
@@ -64,6 +65,7 @@ namespace LibGraphic
     std::string _chat;
     std::string _conversation;
     bool _isDefaultText;
+    InfoGame *_game;
   };
 
 }
