@@ -9,17 +9,11 @@
    * faire image pour input text
    * lafficher (didi)
    * idriss: ton getvalu est unsafe + tu ferifi pas si tes map.find() retourne pas un map.end() (getValue + Sfml.cpp)
-   * verif les break et le joystick pour les menu (rapide)
-   * affichage derreure + classe
-   * Afficher un starfield qui s'ecoule (par rapport a un timer cote client
-   et non le cpu ou whatever)
    * Afficher les info ds une barre en bas (nnombres de vie/score/nom du lvl)
-   * Decouper les sprites vaiseau
    * Affichage positions des ship par rapport au donnee
    (et rotation par rapport a vecteur)
    * Affichage des bullet
    * Decoupage intensive des autres sprites.
-   * vous avez fait des mutex pour les packettask game?
    * mutexter es game cote server
 
 -> Client/Server/Game
@@ -27,8 +21,3 @@
    * Lier les packets recu a des actions du client (sauvegarde et modif des donnees)
    * Faire Collisions/Movement/Lier les packet au packet task etc.
    * Movement: envoi cote serveur reception client en txt pour set donnees
-
--> Server [Exec]
-   * Quand un player quite, informer les autres, le del
-   * quand une game fini: del
-   * quand root quitte en mode lobby: si autre player: devient root, sinon del game.

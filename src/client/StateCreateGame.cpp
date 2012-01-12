@@ -20,6 +20,9 @@ LibGraphic::StateCreateGame::StateCreateGame(std::map<std::string const, Graphic
   this->_isSpectatorChecked = false;
   this->_teamSize = 1;
   this->_isDefaultMap = true;
+  this->_previewSelected = "Star";
+
+  test = new AnnimTest(this->_app, this->getSprite("test"));
 }
 
 LibGraphic::StateCreateGame::~StateCreateGame()
@@ -147,11 +150,11 @@ void LibGraphic::StateCreateGame::draw()
 
   this->drawMap();
   this->drawText();
+  this->test->play();
 }
 
 void LibGraphic::StateCreateGame::drawMap()
 {
-  this->_previewSelected = "Star";
   sf::Sprite &preview = this->getSprite("Preview" + this->_previewSelected);
   preview.SetScale(0.5, 0.5);
   preview.SetPosition(725, 550);
@@ -161,7 +164,7 @@ void LibGraphic::StateCreateGame::drawMap()
 void LibGraphic::StateCreateGame::drawText()
 {
   sf::String *tmp;
-  // std::list<std::string>::iterator it;
+  std::list<std::string>::iterator it;
 
   // std::cout << "avant" << std::endl;
   // for (it = this->_lvlList.begin(); it != this->_lvlList.end(); ++it)
@@ -444,6 +447,12 @@ void LibGraphic::StateCreateGame::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_CREATE_NAME;
+	else if ((JoystickPOV > 45 && JoystickPOV < 135) ||
+		 Event.Key.Code == sf::Key::Right)
+	  this->incMap();
+	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
+		 Event.Key.Code == sf::Key::Left)
+	  this->decMap();
 	break;
       }
     case BUTTON_CREATE_NAME :
@@ -454,12 +463,6 @@ void LibGraphic::StateCreateGame::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_CREATE_TEAMSIZE_1;
-	else if ((JoystickPOV > 45 && JoystickPOV < 135) ||
-		 Event.Key.Code == sf::Key::Right)
-	  this->incMap();
-	else if ((JoystickPOV > 225 && JoystickPOV < 315) ||
-		 Event.Key.Code == sf::Key::Left)
-	  this->decMap();
 	break;
       }
     case BUTTON_CREATE_BACK :
@@ -574,4 +577,9 @@ std::string const & LibGraphic::StateCreateGame::getGameName() const
 std::list<std::string> &LibGraphic::StateCreateGame::getLvlList(void)
 {
   return this->_lvlList;
+}
+
+std::string const & LibGraphic::StateCreateGame::getLevel() const
+{
+  return this->_previewSelected;
 }

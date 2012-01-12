@@ -100,6 +100,7 @@ void LibGraphic::StateRoomList::draw()
   menu.SetColor(sf::Color(255, 255, 255, 210));
   this->_app.Draw(background);
   this->_app.Draw(menu);
+  this->drawSelectedMap();
   this->_app.Draw(menu_diago);
   this->_app.Draw(menu_bas);
   this->_app.Draw(menu_gauche);
@@ -188,6 +189,25 @@ void LibGraphic::StateRoomList::draw()
   this->_app.Draw(*Join);
 
   this->drawText();
+}
+
+void LibGraphic::StateRoomList::drawSelectedMap(void)
+{
+  if (!(this->_selectedGame))
+    return ;
+  if ((this->_selectedGame->getMap() != "Sun" &&
+       this->_selectedGame->getMap() != "Star"))
+    return ;
+  sf::Sprite &preview = this->getSprite("Preview" + this->_selectedGame->getMap());
+  sf::String *tmp;
+
+  tmp = this->getStdToSfString(this->_selectedGame->getMap(), this->getFont("StartFontF"));
+  tmp->SetPosition(1200, 290);
+  tmp->SetScale(0.6, 0.6);
+  preview.SetPosition(1090, 328);
+  preview.SetScale(1, 1);
+  this->_app.Draw(preview);
+  this->_app.Draw(*tmp);
 }
 
 void LibGraphic::StateRoomList::drawText()
