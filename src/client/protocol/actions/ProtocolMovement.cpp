@@ -1,5 +1,5 @@
-
-#include		"ProtocolMovement.hpp"
+#include <iostream>
+#include "ProtocolMovement.hpp"
 
 ProtocolMovement::ProtocolMovement()
 {
@@ -59,7 +59,17 @@ bool		ProtocolMovement::actionMove(PacketData &data, Client &)
 
 bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &)
 {
-  (void)data;
+  char id;
+  std::string login;
+  unsigned int x;
+  unsigned int y;
+
+  id = data.getNextChar();
+  login = data.getNextString();
+  x = data.getNextUint32();
+  y = data.getNextUint32();
+
+  std::cout << "id(" << (int)id << ") login(" << login << ") x(" << x << ") y(" << y << ")" << std::endl;
   return (false);
 }
 

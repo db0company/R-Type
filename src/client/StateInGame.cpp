@@ -76,11 +76,13 @@ void LibGraphic::StateInGame::drawStarField()
     }
   if (timefront < 0.1)
     {
-      if (i == 2)
-	{
-	  scalefront += 1;
-	  i = 0;
-	}
+      // if (i == 2)
+      // 	{
+	  scalefront += 3;
+	//   i = 0;
+	// }
+      if (scalefront >= 1680)
+	scalefront = 0;
       ++i;
       front.SetPosition(0 - scalefront, 0);
       this->_app.Draw(front);

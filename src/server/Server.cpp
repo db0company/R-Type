@@ -137,18 +137,18 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
 	{
 	  if ((game = user->getGame()) != NULL)
 	    {
-	      // game->getMutex()->Lock(); //Mserver
+	      game->getMutex()->Lock(); //Mserver
 	      maap = game->getUserMap();
 	      to_send->addShort(0);
 	      to_send->addString(user->getLogin());
 	      for (it = maap.begin(); it != maap.end(); ++it)
 		{
 		  packet_to_send = PacketFactory::createPacket(THE_GAME,
-		      static_cast<ushort>(QUITGAME), to_send);
+	       static_cast<ushort>(QUITGAME), to_send);
 		  it->second->addPacketToSend(packet_to_send);
 		}
 	      game->setStatus(ENDED);
-	      // game->getMutex()->Unlock(); //Mserver
+	      game->getMutex()->Unlock(); //Mserver
 	    }
 	  this->_quitQueue.push(socket->getIp());
 	}
