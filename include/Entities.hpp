@@ -3,8 +3,13 @@
 
 #include "enum.h"
 #include "AObject.hpp"
+#include "DefineExportMonster.hpp"
 
+# ifdef _WIN32
+class		LIBMONSTER_API Entities : public AObject
+# else
 class		Entities : public AObject
+#endif
 {
 protected:
   int		life;

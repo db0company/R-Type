@@ -122,11 +122,13 @@ bool ClientNetwork::connect(std::string const &ip, int port)
 
 bool ClientNetwork::select(void)
 {
-  if (this->_selector)
-    if (!this->_selector->SNSelect())
-      {
-	return (false);
-      }
+  if (this->_selector && this->_connected)
+  {
+	if (!this->_selector->SNSelect())
+    {
+	  return (false);
+    }
+  }
   return (true);
 }
 

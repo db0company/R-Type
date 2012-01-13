@@ -11,5 +11,6 @@ int main()
 
   if (client.init())
     return (client.run());
+  system("pause");
   return (0);
 }
