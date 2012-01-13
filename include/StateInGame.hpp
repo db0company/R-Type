@@ -63,7 +63,8 @@ namespace LibGraphic
     RecupMap	_rMap;
     eStates _nextState;
     sf::Clock Clock;
-   sf::Clock _mapClock;
+    sf::Clock _mapClock;
+    sf::Clock _frontClock;
     unsigned int _lives;
     unsigned int _score;
     std::string _gameName;
