@@ -5,10 +5,22 @@
 #include "AUDPServerSocket.h"
 #include "PacketAggregator.hpp"
 #include "PacketManager.hpp"
-
+#include "ScopedLock.hpp"
+#ifdef _WIN32
+#include "MutexWindows.hpp"
+#else
+#include "MutexUnix.hpp"
+#endif
+ 
 User::User(ATCPClientSocket * socket, std::string const & ip, PacketManager &pamanager)
   : safe(true), log(false), login(""), ip(ip), pm(pamanager), tcp(socket), _player(NULL), _state(USER_ROOMLIST), _game(NULL)
-{}
+{
+#ifdef _WIN32
+  this->_mutex = new MutexWindows;
+#else
+  this->_mutex = new MutexUnix;
+#endif
+}
 
 User::User(User const & other)
   : safe(other.safe), log(other.log), login(other.login),
@@ -128,6 +140,8 @@ bool			User::addPacketToSend(ProtocolPacket *packer)
 
 bool			User::addPacketToSendUDP(ProtocolPacket *packer)
 {
+  ScopedLock		sl(this->_mutex);
+
   this->paWriteUDP.push(packer);
   return (true);
 }

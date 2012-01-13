@@ -6,6 +6,7 @@ ProtocolLobby::ProtocolLobby()
 {
   this->actionmap[CHAT] = &ProtocolLobby::actionChat;
   this->actionmap[LOBBY_ERROR] = &ProtocolLobby::actionError;
+  this->actionmap[LOBBY_PLAYERS] = &ProtocolLobby::actionPlayers;
 }
 
 ProtocolLobby::ProtocolLobby(ProtocolLobby const & other)
@@ -56,5 +57,34 @@ bool			ProtocolLobby::actionChat(PacketData & data, Client &c)
   login = data.getNextString();
   msg = data.getNextString();
   c.getGraphic().addToConversation("<" + login + "> " + msg + "\n");
+  return (false);
+}
+
+bool			ProtocolLobby::actionPlayers(PacketData & data, Client &c)
+{
+  std::string login;
+  short nb;
+  std::list<std::string> &map = c.getGraphic().getPlayerNameList();
+  std::list<std::string>::iterator it;
+
+  bool exist = false;
+
+  nb = data.getNextChar();
+  login = data.getNextString();
+  for (it = map.begin(); it != map.end(); ++it)
+    {
+      if (login == *it)
+	exist = true;
+    }
+  if (nb == -1)
+    {
+      if (exist)
+	map.remove(login);
+    }
+  if (nb == 1)
+    {
+      if (!exist)
+	map.push_front(login);
+    }
   return (false);
 }

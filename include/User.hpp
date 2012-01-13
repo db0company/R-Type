@@ -7,6 +7,8 @@
 #include "PacketAggregator.hpp"
 #include "PacketManager.hpp"
 #include "ProtocolPacket.h"
+#include "IMutex.hpp"
+
 #define AGGREGATE_READ_SIZE 1024
 
 class		Player;
@@ -39,7 +41,7 @@ private:
   Player		*_player;
   cState		_state;
   Game			*_game;
-
+  IMutex		*_mutex;
 public:
   User(ATCPClientSocket *, std::string const & ip, PacketManager &);
   User(User const & other);

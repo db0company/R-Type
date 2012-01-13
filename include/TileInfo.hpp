@@ -22,6 +22,10 @@ enum eTileName
     TileEmpty
   };
 
+// 6 -> 5
+// 7 -> 8
+// 10 -> 11 -> 12
+
 enum eTilePos
   {
     CEILING = 0,

@@ -59,6 +59,7 @@ namespace LibGraphic
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
     InfoGame * getGameForPreviewFromRoomlist(void);
     InfoGame * getGameForPreviewFromCreate(void);
+    std::list<std::string> &getPlayerNameList(void);
 
   private:
     Event eventStart(eStates & scene);

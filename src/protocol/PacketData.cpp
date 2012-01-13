@@ -2,6 +2,7 @@
 #include		<cstring>
 #include		<iostream>
 #include		"PacketData.hpp"
+#include		"Position.hpp"
 
 /* ************************************************************************* */
 /*                             Coplien Form                                  */
@@ -162,6 +163,19 @@ UInt32			PacketData::getNextUint32(void)
   return (s);
 }
 
+template <typename T>
+T			PacketData::getData(void)
+{
+  T s;
+  if ((this->data.size() - this->it) < sizeof(T))
+    std::cerr << "getData ERROR " << std::endl;
+  DataRawType tmp[sizeof(T)];
+  for (uint i = 0 ; i < sizeof(T) ; ++i, ++(this->it))
+    tmp[i] = this->data[this->it];
+  memcpy(&s, tmp, sizeof(T));
+  return (s);
+}
+
 /* ************************************************************************* */
 
 void			PacketData::addString(char const * str, ushort len)
@@ -221,3 +235,14 @@ void			PacketData::addUint32(UInt32 u)
     this->data.push_back(tmp[i]);
 }
 
+template <typename T>
+void			PacketData::addData(T u)
+{
+  DataRawType tmp[sizeof(T)];
+  memcpy(tmp, &u, sizeof(T));
+  for (uint i = 0 ; i < sizeof(T) ; ++i)
+    this->data.push_back(tmp[i]);  
+}
+
+template void PacketData::addData(Position u);
+template Position PacketData::getData(void);

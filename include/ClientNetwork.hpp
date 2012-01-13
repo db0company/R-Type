@@ -33,6 +33,7 @@ public:
   void setIp(std::string const &);
   void setPort(int port);
   bool isConnected(void)const;
+  void setConnected(bool);
 
 private:
   ClientPacketManager   _pm;

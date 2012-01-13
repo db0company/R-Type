@@ -23,6 +23,7 @@ private:
 
   bool		actionError(PacketData &data, Client &);
   bool		actionChat(PacketData &data, Client &);
+  bool		actionPlayers(PacketData &data, Client&);
 };
 
 #endif	// PROTOCOLLOBBY_H_

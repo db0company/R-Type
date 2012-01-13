@@ -62,6 +62,8 @@ public:
   std::map<std::string, AObject *>& getPlayerList();
   std::map<std::string, User *> &getUserMap();
   AObject	*getEntitiesbyName(const std::string& name);
+  void		update(PacketData&);
+  void		verifPos(Position& pos);
 private:
   unsigned int _id;
   GameParameter        _param;

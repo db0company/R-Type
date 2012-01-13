@@ -9,6 +9,7 @@ ProtocolLobby::ProtocolLobby()
 {
   this->actionmap[CHAT] = &ProtocolLobby::actionChat;
   this->actionmap[LOBBY_ERROR] = &ProtocolLobby::actionError;
+  this->actionmap[LOBBY_PLAYERS] = &ProtocolLobby::actionError;
 }
 
 ProtocolLobby::ProtocolLobby(ProtocolLobby const & other)

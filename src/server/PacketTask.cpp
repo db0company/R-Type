@@ -2,20 +2,21 @@
 #include "TaskManager.hpp"
 #include "ScopedLock.hpp"
 
-PacketTask::PacketTask(void (TaskNetwork::*point)(PacketData&), PacketData& d, TaskNetwork *t)
-  : param(d)
+PacketTask::PacketTask(void (TaskNetwork::*point)(PacketData&), PacketData *d, TaskNetwork *t)
 {
   this->gameFunc = NULL;
   this->netFunc = point;
   this->network = t;
+  this->param = d;
 }
 
-PacketTask::PacketTask(void (Game::*point)(PacketData&), PacketData& d, Game *g)
+PacketTask::PacketTask(void (Game::*point)(PacketData&), PacketData* d, Game *g)
   : param(d)
 {
   this->netFunc = NULL;
   this->gameFunc = point;
   this->game = g;
+  this->param = d;
 }
 
 
@@ -38,13 +39,13 @@ void	PacketTask::launchTask(ICondVar *)
     {
       ScopedLock	sc(this->game->getMutex());
 
-      (this->game->*gameFunc)(this->param);
+      (this->game->*gameFunc)(*this->param);
     }
   else if (this->gameFunc == NULL && this->netFunc != NULL && this->network != NULL)
     {
       ScopedLock	sc(this->game->getMutex());
 
-      (this->network->*netFunc)(this->param);
+      (this->network->*netFunc)(*this->param);
     }
 }
 

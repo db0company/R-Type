@@ -222,3 +222,8 @@ InfoGame * LibGraphic::GraphicClientState::getGameForPreviewFromCreate(void)
 {
   return reinterpret_cast <StateCreateGame *>(getValue(this->_stateInfos, CREATEGAME))->getGamePreview();
 }
+
+std::list<std::string> &LibGraphic::GraphicClientState::getPlayerNameList(void)
+{
+  return reinterpret_cast <StateRoom *>(getValue(this->_stateInfos, ROOM))->getPlayerNameList();
+}
