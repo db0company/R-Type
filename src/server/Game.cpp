@@ -61,6 +61,8 @@ Game::Game(const Game& old)
   this->player_max = old.player_max;
   this->_observer = old._observer;
   this->_status = old._status;
+  this->_param.sizeLine = old._param.sizeLine;
+  this->_param.sizeCol = old._param.sizeCol;
 }
 
 Game&	Game::operator=(const Game& old)
@@ -78,6 +80,8 @@ Game&	Game::operator=(const Game& old)
   this->player_max = old.player_max;
   this->_observer = old._observer;
   this->_status = old._status;
+  this->_param.sizeLine = old._param.sizeLine;
+  this->_param.sizeCol = old._param.sizeCol;
   return (*this);
 }
 
@@ -108,9 +112,11 @@ void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Playe
 
 void	Game::verifPos(Position& pos)
 {
-  while (pos.x < 0 || pos.x > 112 || pos.y < 0 || pos.y > 150)
+  while (true)
     {
-      if (pos.x > 112)
+      if (pos.x >= 0 && pos.x < 112 && pos.y >= 0 && pos.y < 150)
+	  break;
+      if (pos.x >= 112)
 	{
 	  pos.x -= 112;
 	  pos.tilex += 1;
@@ -120,15 +126,15 @@ void	Game::verifPos(Position& pos)
 	  pos.x += 112;
 	  pos.tilex -= 1;
 	}
-      if (pos.y > 150)
+      if (pos.y >= 150)
 	{
 	  pos.y -= 150;
-	  pos.tiley -= 1;
+	  pos.tiley += 1;
 	}
       else if (pos.y < 0)
 	{
 	  pos.y += 150;
-	  pos.tiley += 1;
+	  pos.tiley -= 1;
 	}
     }
 }
@@ -174,8 +180,28 @@ void	Game::changePlayerPos(GameParam& par)
   data->addString(it->first);
   data->addUint32(newPos.x + (newPos.tilex * 112));
   data->addUint32(newPos.y + (newPos.tiley * 150));
+  //  std::cout << "jenvoi x " << newPos.x + (newPos.tilex * 112) << " y " << newPos.y + (newPos.tiley * 150) << std::endl;
   // [id du player][nom][int pos X graphic][int pos Y graphic]//    [vecteur x][vercteur y]
   sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
+}
+
+void	Game::createNewPlayer(User *us, const std::string& name)
+{
+  Player	*newPlayer = new Player(us, name);
+  PacketData	*data = new PacketData;
+  Position	pos;
+
+  newPlayer->setId(this->_idPlayers);
+  std::cout << "my new friend is " << name << " with ip "<< us->getIp() << std::endl;
+  pos.x = 400;
+  pos.y = 400 + (70 * newPlayer->getId());
+  verifPos(pos);
+  std::cout << "FIRST POS pos.x " << pos.x << " pos.y " << pos.y << "pos.tile x " << pos.tilex << " pos.tiley " << pos.tiley << std::endl;
+
+  newPlayer->setPos(pos);
+  this->_idPlayers++;
+  this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
+
 }
 
 void	Game::moveMonster(GameParam& par)
@@ -192,24 +218,6 @@ void	Game::moveMonster(GameParam& par)
       sendToAllClient(data, MOVEMENT, UPDATEENEMY);
       ++it;
     }
-}
-
-void	Game::createNewPlayer(User *us, const std::string& name)
-{
-  Player	*newPlayer = new Player(us, name);
-  PacketData	*data = new PacketData;
-  Position	pos;
-
-  pos.x = 0;
-  pos.y = 0;
-  newPlayer->setId(this->_idPlayers);
-  std::cout << "my new friend is " << name << " with ip "<< us->getIp() << std::endl;
-  pos.tilex = 2;
-  pos.tiley = (this->_param.sizeLine / 2) - 1 + newPlayer->getId();
-  newPlayer->setPos(pos);
-  this->_idPlayers++;
-  this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
-
 }
 
 void	Game::createNewMonster(GameParam&)

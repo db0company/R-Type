@@ -1,15 +1,19 @@
 #include "Position.hpp"
 
-Position::Position(float v1, float v2)
+Position::Position(int v1, int v2)
 {
   x = v1;
   y = v2;
+  this->tilex = 0;
+  this->tiley = 0;
 }
 
 Position::Position()
 {
   x = 0;
   y = 0;
+  this->tilex = 0;
+  this->tiley = 0;
 }
 
 Position::Position(const Position& old)
@@ -44,5 +48,7 @@ Position	&Position::operator=(const Position& old)
 {
   this->x = old.x;
   this->y = old.y;
+  this->tilex = old.tilex;
+  this->tiley = old.tiley;
   return (*this);
 }

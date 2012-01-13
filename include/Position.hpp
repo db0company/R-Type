@@ -5,11 +5,11 @@ class		Position
 {
 private:
 public:
-  float		x;
-  float		y;
-  unsigned int		tilex;
-  unsigned int		tiley;
-  Position(float x, float y);
+  int		x;
+  int		y;
+  int		tilex;
+  int		tiley;
+  Position(int x, int y);
   Position();
   Position(const Position& old);
   ~Position();
