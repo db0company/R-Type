@@ -19,7 +19,7 @@ LibGraphic::StateOptions::StateOptions(std::map<std::string const, GraphicRessou
   this->_nextState = UNKNOWN_STATE;
 
   if (language == ENGLISH)
-    this->_name = "Player";
+    this->_name = "Vincent";
   else
     this->_name = "Joueur";
   this->_ip = "127.0.0.1";

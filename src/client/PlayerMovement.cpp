@@ -7,7 +7,7 @@ LibGraphic::PlayerMovement::PlayerMovement(sf::RenderWindow & app,
   _app(app), _sprite(sprite), _id(id)
 {
   this->_coord.x = 400;
-  this->_coord.y = 400 + (70 * this->_id);
+  this->_coord.y = 400;// + (70 * this->_id);
   this->_clock.Reset();
   this->_rotate = SHIP_MIDDLE;
   this->_lastMove = NO_MOVE;

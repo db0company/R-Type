@@ -261,8 +261,8 @@ void Server::resetClientWrite()
 bool Server::run(void)
 {
   this->_time->resetTime();
-  int	s = 1;
-  int	us = 0;
+  int	s = 0;
+  int	us = 80000;
 
   while (true)
     {
@@ -278,9 +278,9 @@ bool Server::run(void)
       us = this->_selector->getUsec();
       if (s == 0 && us == 0)
 	{
-	  // std::cout << "Time to Update All" << std::endl;
-	  s = 1;
-	  us = 0;
+	  std::cout << "Time to Update All" << std::endl;
+	  s = 0;
+	  us = 80000;
 	  this->_gameManager.updateAll(*this);
 	}
       this->getNewClient();
