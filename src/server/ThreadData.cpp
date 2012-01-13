@@ -25,6 +25,7 @@ void ThreadData<T>::ExecParam()
     {
       if (this->QueueTask.empty() == false)
 	{
+	  std::cout << "time to exec task" << std::endl;
 	  T task = NULL;
 	  task = this->QueueTask.tryPop();
 	  if (task != NULL)

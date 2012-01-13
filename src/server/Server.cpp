@@ -263,11 +263,12 @@ bool Server::run(void)
   this->_time->resetTime();
   int	s = 1;
   int	us = 0;
+
   while (true)
     {
       this->resetClientWrite();
       this->_listener->SNAddRead();
-      this->_selector->setTimer(1, 0);
+      this->_selector->setTimer(s, us);
       if (!this->_selector->SNSelect())
 	{
 	  std::cerr << "Error: Select" << std::endl;
@@ -277,12 +278,11 @@ bool Server::run(void)
       us = this->_selector->getUsec();
       if (s == 0 && us == 0)
 	{
+	  std::cout << "Time to Update All" << std::endl;
 	  s = 1;
 	  us = 0;
 	  this->_gameManager.updateAll(*this);
 	}
-      else 
-	std::cout << "loop" << this->_us <<" " << this->_s << std::endl;
       this->getNewClient();
       this->readFromClients();
       this->processPackets();
