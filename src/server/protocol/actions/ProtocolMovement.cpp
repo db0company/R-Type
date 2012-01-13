@@ -62,7 +62,6 @@ bool		ProtocolMovement::actionMove(PacketData &data, User *us, Server &serv)
   tmp = us->getGame();
   if (tmp != NULL)
     {
-
       pt = new PacketTask(&Game::changePlayerPos, newPack, tmp, us);
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();

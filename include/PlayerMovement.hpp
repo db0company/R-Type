@@ -22,6 +22,8 @@ namespace LibGraphic
   public:
     Coord const & getCoord() const;
     void setCoord(Coord const & coord);
+    int getX(void) const;
+    int getY(void) const;
 
     eShipColor getId() const;
     void setId(eShipColor id);

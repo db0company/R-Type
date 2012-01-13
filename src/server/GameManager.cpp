@@ -97,7 +97,7 @@ void		GameManager::updateAll(Server& serv)
   PacketData *d = new PacketData;
 
   // std::cout << "time to up all" << std::endl;
-  while (it != this->_gameMap.end())
+  /* while (it != this->_gameMap.end())
     {
       // std::cout << "1 ";
       pt = new PacketTask(&Game::moveMonster, d, it->second, NULL);
@@ -121,5 +121,5 @@ void		GameManager::updateAll(Server& serv)
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();
       ++it;
-    }
+      }*/
 }

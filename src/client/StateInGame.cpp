@@ -161,9 +161,12 @@ void LibGraphic::StateInGame::drawPlayers()
   std::cout << "debut" <<std::endl;
   for (it = this->_playerMap.begin(); it != this->_playerMap.end(); ++it)
     {
-      std::cout << "inside elem" <<std::endl;
+      std::cout << "en plus de moi il y a " << (int)it->second->getId() <<std::endl;
       if (it->second->getId() == this->_myid)
-	it->second->draw();
+	{
+	  std::cout << "je l'affiche en "<< it->second->getX() << " " << it->second->getY() <<std::endl;
+	  it->second->draw();
+	}
     }
 }
 

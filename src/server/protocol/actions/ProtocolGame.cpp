@@ -172,6 +172,7 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
   game->setPlayerMax(player_max);
   game->setObs(observer);
   game->addUser(user, true, false, name);
+  std::cout << "my fucking name is " << name << " i fuking created the game" << std::endl;
   server.getGameManager().addGame(game);
   to_send->addChar(1);
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
@@ -197,7 +198,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
   short		id_game;
   char		observer;
   Game		*game;
-  std::map<std::string, User *> map;
+  bool		exist = false;
 
   login = received.getNextString();
   id_game = received.getNextShort();
@@ -205,7 +206,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
   if ((game = server.getGameManager().getGameFromId(id_game)) == NULL ||
       game->getStatus() == ENDED)
     {
-      ScopedLock s(game->getMutex()); // Mserver
+      // ScopedLock s(game->getMutex()); // Mserver
       to_send->addChar(0);
       to_send->addString("This Game don't Exist");
       packet_to_send = PacketFactory::createPacket(THE_GAME,
@@ -213,12 +214,23 @@ bool		ProtocolGame::actionJoin(PacketData & received,
       user->addPacketToSend(packet_to_send);
       return (false);
     }
-  if (user->getGame() != NULL)
+  if (game->getStatus() == INGAME)
     {
-      game = user->getGame();
+      to_send->addChar(0);
+      to_send->addString("This Game already started");
+      packet_to_send = PacketFactory::createPacket(THE_GAME,
+				static_cast<ushort>(JOINGAME), to_send);
+      user->addPacketToSend(packet_to_send);
+      return (false);
     }
-  map = game->getUserMap();
-  if (map.find(login) != map.end())
+  std::map<std::string, User *> &map = game->getUserMap();
+  std::map<std::string, User *>::iterator uit;
+  for (uit = map.begin(); uit != map.end(); ++uit)
+    {
+      if (login == uit->second->getLogin())
+	exist = true;
+    }
+  if (exist)
     {
       to_send->addChar(0);
       to_send->addString("This login is already Taken for this Game");
@@ -249,13 +261,13 @@ bool		ProtocolGame::actionJoin(PacketData & received,
 	       static_cast<ushort>(JOINGAME), to_send);
 	  user->addPacketToSend(packet_to_send);
 	  return (false);
-	}
+  	}
     }
   if (observer)
     user->setState(USER_GAME_SPECTATE);
   else
     user->setState(USER_GAME_PLAYER);
-  ScopedLock s(game->getMutex()); // Mserver
+  // ScopedLock s(game->getMutex()); // Mserver
   game->addUser(user, false, (observer == 0 ? false : true), login);
   user->setLogin(login);
   user->setGame(game);

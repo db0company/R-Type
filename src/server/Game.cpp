@@ -63,6 +63,7 @@ Game::Game(const Game& old)
   this->_status = old._status;
   this->_param.sizeLine = old._param.sizeLine;
   this->_param.sizeCol = old._param.sizeCol;
+  this->_mutex = old._mutex;
 }
 
 Game&	Game::operator=(const Game& old)
@@ -82,6 +83,7 @@ Game&	Game::operator=(const Game& old)
   this->_status = old._status;
   this->_param.sizeLine = old._param.sizeLine;
   this->_param.sizeCol = old._param.sizeCol;
+  this->_mutex = old._mutex;
   return (*this);
 }
 

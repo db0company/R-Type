@@ -85,6 +85,7 @@ bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &c)
       std::cout << "recu une position dun player qui nest pas moi" << std::endl;
       if (playerMap.find(id) == playerMap.end())
   	{
+	  std::cout << "add du player ds map " << std::endl;
 	  LibGraphic::PlayerMovement *m;
 	  m = new LibGraphic::PlayerMovement(c.getGraphic().getWindow(),
      c.getGraphic().getSprite("PlayerShip"), static_cast <eShipColor>(id));

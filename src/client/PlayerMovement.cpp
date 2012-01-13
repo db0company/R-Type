@@ -175,3 +175,14 @@ LibGraphic::eMovement LibGraphic::PlayerMovement::getLastMove() const
 {
   return this->_lastMove;
 }
+
+int LibGraphic::PlayerMovement::getX(void) const
+{
+  return (this->_coord.x);
+}
+
+int LibGraphic::PlayerMovement::getY(void) const
+{
+  return (this->_coord.y);
+}
+

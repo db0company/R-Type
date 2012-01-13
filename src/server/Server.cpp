@@ -62,18 +62,18 @@ bool Server::init(int port)
     }
   this->_listener->SNAddRead();
   this->_udp->SNAddRead();
-  Game *g = new Game;
-  g->setName("ti");
-  g->setLvlName("Sun");
-  g->setOwnerId("toto");
-  g->setPlayerMax(1);
-  this->_gameManager.addGame(g);
-  Game *f = new Game;
-  f->setName("starship");
-  f->setLvlName("Star");
-  f->setOwnerId("titipr");
-  f->setPlayerMax(1);
-  this->_gameManager.addGame(f);
+  // Game *g = new Game;
+  // g->setName("ti");
+  // g->setLvlName("Sun");
+  // g->setOwnerId("toto");
+  // g->setPlayerMax(1);
+  // this->_gameManager.addGame(g);
+  // Game *f = new Game;
+  // f->setName("starship");
+  // f->setLvlName("Star");
+  // f->setOwnerId("titipr");
+  // f->setPlayerMax(1);
+  // this->_gameManager.addGame(f);
   return (true);
 }
 
