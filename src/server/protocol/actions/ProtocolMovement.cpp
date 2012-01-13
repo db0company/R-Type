@@ -60,7 +60,7 @@ bool		ProtocolMovement::actionMove(PacketData &data, User *us, Server &serv)
 
   // tmp = serv.getGameByUser(us);
   tmp = us->getGame();
-  if (tmp != NULL)
+  if (tmp != NULL && tmp->getStatus() != ENDED)
     {
       pt = new PacketTask(&Game::changePlayerPos, newPack, tmp, us);
       serv.getTaskQueue().push(pt);
@@ -77,7 +77,7 @@ bool		ProtocolMovement::actionNewBullet(PacketData &data, User *us, Server &serv
   PacketData	*newPack = new PacketData(data);
 
   tmp = serv.getGameByUser(us);
-  if (tmp != NULL)
+  if (tmp != NULL && tmp->getStatus() != ENDED)
     {
       pt = new PacketTask(&Game::fireBullet, newPack, tmp, us);
       serv.getTaskQueue().push(pt);
