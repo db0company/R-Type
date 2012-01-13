@@ -26,6 +26,7 @@ public:
   bool actionStart(void);
   bool actionGetLvl(void);
   bool actionQuit(void);
+  bool actionMove(LibGraphic::eMovement e);
 
   LibGraphic::Sfml	&getGraphic(void);
 private:

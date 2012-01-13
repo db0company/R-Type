@@ -190,9 +190,62 @@ bool Client::gereAction(LibGraphic::Event e)
   return (true);
 }
 
+bool Client::actionMove(LibGraphic::eMovement e)
+{
+  ProtocolPacket *packet;
+  PacketData *data = new PacketData;
+
+  switch (e)
+    {
+    case LibGraphic::UP_LEFT :
+      data->addChar(-1);
+      data->addChar(1);
+      break;
+    case LibGraphic::UP :
+      data->addChar(0);
+      data->addChar(1);
+      break;
+    case LibGraphic::UP_RIGHT :
+      data->addChar(1);
+      data->addChar(1);
+      break;
+    case LibGraphic::RIGHT :
+      data->addChar(1);
+      data->addChar(0);
+      break;
+    case LibGraphic::DOWN_RIGHT :
+      data->addChar(1);
+      data->addChar(-1);
+      break;
+    case LibGraphic::DOWN :
+      data->addChar(0);
+      data->addChar(-1);
+      break;
+    case LibGraphic::DOWN_LEFT :
+      data->addChar(-1);
+      data->addChar(-1);
+      break;
+    case LibGraphic::LEFT :
+      data->addChar(-1);
+      data->addChar(0);
+      break;
+    default:
+      return (false);
+    }
+  packet = new ProtocolPacket;
+  packet->header.size = data->getDataSize();
+  packet->header.group = MOVEMENT;
+  packet->header.instruction = MOVE;
+  packet->header.magic = PACKET_MAGIC;
+  packet->data = data->getData();
+  this->cNetwork.pushUDP(packet);
+  return (true);
+}
+
 bool Client::run(void)
 {
   LibGraphic::Event event;
+  LibGraphic::eMovement move;
 
   while (true)
     {
@@ -213,6 +266,8 @@ bool Client::run(void)
       this->cNetwork.process(*this);
       event = this->cGraphic.getEvent();
       this->gereAction(event);
+      if ((move = this->cGraphic.getLastMove()) != LibGraphic::NO_MOVE)
+	  actionMove(move);
       this->cGraphic.clean();
       this->cGraphic.draw();
     }
