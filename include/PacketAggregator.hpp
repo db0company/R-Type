@@ -24,6 +24,7 @@ public:
   bool push(ProtocolPacket *);
   bool erase(void);
   unsigned int getSize(void)const;
+  unsigned int getPacketSize(void)const;
   char *getMsg(void)const;
 private:
   std::queue<ProtocolPacket *>	_packetQueue;

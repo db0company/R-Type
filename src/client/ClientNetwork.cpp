@@ -114,7 +114,7 @@ bool ClientNetwork::connect(std::string const &ip, int port)
     }
   std::cout << "Connected to Server" << std::endl;
   this->_tcp->SNAddRead();
-  this->_udp->SNAddRead();
+  //  this->_udp->SNAddRead();
   this->_tcp->SNAddWrite();
   this->_connected = true;
   return (true);
