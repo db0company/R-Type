@@ -158,8 +158,10 @@ void LibGraphic::StateInGame::drawPlayers()
   this->_player->draw();
   std::map<int, PlayerMovement *>::iterator it;
 
+  std::cout << "debut" <<std::endl;
   for (it = this->_playerMap.begin(); it != this->_playerMap.end(); ++it)
     {
+      std::cout << "inside elem" <<std::endl;
       if (it->second->getId() == this->_myid)
 	it->second->draw();
     }
