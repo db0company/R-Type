@@ -45,8 +45,6 @@ public:
   const std::string& getPlayerByIp(const std::string& ip);
   void	checkCollision(GameParam& par);
   void	moveBullet(GameParam& par);
-  void	moveWall(GameParam& par);
-  void	createWall();
   void	fireBullet(GameParam& par);
   void	sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc);
   void	sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player);
@@ -90,6 +88,7 @@ private:
   eGameStatus _status;
   RecupMap	_rMap;
   IMutex	*_mutex;
+  int		_idPlayers;
 };
 
 #endif	// GAME_H_

@@ -31,6 +31,9 @@ Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
   //  _rMap.recupFromFile("nom_du_level.txt");
   this->_id = this->_sid;
   ++(this->_sid);
+  this->_param.sizeLine = 15;
+  this->_param.sizeCol = 7;
+  this->_idPlayers = 0;
 #ifdef _WIN32
   this->_mutex = new MutexWindows;
 #else
@@ -105,27 +108,27 @@ void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Playe
 
 void	Game::verifPos(Position& pos)
 {
-  while (pos.x < 1 || pos.x > 1 || pos.y < 1 || pos.y > 1)
+  while (pos.x < 0 || pos.x > 112 || pos.y < 0 || pos.y > 150)
     {
-      if (pos.x > 1)
+      if (pos.x > 112)
 	{
-	  pos.x -= 1;
+	  pos.x -= 112;
 	  pos.tilex += 1;
 	}
-      else if (pos.x < 1)
+      else if (pos.x < 0)
 	{
-	  pos.x += 1;
+	  pos.x += 112;
 	  pos.tilex -= 1;
 	}
-      if (pos.y > 1)
+      if (pos.y > 150)
 	{
-	  pos.y -= 1;
-	  pos.tiley += 1;
-	}
-      else if (pos.y < 1)
-	{
-	  pos.y += 1;
+	  pos.y -= 150;
 	  pos.tiley -= 1;
+	}
+      else if (pos.y < 0)
+	{
+	  pos.y += 150;
+	  pos.tiley += 1;
 	}
     }
 }
@@ -156,13 +159,21 @@ void	Game::changePlayerPos(GameParam& par)
   direction.y = par.paDa->getNextChar();
   std::cout << " je bouge " << ret << " de " << direction.x << " " << direction.y << std::endl;
 
-  newPos.x += direction.x;
-  newPos.y += direction.y;
+  if (direction.x == -1)
+    newPos.x -= 8;
+  else if (direction.x == 1)
+    newPos.x += 8;
+  if (direction.y == -1)
+    newPos.y += 8;
+  else if (direction.y == 1)
+    newPos.y -= 8;
   verifPos(newPos);
 
   it->second->setPos(newPos);
+  data->addChar(reinterpret_cast<Player *>(it->second)->getId());
   data->addString(it->first);
-  data->addData<Position>(it->second->getPos());
+  data->addUint32(newPos.x + (newPos.tilex * 112));
+  data->addUint32(newPos.y + (newPos.tiley * 150));
   // [id du player][nom][int pos X graphic][int pos Y graphic]//    [vecteur x][vercteur y]
   sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
 }
@@ -191,10 +202,12 @@ void	Game::createNewPlayer(User *us, const std::string& name)
 
   pos.x = 0;
   pos.y = 0;
-  std::cout << "my new friend is " << name << " with ip "<< us->getIp() <<  std::endl;
+  newPlayer->setId(this->_idPlayers);
+  std::cout << "my new friend is " << name << " with ip "<< us->getIp() << std::endl;
   pos.tilex = 2;
-  pos.tiley = this->_param.sizeLine / 2;
+  pos.tiley = (this->_param.sizeLine / 2) - 1 + newPlayer->getId();
   newPlayer->setPos(pos);
+  this->_idPlayers++;
   this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
 
 }
@@ -294,41 +307,6 @@ void	Game::moveBullet(GameParam&)
     }
 }
 
-void	Game::moveWall(GameParam&)
-{
-  std::list<AObject *> line;
-
-  line = this->_map.front();
-  this->_map.pop_front();
-  //faire des modifs sur wall pour faire croire a un new mur
-  this->_map.push_front(line);
-}
-
-void	Game::createWall()
-{
-  std::list<AObject *> newLine;
-  int	i = 0;
-  int	j;
-  TileStruct ts;
-
-  while (i != this->_param.sizeCol)
-    {
-      j = 0;
-      ts = _rMap[i];
-      while (j != this->_param.sizeLine)
-	{
-	  if (j == 0)
-	    newLine.push_front(new Tile(ts.up));
-	  else if (j == this->_param.sizeLine - 1)
-	    newLine.push_front(new Tile(ts.down));
-	  else
-	    newLine.push_front(new Tile(TileEmpty));
-	  ++j;
-	}
-      ++i;
-      this->_map.push_back(newLine);
-    }
-}
 
 AObject		*Game::getEntitiesbyName(const std::string& name)
 {

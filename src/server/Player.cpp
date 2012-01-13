@@ -7,6 +7,7 @@ Player::Player(User *u, const std::string& n)
   this->group = FRIENDS;
   this->name = n;
   this->us = u;
+  this->id = 0;
 }
 
 Player::~Player()
@@ -22,4 +23,14 @@ const std::string&	Player::getIp()const
 User		*Player::getUser()
 {
   return (this->us);
+}
+
+int		Player::getId()const
+{
+  return (this->id);
+}
+
+void		Player::setId(int i)
+{
+  this->id = i;
 }
