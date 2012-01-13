@@ -64,6 +64,7 @@ namespace LibGraphic
     InfoGame * getGameForPreviewFromCreate(void);
     std::map<int, InfoGame *> &getInfoGameMap(void) const;
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
+    std::list<std::string> &getPlayerNameList(void);
 
   public:
     void errorMessage(std::string const &);
