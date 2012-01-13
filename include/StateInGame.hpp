@@ -36,6 +36,8 @@ namespace LibGraphic
     std::string const &getInGameName(void) const;
     std::string const &getGameLvl(void) const;
 
+    eMovement getLastMove() const;
+
   private:
     void setNextState(eState d);
     void drawText();
@@ -69,7 +71,9 @@ namespace LibGraphic
     // monsters
     // players
 
-    PlayerMovement * test;
+    std::map<int, PlayerMovement *> _playerMap;
+
+    PlayerMovement * _player;
   };
 
 }

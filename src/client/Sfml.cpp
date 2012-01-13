@@ -402,3 +402,8 @@ std::list<std::string> &LibGraphic::Sfml::getPlayerNameList(void)
 {
   return this->_graphicState->getPlayerNameList();
 }
+
+LibGraphic::eMovement LibGraphic::Sfml::getLastMove() const
+{
+  return this->_graphicState->getLastMove();
+}

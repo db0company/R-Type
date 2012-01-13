@@ -65,6 +65,7 @@ namespace LibGraphic
     std::map<int, InfoGame *> &getInfoGameMap(void) const;
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
     std::list<std::string> &getPlayerNameList(void);
+    eMovement getLastMove(void) const;
 
   public:
     void errorMessage(std::string const &);

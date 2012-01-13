@@ -20,7 +20,7 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_mapClock.Reset();
   this->Clock.Reset();
 
-  this->test = new LibGraphic::PlayerMovement(this->_app,
+  this->_player = new LibGraphic::PlayerMovement(this->_app,
 					      this->getSprite("PlayerShip"));
 }
 
@@ -126,7 +126,7 @@ void LibGraphic::StateInGame::draw()
 
 void LibGraphic::StateInGame::drawPlayers()
 {
-  this->test->draw();
+  this->_player->draw();
 }
 
 void LibGraphic::StateInGame::drawText()
@@ -176,7 +176,7 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
       	    }
       	}
     }
-  this->test->move(Event);
+  this->_player->move(Event);
   return EVENT_NONE;
 }
 
@@ -232,4 +232,9 @@ void LibGraphic::StateInGame::setGameName(std::string const &s)
 void LibGraphic::StateInGame::setGameLvl(std::string const &s)
 {
   this->_gameLvl = s;
+}
+
+LibGraphic::eMovement LibGraphic::StateInGame::getLastMove() const
+{
+  return this->_player->getLastMove();
 }

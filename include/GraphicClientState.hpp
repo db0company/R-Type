@@ -60,6 +60,7 @@ namespace LibGraphic
     InfoGame * getGameForPreviewFromRoomlist(void);
     InfoGame * getGameForPreviewFromCreate(void);
     std::list<std::string> &getPlayerNameList(void);
+    eMovement getLastMove(void) const;
 
   private:
     Event eventStart(eStates & scene);

@@ -227,3 +227,8 @@ std::list<std::string> &LibGraphic::GraphicClientState::getPlayerNameList(void)
 {
   return reinterpret_cast <StateRoom *>(getValue(this->_stateInfos, ROOM))->getPlayerNameList();
 }
+
+LibGraphic::eMovement LibGraphic::GraphicClientState::getLastMove() const
+{
+  return reinterpret_cast <StateInGame const *>(getValue(this->_stateInfos, INGAME))->getLastMove();
+}
