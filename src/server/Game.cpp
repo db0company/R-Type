@@ -61,7 +61,7 @@ Game::Game(const Game& old)
 }
 
 Game&	Game::operator=(const Game& old)
-{
+ {
   this->_id = old._id;
   this->_param = old._param;
   this->_players = old._players;
@@ -129,15 +129,16 @@ void	Game::verifPos(Position& pos)
     }
 }
 
-void	Game::changePlayerPos(PacketData &info)
+void	Game::changePlayerPos(GameParam& par)
 {
-  std::string ip; // a extraire du packet
+  std::string ip;
   std::string ret;
   std::map<std::string, AObject *>::iterator it;
   Position newPos;
   Position direction;
   PacketData	*data = new PacketData;
 
+  ip = par.us->getIp();
   if ((ret = getPlayerByIp(ip)) == "")
     {
       // error player inconnu
@@ -150,20 +151,22 @@ void	Game::changePlayerPos(PacketData &info)
       return ;
     }
   newPos = it->second->getPos();
+  direction.x = par.paDa->getNextChar();
+  direction.y = par.paDa->getNextChar();
+  std::cout << " je bouge " << ret << " de " << direction.x << " " << direction.y << std::endl;
 
-  direction = info.getData<Position>();
   newPos.x += direction.x;
   newPos.y += direction.y;
   verifPos(newPos);
+
   it->second->setPos(newPos);
   data->addString(it->first);
   data->addData<Position>(it->second->getPos());
   sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
 }
 
-void	Game::moveMonster(PacketData&)
+void	Game::moveMonster(GameParam& par)
 {
-  std::cout << "lolilol" << std::endl;
   std::map<std::string, AObject *>::iterator it = this->_monster.begin();
 
   while (it != this->_monster.end())
@@ -186,6 +189,7 @@ void	Game::createNewPlayer(User *us, const std::string& name)
 
   pos.x = 0;
   pos.y = 0;
+  std::cout << "my new friend is " << name << " with ip "<< us->getIp() <<  std::endl;
   pos.tilex = 2;
   pos.tiley = this->_param.sizeLine / 2;
   newPlayer->setPos(pos);
@@ -193,7 +197,7 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   
 }
 
-void	Game::createNewMonster(PacketData &)
+void	Game::createNewMonster(GameParam&)
 {
   AObject *truc;
   int	i = 0;
@@ -227,7 +231,7 @@ const std::string& Game::getPlayerByIp(const std::string& ip)
   return (it->second->getName()); // jai mis sa pour retirer le warning
 }
 
-void	Game::checkCollision(PacketData &)
+void	Game::checkCollision(GameParam&)
 {
   std::map<std::string, AObject *>::iterator itP = this->_players.begin();
   std::map<std::string, AObject *>::iterator itM = this->_monster.begin();
@@ -266,7 +270,7 @@ void	Game::checkCollision(PacketData &)
     }
 }
 
-void	Game::moveBullet(PacketData &)
+void	Game::moveBullet(GameParam&)
 {
   Position p;
   std::list<Bullet>::iterator it = this->_bullets.begin();
@@ -288,7 +292,7 @@ void	Game::moveBullet(PacketData &)
     }
 }
 
-void	Game::moveWall(PacketData &)
+void	Game::moveWall(GameParam&)
 {
   std::list<AObject *> line;
 
@@ -344,14 +348,14 @@ AObject		*Game::getEntitiesbyName(const std::string& name)
   return (NULL);
 }
 
-void	Game::fireBullet(PacketData &info)
+void	Game::fireBullet(GameParam& par)
 {
   Entities	*ent;
   eGroup	g;
   PacketData *data = new PacketData;
 
   if ((ent = reinterpret_cast<Entities *>
-       (getEntitiesbyName(info.getNextString()))) == NULL)
+       (getEntitiesbyName(par.paDa->getNextString()))) == NULL)
     return ; // error
   g = ent->getGroup();
   this->_bullets.push_front(Bullet(ent->getPos(), g));
@@ -367,11 +371,6 @@ bool Game::addUser(User *user, bool root, bool , std::string const &login)
     this->_owner_login = login;
   this->_userMap.insert(std::pair<std::string, User *>(user->getIp(), user));
   return (true);
-}
-
-void	Game::update(PacketData&)
-{
-
 }
 
 bool Game::delUser(std::string const &log)

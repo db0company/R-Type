@@ -164,6 +164,7 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
   Game		*game;
 
   game = new Game;
+  user->setLogin(name);
   game->setOwnerId(name);
   game->setName(game_name);
   game->setLvlName(game_lvl);
@@ -255,6 +256,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
     user->setState(USER_GAME_PLAYER);
   //ScopedLock s(game->getMutex()); // Mserver
   game->addUser(user, false, (observer == 0 ? false : true), login);
+  user->setLogin(login);
   user->setGame(game);
   to_send->addChar(1);
   packet_to_send = PacketFactory::createPacket(THE_GAME,
@@ -350,10 +352,11 @@ bool		ProtocolGame::actionStart(PacketData &, User *user, Server &)
 	  to_send->addString(user->getGame()->getLvlName());
 	  user->getGame()->setStatus(INGAME);
 	  packet_to_send = PacketFactory::createPacket(THE_GAME,
-                           static_cast<ushort>(STARTGAME), to_send);
+						       static_cast<ushort>(STARTGAME), to_send);
 	  map = user->getGame()->getUserMap();
 	  for (it = map.begin(); it != map.end(); ++it)
 	    {
+	      user->getGame()->createNewPlayer(it->second, it->second->getLogin());
 	      it->second->addPacketToSend(packet_to_send);
 	    }
 	}

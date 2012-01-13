@@ -198,37 +198,53 @@ bool Client::actionMove(LibGraphic::eMovement e)
   switch (e)
     {
     case LibGraphic::UP_LEFT :
+      {
       data->addChar(-1);
       data->addChar(1);
       break;
+      }
     case LibGraphic::UP :
+      {
       data->addChar(0);
       data->addChar(1);
       break;
+      }
     case LibGraphic::UP_RIGHT :
+      {
       data->addChar(1);
       data->addChar(1);
       break;
+      }
     case LibGraphic::RIGHT :
+      {
       data->addChar(1);
       data->addChar(0);
       break;
+      }
     case LibGraphic::DOWN_RIGHT :
+      {
       data->addChar(1);
       data->addChar(-1);
       break;
+      }
     case LibGraphic::DOWN :
+      {
       data->addChar(0);
       data->addChar(-1);
       break;
+      }
     case LibGraphic::DOWN_LEFT :
+      {
       data->addChar(-1);
       data->addChar(-1);
       break;
+      }
     case LibGraphic::LEFT :
+      {
       data->addChar(-1);
       data->addChar(0);
       break;
+      }
     default:
       return (false);
     }

@@ -21,7 +21,16 @@ enum eGameStatus
     ENDED
   };
 
-class	Game
+struct	GameParam
+{
+  PacketData	*paDa;
+  User		*us;
+  GameParam(PacketData *d, User *u)
+    : paDa(d), us(u)
+  { }
+};
+
+  class	Game
 {
 public:
   Game(void);
@@ -29,16 +38,16 @@ public:
   Game(const Game&);
   Game&	operator=(const Game&);
 
-  void	changePlayerPos(PacketData &info);
-  void	moveMonster(PacketData &);
+  void	changePlayerPos(GameParam& par);
+  void	moveMonster(GameParam& par);
   void	createNewPlayer(User *us, const std::string& name);
-  void	createNewMonster(PacketData &);
+  void	createNewMonster(GameParam& par);
   const std::string& getPlayerByIp(const std::string& ip);
-  void	checkCollision(PacketData &);
-  void	moveBullet(PacketData &);
-  void	moveWall(PacketData &);
+  void	checkCollision(GameParam& par);
+  void	moveBullet(GameParam& par);
+  void	moveWall(GameParam& par);
   void	createWall();
-  void	fireBullet(PacketData &);
+  void	fireBullet(GameParam& par);
   void	sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc);
   void	sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player);
   // getter // setter
@@ -62,7 +71,6 @@ public:
   std::map<std::string, AObject *>& getPlayerList();
   std::map<std::string, User *> &getUserMap();
   AObject	*getEntitiesbyName(const std::string& name);
-  void		update(PacketData&);
   void		verifPos(Position& pos);
 private:
   unsigned int _id;

@@ -100,7 +100,7 @@ void		GameManager::updateAll(Server& serv)
   while (it != this->_gameMap.end())
     {
       std::cout << "1 ";
-      pt = new PacketTask(&Game::moveMonster, d, it->second);
+      pt = new PacketTask(&Game::moveMonster, d, it->second, NULL);
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();
       ++it;
@@ -109,7 +109,7 @@ void		GameManager::updateAll(Server& serv)
   it = this->_gameMap.begin();
   while (it != this->_gameMap.end())
     {
-      pt = new PacketTask(&Game::moveBullet, d, it->second);
+      pt = new PacketTask(&Game::moveBullet, d, it->second, NULL);
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();
       ++it;
@@ -117,7 +117,7 @@ void		GameManager::updateAll(Server& serv)
   it = this->_gameMap.begin();
   while (it != this->_gameMap.end())
     {
-      pt = new PacketTask(&Game::checkCollision, d, it->second);
+      pt = new PacketTask(&Game::checkCollision, d, it->second, NULL);
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();
       ++it;

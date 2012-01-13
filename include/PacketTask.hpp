@@ -12,13 +12,14 @@ private:
   PacketData	*param;
   Game		*game;
   TaskNetwork	*network;
+  User		*us;
   void (TaskNetwork::*netFunc)(PacketData&);
-  void (Game::*gameFunc)(PacketData&);
+  void (Game::*gameFunc)(GameParam&);
 public:
   PacketTask(PacketTask const &other);
   PacketTask&operator=(PacketTask const &other);
   PacketTask(void (TaskNetwork::*point)(PacketData&), PacketData*, TaskNetwork *);
-  PacketTask(void (Game::*point)(PacketData&), PacketData*, Game*);
+  PacketTask(void (Game::*point)(GameParam&), PacketData*, Game*, User *);
   void	launchTask(ICondVar *);
 };
 
