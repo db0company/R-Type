@@ -153,6 +153,15 @@ void	Game::verifPos(Position& pos)
     }
 }
 
+void	Game::initPos(Position &pos)
+{
+  pos.tilex = 0;
+  pos.tiley = 0;
+  pos.x = 400;
+  pos.y = 400;
+  verifPos(pos);
+}
+
 void	Game::changePlayerPos(GameParam& par)
 {
   std::string ip;
@@ -160,7 +169,9 @@ void	Game::changePlayerPos(GameParam& par)
   std::map<std::string, AObject *>::iterator it;
   Position newPos;
   Position direction;
-  PacketData	*data = new PacketData;
+  PacketData	*data= new PacketData;
+  int		finalx;
+  int		finaly;
 
   ip = par.us->getIp();
   if ((ret = getPlayerByIp(ip)) == "")
@@ -189,14 +200,29 @@ void	Game::changePlayerPos(GameParam& par)
     newPos.y -= 8;
   verifPos(newPos);
 
-  it->second->setPos(newPos);
-  data->addChar(reinterpret_cast<Player *>(it->second)->getId());
-  data->addString(it->first);
-  data->addUint32(newPos.x + (newPos.tilex * 112));
-  data->addUint32(newPos.y + (newPos.tiley * 150));
-  //  std::cout << "jenvoi x " << newPos.x + (newPos.tilex * 112) << " y " << newPos.y + (newPos.tiley * 150) << std::endl;
-  // [id du player][nom][int pos X graphic][int pos Y graphic]//    [vecteur x][vercteur y]
-  sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
+  finalx = newPos.x + (newPos.tilex * 112);
+  finaly = newPos.y + (newPos.tiley * 150);
+  if (finalx < 0 || finalx > 1680 || finaly < 0 || finaly > 1050)
+    {
+      initPos(newPos);
+      it->second->setPos(newPos);      
+      data->addChar(reinterpret_cast<Player *>(it->second)->getId());
+      data->addString(it->first);
+      data->addUint32(finalx);
+      data->addUint32(finaly);
+      sendToAllClient(data, MOVEMENT, COLLISION);
+    }
+  else
+    {
+      it->second->setPos(newPos);      
+      data->addChar(reinterpret_cast<Player *>(it->second)->getId());
+      data->addString(it->first);
+      data->addUint32(finalx);
+      data->addUint32(finaly);
+      //  std::cout << "jenvoi x " << newPos.x + (newPos.tilex * 112) << " y " << newPos.y + (newPos.tiley * 150) << std::endl;
+      // [id du player][nom][int pos X graphic][int pos Y graphic]//    [vecteur x][vercteur y]
+      sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
+    }
 }
 
 void	Game::createNewPlayer(User *us, const std::string& name)
@@ -208,9 +234,9 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   newPlayer->setId(this->_idPlayers);
   std::cout << "my new friend is " << name << " with ip "<< us->getIp() << std::endl;
   pos.x = 400;
-  pos.y = 400 + (70 * newPlayer->getId());
+  pos.y = 400;// + (70 * newPlayer->getId());
   verifPos(pos);
-  std::cout << "FIRST POS pos.x " << pos.x << " pos.y " << pos.y << "pos.tile x " << pos.tilex << " pos.tiley " << pos.tiley << std::endl;
+  //  std::cout << "FIRST POS pos.x " << pos.x << " pos.y " << pos.y << "pos.tile x " << pos.tilex << " pos.tiley " << pos.tiley << std::endl;
 
   newPlayer->setPos(pos);
   this->_idPlayers++;

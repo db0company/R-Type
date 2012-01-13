@@ -155,6 +155,7 @@ void LibGraphic::StateInGame::draw()
 
 void LibGraphic::StateInGame::drawPlayers()
 {
+  // std::cout << this->_myid << std::endl;
   std::cout << "my id:" << this->_myid << std::endl;
   this->_player->setId(this->_myid);
   this->_player->draw();

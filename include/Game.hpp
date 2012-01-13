@@ -70,6 +70,7 @@ public:
   std::map<std::string, User *> &getUserMap();
   AObject	*getEntitiesbyName(const std::string& name);
   void		verifPos(Position& pos);
+  void		initPos(Position &pos);
 private:
   unsigned int _id;
   GameParameter        _param;

@@ -8,7 +8,8 @@ enum		eProtocolPacketMovement
     UPDATEENEMY		= 2,
     UPDATEBULLET	= 3,
     NEWBULLET		= 4,
-    MOVEMENT_MAX	= 5,
+    COLLISION		= 5,
+    MOVEMENT_MAX	= 6,
     MOVEMENT_ERROR
   };
 
