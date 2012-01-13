@@ -88,6 +88,7 @@ void	Game::sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc
     {
       ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, data);
       us = static_cast<Player *>(it->second)->getUser();
+      std::cout << "jenvoi a " << us->getIp() << std::endl;
       us->addPacketToSendUDP(packet_to_send);
       ++it;
     }
@@ -109,22 +110,22 @@ void	Game::verifPos(Position& pos)
       if (pos.x > 1)
 	{
 	  pos.x -= 1;
-	  pos.tilex += 1; 
+	  pos.tilex += 1;
 	}
       else if (pos.x < 1)
 	{
 	  pos.x += 1;
-	  pos.tilex -= 1; 
+	  pos.tilex -= 1;
 	}
       if (pos.y > 1)
 	{
 	  pos.y -= 1;
-	  pos.tiley += 1; 
+	  pos.tiley += 1;
 	}
       else if (pos.y < 1)
 	{
 	  pos.y += 1;
-	  pos.tiley -= 1; 
+	  pos.tiley -= 1;
 	}
     }
 }
@@ -162,6 +163,7 @@ void	Game::changePlayerPos(GameParam& par)
   it->second->setPos(newPos);
   data->addString(it->first);
   data->addData<Position>(it->second->getPos());
+  // [id du player][nom][int pos X graphic][int pos Y graphic]//    [vecteur x][vercteur y]
   sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
 }
 
@@ -194,7 +196,7 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   pos.tiley = this->_param.sizeLine / 2;
   newPlayer->setPos(pos);
   this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
-  
+
 }
 
 void	Game::createNewMonster(GameParam&)

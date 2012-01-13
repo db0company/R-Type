@@ -286,6 +286,7 @@ bool Client::run(void)
 	  actionMove(move);
       this->cGraphic.clean();
       this->cGraphic.draw();
+      this->cNetwork.reset();
     }
   return (true);
 }

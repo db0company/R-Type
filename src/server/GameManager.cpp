@@ -96,16 +96,16 @@ void		GameManager::updateAll(Server& serv)
   PacketTask *pt;
   PacketData *d = new PacketData;
 
-  std::cout << "time to up all" << std::endl;
+  // std::cout << "time to up all" << std::endl;
   while (it != this->_gameMap.end())
     {
-      std::cout << "1 ";
+      // std::cout << "1 ";
       pt = new PacketTask(&Game::moveMonster, d, it->second, NULL);
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();
       ++it;
     }
-  std::cout << std::endl;
+  // std::cout << std::endl;
   it = this->_gameMap.begin();
   while (it != this->_gameMap.end())
     {

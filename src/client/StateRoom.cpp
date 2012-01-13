@@ -51,7 +51,7 @@ void LibGraphic::StateRoom::drawPlayerList(void)
 
   for (it = this->_playerNameList.begin(); it != this->_playerNameList.end(); ++it)
     {
-      std::cout << "log: " << *it << std::endl;
+      // std::cout << "log: " << *it << std::endl;
       res = res + *it + "\n";
     }
   tmp = this->getStdToSfString(res, this->getFont("StartFontF"));

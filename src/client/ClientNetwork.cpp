@@ -114,7 +114,7 @@ bool ClientNetwork::connect(std::string const &ip, int port)
     }
   std::cout << "Connected to Server" << std::endl;
   this->_tcp->SNAddRead();
-  //  this->_udp->SNAddRead();
+  this->_udp->SNAddRead();
   this->_tcp->SNAddWrite();
   this->_connected = true;
   return (true);
@@ -155,7 +155,9 @@ bool ClientNetwork::feedPacketAggregatorUDP(void)
   char buffer[1024];
 
   if (!this->_connected)
-    return (false);
+    {
+      return (false);
+    }
   if (this->_udp->SNGetRead())
     {
       if ((size = this->_udp->SNRead(buffer, 1024)) <= 0)
@@ -178,14 +180,16 @@ bool ClientNetwork::process(Client &client)
   bool				state_change = false;
 
   if (!this->_connected)
+    {
     return (false);
+    }
   nb_packet = this->paRead.aggregateCharToPackets();
   nb_packet = this->paReadUDP.aggregateCharToPackets();
   if (this->paRead.empty() && this->paReadUDP.empty())
     return (false);
   while (!this->paRead.empty())
     {
-      std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
+      std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m[" << tmp_i << "] ";
       packet = this->paRead.front();
       if (this->_pm.Process(packet, client))
 	state_change = true;
@@ -213,7 +217,6 @@ ProtocolPacket &ProtocolPacket::operator=(ProtocolPacket const &other)
   memcpy(&(this->data), &(other.data), other.header.size);
   return (*this);
 }
-//wtf
 
 bool ClientNetwork::sendPacketToServer(void)
 {
@@ -272,4 +275,13 @@ void ClientNetwork::setConnected(bool c)
 void ClientNetwork::setPort(int port)
 {
   this->_port = port;
+}
+
+void ClientNetwork::reset(void)
+{
+  this->_tcp->SNDelWrite();
+  if (this->paWrite.getPacketSize())
+    {
+      this->_tcp->SNAddWrite();
+    }
 }

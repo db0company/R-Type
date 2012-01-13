@@ -34,7 +34,7 @@ public:
   void setPort(int port);
   bool isConnected(void)const;
   void setConnected(bool);
-
+  void reset(void);
 private:
   ClientPacketManager   _pm;
   ATCPClientSocket	*_tcp;

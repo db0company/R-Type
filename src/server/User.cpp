@@ -11,7 +11,7 @@
 #else
 #include "MutexUnix.hpp"
 #endif
- 
+
 User::User(ATCPClientSocket * socket, std::string const & ip, PacketManager &pamanager)
   : safe(true), log(false), login(""), ip(ip), pm(pamanager), tcp(socket), _player(NULL), _state(USER_ROOMLIST), _game(NULL)
 {
@@ -25,7 +25,12 @@ User::User(ATCPClientSocket * socket, std::string const & ip, PacketManager &pam
 User::User(User const & other)
   : safe(other.safe), log(other.log), login(other.login),
     ip(other.ip), pm(other.pm), tcp(other.tcp), _state(other._state), _game(NULL)
-{}
+{
+      this->paRead = other.paRead;
+      this->paWrite = other.paWrite;
+      this->paWriteUDP = other.paWriteUDP;
+      this->paReadUDP = other.paReadUDP;
+}
 
 User &			User::operator=(User const & other)
 {
@@ -109,6 +114,23 @@ void		User::setLogin(std::string const &log)
   this->login = log;
 }
 
+bool			User::addPacketToSend(ProtocolPacket *packer)
+{
+  this->paWrite.push(packer);
+  return (true);
+}
+
+
+bool			User::addPacketToSendUDP(ProtocolPacket *packer)
+{
+  ScopedLock		sl(this->_mutex);
+
+  this->paWriteUDP.push(packer);
+  return (true);
+}
+
+
+//tcp
 bool			User::aggregatePacketToSend(void)
 {
   unsigned int size;
@@ -131,21 +153,7 @@ bool			User::aggregatePacketToSend(void)
   return (false);
 }
 
-bool			User::addPacketToSend(ProtocolPacket *packer)
-{
-  this->paWrite.push(packer);
-  return (true);
-}
-
-
-bool			User::addPacketToSendUDP(ProtocolPacket *packer)
-{
-  ScopedLock		sl(this->_mutex);
-
-  this->paWriteUDP.push(packer);
-  return (true);
-}
-
+// udp
 bool			User::aggregatePacketToSend(AUDPServerSocket *so)
 {
   unsigned int size;

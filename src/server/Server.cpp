@@ -278,7 +278,7 @@ bool Server::run(void)
       us = this->_selector->getUsec();
       if (s == 0 && us == 0)
 	{
-	  std::cout << "Time to Update All" << std::endl;
+	  // std::cout << "Time to Update All" << std::endl;
 	  s = 1;
 	  us = 0;
 	  this->_gameManager.updateAll(*this);
