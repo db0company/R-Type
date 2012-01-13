@@ -163,6 +163,7 @@ void	Game::changePlayerPos(PacketData &info)
 
 void	Game::moveMonster(PacketData&)
 {
+  std::cout << "lolilol" << std::endl;
   std::map<std::string, AObject *>::iterator it = this->_monster.begin();
 
   while (it != this->_monster.end())
