@@ -37,6 +37,7 @@ private:
   bool writeToClients(void);
   bool cleanClients(void);
   bool removeClient(User *user, ATCPClientSocket *socket);
+  void resetClientWrite(void);
 public:
 
   TaskManager &getTaskManager(void);

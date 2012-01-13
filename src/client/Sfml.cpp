@@ -28,7 +28,7 @@ bool LibGraphic::Sfml::init()
     return false;
   #endif
   this->_app.Create(sf::VideoMode::GetMode(0), WINDOWNAME,
-  		    sf::Style::Fullscreen);
+  		    sf::Style::None);
   if (!this->_app.IsOpened())
     return false;
   this->_width = sf::VideoMode::GetMode(0).Width;

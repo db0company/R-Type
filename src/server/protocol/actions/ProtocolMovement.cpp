@@ -56,11 +56,12 @@ bool		ProtocolMovement::actionMove(PacketData &data, User *us, Server &serv)
 {
   PacketTask	*pt;
   Game		*tmp;
+  PacketData	*newPack = new PacketData(data);
 
   tmp = serv.getGameByUser(us);
   if (tmp != NULL)
     {
-      pt = new PacketTask(&Game::changePlayerPos, data, tmp);
+      pt = new PacketTask(&Game::changePlayerPos, newPack, tmp);
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();
       return (true);
@@ -72,11 +73,12 @@ bool		ProtocolMovement::actionNewBullet(PacketData &data, User *us, Server &serv
 {
   PacketTask	*pt;
   Game		*tmp;
+  PacketData	*newPack = new PacketData(data);
 
   tmp = serv.getGameByUser(us);
   if (tmp != NULL)
     {
-      pt = new PacketTask(&Game::fireBullet, data, tmp);
+      pt = new PacketTask(&Game::fireBullet, newPack, tmp);
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();
       return (true);

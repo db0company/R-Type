@@ -3,14 +3,14 @@
 #include "PlayerMovement.hpp"
 
 LibGraphic::PlayerMovement::PlayerMovement(sf::RenderWindow & app,
-					   sf::Sprite & sprite):
-  _app(app), _sprite(sprite)
+					   sf::Sprite & sprite, eShipColor id):
+  _app(app), _sprite(sprite), _id(id)
 {
   this->_coord.x = 400;
-  this->_coord.y = 400;
-  this->_id = BLUESHIP;
+  this->_coord.y = 400 + (70 * this->_id);
   this->_clock.Reset();
   this->_rotate = SHIP_MIDDLE;
+  this->_lastMove = NO_MOVE;
 }
 
 LibGraphic::PlayerMovement::~PlayerMovement() {}
@@ -45,6 +45,7 @@ void LibGraphic::PlayerMovement::move(const sf::Event & event)
       else if (this->_clock.GetElapsedTime() >= 0.3)
 	this->_rotate = SHIP_MIDDLE;
       this->_coord.x -= SHIPSPEED;
+      this->_lastMove = LEFT;
     }
   else if (RightKeyDown || (JoystickX > 50))
     {
@@ -61,6 +62,7 @@ void LibGraphic::PlayerMovement::move(const sf::Event & event)
       else if (this->_clock.GetElapsedTime() >= 0.3)
 	this->_rotate = SHIP_MIDDLE;
       this->_coord.x += SHIPSPEED;
+      this->_lastMove = RIGHT;
     }
   else
     {
@@ -76,6 +78,7 @@ void LibGraphic::PlayerMovement::move(const sf::Event & event)
 	}
       else if (this->_clock.GetElapsedTime() >= 0.3)
 	this->_rotate = SHIP_MIDDLE;
+      this->_lastMove = NO_MOVE;
     }
 }
 
@@ -85,14 +88,19 @@ void LibGraphic::PlayerMovement::UpPlayer(bool LeftKeyDown, bool RightKeyDown, f
     {
       this->_coord.y -= SHIPSPEED;
       this->_coord.x -= SHIPSPEED;
+      this->_lastMove = UP_LEFT;
     }
   else if (RightKeyDown || JoystickX > 50)
     {
       this->_coord.y -= SHIPSPEED;
       this->_coord.x += SHIPSPEED;
+      this->_lastMove = UP_RIGHT;
     }
   else
-    this->_coord.y -= SHIPSPEED;
+    {
+      this->_coord.y -= SHIPSPEED;
+      this->_lastMove = UP;
+    }
 
   if (this->_rotate == SHIP_MIDDLE_UP && this->_clock.GetElapsedTime() >= 0.3)
     {
@@ -109,15 +117,19 @@ void LibGraphic::PlayerMovement::DownPlayer(bool LeftKeyDown, bool RightKeyDown,
     {
       this->_coord.y += SHIPSPEED;
       this->_coord.x -= SHIPSPEED;
+      this->_lastMove = DOWN_LEFT;
     }
   else if (RightKeyDown || JoystickX > 50)
     {
       this->_coord.y += SHIPSPEED;
       this->_coord.x += SHIPSPEED;
+      this->_lastMove = DOWN_RIGHT;
     }
   else
-    this->_coord.y += SHIPSPEED;
-
+    {
+      this->_coord.y += SHIPSPEED;
+      this->_lastMove = DOWN;
+    }
   if (this->_rotate == SHIP_MIDDLE_DOWN && this->_clock.GetElapsedTime() >= 0.3)
     {
       this->_rotate = SHIP_DOWN;
@@ -157,4 +169,9 @@ eShipColor LibGraphic::PlayerMovement::getId() const
 void LibGraphic::PlayerMovement::setId(eShipColor id)
 {
   this->_id = id;
+}
+
+LibGraphic::eMovement LibGraphic::PlayerMovement::getLastMove() const
+{
+  return this->_lastMove;
 }

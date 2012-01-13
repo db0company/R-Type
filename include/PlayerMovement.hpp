@@ -14,7 +14,7 @@ namespace LibGraphic
   {
 
   public:
-    PlayerMovement(sf::RenderWindow &, sf::Sprite &);
+    PlayerMovement(sf::RenderWindow &, sf::Sprite &, eShipColor id = BLUESHIP);
     ~PlayerMovement();
 
   public:
@@ -28,6 +28,8 @@ namespace LibGraphic
     eShipColor getId() const;
     void setId(eShipColor id);
 
+    eMovement getLastMove() const;
+
   private:
     void UpPlayer(bool LeftKeyDown, bool RightKeyDown, float JoystickX);
     void DownPlayer(bool LeftKeyDown, bool RightKeyDown, float JoystickX);
@@ -39,6 +41,8 @@ namespace LibGraphic
     Coord _coord;
     eShipRotation _rotate;
     eShipColor _id;
+    eMovement _lastMove;
+
   };
 
 }

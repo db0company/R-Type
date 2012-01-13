@@ -5,8 +5,10 @@ class		Position
 {
 private:
 public:
-  float		x; // je crois que ca se fait dans ce cas la de
-  float		y; // mettre en public. Insulez moi si c pas le cas.
+  float		x;
+  float		y;
+  unsigned int		tilex;
+  unsigned int		tiley;
   Position(float x, float y);
   Position();
   Position(const Position& old);

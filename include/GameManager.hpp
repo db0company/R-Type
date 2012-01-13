@@ -23,6 +23,7 @@ public:
   Game *getGameFromName(std::string const &);
   std::map<int, Game *>&getGames(void);
   Game *getGameFromUser(User *us);
+  void		updateAll(Server& serv);
 private:
   std::map<int, Game *>		_gameMap;
 };
