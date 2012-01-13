@@ -25,6 +25,9 @@
 #define SPRITE_SHIP_Y 16 // ou 17 ? maybe. to try
 	// PlayerShip.png
 
+// Player speed
+#define SHIPSPEED 8
+
 enum eShipRotation
   {
     SHIP_DOWN= 0,

@@ -5,8 +5,6 @@
 #include "Sfml.hpp"
 #include "SpriteInfo.hpp"
 
-#define SHIPSPEED 8
-
 namespace LibGraphic
 {
 
