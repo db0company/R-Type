@@ -19,6 +19,19 @@ namespace LibGraphic
       UNKNOWN_STATE
     };
 
+  enum eMovement
+    {
+      UP_LEFT,
+      UP,
+      UP_RIGHT,
+      RIGHT,
+      DOWN_RIGHT,
+      DOWN,
+      DOWN_LEFT,
+      LEFT,
+      NO_MOVE
+    };
+
   struct Size
   {
     unsigned int width;
