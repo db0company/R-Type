@@ -46,6 +46,7 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/SFML-1.6/lib/vc2008/)
 
 add_executable(
 	client
+	./src/client/StateInGame.cpp
 	./src/client/main.cpp
 	./src/client/Client.cpp
 	./src/client/ClientNetwork.cpp

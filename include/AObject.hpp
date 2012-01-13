@@ -6,7 +6,7 @@
 # include "DefineExportMonster.hpp"
 
 # ifdef _WIN32
-class		 IObject
+class		LIBMONSTER_API IObject
 # else
 class		IObject
 # endif
