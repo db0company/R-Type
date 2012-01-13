@@ -19,6 +19,7 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_nextState = UNKNOWN_STATE;
   this->_mapClock.Reset();
   this->Clock.Reset();
+  this->_frontClock.Reset();
 
   this->test = new LibGraphic::PlayerMovement(this->_app,
 					      this->getSprite("PlayerShip"));
@@ -46,9 +47,14 @@ int LibGraphic::StateInGame::MapY(int y)
 void LibGraphic::StateInGame::drawStarField()
 {
   static int scale = 0;
+  static int scalefront = 0;
   sf::Sprite &b = this->getSprite("Starfield" + this->_gameLvl);
   sf::Sprite &b2 = this->getSprite("Starfield" + this->_gameLvl);
+  sf::Sprite &front = this->getSprite("SecondField" + this->_gameLvl);
+  sf::Sprite &front2 = this->getSprite("SecondField" + this->_gameLvl);
   float time = this->Clock.GetElapsedTime();
+  float timefront = this->_frontClock.GetElapsedTime();
+  static int i = 0;
 
   if (time < 0.1)
     {
@@ -67,6 +73,27 @@ void LibGraphic::StateInGame::drawStarField()
       b2.SetPosition(1680 - scale, 0);
       this->_app.Draw(b2);
       this->Clock.Reset();
+    }
+  if (timefront < 0.1)
+    {
+      if (i == 2)
+	{
+	  scalefront += 1;
+	  i = 0;
+	}
+      ++i;
+      front.SetPosition(0 - scalefront, 0);
+      this->_app.Draw(front);
+      front2.SetPosition(1680 - scalefront, 0);
+      this->_app.Draw(front2);
+    }
+  else
+    {
+      front.SetPosition(0 - scalefront, 0);
+      this->_app.Draw(front);
+      front2.SetPosition(1680 - scalefront, 0);
+      this->_app.Draw(front2);
+      this->_frontClock.Reset();
     }
 }
 

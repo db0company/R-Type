@@ -32,11 +32,13 @@ MenuCreateCoins::menu-create-bitonio-noir.png::0
 MenuCreate::menu-create.png::0
 Starfield::starfield3.bmp::1
 StarfieldStar::starfield3-2.bmp::0
+SecondFieldStar::starfieldTWO1680-1050-little_lautre.png::0
 SpriteMap::sprite_trans_3.png::0
 SpriteMap2::sprite_trans_3.png::0
 PreviewStar::Star-preview.png::0
 test::redevil.png::0
 PreviewSun::Sun-preview.png::0
-StarfieldSun::starfieldTWO1680-1050.bmp::0
+StarfieldSun::starfieldTWO1680-1050-nobigstar.bmp::0
+SecondFieldSun::starfieldTWO1680-1050-little_star.png::0
 Input::inputchat.png::0
 PlayerShip::PlayerShip.png::0
