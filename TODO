@@ -1,3 +1,7 @@
+getPlayerMap (StateInGame)
+getWindow (Sfml)
+getSprite (Sfml)
+
 /!\ TODO: /!\
 
 -> General:

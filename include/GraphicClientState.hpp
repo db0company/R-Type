@@ -11,9 +11,11 @@
 #include "Istate.hpp"
 #include "EGraphicAction.hpp"
 #include "InfoGame.hpp"
-
+#include "SpriteInfo.hpp"
+//#include "PlayerMovement.hpp"
 namespace LibGraphic
 {
+class PlayerMovement;
 
   class	GraphicClientState
   {
@@ -61,6 +63,10 @@ namespace LibGraphic
     InfoGame * getGameForPreviewFromCreate(void);
     std::list<std::string> &getPlayerNameList(void);
     eMovement getLastMove(void) const;
+    std::map<int, PlayerMovement *> const & getPlayerMap() const;
+    std::map<int, PlayerMovement *> & getPlayerMap();
+    eShipColor getMyId() const;
+    void setMyId(eShipColor id);
 
   private:
     Event eventStart(eStates & scene);

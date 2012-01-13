@@ -11,6 +11,7 @@
 #include "EGraphicAction.hpp"
 #include "InfoGame.hpp"
 #include "RecupMap.hpp"
+#include "SpriteInfo.hpp"
 //#include "ClientNetwork.hpp"
 
 #define WINDOWNAME "R-Type"
@@ -19,6 +20,8 @@ class			ClientNetwork;
 
 namespace LibGraphic
 {
+
+  class PlayerMovement;
 
   class	Sfml : public IGraphic
   {
@@ -66,6 +69,14 @@ namespace LibGraphic
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
     std::list<std::string> &getPlayerNameList(void);
     eMovement getLastMove(void) const;
+
+    std::map<int, PlayerMovement *> const & getPlayerMap() const;
+    std::map<int, PlayerMovement *> & getPlayerMap();
+
+    sf::RenderWindow & getWindow();
+    sf::Sprite & getSprite(std::string const &);
+    eShipColor getMyId() const;
+    void setMyId(eShipColor id);
 
   public:
     void errorMessage(std::string const &);

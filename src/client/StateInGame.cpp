@@ -2,6 +2,7 @@
 #include "StateInGame.hpp"
 #include "TileInfo.hpp"
 #include "Language.hpp"
+#include "SpriteInfo.hpp"
 
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
@@ -102,7 +103,6 @@ void LibGraphic::StateInGame::drawStarField()
 void LibGraphic::StateInGame::drawMap()
 {
   static int gpos = 0;
-  int		spos = 0;
   sf::Sprite &test = this->getSprite("SpriteMap");
   int i;
   float time = this->_mapClock.GetElapsedTime();
@@ -156,6 +156,13 @@ void LibGraphic::StateInGame::draw()
 void LibGraphic::StateInGame::drawPlayers()
 {
   this->_player->draw();
+  std::map<int, PlayerMovement *>::iterator it;
+
+  for (it = this->_playerMap.begin(); it != this->_playerMap.end(); ++it)
+    {
+      if (it->second->getId() == this->_myid)
+	it->second->draw();
+    }
 }
 
 void LibGraphic::StateInGame::drawText()
@@ -266,4 +273,24 @@ void LibGraphic::StateInGame::setGameLvl(std::string const &s)
 LibGraphic::eMovement LibGraphic::StateInGame::getLastMove() const
 {
   return this->_player->getLastMove();
+}
+
+std::map<int, LibGraphic::PlayerMovement *> const & LibGraphic::StateInGame::getPlayerMap() const
+{
+  return this->_playerMap;
+}
+
+std::map<int, LibGraphic::PlayerMovement *> & LibGraphic::StateInGame::getPlayerMap()
+{
+  return this->_playerMap;
+}
+
+eShipColor LibGraphic::StateInGame::getMyId() const
+{
+  return this->_myid;
+}
+
+void LibGraphic::StateInGame::setMyId(eShipColor id)
+{
+  this->_myid = id;
 }

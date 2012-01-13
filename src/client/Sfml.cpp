@@ -6,6 +6,7 @@
 #include "GraphicClientState.hpp"
 #include "ClientNetwork.hpp"
 #include "Language.hpp"
+#include "SpriteInfo.hpp"
 
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
@@ -406,4 +407,34 @@ std::list<std::string> &LibGraphic::Sfml::getPlayerNameList(void)
 LibGraphic::eMovement LibGraphic::Sfml::getLastMove() const
 {
   return this->_graphicState->getLastMove();
+}
+
+std::map<int, LibGraphic::PlayerMovement *> const & LibGraphic::Sfml::getPlayerMap() const
+{
+  return this->_graphicState->getPlayerMap();
+}
+
+std::map<int, LibGraphic::PlayerMovement *> & LibGraphic::Sfml::getPlayerMap()
+{
+  return this->_graphicState->getPlayerMap();
+}
+
+sf::RenderWindow & LibGraphic::Sfml::getWindow()
+{
+  return this->_app;
+}
+
+sf::Sprite & LibGraphic::Sfml::getSprite(std::string const & spriteName)
+{
+  return this->_ressourcesSprite.find(spriteName)->second->_sprite;
+}
+
+eShipColor LibGraphic::Sfml::getMyId() const
+{
+  return this->_graphicState->getMyId();
+}
+
+void LibGraphic::Sfml::setMyId(eShipColor id)
+{
+  this->_graphicState->setMyId(id);
 }

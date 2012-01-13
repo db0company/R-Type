@@ -1,5 +1,8 @@
 #include <iostream>
 #include "ProtocolMovement.hpp"
+#include "PlayerMovement.hpp"
+#include "Client.hpp"
+#include "SpriteInfo.hpp"
 
 ProtocolMovement::ProtocolMovement()
 {
@@ -57,12 +60,13 @@ bool		ProtocolMovement::actionMove(PacketData &data, Client &)
   return (false);
 }
 
-bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &)
+bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &c)
 {
   char id;
   std::string login;
   unsigned int x;
   unsigned int y;
+  std::map<int, LibGraphic::PlayerMovement *> &playerMap = c.getGraphic().getPlayerMap();
 
   id = data.getNextChar();
   login = data.getNextString();
@@ -70,6 +74,30 @@ bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &)
   y = data.getNextUint32();
 
   std::cout << "id(" << (int)id << ") login(" << login << ") x(" << x << ") y(" << y << ")" << std::endl;
+  if (id < 0 || id > 4)
+    {
+      std::cout << "[info] UpdatePlayer id not 0 to 4" << std::endl;
+      return (false);
+    }
+  if (login != c.getGraphic().getLogin())
+    {
+      LibGraphic::Coord coord;
+      std::cout << "recu une position dun player qui nest pas moi" << std::endl;
+      if (playerMap.find(id) == playerMap.end())
+  	{
+	  LibGraphic::PlayerMovement *m;
+	  m = new LibGraphic::PlayerMovement(c.getGraphic().getWindow(),
+     c.getGraphic().getSprite("PlayerShip"), static_cast <eShipColor>(id));
+	  playerMap[id] = m;
+	}
+      coord.x = x;
+      coord.y = y;
+      playerMap[id]->setCoord(coord);
+    }
+  else
+    {
+      std::cout << "recu ma position" << std::endl;
+    }
   return (false);
 }
 

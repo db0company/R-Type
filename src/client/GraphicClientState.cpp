@@ -12,6 +12,8 @@
 #include "StateInGame.hpp"
 #include "GraphicClientState.hpp"
 #include "EGraphicAction.hpp"
+#include "PlayerMovement.hpp"
+#include "SpriteInfo.hpp"
 
 using namespace LibGraphic;
 
@@ -231,4 +233,24 @@ std::list<std::string> &LibGraphic::GraphicClientState::getPlayerNameList(void)
 LibGraphic::eMovement LibGraphic::GraphicClientState::getLastMove() const
 {
   return reinterpret_cast <StateInGame const *>(getValue(this->_stateInfos, INGAME))->getLastMove();
+}
+
+// std::map<int, LibGraphic::PlayerMovement *> const & LibGraphic::GraphicClientState::getPlayerMap() const
+// {
+//   return reinterpret_cast <StateInGame const *>(getValue(this->_stateInfos, INGAME))->getPlayerMap();
+// }
+
+std::map<int, PlayerMovement *> & LibGraphic::GraphicClientState::getPlayerMap()
+{
+  return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->getPlayerMap();
+}
+
+eShipColor LibGraphic::GraphicClientState::getMyId() const
+{
+  return reinterpret_cast <StateInGame const *>(getValue(this->_stateInfos, INGAME))->getMyId();
+}
+
+void LibGraphic::GraphicClientState::setMyId(eShipColor id)
+{
+  return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setMyId(id);
 }

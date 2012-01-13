@@ -5,6 +5,7 @@
 #include "Istate.hpp"
 #include "RecupMap.hpp"
 #include "PlayerMovement.hpp"
+#include "SpriteInfo.hpp"
 
 namespace LibGraphic
 {
@@ -38,6 +39,11 @@ namespace LibGraphic
 
     eMovement getLastMove() const;
 
+    std::map<int, PlayerMovement *> const & getPlayerMap() const;
+    std::map<int, PlayerMovement *> & getPlayerMap();
+
+    eShipColor getMyId() const;
+    void setMyId(eShipColor id);
   private:
     void setNextState(eState d);
     void drawText();
@@ -72,6 +78,7 @@ namespace LibGraphic
     // monsters
     // players
 
+    eShipColor _myid;
     std::map<int, PlayerMovement *> _playerMap;
 
     PlayerMovement * _player;
