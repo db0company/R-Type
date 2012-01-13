@@ -10,8 +10,10 @@ ProtocolMovement::ProtocolMovement()
   this->actionmap[MOVE]			= &ProtocolMovement::actionMove ;
   this->actionmap[UPDATEPLAYER]		= &ProtocolMovement::actionUpdatePlayer;
   this->actionmap[UPDATEENEMY]		= &ProtocolMovement::actionUpdateEnemy;
+  this->actionmap[COLLISION]		= &ProtocolMovement::actionCollision;
   this->actionmap[UPDATEBULLET]		= &ProtocolMovement::actionUpdateBullet;
   this->actionmap[NEWBULLET]		= &ProtocolMovement::actionNewBullet;
+
 }
 
 ProtocolMovement::ProtocolMovement(ProtocolMovement const & other)
@@ -105,6 +107,35 @@ bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &c)
 bool		ProtocolMovement::actionUpdateEnemy(PacketData &data, Client &)
 {
   (void)data;
+  return (false);
+}
+
+bool		ProtocolMovement::actionCollision(PacketData &data, Client &c)
+{
+  char id;
+  std::string login;
+  unsigned int x;
+  unsigned int y;
+  std::map<int, LibGraphic::PlayerMovement *> &playerMap = c.getGraphic().getPlayerMap();
+
+  id = data.getNextChar();
+  login = data.getNextString();
+  x = data.getNextUint32();
+  y = data.getNextUint32();
+
+  if (playerMap.find(id) == playerMap.end())
+    {
+      std::cout << "add du player ds map " << std::endl;
+      LibGraphic::PlayerMovement *m;
+      m = new LibGraphic::PlayerMovement(c.getGraphic().getWindow(),
+					 c.getGraphic().getSprite("PlayerShip"),
+					 static_cast <eShipColor>(id));
+      playerMap[id] = m;
+    }
+  LibGraphic::Coord coord;
+  coord.x = 400;
+  coord.y = 400;
+  playerMap[id]->setCoord(coord);
   return (false);
 }
 

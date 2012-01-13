@@ -26,6 +26,7 @@ private:
   bool		actionUpdatePlayer(PacketData &data, Client &);
   bool		actionUpdateEnemy(PacketData &data, Client &);
   bool		actionUpdateBullet(PacketData &data, Client &);
+  bool		actionCollision(PacketData &data, Client &);
   bool		actionNewBullet(PacketData &data, Client &);
 };
 
