@@ -259,7 +259,7 @@ bool Server::run(void)
 	  return (false);
 	}
       if (this->_selector->getSec() == 0 && this->_selector->getUsec() == 0)
-      	std::cout << "It's time to packet." << std::endl;
+      	this->_gameManager.updateAll(*this);
       this->getNewClient();
       this->readFromClients();
       this->processPackets();

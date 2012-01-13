@@ -102,12 +102,40 @@ void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Playe
   us->addPacketToSendUDP(packet_to_send);
 }
 
+void	Game::verifPos(Position& pos)
+{
+  while (pos.x < 1 || pos.x > 1 || pos.y < 1 || pos.y > 1)
+    {
+      if (pos.x > 1)
+	{
+	  pos.x -= 1;
+	  pos.tilex += 1; 
+	}
+      else if (pos.x < 1)
+	{
+	  pos.x += 1;
+	  pos.tilex -= 1; 
+	}
+      if (pos.y > 1)
+	{
+	  pos.y -= 1;
+	  pos.tiley += 1; 
+	}
+      else if (pos.y < 1)
+	{
+	  pos.y += 1;
+	  pos.tiley -= 1; 
+	}
+    }
+}
+
 void	Game::changePlayerPos(PacketData &info)
 {
   std::string ip; // a extraire du packet
   std::string ret;
   std::map<std::string, AObject *>::iterator it;
   Position newPos;
+  Position direction;
   PacketData	*data = new PacketData;
 
   if ((ret = getPlayerByIp(ip)) == "")
@@ -122,10 +150,14 @@ void	Game::changePlayerPos(PacketData &info)
       return ;
     }
   newPos = it->second->getPos();
-  //  newPos = info.getPosition();
+
+  direction = info.getData<Position>();
+  newPos.x += direction.x;
+  newPos.y += direction.y;
+  verifPos(newPos);
   it->second->setPos(newPos);
   data->addString(it->first);
-  //  data->addData<Position>(it->second->getPos);
+  data->addData<Position>(it->second->getPos());
   sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
 }
 
@@ -139,7 +171,7 @@ void	Game::moveMonster(PacketData&)
 
       reinterpret_cast<Monster *>(it->second)->moveNextPos();
       data->addString(it->first);
-      //data->addData<Position>(it->second->getPos());
+      data->addData<Position>(it->second->getPos());
       sendToAllClient(data, MOVEMENT, UPDATEENEMY);
       ++it;
     }
@@ -151,7 +183,13 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   PacketData	*data = new PacketData;
   Position	pos;
 
+  pos.x = 0;
+  pos.y = 0;
+  pos.tilex = 2;
+  pos.tiley = this->_param.sizeLine / 2;
+  newPlayer->setPos(pos);
   this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
+  
 }
 
 void	Game::createNewMonster(PacketData &)
@@ -237,8 +275,12 @@ void	Game::moveBullet(PacketData &)
       PacketData	*data = new PacketData;
 
       p = (*it).getPos();
-      p.x--;
-      //      data->addData<Position>(it->getPos());
+
+      if ((*it).getGroup() == ENNEMY)
+	p.x--;
+      else
+	p.x++;
+      data->addData<Position>(it->getPos());
       sendToAllClient(data, MOVEMENT, UPDATEBULLET);
       (*it).setPos(p);
       ++it;
@@ -312,7 +354,7 @@ void	Game::fireBullet(PacketData &info)
     return ; // error
   g = ent->getGroup();
   this->_bullets.push_front(Bullet(ent->getPos(), g));
-  //  data->addData<Position>(ent->getPos());
+  data->addData<Position>(ent->getPos());
   sendToAllClient(data, MOVEMENT, UPDATEBULLET);
 }
 
@@ -324,6 +366,11 @@ bool Game::addUser(User *user, bool root, bool , std::string const &login)
     this->_owner_login = login;
   this->_userMap.insert(std::pair<std::string, User *>(user->getIp(), user));
   return (true);
+}
+
+void	Game::update(PacketData&)
+{
+
 }
 
 bool Game::delUser(std::string const &log)

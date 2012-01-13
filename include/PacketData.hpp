@@ -42,6 +42,8 @@ class			PacketData
   short			getNextShort(void);
   ushort		getNextUShort(void);
   UInt32		getNextUint32(void);
+  template <typename T>
+  T			getData(void);
 
  public:
   void			addString(char const *, ushort);
@@ -51,6 +53,8 @@ class			PacketData
   void			addShort(short);
   void			addUShort(ushort);
   void			addUint32(UInt32);
+  template <typename T>
+  void			addData(T d);
 };
 
 void			uglyPrinter(char *data, int size);

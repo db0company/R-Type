@@ -201,8 +201,14 @@ bool Client::run(void)
 	  std::cerr << "Error: Can't Monitor Sockets" << std::endl;
 	  return (false);
 	}
-      this->cNetwork.feedPacketAggregatorTCP();
-      this->cNetwork.feedPacketAggregatorUDP();
+      if ((this->cNetwork.feedPacketAggregatorTCP() == false ||
+	   this->cNetwork.feedPacketAggregatorUDP() == false) &&
+	  this->cNetwork.isConnected())
+	{
+	  this->cNetwork.setConnected(false);
+	  this->cGraphic.errorMessage("Disconnected From Server\n");
+	  this->cGraphic.setCurrentState(LibGraphic::START);
+	}
       this->cNetwork.sendPacketToServer();
       this->cNetwork.process(*this);
       event = this->cGraphic.getEvent();

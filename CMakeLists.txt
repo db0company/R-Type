@@ -72,6 +72,7 @@ add_executable(
 	./src/client/Button.cpp
 	./src/server/RecupMap.cpp
 	./src/client/AnnimTest.cpp
+	./src/server/Position.cpp
 )
 
 
@@ -141,6 +142,7 @@ add_executable(
 	./src/client/Button.cpp
 	./src/server/RecupMap.cpp
 	./src/client/AnnimTest.cpp
+	./src/server/Position.cpp
 )
 
 

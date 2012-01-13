@@ -32,7 +32,7 @@ void ThreadData<T>::ExecParam()
 	}
       else
 	{
-	   std::cout << "jattend" << std::endl;
+	  //	   std::cout << "jattend" << std::endl;
 	  this->condVar->wait();
 	}
     }

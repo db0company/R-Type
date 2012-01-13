@@ -9,7 +9,7 @@
 class PacketTask
 {
 private:
-  PacketData&	param;
+  PacketData	*param;
   Game		*game;
   TaskNetwork	*network;
   void (TaskNetwork::*netFunc)(PacketData&);
@@ -17,8 +17,8 @@ private:
 public:
   PacketTask(PacketTask const &other);
   PacketTask&operator=(PacketTask const &other);
-  PacketTask(void (TaskNetwork::*point)(PacketData&), PacketData&, TaskNetwork *);
-  PacketTask(void (Game::*point)(PacketData&), PacketData&, Game*);
+  PacketTask(void (TaskNetwork::*point)(PacketData&), PacketData*, TaskNetwork *);
+  PacketTask(void (Game::*point)(PacketData&), PacketData*, Game*);
   void	launchTask(ICondVar *);
 };
 

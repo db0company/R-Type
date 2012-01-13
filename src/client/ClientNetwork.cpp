@@ -264,6 +264,11 @@ void ClientNetwork::setIp(std::string const &ip)
   this->_ip = ip;
 }
 
+void ClientNetwork::setConnected(bool c)
+{
+  this->_connected = c;
+}
+
 void ClientNetwork::setPort(int port)
 {
   this->_port = port;
