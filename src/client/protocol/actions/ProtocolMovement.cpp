@@ -97,7 +97,7 @@ bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &c)
     }
   else
     {
-      std::cout << "recu ma position" << std::endl;
+      c.getGraphic().setMyId(static_cast<eShipColor>(id));
     }
   return (false);
 }

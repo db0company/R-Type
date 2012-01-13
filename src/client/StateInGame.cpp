@@ -21,7 +21,6 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_mapClock.Reset();
   this->Clock.Reset();
   this->_frontClock.Reset();
-
   this->_myid = BLUESHIP;
   this->_player = new LibGraphic::PlayerMovement(this->_app,
 					      this->getSprite("PlayerShip"));
@@ -156,7 +155,8 @@ void LibGraphic::StateInGame::draw()
 
 void LibGraphic::StateInGame::drawPlayers()
 {
-  std::cout << this->_myid << std::endl;
+  // std::cout << this->_myid << std::endl;
+  std::cout << "my id:" << this->_myid << std::endl;
   this->_player->setId(this->_myid);
   this->_player->draw();
   std::map<int, PlayerMovement *>::iterator it;
