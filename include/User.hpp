@@ -70,6 +70,7 @@ public:
   bool			aggregatePacketToSend(AUDPServerSocket*);
   std::string const &	getLogin(void)const;
   void			setLogin(std::string const &);
+  void			resetWrite(void);
 };
 
 #endif			// USERHPP

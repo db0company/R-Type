@@ -245,12 +245,27 @@ bool	Server::processPackets(void)
   return (true);
 }
 
+void Server::resetClientWrite()
+{
+  std::map<std::string, User *>::iterator	it;
+  User *user = NULL;
+
+  for (it = this->_userMap.begin(); it != this->_userMap.end(); ++it)
+    {
+      if ((user = it->second) == NULL)
+	continue;
+      user->resetWrite();
+    }
+}
+
 bool Server::run(void)
 {
   this->_time->resetTime();
-
+  int	s = 1;
+  int	us = 0;
   while (true)
     {
+      this->resetClientWrite();
       this->_listener->SNAddRead();
       this->_selector->setTimer(1, 0);
       if (!this->_selector->SNSelect())
@@ -258,8 +273,16 @@ bool Server::run(void)
 	  std::cerr << "Error: Select" << std::endl;
 	  return (false);
 	}
-      if (this->_selector->getSec() == 0 && this->_selector->getUsec() == 0)
-      	this->_gameManager.updateAll(*this);
+      s = this->_selector->getSec();
+      us = this->_selector->getUsec();
+      if (s == 0 && us == 0)
+	{
+	  s = 1;
+	  us = 0;
+	  this->_gameManager.updateAll(*this);
+	}
+      else 
+	std::cout << "loop" << this->_us <<" " << this->_s << std::endl;
       this->getNewClient();
       this->readFromClients();
       this->processPackets();

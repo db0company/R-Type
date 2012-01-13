@@ -214,3 +214,16 @@ Game *User::getGame(void)
 {
   return (this->_game);
 }
+
+void User::resetWrite(void)
+{
+  std::cout << "jai a lui ecrire: " << this->paWrite.getPacketSize() << std::endl;
+  if (!this->paWrite.getPacketSize())
+    {
+      this->tcp->SNDelWrite();
+    }
+  else
+    {
+      this->tcp->SNAddWrite();
+    }
+}

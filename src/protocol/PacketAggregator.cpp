@@ -140,6 +140,11 @@ unsigned int PacketAggregator::getSize(void) const
   return (this->_index);
 }
 
+unsigned int PacketAggregator::getPacketSize(void) const
+{
+  return (this->_packetQueue.size());
+}
+
 char*	PacketAggregator::getMsg(void) const
 {
   char *msg;
