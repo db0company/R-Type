@@ -19,6 +19,9 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_nextState = UNKNOWN_STATE;
   this->_mapClock.Reset();
   this->Clock.Reset();
+
+  this->test = new LibGraphic::PlayerMovement(this->_app,
+					      this->getSprite("PlayerShip"));
 }
 
 LibGraphic::StateInGame::~StateInGame()
@@ -43,7 +46,6 @@ int LibGraphic::StateInGame::MapY(int y)
 void LibGraphic::StateInGame::drawStarField()
 {
   static int scale = 0;
-  std::cout << "lol: " << this->_gameLvl << std::endl;
   sf::Sprite &b = this->getSprite("Starfield" + this->_gameLvl);
   sf::Sprite &b2 = this->getSprite("Starfield" + this->_gameLvl);
   float time = this->Clock.GetElapsedTime();
@@ -119,6 +121,12 @@ void LibGraphic::StateInGame::draw()
   this->drawStarField();
   this->drawMap();
   this->drawText();
+  this->drawPlayers();
+}
+
+void LibGraphic::StateInGame::drawPlayers()
+{
+  this->test->draw();
 }
 
 void LibGraphic::StateInGame::drawText()
@@ -168,6 +176,7 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
       	    }
       	}
     }
+  this->test->move(Event);
   return EVENT_NONE;
 }
 

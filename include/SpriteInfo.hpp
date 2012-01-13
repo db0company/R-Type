@@ -30,9 +30,9 @@ enum eShipRotation
     SHIP_DOWN= 0,
     SHIP_MIDDLE_DOWN = 1,
     SHIP_MIDDLE = 2,
-    SHIP_MIDLE_UP = 3,
+    SHIP_MIDDLE_UP = 3,
     SHIP_UP = 4
-  }
+  };
 
 enum eShipColor
   {
