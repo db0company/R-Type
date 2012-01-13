@@ -167,6 +167,7 @@ bool			User::aggregatePacketToSend(AUDPServerSocket *so)
       size = this->paWriteUDP.getSize();
       msg = this->paWriteUDP.getMsg();
       so->SNWrite(msg, size); // read verif udp omg wtf bbq
+      //      so->SNWriteToClient(msg, size, this->ip);
       this->paWriteUDP.erase();
     }
   return (true);

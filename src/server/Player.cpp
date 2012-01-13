@@ -10,6 +10,23 @@ Player::Player(User *u, const std::string& n)
   this->id = 0;
 }
 
+Player &Player::operator=(Player const &p)
+{
+  this->group = p.group;
+  this->name = p.name;
+  this->us = p.us;
+  this->id = p.id;
+  return *this;
+}
+
+Player::Player(Player const &p)
+{
+  this->group = p.group;
+  this->name = p.name;
+  this->us = p.us;
+  this->id = p.id;
+}
+
 Player::~Player()
 {
 

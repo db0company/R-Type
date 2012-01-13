@@ -8,6 +8,8 @@ class		Player : public Entities
 public:
   Player(User *us, const std::string& name);
   ~Player();
+  Player(Player const &p);
+  Player &operator=(Player const &);
   const std::string&	getIp()const;
   User		*getUser();
   int		getId()const;

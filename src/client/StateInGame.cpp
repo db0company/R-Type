@@ -158,7 +158,6 @@ void LibGraphic::StateInGame::drawPlayers()
   this->_player->draw();
   std::map<int, PlayerMovement *>::iterator it;
 
-  std::cout << "debut" <<std::endl;
   for (it = this->_playerMap.begin(); it != this->_playerMap.end(); ++it)
     {
       std::cout << "en plus de moi il y a " << (int)it->second->getId() <<std::endl;
