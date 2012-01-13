@@ -40,6 +40,8 @@ namespace LibGraphic
     std::string const & getConversation() const;
     void addToConversation(std::string const &);
     void setGameForPreview(InfoGame *);
+    std::list<std::string> &getPlayerNameList(void);
+
   private:
     void setNextState(eState d);
     void drawText();
@@ -48,6 +50,7 @@ namespace LibGraphic
     void readText(const sf::Event &);
     void drawInputButton();
     void drawSelectedMap(void);
+    void drawPlayerList(void);
   public:
 
   private:
@@ -66,7 +69,8 @@ namespace LibGraphic
     std::string _conversation;
     bool _isDefaultText;
     InfoGame *_game;
-  };
+    std::list<std::string> _playerNameList;
+ };
 
 }
 

@@ -397,3 +397,8 @@ InfoGame * LibGraphic::Sfml::getGameForPreviewFromCreate(void)
 {
   return this->_graphicState->getGameForPreviewFromCreate();
 }
+
+std::list<std::string> &LibGraphic::Sfml::getPlayerNameList(void)
+{
+  return this->_graphicState->getPlayerNameList();
+}

@@ -73,6 +73,7 @@ add_executable(
 	./src/server/RecupMap.cpp
 	./src/client/AnnimTest.cpp
 	./src/server/Position.cpp
+	./src/client/PlayerMovement.cpp
 )
 
 
@@ -143,6 +144,7 @@ add_executable(
 	./src/server/RecupMap.cpp
 	./src/client/AnnimTest.cpp
 	./src/server/Position.cpp
+	./src/client/PlayerMovement.cpp
 )
 
 

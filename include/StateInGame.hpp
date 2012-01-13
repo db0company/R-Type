@@ -4,6 +4,7 @@
 #include "Sfml.hpp"
 #include "Istate.hpp"
 #include "RecupMap.hpp"
+#include "PlayerMovement.hpp"
 
 namespace LibGraphic
 {
@@ -41,6 +42,7 @@ namespace LibGraphic
     void drawConv();
     void drawStarField();
     void drawMap();
+    void drawPlayers();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
     int MapX(int x);
@@ -66,6 +68,8 @@ namespace LibGraphic
     std::string _gameLvl;
     // monsters
     // players
+
+    PlayerMovement * test;
   };
 
 }

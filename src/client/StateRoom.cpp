@@ -43,6 +43,23 @@ void LibGraphic::StateRoom::drawInputButton()
     }
 }
 
+void LibGraphic::StateRoom::drawPlayerList(void)
+{
+  std::list<std::string>::iterator it;
+  std::string res;
+  sf::String *tmp;
+
+  for (it = this->_playerNameList.begin(); it != this->_playerNameList.end(); ++it)
+    {
+      std::cout << "log: " << *it << std::endl;
+      res = res + *it + "\n";
+    }
+  tmp = this->getStdToSfString(res, this->getFont("StartFontF"));
+  tmp->SetPosition(1100, 328 + 303);
+  tmp->SetScale(0.6, 0.6);
+  this->_app.Draw(*tmp);
+}
+
 void LibGraphic::StateRoom::drawSelectedMap(void)
 {
   if (!(this->_game))
@@ -78,6 +95,7 @@ void LibGraphic::StateRoom::draw()
   this->_app.Draw(back);
   this->_app.Draw(menu);
   this->drawSelectedMap();
+  this->drawPlayerList();
   this->drawInputButton();
   this->_app.Draw(menu_coins);
 
@@ -338,4 +356,9 @@ void LibGraphic::StateRoom::addToConversation(std::string const & add)
 void LibGraphic::StateRoom::setGameForPreview(InfoGame *g)
 {
   this->_game = g;
+}
+
+std::list<std::string> &LibGraphic::StateRoom::getPlayerNameList(void)
+{
+  return (this->_playerNameList);
 }

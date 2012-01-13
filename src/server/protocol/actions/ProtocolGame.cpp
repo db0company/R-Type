@@ -6,6 +6,7 @@
 #include "TaskNetwork.hpp"
 #include "PacketTask.hpp"
 #include "Server.hpp"
+#include "eProtocolPacketLobby.hpp"
 
 ProtocolGame::ProtocolGame()
 {
@@ -134,7 +135,8 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
       user->addPacketToSend(packet_to_send);
       return (false);
     }
-  if (server.getGameManager().getGameFromName(game_name) != NULL)
+  if (server.getGameManager().getGameFromName(game_name) != NULL &&
+      server.getGameManager().getGameFromName(game_name)->getStatus() != ENDED)
     {
       to_send->addChar(0);
       to_send->addString("This name already exist");
@@ -171,7 +173,14 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
   server.getGameManager().addGame(game);
   to_send->addChar(1);
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
+  PacketData *to_send_log = new PacketData;
+  ProtocolPacket *packetlogin;
+  to_send_log->addChar(1);
+  to_send_log->addString(name);
+  packetlogin = PacketFactory::createPacket(LOBBY,
+  static_cast<ushort>(LOBBY_PLAYERS), to_send_log);
   user->addPacketToSend(packet_to_send);
+  user->addPacketToSend(packetlogin);
   user->setState(USER_GAME_ROOT);
   user->setGame(game);
   return (true);
@@ -206,6 +215,7 @@ bool		ProtocolGame::actionJoin(PacketData & received,
     {
       game = user->getGame();
     }
+  map = game->getUserMap();
   if (map.find(login) != map.end())
     {
       to_send->addChar(0);
@@ -250,11 +260,25 @@ bool		ProtocolGame::actionJoin(PacketData & received,
   packet_to_send = PacketFactory::createPacket(THE_GAME,
 					       static_cast<ushort>(JOINGAME), to_send);
   user->addPacketToSend(packet_to_send);
+  std::map<std::string , User *>::iterator it;
+  PacketData	*to_send_log = new PacketData;
+  ProtocolPacket *packetlogin;
+
+  to_send_log->addChar(1);
+  to_send_log->addString(login);
+  packetlogin = PacketFactory::createPacket(LOBBY,
+  static_cast<ushort>(LOBBY_PLAYERS), to_send_log);
+  for (it = map.begin(); it != map.end(); ++it)
+    {
+      it->second->addPacketToSend(packetlogin);
+    }
   return (true);
 }
 
 bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
 {
+  PacketData	*to_send_log = new PacketData;
+  ProtocolPacket *packetlogin;
   PacketData	*to_send = new PacketData;
   ProtocolPacket *packet_to_send;
   std::string log = data.getNextString();
@@ -273,11 +297,16 @@ bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
 	  user->getGame()->setStatus(ENDED);
 	  to_send->addShort(1);
 	  to_send->addString(log);
+	  to_send_log->addChar(-1);
+	  to_send_log->addString(user->getLogin());
 	  for (it = maap.begin(); it != maap.end(); ++it)
 	    {
+	      packetlogin = PacketFactory::createPacket(LOBBY,
+	   static_cast<ushort>(LOBBY_PLAYERS), to_send_log);
 	      packet_to_send = PacketFactory::createPacket(THE_GAME,
-			       static_cast<ushort>(QUITGAME), to_send);
+	   static_cast<ushort>(QUITGAME), to_send);
 	      it->second->addPacketToSend(packet_to_send);
+	      it->second->addPacketToSend(packetlogin);
 	    }
 	  g->setStatus(ENDED);
 	  return (false);
@@ -288,11 +317,16 @@ bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
     {
       to_send->addShort(0);
       to_send->addString(log);
+      to_send_log->addChar(-1);
+      to_send_log->addString(user->getLogin());
       for (it = maap.begin(); it != maap.end(); ++it)
 	{
 	  packet_to_send = PacketFactory::createPacket(THE_GAME,
-			   static_cast<ushort>(QUITGAME), to_send);
+       static_cast<ushort>(QUITGAME), to_send);
+	  packetlogin = PacketFactory::createPacket(LOBBY,
+       static_cast<ushort>(LOBBY_PLAYERS), to_send_log);
 	  it->second->addPacketToSend(packet_to_send);
+	  it->second->addPacketToSend(packetlogin);
 	}
       g->delUser(log);
     }
