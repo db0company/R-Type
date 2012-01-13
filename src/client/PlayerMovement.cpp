@@ -3,12 +3,11 @@
 #include "PlayerMovement.hpp"
 
 LibGraphic::PlayerMovement::PlayerMovement(sf::RenderWindow & app,
-					   sf::Sprite & sprite):
-  _app(app), _sprite(sprite)
+					   sf::Sprite & sprite, eShipColor id):
+  _app(app), _sprite(sprite), _id(id)
 {
   this->_coord.x = 400;
-  this->_coord.y = 400;
-  this->_id = BLUESHIP;
+  this->_coord.y = 400 + (70 * this->_id);
   this->_clock.Reset();
   this->_rotate = SHIP_MIDDLE;
 }

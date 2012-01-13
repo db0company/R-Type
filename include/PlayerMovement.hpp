@@ -14,7 +14,7 @@ namespace LibGraphic
   {
 
   public:
-    PlayerMovement(sf::RenderWindow &, sf::Sprite &);
+    PlayerMovement(sf::RenderWindow &, sf::Sprite &, eShipColor id = BLUESHIP);
     ~PlayerMovement();
 
   public:
