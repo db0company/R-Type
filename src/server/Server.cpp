@@ -40,7 +40,7 @@ Server::Server(void) :
   this->_condVar = new CondVarWindows;
   this->_time = new TimerWindows;
   this->_dirMan = new DirectoryManagerWindows;
-  this->_dlLoader->openDllFromDirectory<ExtensionDll>("bin\Release", this->_dirMan);
+  this->_dlLoader->openDllFromDirectory<ExtensionDll>(".", this->_dirMan);
 #endif
 
   this->_taskNet.init(this->_udp, this->_udpMutex);
@@ -275,13 +275,13 @@ bool Server::run(void)
 {
   this->_time->resetTime();
   int	s = 0;
-  int	us = 50000;
+  int	us = 90000;
 
   while (true)
     {
       this->resetClientWrite();
       this->_listener->SNAddRead();
-      this->_selector->setTimer(s, us);
+      this->_selector->setTimer(2, us);
       if (!this->_selector->SNSelect())
 	{
 	  std::cerr << "Error: Select" << std::endl;
@@ -293,7 +293,7 @@ bool Server::run(void)
 	{
 	  // std::cout << "Time to Update All" << std::endl;
 	  s = 0;
-	  us = 50000;
+	  us = 90000;
 	  this->_gameManager.updateAll(*this);
 	}
       this->getNewClient();

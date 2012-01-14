@@ -9,6 +9,7 @@
 #include "User.hpp"
 #include "eProtocolPacketMovement.hpp"
 #include "eProtocolPacketGame.hpp"
+#include "ScopedLock.hpp"
 #ifdef _WIN32
 #include "MutexWindows.hpp"
 #else
@@ -533,4 +534,11 @@ eGameStatus	Game::getStatus(void)const
 std::map<std::string, User *> &Game::getUserMap()
 {
   return (this->_userMap);
+}
+
+int Game::nbBullet()
+{
+	ScopedLock sl(this->_mutex);
+
+	return (this->_bullets.size());
 }

@@ -22,6 +22,7 @@ void    DirectoryManagerWindows::openDirectory(const std::string & namedir)
     LPCSTR error = "[WINDOWS]: Error ";
 	//(STRSAFE_PCNZWCH)
     StringCchLength(namedir.c_str(), MAX_PATH, &length_of_arg);
+
     if (length_of_arg > (MAX_PATH - 3))
     {
  //     MessageBox(NULL, (LPCWSTR)error, TEXT("FileName is too long\n"), MB_OK);
@@ -37,6 +38,7 @@ void    DirectoryManagerWindows::openDirectory(const std::string & namedir)
     this->hFind = FindFirstFile(this->szDir, &this->ffd);
     if (this->hFind == INVALID_HANDLE_VALUE)
     {
+		std::cout << "LANCEMENT ERROR " << std::endl; 
  //       MessageBox(NULL, error, TEXT("Could not find ddlfile\n"), MB_OK);
 	this->err.setErrorMessage("Could not find dllFile");
 	throw (this->err);
@@ -81,9 +83,4 @@ void        DirectoryManagerWindows::closeDirectory()
    {
 //       MessageBox(NULL, error, TEXT("CloseDirectory failed\n"), MB_OK);
    }
-}
-
-std::string		DirectoryManagerWindows::getPlatChar()const
-{
-	return ("\\");
 }

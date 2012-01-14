@@ -23,7 +23,7 @@ CondVarWindows &CondVarWindows::operator=(CondVarWindows const &o)
 
 bool	CondVarWindows::wait()
 {
-  if (SleepConditionVariableCS(&this->_condvar, _m.getCS(), 0) != 0)
+  if (SleepConditionVariableCS(&this->_condvar, _m.getCS(), INFINITE) != 0)
     return (true);
   return (false);
 }

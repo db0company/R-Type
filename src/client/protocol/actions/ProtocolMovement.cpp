@@ -153,8 +153,11 @@ bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &c)
       LibGraphic::Coord coord;
       coord.x = data.getNextUint32();
       coord.y = data.getNextUint32();
-      b->setCoord(coord);
-      list.push_front(b);
+		if (coord.x == 0 && coord.y == 0)
+		{
+		b->setCoord(coord);
+		list.push_front(b);
+		}
       ++i;
     }
   return (false);

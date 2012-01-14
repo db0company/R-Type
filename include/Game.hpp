@@ -71,6 +71,7 @@ public:
   AObject	*getEntitiesbyName(const std::string& name);
   void		verifPos(Position& pos);
   void		initPos(Position &pos);
+  int	nbBullet();
 private:
   unsigned int _id;
   GameParameter        _param;

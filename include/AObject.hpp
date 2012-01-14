@@ -18,7 +18,7 @@ public:
 
 
 # ifdef _WIN32
-class		 AObject : public IObject
+class		 LIBMONSTER_API AObject : public IObject
 # else
 class		 AObject : public IObject
 # endif
