@@ -3,6 +3,7 @@
 
 #include "Sfml.hpp"
 #include "Istate.hpp"
+#include "AnnimTest.hpp"
 
 namespace LibGraphic
 {
@@ -50,6 +51,7 @@ namespace LibGraphic
 
   private:
     void drawText();
+    void drawCursor();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
 
@@ -66,6 +68,9 @@ namespace LibGraphic
     bool _isDefaultIp;
     bool _isDefaultPort;
     eGraphicAction _action;
+
+    AnnimTest * test;
+
   };
 
 }

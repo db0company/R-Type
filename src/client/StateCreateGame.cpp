@@ -193,7 +193,15 @@ void LibGraphic::StateCreateGame::drawCursor()
 	break;
       }
     case BUTTON_CREATE_BACK :
+      {
+	this->test->setCoord(2000, 2000);
+	break;
+      }
     case BUTTON_CREATE_CREATE :
+      {
+	this->test->setCoord(2000, 2000);
+	break;
+      }
     default : break;
     }
 }

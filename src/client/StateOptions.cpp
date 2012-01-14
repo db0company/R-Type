@@ -26,6 +26,7 @@ LibGraphic::StateOptions::StateOptions(std::map<std::string const, GraphicRessou
   this->_isDefaultName = true;
   this->_isDefaultIp = true;
   this->_isDefaultPort = true;
+  test = new AnnimTest(this->_app, this->getSprite("test"));
 }
 
 LibGraphic::StateOptions::~StateOptions()
@@ -144,6 +145,61 @@ void LibGraphic::StateOptions::draw()
     Ok->SetColor(sf::Color(255,255,255, 205));
   this->_app.Draw(*Ok);
   this->drawText();
+  this->drawCursor();
+  this->test->play();
+}
+
+void LibGraphic::StateOptions::drawCursor()
+{
+  switch (this->_currentButton)
+    {
+    case BUTTON_OPTIONS_NAME :
+      {
+	this->test->setCoord(510, 340);
+	break;
+      }
+    case BUTTON_OPTIONS_IP :
+      {
+	this->test->setCoord(510, 390);
+	break;
+      }
+    case BUTTON_OPTIONS_PORT :
+      {
+	this->test->setCoord(510, 440);
+	break;
+      }
+    case BUTTON_OPTIONS_VOL_MUSICS :
+      {
+	this->test->setCoord(510, 500);
+	break;
+      }
+    case BUTTON_OPTIONS_VOL_EFFECTS :
+      {
+	this->test->setCoord(510, 555);
+	break;
+      }
+    case BUTTON_OPTIONS_LANG_EN :
+      {
+	this->test->setCoord(510, 625);
+	break;
+      }
+    case BUTTON_OPTIONS_LANG_FR :
+      {
+	this->test->setCoord(510, 625);
+	break;
+      }
+    case BUTTON_OPTIONS_BACK :
+      {
+	this->test->setCoord(2000, 2000);
+	break;
+      }
+    case BUTTON_OPTIONS_VALIDATE :
+      {
+	this->test->setCoord(2000, 2000);
+	break;
+      }
+    default : break;
+    }
 }
 
 void LibGraphic::StateOptions::drawText()
