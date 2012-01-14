@@ -151,15 +151,15 @@ ushort			PacketData::getNextUShort(void)
   return (s);
 }
 
-UInt32			PacketData::getNextUint32(void)
+unsigned int			PacketData::getNextUint32(void)
 {
-  if ((this->data.size() - this->it) < sizeof(UInt32))
+  if ((this->data.size() - this->it) < sizeof(unsigned int))
     return (0);
-  UInt32 s = 0;
-  DataRawType tmp[sizeof(UInt32)];
-  for (uint i = 0 ; i < sizeof(UInt32) ; ++i, ++(this->it))
+  short s = 0;
+  DataRawType tmp[sizeof(unsigned int)];
+  for (uint i = 0 ; i < sizeof(unsigned int) ; ++i, ++(this->it))
     tmp[i] = this->data[this->it];
-  memcpy(&s, tmp, sizeof(UInt32));
+  memcpy(&s, tmp, sizeof(unsigned int));
   return (s);
 }
 
@@ -227,11 +227,11 @@ void			PacketData::addUShort(ushort u)
     this->data.push_back(tmp[i]);
 }
 
-void			PacketData::addUint32(UInt32 u)
+void			PacketData::addUint32(short u)
 {
-  DataRawType tmp[sizeof(UInt32)];
-  memcpy(tmp, &u, sizeof(UInt32));
-  for (uint i = 0 ; i < sizeof(UInt32) ; ++i)
+  DataRawType tmp[sizeof(short)];
+  memcpy(tmp, &u, sizeof(short));
+  for (uint i = 0 ; i < sizeof(short) ; ++i)
     this->data.push_back(tmp[i]);
 }
 

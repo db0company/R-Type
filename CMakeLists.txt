@@ -311,6 +311,8 @@ add_library(
 	MonsterBase
 	SHARED
 	./shared/MonsterBase.cpp
+	./src/server/Position.cpp
+	./src/server/AObject.cpp
 )
 
 

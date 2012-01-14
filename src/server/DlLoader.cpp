@@ -38,7 +38,7 @@ void DlLoader::openDllFromDirectory(const std::string &nameDirectory, IDirectory
 
   dm->openDirectory(replaceDelim(nameDirectory));
   nameDll = dm->readNameFile();
-  std::cout << "tout va bien" << std::endl;
+  // std::cout << "tout va bien" << std::endl;
   while (nameDll != "")
     {
            if ((i = nameDll.find(EXTENSION)) != std::string::npos && i == nameDll.size() - strlen(EXTENSION))

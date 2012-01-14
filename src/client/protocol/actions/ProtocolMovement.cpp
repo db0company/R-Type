@@ -139,8 +139,8 @@ bool		ProtocolMovement::actionCollision(PacketData &data, Client &c)
 
 bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &c)
 {
-  int		i = 0;
-  int		nbBull;
+  unsigned int		i = 0;
+  unsigned int		nbBull;
   std::list<LibGraphic::BulletMovement *> &list = c.getGraphic().getBulletList();
 
   list.clear();
@@ -153,11 +153,9 @@ bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &c)
       LibGraphic::Coord coord;
       coord.x = data.getNextUint32();
       coord.y = data.getNextUint32();
-		if (coord.x == 0 && coord.y == 0)
-		{
-		b->setCoord(coord);
-		list.push_front(b);
-		}
+	  std::cout << "pos missil" << coord.x << " " << coord.y << std::endl;
+	  b->setCoord(coord);
+	  list.push_front(b);
       ++i;
     }
   return (false);

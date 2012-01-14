@@ -191,7 +191,7 @@ bool ClientNetwork::process(Client &client)
     return (false);
   while (!this->paRead.empty())
     {
-      std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m[" << tmp_i << "] ";
+      // std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m[" << tmp_i << "] ";
       packet = this->paRead.front();
       if (this->_pm.Process(packet, client))
 	state_change = true;
@@ -200,7 +200,7 @@ bool ClientNetwork::process(Client &client)
     }
   while (!this->paReadUDP.empty())
     {
-      std::cout << "\t\033[33mUDP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
+      // std::cout << "\t\033[33mUDP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paReadUDP.front();
       if (this->_pm.Process(packet, client))
 	state_change = true;
@@ -233,21 +233,21 @@ bool ClientNetwork::sendPacketToServer(void)
       nb = this->paWrite.aggregatePacketToChar();
       if (nb > 0)
       	{
-      	  std::cout << nb << " packet(s) to aggregate (TCP)" << std::endl;
+      	  // std::cout << nb << " packet(s) to aggregate (TCP)" << std::endl;
       	  sizeT = this->paWrite.getSize();
       	  msg = this->paWrite.getMsg();
       	  this->_tcp->SNWrite(msg, sizeT);
-      	  this->paWrite.erase(); //done ? todo
+      	  this->paWrite.erase();
       	}
     }
   nb = this->paWriteUDP.aggregatePacketToChar();
   if (nb > 0)
     {
-      std::cout << nb << " packet(s) to aggregate (UDP)" << std::endl;
+      // std::cout << nb << " packet(s) to aggregate (UDP)" << std::endl;
       sizeT = this->paWriteUDP.getSize();
       msg = this->paWriteUDP.getMsg();
       this->_udp->SNWrite(msg, sizeT);
-      this->paWriteUDP.erase(); //done ? todo
+      this->paWriteUDP.erase();
     }
   return (true);
 }

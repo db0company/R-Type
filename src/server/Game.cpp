@@ -91,29 +91,17 @@ Game&	Game::operator=(const Game& old)
 
 void	Game::sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc)
 {
-  // std::map<std::string, AObject*>::const_iterator it = this->_players.begin();
-  // User	*us;
-
-  // while (it != this->_players.end())
-  //   {
   ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, data);
-  //     us = static_cast<Player *>(it->second)->getUser(); // todo reinterptert ??
-  //   if (us)
-  // 	{
-  // 	  std::cout << "j'envoi a " << us->getIp() << std::endl;
-  // 	  us->addPacketToSendUDP(packet_to_send);
-  // 	}
-  //   ++it;
-  // }
   std::map<std::string , User *>::iterator it2 = this->_userMap.begin();
 
-  std::cout << "debut 1" << std::endl;
+  // std::cout << "debut 1" << std::endl;
   for (; it2 != _userMap.end(); ++it2)
     {
-      std::cout << "jai " << it2->second->getIp() << std::endl;
-      it2->second->addPacketToSend(packet_to_send);
+      // std::cout << "jai " << it2->second->getIp() << std::endl;
+      if (it2->second->isSafe())
+	it2->second->addPacketToSend(packet_to_send);
     }
-  std::cout << "fin 1" << std::endl;
+  // std::cout << "fin 1" << std::endl;
 }
 
 void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player)
@@ -189,7 +177,7 @@ void	Game::changePlayerPos(GameParam& par)
   newPos = it->second->getPos();
   direction.x = par.paDa->getNextChar();
   direction.y = par.paDa->getNextChar();
-  std::cout << " je bouge " << ret << " de " << direction.x << " " << direction.y << std::endl;
+  // std::cout << " je bouge " << ret << " de " << direction.x << " " << direction.y << std::endl;
 
   if (direction.x == -1)
     newPos.x -= 8;
@@ -233,7 +221,7 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   Position	pos;
 
   newPlayer->setId(this->_idPlayers);
-  std::cout << "my new friend is " << name << " with ip "<< us->getIp() << std::endl;
+  // std::cout << "my new friend is " << name << " with ip "<< us->getIp() << std::endl;
   pos.x = 400;
   pos.y = 400;// + (70 * newPlayer->getId());
   verifPos(pos);
@@ -354,7 +342,7 @@ void	Game::fireBullet(GameParam& par)
   int		finalx;
   int		finaly;
 
-  std::cout << "jenvoi bullet " << std::endl;
+  // std::cout << "jenvoi bullet " << std::endl;
   if ((ent = reinterpret_cast<Entities *>
        (getEntitiesbyName(par.paDa->getNextString()))) == NULL)
     return ; // error
@@ -367,6 +355,7 @@ void	Game::fireBullet(GameParam& par)
 
   finalx = p.x + (p.tilex * 112);
   finaly = p.y + (p.tiley * 150);
+  data->addUint32(1);
   data->addUint32(finalx);
   data->addUint32(finaly);
   sendToAllClient(data, MOVEMENT, UPDATEBULLET);

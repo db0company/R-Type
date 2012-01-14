@@ -142,7 +142,7 @@ bool			User::aggregatePacketToSend(void)
       nb = this->paWrite.aggregatePacketToChar();
       if (nb > 0)
 	{
-	  std::cout << nb << " packet(s) to aggregate (send TCP)" << std::endl;
+	  // std::cout << nb << " packet(s) to aggregate (send TCP)" << std::endl;
 	  size = this->paWrite.getSize();
 	  msg = this->paWrite.getMsg();
 	  this->tcp->SNWrite(msg, size); // verif todo
@@ -163,7 +163,7 @@ bool			User::aggregatePacketToSend(AUDPServerSocket *so)
   nb = this->paWriteUDP.aggregatePacketToChar();
   if (nb > 0)
     {
-      std::cout << nb << " packet(s) to aggregate (send UDP)" << std::endl;
+      // std::cout << nb << " packet(s) to aggregate (send UDP)" << std::endl;
       size = this->paWriteUDP.getSize();
       msg = this->paWriteUDP.getMsg();
       so->SNWrite(msg, size); // read verif udp omg wtf bbq
@@ -186,7 +186,7 @@ bool				User::processPackets(Server &serv)
     }
   while (!this->paRead.empty())
     {
-      std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
+      // std::cout << "\t\033[33mTCP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paRead.front();
       this->pm.Process(packet, this, serv);
       this->paRead.pop();
@@ -195,7 +195,7 @@ bool				User::processPackets(Server &serv)
   tmp_i = 0;
   while (!this->paReadUDP.empty())
     {
-      std::cout << "\t\033[33mUDP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
+      // std::cout << "\t\033[33mUDP\033[00m \033[34mPacket\033[00m["<<tmp_i<<"] ";
       packet = this->paReadUDP.front();
       this->pm.Process(packet, this, serv);
       this->paReadUDP.pop();

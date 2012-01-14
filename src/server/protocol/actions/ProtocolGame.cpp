@@ -171,7 +171,6 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
   game->setPlayerMax(player_max);
   game->setObs(observer);
   game->addUser(user, true, false, name);
-  std::cout << "my fucking name is " << name << " i fuking created the game" << std::endl;
   server.getGameManager().addGame(game);
   to_send->addChar(1);
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);
@@ -302,7 +301,7 @@ bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
 
   if ((g = user->getGame()) == NULL)
     return (false);
-  ScopedLock s(g->getMutex()); //Mserver
+  //  ScopedLock s(g->getMutex()); //Mserver
   maap = g->getUserMap();
   if (user->getState() == USER_GAME_ROOT)
     {
@@ -358,7 +357,7 @@ bool		ProtocolGame::actionStart(PacketData &, User *user, Server &)
     {
       if (user->getGame()->getStatus() == LOBBYROOM)
 	{
-	  ScopedLock s(user->getGame()->getMutex()); // Mserver
+	  //	  ScopedLock s(user->getGame()->getMutex()); // Mserver
 	  to_send->addChar(1);
 	  to_send->addString(user->getGame()->getName());
 	  to_send->addString(user->getGame()->getLvlName());
