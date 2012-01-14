@@ -34,11 +34,11 @@ DWORD	TimerWindows::getTime()const
 }
   
 void	TimerWindows::initWait(unsigned int sec, unsigned int milli)
-{
+{	
   DWORD tmp;
 
   tmp = getTime();
-  this->time_to_wait = sec * 1000 + milli;
+  this->time_to_wait = sec * 1000 + milli / 1000;
 }
 
 void TimerWindows::resetTime()
