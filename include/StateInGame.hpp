@@ -44,6 +44,8 @@ namespace LibGraphic
 
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
+    void setMyPosition(Coord c);
+
   private:
     void setNextState(eState d);
     void drawText();

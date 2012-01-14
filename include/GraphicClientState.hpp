@@ -67,6 +67,7 @@ class PlayerMovement;
     std::map<int, PlayerMovement *> & getPlayerMap();
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
+    void setMyPosition(Coord c);
 
   private:
     Event eventStart(eStates & scene);

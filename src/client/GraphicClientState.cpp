@@ -252,5 +252,10 @@ eShipColor LibGraphic::GraphicClientState::getMyId() const
 
 void LibGraphic::GraphicClientState::setMyId(eShipColor id)
 {
-  return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setMyId(id);
+  reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setMyId(id);
+}
+
+void LibGraphic::GraphicClientState::setMyPosition(Coord c)
+{
+  reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setMyPosition(c);
 }

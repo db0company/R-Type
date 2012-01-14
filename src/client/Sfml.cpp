@@ -438,3 +438,8 @@ void LibGraphic::Sfml::setMyId(eShipColor id)
 {
   this->_graphicState->setMyId(id);
 }
+
+void LibGraphic::Sfml::setMyPosition(Coord c)
+{
+  this->_graphicState->setMyPosition(c);
+}
