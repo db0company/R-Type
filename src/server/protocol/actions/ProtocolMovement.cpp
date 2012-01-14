@@ -77,8 +77,10 @@ bool		ProtocolMovement::actionNewBullet(PacketData &data, User *us, Server &serv
   PacketData	*newPack = new PacketData(data);
 
   tmp = serv.getGameByUser(us);
+  std::cout << "new packet" << std::endl;
   if (tmp != NULL && tmp->getStatus() != ENDED)
     {
+      std::cout << "ITS WOORRK" << std::endl;
       pt = new PacketTask(&Game::fireBullet, newPack, tmp, us);
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();

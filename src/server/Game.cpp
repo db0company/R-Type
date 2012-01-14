@@ -333,27 +333,70 @@ void	Game::checkCollision(GameParam&)
     }
 }
 
+void	Game::fireBullet(GameParam& par)
+{
+  Entities	*ent;
+  eGroup	g;
+  Position	p;
+  PacketData *data = new PacketData;
+  int		finalx;
+  int		finaly;
+
+  std::cout << "jenvoi bullet " << std::endl;
+  if ((ent = reinterpret_cast<Entities *>
+       (getEntitiesbyName(par.paDa->getNextString()))) == NULL)
+    return ; // error
+  g = ent->getGroup();
+  p = ent->getPos();
+  this->_bullets.push_front(Bullet(p, g));
+
+  finalx = p.x + (p.tilex * 112);
+  finaly = p.y + (p.tiley * 150);
+  data->addUint32(finalx);
+  data->addUint32(finaly);
+  sendToAllClient(data, MOVEMENT, UPDATEBULLET);
+}
+
 void	Game::moveBullet(GameParam&)
 {
   Position p;
-  PacketData	*data = new PacketData;
-  
-std::list<Bullet>::iterator it = this->_bullets.begin();
+  PacketData	*data = new PacketData; 
+  std::list<Bullet>::iterator it = this->_bullets.begin();
+  int		finalx;
+  int		finaly;
 
-  while (it != this->_bullets.end())
+  if (this->_bullets.size() > 0)
     {
-
-      p = (*it).getPos();
-
-      if ((*it).getGroup() == ENNEMY)
-	p.x--;
-      else
-	p.x++;
-      data->addData<Position>(it->getPos());
-      (*it).setPos(p);
-      ++it;
+      data->addUint32(this->_bullets.size());  
+      while (it != this->_bullets.end())
+	{
+	  p = (*it).getPos(); 
+	  if ((*it).getGroup() == ENNEMY)
+	    p.x -= 4;
+	  else
+	    p.x += 4;
+	  verifPos(p);
+	  finalx = p.x + (p.tilex * 112);
+	  finaly = p.y + (p.tiley * 150);
+	  if (finalx < 0 || finalx > 1680 || finaly < 0 || finaly > 1050)
+	    (*it).setDestroy();
+	  (*it).setPos(p);
+	  data->addUint32(finalx);
+	  data->addUint32(finaly);
+	  ++it;
+	}
+      it = this->_bullets.begin();
+      while (it != this->_bullets.end())
+	{
+	  if (it->getDestroy() == true)
+	    {
+	      this->_bullets.erase(it);
+	      it = this->_bullets.begin();
+	    }
+	  ++it;
+	}
+      sendToAllClient(data, MOVEMENT, UPDATEBULLET);
     }
-  sendToAllClient(data, MOVEMENT, UPDATEBULLET);
 }
 
 
@@ -377,28 +420,6 @@ AObject		*Game::getEntitiesbyName(const std::string& name)
   return (NULL);
 }
 
-void	Game::fireBullet(GameParam& par)
-{
-  Entities	*ent;
-  eGroup	g;
-  Position	p;
-  PacketData *data = new PacketData;
-  int		finalx;
-  int		finaly;
-
-  if ((ent = reinterpret_cast<Entities *>
-       (getEntitiesbyName(par.paDa->getNextString()))) == NULL)
-    return ; // error
-  g = ent->getGroup();
-  p = ent->getPos();
-  this->_bullets.push_front(Bullet(p, g));
-
-  finalx = p.x + (p.tilex * 112);
-  finaly = p.y + (p.tiley * 150);
-  data->addUint32(finalx);
-  data->addUint32(finaly);
-  sendToAllClient(data, MOVEMENT, UPDATEBULLET);
-}
 
 bool Game::addUser(User *user, bool root, bool , std::string const &login)
 {
