@@ -244,22 +244,6 @@ void	Game::createNewPlayer(User *us, const std::string& name)
 
 }
 
-void	Game::moveMonster(GameParam& par)
-{
-  std::map<std::string, AObject *>::iterator it = this->_monster.begin();
-
-  while (it != this->_monster.end())
-    {
-      PacketData	*data = new PacketData;
-
-      reinterpret_cast<Monster *>(it->second)->moveNextPos();
-      data->addString(it->first);
-      data->addData<Position>(it->second->getPos());
-      sendToAllClient(data, MOVEMENT, UPDATEENEMY);
-      ++it;
-    }
-}
-
 void	Game::createNewMonster(GameParam&)
 {
   AObject *truc;
@@ -278,6 +262,33 @@ void	Game::createNewMonster(GameParam&)
       ++i;
     }
 
+}
+void	Game::moveMonster(GameParam& par)
+{
+  std::map<std::string, AObject *>::iterator it = this->_monster.begin();
+  Position p;
+  PacketData	*data = new PacketData;    
+  int		finalx;
+  int		finaly;
+
+  if (this->_monster.size() > 0)
+    {
+      data->addUint32(this->_monster.size());
+      while (it != this->_monster.end())
+	{
+	  reinterpret_cast<Monster *>(it->second)->moveNextPos();
+	  p = it->second->getPos();
+	  verifPos(p);
+	  it->second->setPos(p);
+	  data->addString(it->first);
+	  finalx = p.x + (p.tilex * 112);
+	  finaly = p.y + (p.tiley * 150);
+	  data->addUint32(finalx);
+	  data->addUint32(finaly);
+	  ++it;
+	}
+      sendToAllClient(data, MOVEMENT, UPDATEENEMY);
+    }
 }
 
 const std::string& Game::getPlayerByIp(const std::string& ip)
