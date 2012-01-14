@@ -448,3 +448,8 @@ LibGraphic::eBulletType LibGraphic::Sfml::getLastBullet(void) const
 {
   return this->_graphicState->getLastBullet();
 }
+
+std::list<LibGraphic::BulletMovement *> &LibGraphic::Sfml::getBulletList(void)
+{
+  return this->_graphicState->getBulletList();
+}

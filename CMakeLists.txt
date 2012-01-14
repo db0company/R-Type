@@ -46,6 +46,7 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/SFML-1.6/lib/vc2008/)
 
 add_executable(
 	client
+	./src/client/BulletMovement.cpp
 	./src/client/StateInGame.cpp
 	./src/client/main.cpp
 	./src/client/Client.cpp
@@ -73,6 +74,9 @@ add_executable(
 	./src/client/Button.cpp
 	./src/server/RecupMap.cpp
 	./src/client/AnnimTest.cpp
+	./src/client/AnnimBigExplosion.cpp
+	./src/client/AnnimCircleExplosion.cpp
+	./src/client/AnnimLittleExplosion.cpp
 	./src/server/Position.cpp
 	./src/client/PlayerMovement.cpp
 )
@@ -117,6 +121,7 @@ find_package(SFML 1.6 REQUIRED system window graphics network audio)
 
 add_executable(
 	client
+	./src/client/BulletMovement.cpp
 	./src/client/StateInGame.cpp
 	./src/client/main.cpp
 	./src/client/Client.cpp
@@ -144,6 +149,9 @@ add_executable(
 	./src/client/Button.cpp
 	./src/server/RecupMap.cpp
 	./src/client/AnnimTest.cpp
+	./src/client/AnnimBigExplosion.cpp
+	./src/client/AnnimCircleExplosion.cpp
+	./src/client/AnnimLittleExplosion.cpp
 	./src/server/Position.cpp
 	./src/client/PlayerMovement.cpp
 )

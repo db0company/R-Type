@@ -7,6 +7,9 @@
 #include "Sfml.hpp"
 #include "Istate.hpp"
 #include "AnnimTest.hpp"
+#include "AnnimBigExplosion.hpp"
+#include "AnnimCircleExplosion.hpp"
+#include "AnnimLittleExplosion.hpp"
 
 namespace LibGraphic
 {
@@ -82,7 +85,8 @@ namespace LibGraphic
     std::string _previewSelected;
     bool _isDefaultMap;
 
-    AnnimTest * test;
+    //    AnnimTest * test;
+    AnnimLittleExplosion * test;
   };
 
 }

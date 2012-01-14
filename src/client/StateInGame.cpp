@@ -55,7 +55,6 @@ void LibGraphic::StateInGame::drawStarField()
   sf::Sprite &front2 = this->getSprite("SecondField" + this->_gameLvl);
   float time = this->Clock.GetElapsedTime();
   float timefront = this->_frontClock.GetElapsedTime();
-  static int i = 0;
 
   if (time < 0.05)
     {
@@ -140,12 +139,28 @@ void LibGraphic::StateInGame::drawMap()
     }
 }
 
+void LibGraphic::StateInGame::drawBullet()
+{
+  std::list<BulletMovement *>::iterator it;
+
+  for (it = this->_bulletList.begin(); it != this->_bulletList.end(); ++it)
+    {
+      (*it)->draw();
+    }
+}
+
 void LibGraphic::StateInGame::draw()
 {
   this->drawStarField();
   this->drawMap();
   this->drawText();
   this->drawPlayers();
+  this->drawBullet();
+  this->drawMonsters();
+}
+
+void LibGraphic::StateInGame::drawMonsters()
+{
 }
 
 void LibGraphic::StateInGame::drawPlayers()
@@ -301,4 +316,9 @@ void LibGraphic::StateInGame::setMyPosition(Coord c)
 LibGraphic::eBulletType LibGraphic::StateInGame::getLastBullet() const
 {
   return this->_player->getLastBullet();
+}
+
+std::list<LibGraphic::BulletMovement *> &LibGraphic::StateInGame::getBulletList(void)
+{
+  return (this->_bulletList);
 }

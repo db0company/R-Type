@@ -12,6 +12,7 @@
 #include "InfoGame.hpp"
 #include "RecupMap.hpp"
 #include "SpriteInfo.hpp"
+#include "BulletMovement.hpp"
 //#include "ClientNetwork.hpp"
 
 #define WINDOWNAME "R-Type"
@@ -68,6 +69,7 @@ namespace LibGraphic
     std::map<int, InfoGame *> &getInfoGameMap(void) const;
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
     std::list<std::string> &getPlayerNameList(void);
+    std::list<BulletMovement *> &getBulletList(void);
     eMovement getLastMove(void) const;
 
     eBulletType getLastBullet(void) const;

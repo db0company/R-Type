@@ -275,7 +275,7 @@ bool Server::run(void)
 {
   this->_time->resetTime();
   int	s = 0;
-  int	us = 80000;
+  int	us = 50000;
 
   while (true)
     {
@@ -293,7 +293,7 @@ bool Server::run(void)
 	{
 	  // std::cout << "Time to Update All" << std::endl;
 	  s = 0;
-	  us = 80000;
+	  us = 50000;
 	  this->_gameManager.updateAll(*this);
 	}
       this->getNewClient();
