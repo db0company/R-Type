@@ -108,10 +108,10 @@ void		GameManager::updateAll(Server& serv)
   it = this->_gameMap.begin();
   while (it != this->_gameMap.end())
     {
-		if (it->second->nbBullet() > 0 && it->second->getStatus() == INGAME)
+      if (it->second->getStatus() == INGAME && it->second->nbBullet() > 0)
 		{
-		std::cout << "je creer un packet" << std::endl;
-		pt= new PacketTask(&Game::moveBullet, d, it->second, NULL);
+			std::cout << "je creer le packet update " << std::endl;
+		pt = new PacketTask(&Game::moveBullet, d, it->second, NULL);
 		serv.getTaskQueue().push(pt);
 		serv.getCondVar()->signal();
 		}

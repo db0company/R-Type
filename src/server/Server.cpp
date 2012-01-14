@@ -276,25 +276,24 @@ bool Server::run(void)
 {
   this->_time->resetTime();
   int	s = 0;
-  int	us = 90000;
+  int	us = 50;
 
+  this->_time->initWait(s, us);
   while (true)
     {
       this->resetClientWrite();
       this->_listener->SNAddRead();
-      this->_selector->setTimer(2, us);
+      this->_selector->setTimer(0, 0);
       if (!this->_selector->SNSelect())
 	{
 	  std::cerr << "Error: Select" << std::endl;
 	  exit(EXIT_FAILURE);
 	}
-      s = this->_selector->getSec();
-      us = this->_selector->getUsec();
-      if (s == 0 && us == 0)
+	  if (this->_time->isTimeOut() == true)
 	{
-	  // std::cout << "Time to Update All" << std::endl;
-	  s = 0;
-	  us = 90000;
+	   std::cout << "Time to Update All" << std::endl;
+	  this->_time->resetTime();
+	  this->_time->initWait(s, us);
 	  this->_gameManager.updateAll(*this);
 	}
       this->getNewClient();
