@@ -8,16 +8,21 @@
 # include "MutexUnix.hpp"
 # include "CondVarUnix.hpp"
 # include "TimerUnix.hpp"
+# include "DirectoryManagerUnix.hpp"
+# include "ExtensionSo.hpp"
 #else
 # include "TCPServerSocketWindows.h"
 # include "UDPServerSocketWindows.h"
 # include "CondVarWindows.hpp"
 # include "TimerWindows.hpp"
+# include "DirectoryManagerWindows.hpp"
+# include "ExtensionDll.hpp"
 #endif
 
 Server::Server(void) :
   _taskNet(), _taskManager(_taskNet), _threadPool(POOL_NBTHREAD)
 {
+  this->_dlLoader = DlLoader::getInstance();
 #ifndef _WIN32
   this->_udpMutex = new MutexUnix;
   this->_selector = new Selector<int>;
@@ -25,6 +30,8 @@ Server::Server(void) :
   this->_listener = new TCPServerSocketUnix(this->_selector);
   this->_condVar = new CondVarUnix;
   this->_time = new TimerUnix;
+  this->_dirMan = new DirectoryManagerUnix;
+  this->_dlLoader->openDllFromDirectory<ExtensionSo>("bin", this->_dirMan);
 #else
   this->_udpMutex = new MutexWindows;
   this->_selector = new Selector<SOCKET>;
@@ -32,7 +39,10 @@ Server::Server(void) :
   this->_listener = new TCPServerSocketWindows(this->_selector);
   this->_condVar = new CondVarWindows;
   this->_time = new TimerWindows;
+  this->_dirMan = new DirectoryManagerWindows;
+  this->_dlLoader->openDllFromDirectory<ExtensionDll>("bin\Release", this->_dirMan);
 #endif
+
   this->_taskNet.init(this->_udp, this->_udpMutex);
   IThreadData *threadData = new ThreadData<PacketTask *>(this->_taskQueue, this->_condVar);
   this->_threadPool.init(threadData); // thread data todo

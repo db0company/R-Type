@@ -23,14 +23,11 @@ template <typename T>
 void	DlLoader::openDll(std::string const& name)
 {
   T ext;
+  std::cout << "its time to open " << name << std::endl;
+
   ext.openExt(name);
   if (mapDll.find(name) != mapDll.end())
-    {
-      CustomError	err("DlLoaderError: could not open " + name);
-
-      throw (err);
-    }
-  this->mapDll.insert(std::pair<std::string , Dll>(name , Dll(dynamic_cast<IExtension *>(new T(ext)), name)));
+    this->mapDll.insert(std::pair<std::string , Dll>(name , Dll(dynamic_cast<IExtension *>(new T(ext)), name)));
 }
 
 template <typename T>
@@ -40,24 +37,22 @@ void DlLoader::openDllFromDirectory(const std::string &nameDirectory, IDirectory
   size_t i;
 
   dm->openDirectory(replaceDelim(nameDirectory));
-
   nameDll = dm->readNameFile();
-
+  std::cout << "tout va bien" << std::endl;
   while (nameDll != "")
     {
-      if ((i = nameDll.find(EXTENSION)) != std::string::npos && i == nameDll.size() - strlen(EXTENSION))
-	this->openDll<T>(nameDll);
-     nameDll = dm->readNameFile();
+           if ((i = nameDll.find(EXTENSION)) != std::string::npos && i == nameDll.size() - strlen(EXTENSION))
+	     this->openDll<T>(nameDll);
+      nameDll = dm->readNameFile();
     }
 }
 
-Dll& DlLoader::getDll(std::string &name)
+Dll& DlLoader::getDll(const std::string &name)
 {
   CustomError	err("DlLoaderError: " + name + " No such shared library");
   std::map<std::string, Dll>::iterator it;
   std::string	dirfilename;
 
-  (void)dm;
   dirfilename = replaceDelim(name);
   if (this->mapDll.empty())
   {
@@ -91,17 +86,19 @@ DlLoader	*DlLoader::getInstance(void)
   return (DlLoaderInstance);
 }
 
-void		DlLoader::replaceDelim(const std::string& s)
+const std::string		DlLoader::replaceDelim(const std::string& s)
 {
-  size_t	c;
+  unsigned int	c;
   std::string	good = s;
   int		i = 0;
 
-  while ((c = good.find("/"), i) != std::string::npos)
+
+  /*  while ((c = good.find("/"), i) != std::string::npos)
     {
       good.replace(c, 1, DELIM);
       i = c + 1;
-    }
+      }*/
+  return (good);
 }
 
 #ifdef _WIN32

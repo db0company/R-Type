@@ -21,6 +21,7 @@ public:
   template <typename T>
   void openDllFromDirectory(const std::string &nameDirectory, IDirectoryManager *dm);
   void closeDll();
+  const std::string		replaceDelim(const std::string& s);
 };
 
 #endif		/*__DLLOADER_HPP__*/
