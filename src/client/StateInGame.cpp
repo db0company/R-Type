@@ -24,6 +24,7 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_player = new LibGraphic::PlayerMovement(this->_app,
 					      this->getSprite("PlayerShip"));
   this->_lives = 0;
+  this->_mapLoaded = false;
   gpos = 0;
 }
 
@@ -102,10 +103,15 @@ void LibGraphic::StateInGame::drawMap()
   int i;
   float time = this->_mapClock.GetElapsedTime();
 
+  if (this->_mapLoaded == false)
+    {
+      this->_rMap.recupFromFile("ressources/map/"+ this->_gameLvl + ".map");
+      this->_mapLoaded = true;
+    }
+
   if (time < 0.01)
     {
       i = 0;
-      this->_rMap.recupFromFile("ressources/map/"+ this->_gameLvl + ".map");
       while (i < this->_rMap.size())
       	{
       	  test.SetPosition(MapX(i) + gpos, 0);
@@ -123,7 +129,6 @@ void LibGraphic::StateInGame::drawMap()
     {
       i = 0;
       gpos -= 1;
-      this->_rMap.recupFromFile("ressources/map/"+ this->_gameLvl + ".map");
       while (i < this->_rMap.size())
 	{
 	  test.SetPosition(MapX(i) + gpos, 0);
@@ -317,4 +322,5 @@ void LibGraphic::StateInGame::resetInGameState(void)
   this->_lives = 0;
   this->_score = 0;
   gpos = 0;
+  this->_mapLoaded = false;
 }

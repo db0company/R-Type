@@ -70,6 +70,7 @@ namespace LibGraphic
     unsigned int _score;
     std::string _gameName;
     std::string _gameLvl;
+    bool _mapLoaded;
    // monsters
     // players
 

@@ -37,6 +37,11 @@ struct TileStruct
   eTileName up;
   eTileName down;
   TileStruct() {}
+  TileStruct(const TileStruct& old)
+    : up(old.up), down(old.down)
+  {
+
+  }
   TileStruct(const eTileName& u, const eTileName& d)
     : up(u), down(d)
   { }
