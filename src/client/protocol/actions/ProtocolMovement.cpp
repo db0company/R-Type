@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ProtocolMovement.hpp"
 #include "PlayerMovement.hpp"
+#include "BulletMovement.hpp"
 #include "Client.hpp"
 #include "SpriteInfo.hpp"
 
@@ -136,15 +137,24 @@ bool		ProtocolMovement::actionCollision(PacketData &data, Client &c)
   return (false);
 }
 
-bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &)
+bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &c)
 {
   int		i = 0;
   int		nbBull;
+  std::list<LibGraphic::BulletMovement *> &list = c.getGraphic().getBulletList();
 
+  list.clear();
   nbBull = data.getNextUint32();
   while (i != nbBull)
     {
-      std::cout << "BUUUULLLET X " << data.getNextUint32() << " Y " << data.getNextUint32() << std::endl;
+      LibGraphic::BulletMovement *b = new LibGraphic::BulletMovement(c.getGraphic().getWindow(),
+				     c.getGraphic().getSprite("Missile"), LibGraphic::NORMAL_BULLET);
+
+      LibGraphic::Coord coord;
+      coord.x = data.getNextUint32();
+      coord.y = data.getNextUint32();
+      b->setCoord(coord);
+      list.push_front(b);
       ++i;
     }
   return (false);

@@ -360,21 +360,21 @@ void	Game::fireBullet(GameParam& par)
 void	Game::moveBullet(GameParam&)
 {
   Position p;
-  PacketData	*data = new PacketData; 
+  PacketData	*data = new PacketData;
   std::list<Bullet>::iterator it = this->_bullets.begin();
   int		finalx;
   int		finaly;
 
   if (this->_bullets.size() > 0)
     {
-      data->addUint32(this->_bullets.size());  
+      data->addUint32(this->_bullets.size());
       while (it != this->_bullets.end())
 	{
-	  p = (*it).getPos(); 
+	  p = (*it).getPos();
 	  if ((*it).getGroup() == ENNEMY)
-	    p.x -= 4;
+	    p.x -= 14;
 	  else
-	    p.x += 4;
+	    p.x += 14;
 	  verifPos(p);
 	  finalx = p.x + (p.tilex * 112);
 	  finaly = p.y + (p.tiley * 150);
