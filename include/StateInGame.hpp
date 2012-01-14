@@ -75,14 +75,10 @@ namespace LibGraphic
     unsigned int _score;
     std::string _gameName;
     std::string _gameLvl;
-<<<<<<< HEAD
     bool _mapLoaded;
    // monsters
     // players
-=======
     // monsters
->>>>>>> cbd02b2b5f0089e7bd63620f42d9a90839944b1e
-
     eShipColor _myid;
     std::list<BulletMovement *>	_bulletList;
     std::map<int, PlayerMovement *> _playerMap;
