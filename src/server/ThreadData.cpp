@@ -25,7 +25,7 @@ void ThreadData<T>::ExecParam()
     {
       if (this->QueueTask.empty() == false)
 	{
-	  //	  std::cout << "time to exec task" << std::endl;
+	  std::cout << "time to exec task" << std::endl;
 	  T task = NULL;
 	  task = this->QueueTask.tryPop();
 	  if (task != NULL)
@@ -33,7 +33,7 @@ void ThreadData<T>::ExecParam()
 	}
       else
 	{
-	  //	   std::cout << "jattend" << std::endl;
+	  std::cout << "jattend" << std::endl;
 	  this->condVar->wait();
 	}
     }

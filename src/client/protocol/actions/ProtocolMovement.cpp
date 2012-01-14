@@ -138,7 +138,15 @@ bool		ProtocolMovement::actionCollision(PacketData &data, Client &c)
 
 bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &)
 {
-  (void)data;
+  int		i = 0;
+  int		nbBull;
+
+  nbBull = data.getNextUint32();
+  while (i != nbBull)
+    {
+      std::cout << "BUUUULLLET X " << data.getNextUint32() << " Y " << data.getNextUint32() << std::endl;
+      ++i;
+    }
   return (false);
 }
 

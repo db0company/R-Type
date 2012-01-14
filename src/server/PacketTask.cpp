@@ -66,7 +66,7 @@ void	PacketTask::launchTask(ICondVar *)
   if (this->netFunc == NULL && this->gameFunc != NULL && this->game != NULL)
     {
       ScopedLock	sc(this->game->getMutex());
-      // std::cout << "#######jai locker " << std::endl;
+
       (this->game->*gameFunc)(gp);
     }
   // else if (this->gameFunc == NULL && this->netFunc != NULL && this->network != NULL)
