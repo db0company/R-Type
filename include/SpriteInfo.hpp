@@ -4,13 +4,13 @@
 
 //    explosions      //
 
-#define BIB_EXPLOSION_X 64
-#define BIG_EXPLOSION_Y 66
+#define BIG_EXPLOSION_X 65
+#define BIG_EXPLOSION_Y 67
 #define BIG_EXPLOSION_SIZE 5 // 0 a 4
 	// BigExplosion.png
 
-#define CIRCLE_EXPLOSION_X 32
-#define CIRCLE_EXPLOSION_Y 31
+#define CIRCLE_EXPLOSION_X 33
+#define CIRCLE_EXPLOSION_Y 32
 #define CIRCLE_EXPLOSION_SIZE 6 // 0 a 5
 	// CircleExplosion.png
 

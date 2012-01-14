@@ -22,7 +22,8 @@ LibGraphic::StateCreateGame::StateCreateGame(std::map<std::string const, Graphic
   this->_isDefaultMap = true;
   this->_previewSelected = "Star";
 
-  test = new AnnimTest(this->_app, this->getSprite("test"));
+  //  test = new AnnimTest(this->_app, this->getSprite("test"));
+  test = new AnnimLittleExplosion(this->_app, this->getSprite("LittleExplosion"));
 }
 
 LibGraphic::StateCreateGame::~StateCreateGame()

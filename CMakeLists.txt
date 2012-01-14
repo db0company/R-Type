@@ -74,6 +74,9 @@ add_executable(
 	./src/client/Button.cpp
 	./src/server/RecupMap.cpp
 	./src/client/AnnimTest.cpp
+	./src/client/AnnimBigExplosion.cpp
+	./src/client/AnnimCircleExplosion.cpp
+	./src/client/AnnimLittleExplosion.cpp
 	./src/server/Position.cpp
 	./src/client/PlayerMovement.cpp
 )
@@ -146,6 +149,9 @@ add_executable(
 	./src/client/Button.cpp
 	./src/server/RecupMap.cpp
 	./src/client/AnnimTest.cpp
+	./src/client/AnnimBigExplosion.cpp
+	./src/client/AnnimCircleExplosion.cpp
+	./src/client/AnnimLittleExplosion.cpp
 	./src/server/Position.cpp
 	./src/client/PlayerMovement.cpp
 )

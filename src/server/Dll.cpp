@@ -5,6 +5,7 @@
 #include "Dll.hpp"
 #include "IExtension.hpp"
 #include "OS.hpp"
+#include "AObject.hpp"
 
 Dll::Dll(IExtension *handl, const std::string &nameLib)
 {
@@ -60,3 +61,4 @@ void Dll::closeDll()
   this->dll->close();
 }
 
+template IObject	*Dll::getSymbol(std::string const & nameFunc) const;

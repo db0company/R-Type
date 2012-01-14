@@ -4,6 +4,7 @@ Bullet::Bullet(Position p, eGroup g)
 {
   this->pos = p;
   this->group = g;
+  this->toDestroy = false;
 }
 
 Bullet::~Bullet()
@@ -24,4 +25,14 @@ void	Bullet::setPos(const Position& p)
 eGroup	Bullet::getGroup()const
 {
   return (this->group);
+}
+
+void	Bullet::setDestroy()
+{
+  this->toDestroy = true;
+}
+
+bool	Bullet::getDestroy()
+{
+  return (this->toDestroy);
 }
