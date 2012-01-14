@@ -7,7 +7,7 @@
 namespace LibGraphic
 {
 
-  class StateStart : public IState
+  class StateStart : public AState
   {
   private:
     enum eSelectedButton
@@ -33,22 +33,11 @@ namespace LibGraphic
 
   public:
     void setNextState(eState d);
-    sf::Sprite & getSprite(std::string const &) const;
-    MyMusic * getMusic(std::string const &) const;
-    sf::Font * getFont(std::string const &) const;
-   inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
   private:
     void drawText();
     void cursorMenuPos(const sf::Event &);
 
-  private:
-    std::map<std::string const, GraphicRessource *>
-    const & _ressourcesSprite;
-    std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
-    std::map<std::string const, MySound *> const & _ressourcesSounds;
-    std::map<std::string const, sf::Font *> const & _ressourcesFont;
-    sf::RenderWindow & _app;
   private:
     eSelectedButton _currentButton;
     sf::Clock Clock;

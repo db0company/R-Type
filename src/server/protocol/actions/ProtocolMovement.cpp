@@ -80,15 +80,15 @@ bool		ProtocolMovement::actionNewBullet(PacketData &data, User *us, Server &serv
 
   if (!us->isSafe())
     {
-      std::cout << "titi" << std::endl;
+      // std::cout << "titi" << std::endl;
       return (false);
     }
   // tmp = serv.getGameByUser(us);
   tmp = us->getGame();
-  std::cout << "new packet" << std::endl;
+  // std::cout << "new packet" << std::endl;
   if (tmp != NULL && tmp->getStatus() != ENDED)
     {
-      std::cout << "ITS WOORRK" << std::endl;
+      // std::cout << "ITS WOORRK" << std::endl;
       pt = new PacketTask(&Game::fireBullet, newPack, tmp, us);
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();

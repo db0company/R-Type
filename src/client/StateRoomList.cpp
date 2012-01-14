@@ -22,9 +22,7 @@ LibGraphic::StateRoomList::StateRoomList(std::map<std::string const, GraphicRess
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
 						   std::map<std::string const, sf::Font *> const & ressourcesFont,
 						   sf::RenderWindow & app):
-  _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
-  _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app)
+  AState(ressourcesSprite, ressourcesPlayList, ressourcesSounds, ressourcesFont, app)
 {
   this->_currentButton = BUTTON_ROOMLIST_GAME;
   this->_nextState = UNKNOWN_STATE;
@@ -607,26 +605,6 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
     default : break;
     }
   this->Clock.Reset();
-}
-
-sf::Sprite & LibGraphic::StateRoomList::getSprite(std::string const & spriteName) const
-{
-  return ((*this->_ressourcesSprite.find(spriteName)).second->_sprite);
-}
-
-LibGraphic::MyMusic * LibGraphic::StateRoomList::getMusic(std::string const & musicName) const
-{
-  return ((*this->_ressourcesPlayList.find(musicName)).second);
-}
-
-sf::Font * LibGraphic::StateRoomList::getFont(std::string const & fontName) const
-{
-  return ((*this->_ressourcesFont.find(fontName)).second);
-}
-
-inline sf::String * LibGraphic::StateRoomList::getStdToSfString(std::string const & s, sf::Font * daFont)
-{
-  return (new sf::String(s, *daFont));
 }
 
 std::map<int, InfoGame *> &LibGraphic::StateRoomList::getInfoGameMap(void)

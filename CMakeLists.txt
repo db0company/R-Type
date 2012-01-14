@@ -66,7 +66,6 @@ add_executable(
 	./src/client/StateStart.cpp
 	./src/client/StateOptions.cpp
 	./src/client/StateCreateGame.cpp
-	./src/client/StateGameParameters.cpp
 	./src/client/StateRoomList.cpp
 	./src/client/StateRoom.cpp
 	./src/client/Sfml.cpp
@@ -141,7 +140,6 @@ add_executable(
 	./src/client/StateStart.cpp
 	./src/client/StateOptions.cpp
 	./src/client/StateCreateGame.cpp
-	./src/client/StateGameParameters.cpp
 	./src/client/StateRoomList.cpp
 	./src/client/StateRoom.cpp
 	./src/client/Sfml.cpp

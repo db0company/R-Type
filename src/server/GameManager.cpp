@@ -95,16 +95,16 @@ void		GameManager::updateAll(Server& serv)
   std::map<int, Game *>::iterator it = this->_gameMap.begin();
   PacketTask *pt;
   PacketData *d = new PacketData;
-  /*
+
   // std::cout << "time to up all" << std::endl;
-  while (it != this->_gameMap.end())
-  {
-  // std::cout << "1 ";
-  pt = new PacketTask(&Game::moveMonster, d, it->second, NULL);
-  serv.getTaskQueue().push(pt);
-  serv.getCondVar()->signal();
-  ++it;
-  }*/
+  // while (it != this->_gameMap.end())
+  //   {
+  //     // std::cout << "1 ";
+  //     pt = new PacketTask(&Game::moveMonster, d, it->second, NULL);
+  //     serv.getTaskQueue().push(pt);
+  //     serv.getCondVar()->signal();
+  //     ++it;
+  //   }
   // std::cout << std::endl;
   it = this->_gameMap.begin();
   while (it != this->_gameMap.end())
@@ -115,7 +115,7 @@ void		GameManager::updateAll(Server& serv)
 	  serv.getTaskQueue().push(pt);
 	  serv.getCondVar()->signal();
 	}
-	  ++it;
+      ++it;
     }
   /*  it = this->_gameMap.begin();
       while (it != this->_gameMap.end())

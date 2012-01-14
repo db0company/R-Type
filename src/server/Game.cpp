@@ -93,14 +93,14 @@ void	Game::sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc
   ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, data);
   std::map<std::string , User *>::iterator it2 = this->_userMap.begin();
 
-  std::cout << "debut 1" << std::endl;
+  // std::cout << "debut 1" << std::endl;
   for (; it2 != _userMap.end(); ++it2)
     {
-      std::cout << "jai " << it2->second->getIp() << std::endl;
+      // std::cout << "jai " << it2->second->getIp() << std::endl;
       if (it2->second->isSafe())
 	it2->second->addPacketToSend(packet_to_send);
     }
-  std::cout << "fin 1" << std::endl;
+  // std::cout << "fin 1" << std::endl;
 }
 
 void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player)
@@ -176,7 +176,7 @@ void	Game::changePlayerPos(GameParam& par)
   newPos = it->second->getPos();
   direction.x = par.paDa->getNextChar();
   direction.y = par.paDa->getNextChar();
-  std::cout << " je bouge " << ret << " de " << direction.x << " " << direction.y << std::endl;
+  // std::cout << " je bouge " << ret << " de " << direction.x << " " << direction.y << std::endl;
 
   if (direction.x == -1)
     newPos.x -= 8;
@@ -220,7 +220,7 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   Position	pos;
 
   newPlayer->setId(this->_idPlayers);
-  std::cout << "my new friend is " << name << " with ip "<< us->getIp() << std::endl;
+  // std::cout << "my new friend is " << name << " with ip "<< us->getIp() << std::endl;
   pos.x = 400;
   pos.y = 400;// + (70 * newPlayer->getId());
   verifPos(pos);
@@ -230,22 +230,6 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   this->_idPlayers++;
   this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
 
-}
-
-void	Game::moveMonster(GameParam& par)
-{
-  std::map<std::string, AObject *>::iterator it = this->_monster.begin();
-
-  while (it != this->_monster.end())
-    {
-      PacketData	*data = new PacketData;
-
-      reinterpret_cast<Monster *>(it->second)->moveNextPos();
-      data->addString(it->first);
-      data->addData<Position>(it->second->getPos());
-      sendToAllClient(data, MOVEMENT, UPDATEENEMY);
-      ++it;
-    }
 }
 
 void	Game::createNewMonster(GameParam&)
@@ -266,6 +250,33 @@ void	Game::createNewMonster(GameParam&)
       ++i;
     }
 
+}
+void	Game::moveMonster(GameParam& par)
+{
+  std::map<std::string, AObject *>::iterator it = this->_monster.begin();
+  Position p;
+  PacketData	*data = new PacketData;
+  int		finalx;
+  int		finaly;
+
+  if (this->_monster.size() > 0)
+    {
+      data->addUint32(this->_monster.size());
+      while (it != this->_monster.end())
+	{
+	  reinterpret_cast<Monster *>(it->second)->moveNextPos();
+	  p = it->second->getPos();
+	  verifPos(p);
+	  it->second->setPos(p);
+	  data->addString(it->first);
+	  finalx = p.x + (p.tilex * 112);
+	  finaly = p.y + (p.tiley * 150);
+	  data->addUint32(finalx);
+	  data->addUint32(finaly);
+	  ++it;
+	}
+      sendToAllClient(data, MOVEMENT, UPDATEENEMY);
+    }
 }
 
 const std::string& Game::getPlayerByIp(const std::string& ip)
@@ -330,12 +341,15 @@ void	Game::fireBullet(GameParam& par)
   int		finalx;
   int		finaly;
 
-  std::cout << "jenvoi bullet " << std::endl;
+  // std::cout << "jenvoi bullet " << std::endl;
   if ((ent = reinterpret_cast<Entities *>
        (getEntitiesbyName(par.paDa->getNextString()))) == NULL)
     return ; // error
   g = ent->getGroup();
   p = ent->getPos();
+  p.x += 30;
+  p.y += 20;
+  verifPos(p);
   this->_bullets.push_front(Bullet(p, g));
 
   finalx = p.x + (p.tilex * 112);

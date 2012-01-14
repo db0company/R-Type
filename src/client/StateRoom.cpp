@@ -11,9 +11,8 @@ LibGraphic::StateRoom::StateRoom(std::map<std::string const, GraphicRessource *>
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
 						   std::map<std::string const, sf::Font *> const & ressourcesFont,
 						   sf::RenderWindow & app):
-  _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
-  _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app), _chat(""), _conversation(""), _game(NULL)
+  AState(ressourcesSprite, ressourcesPlayList, ressourcesSounds, ressourcesFont, app),
+  _chat(""), _conversation(""), _game(NULL)
 {
   this->_currentButton = BUTTON_ROOM_CHAT;
   this->_nextState = UNKNOWN_STATE;
@@ -311,26 +310,6 @@ void LibGraphic::StateRoom::cursorMenuPos(const sf::Event & Event)
     default : break;
     }
   this->Clock.Reset();
-}
-
-sf::Sprite & LibGraphic::StateRoom::getSprite(std::string const & spriteName) const
-{
-  return ((*this->_ressourcesSprite.find(spriteName)).second->_sprite);
-}
-
-LibGraphic::MyMusic * LibGraphic::StateRoom::getMusic(std::string const & musicName) const
-{
-  return ((*this->_ressourcesPlayList.find(musicName)).second);
-}
-
-sf::Font * LibGraphic::StateRoom::getFont(std::string const & fontName) const
-{
-  return ((*this->_ressourcesFont.find(fontName)).second);
-}
-
-inline sf::String * LibGraphic::StateRoom::getStdToSfString(std::string const & s, sf::Font * daFont)
-{
-  return (new sf::String(s, *daFont));
 }
 
 std::string const & LibGraphic::StateRoom::getMessage() const

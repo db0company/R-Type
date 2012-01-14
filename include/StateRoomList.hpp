@@ -9,7 +9,7 @@
 namespace LibGraphic
 {
 
-  class StateRoomList : public IState
+  class StateRoomList : public AState
   {
 
   private:
@@ -37,10 +37,6 @@ namespace LibGraphic
 
   public:
     void setNextState(eState d);
-    sf::Sprite & getSprite(std::string const &) const;
-    MyMusic * getMusic(std::string const &) const;
-    sf::Font * getFont(std::string const &) const;
-    inline sf::String * getStdToSfString(std::string const &, sf::Font *);
     std::map<int, InfoGame *> &getInfoGameMap(void);
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
     int getIdGame() const;
@@ -52,13 +48,6 @@ namespace LibGraphic
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
     void drawSelectedMap(void);
-  private:
-    std::map<std::string const, GraphicRessource *>
-    const & _ressourcesSprite;
-    std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
-    std::map<std::string const, MySound *> const & _ressourcesSounds;
-    std::map<std::string const, sf::Font *> const & _ressourcesFont;
-    sf::RenderWindow & _app;
 
   private:
     std::map<int, InfoGame *> _infoGameMap;

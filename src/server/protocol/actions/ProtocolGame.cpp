@@ -171,7 +171,6 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
   game->setPlayerMax(player_max);
   game->setObs(observer);
   game->addUser(user, true, false, name);
-  std::cout << "my fucking name is " << name << " i fuking created the game" << std::endl;
   server.getGameManager().addGame(game);
   to_send->addChar(1);
   packet_to_send = PacketFactory::createPacket(THE_GAME, static_cast<ushort>(CREATEGAME), to_send);

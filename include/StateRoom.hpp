@@ -7,7 +7,7 @@
 namespace LibGraphic
 {
 
-  class StateRoom : public IState
+  class StateRoom : public AState
   {
 
   private:
@@ -31,10 +31,6 @@ namespace LibGraphic
     virtual eStates getNextState();
 
   public:
-    sf::Sprite & getSprite(std::string const &) const;
-    MyMusic * getMusic(std::string const &) const;
-    sf::Font * getFont(std::string const &) const;
-    inline sf::String * getStdToSfString(std::string const &, sf::Font *);
     void setMessage(std::string const &s);
     std::string const & getMessage() const;
     std::string const & getConversation() const;
@@ -51,15 +47,6 @@ namespace LibGraphic
     void drawInputButton();
     void drawSelectedMap(void);
     void drawPlayerList(void);
-  public:
-
-  private:
-    std::map<std::string const, GraphicRessource *>
-    const & _ressourcesSprite;
-    std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
-    std::map<std::string const, MySound *> const & _ressourcesSounds;
-    std::map<std::string const, sf::Font *> const & _ressourcesFont;
-    sf::RenderWindow & _app;
 
   private:
     eStates _nextState;

@@ -17,18 +17,18 @@
 
 using namespace LibGraphic;
 
-static IState const* getValue(std::map<eStates, IState*> const& m, eStates const& key)
+static AState const* getValue(std::map<eStates, AState*> const& m, eStates const& key)
 {
-  std::map<eStates, IState*>::const_iterator it;
+  std::map<eStates, AState*>::const_iterator it;
   it = m.find(key);
   if (it == m.end())
     return 0;
   return it->second;
 }
 
-static IState * getValue(std::map<eStates, IState*> & m, eStates const& key)
+static AState * getValue(std::map<eStates, AState*> & m, eStates const& key)
 {
-  std::map<eStates, IState*>::iterator it;
+  std::map<eStates, AState*>::iterator it;
   it = m.find(key);
   if (it == m.end())
     return 0;

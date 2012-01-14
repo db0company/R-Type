@@ -11,9 +11,8 @@ LibGraphic::StateOptions::StateOptions(std::map<std::string const, GraphicRessou
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
 						   std::map<std::string const, sf::Font *> const & ressourcesFont,
 						   sf::RenderWindow & app):
-  _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
-  _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app)
+  AState(ressourcesSprite, ressourcesPlayList, ressourcesSounds,
+	 ressourcesFont, app)
 {
   this->_currentButton = BUTTON_OPTIONS_NAME;
   this->_nextState = UNKNOWN_STATE;
@@ -24,8 +23,6 @@ LibGraphic::StateOptions::StateOptions(std::map<std::string const, GraphicRessou
     this->_name = "Joueur";
   this->_ip = "127.0.0.1";
   this->_port = "12348";
-  // this->_ip = "xxx.xxx.xxx.xxx";
-  // this->_port = "xxxxx";
   this->_isDefaultName = true;
   this->_isDefaultIp = true;
   this->_isDefaultPort = true;
@@ -501,26 +498,6 @@ void LibGraphic::StateOptions::cursorMenuPos(const sf::Event & Event)
     default : break;
     }
   this->Clock.Reset();
-}
-
-sf::Sprite & LibGraphic::StateOptions::getSprite(std::string const & spriteName) const
-{
-  return ((*this->_ressourcesSprite.find(spriteName)).second->_sprite);
-}
-
-LibGraphic::MyMusic * LibGraphic::StateOptions::getMusic(std::string const & musicName) const
-{
-  return ((*this->_ressourcesPlayList.find(musicName)).second);
-}
-
-sf::Font * LibGraphic::StateOptions::getFont(std::string const & fontName) const
-{
-  return ((*this->_ressourcesFont.find(fontName)).second);
-}
-
-inline sf::String * LibGraphic::StateOptions::getStdToSfString(std::string const & s, sf::Font * daFont)
-{
-  return (new sf::String(s, *daFont));
 }
 
 std::string const & LibGraphic::StateOptions::getName() const
