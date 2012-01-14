@@ -46,6 +46,7 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/SFML-1.6/lib/vc2008/)
 
 add_executable(
 	client
+	./src/client/AMonsterMovement.cpp
 	./src/client/BulletMovement.cpp
 	./src/client/StateInGame.cpp
 	./src/client/main.cpp
@@ -68,6 +69,7 @@ add_executable(
 	./src/client/StateCreateGame.cpp
 	./src/client/StateRoomList.cpp
 	./src/client/StateRoom.cpp
+	./src/client/RedEvil.cpp
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
 	./src/client/Button.cpp
@@ -120,6 +122,7 @@ find_package(SFML 1.6 REQUIRED system window graphics network audio)
 
 add_executable(
 	client
+	./src/client/AMonsterMovement.cpp
 	./src/client/BulletMovement.cpp
 	./src/client/StateInGame.cpp
 	./src/client/main.cpp
@@ -142,6 +145,7 @@ add_executable(
 	./src/client/StateCreateGame.cpp
 	./src/client/StateRoomList.cpp
 	./src/client/StateRoom.cpp
+	./src/client/RedEvil.cpp
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
 	./src/client/Button.cpp

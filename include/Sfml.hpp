@@ -12,6 +12,7 @@
 #include "InfoGame.hpp"
 #include "RecupMap.hpp"
 #include "SpriteInfo.hpp"
+//#include "AMonsterMovement.hpp"
 #include "BulletMovement.hpp"
 //#include "ClientNetwork.hpp"
 
@@ -23,7 +24,7 @@ namespace LibGraphic
 {
 
   class PlayerMovement;
-
+  class AMonsterMovement;
   class	Sfml : public IGraphic
   {
     Sfml(void);
@@ -74,6 +75,7 @@ namespace LibGraphic
 
     eBulletType getLastBullet(void) const;
     std::map<int, PlayerMovement *> const & getPlayerMap() const;
+    std::map<int, AMonsterMovement *> &getMonsterMap();
     std::map<int, PlayerMovement *> & getPlayerMap();
 
     sf::RenderWindow & getWindow();

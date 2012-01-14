@@ -13,6 +13,7 @@
 #include "GraphicClientState.hpp"
 #include "EGraphicAction.hpp"
 #include "PlayerMovement.hpp"
+#include "AMonsterMovement.hpp"
 #include "SpriteInfo.hpp"
 
 using namespace LibGraphic;
@@ -243,6 +244,11 @@ LibGraphic::eMovement LibGraphic::GraphicClientState::getLastMove() const
 std::map<int, PlayerMovement *> & LibGraphic::GraphicClientState::getPlayerMap()
 {
   return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->getPlayerMap();
+}
+
+std::map<int, AMonsterMovement *> & LibGraphic::GraphicClientState::getMonsterMap()
+{
+  return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->getMonsterMap();
 }
 
 std::list<BulletMovement *> & LibGraphic::GraphicClientState::getBulletList()

@@ -3,7 +3,8 @@
 #include "TileInfo.hpp"
 #include "Language.hpp"
 #include "SpriteInfo.hpp"
-
+#include "AMonsterMovement.hpp"
+#include "RedEvil.hpp"
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 extern bool errorToPrint;
@@ -25,6 +26,10 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
 					      this->getSprite("PlayerShip"));
   this->_lives = 0;
   gpos = 0;
+  // todo delete: begin test
+  // AMonsterMovement *m = new RedEvil(app, this->getSprite("test"));
+  // m->setCoord(10, 10);
+  // this->_monsterMap[0] = m;
 }
 
 LibGraphic::StateInGame::~StateInGame()
@@ -163,6 +168,14 @@ void LibGraphic::StateInGame::draw()
 
 void LibGraphic::StateInGame::drawMonsters()
 {
+  std::map<int, AMonsterMovement *>::iterator it;
+
+  std::cout << "size:" << this->_monsterMap.size() <<  std::endl;
+  for (it = this->_monsterMap.begin(); it != this->_monsterMap.end(); ++it)
+    {
+      std::cout << "un monstre" <<  std::endl;
+      it->second->play();
+    }
 }
 
 void LibGraphic::StateInGame::drawPlayers()
@@ -231,7 +244,7 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
   return EVENT_NONE;
 }
 
-void LibGraphic::StateInGame::readText(const sf::Event & Event)
+void LibGraphic::StateInGame::readText(const sf::Event &)
 {
 }
 
@@ -280,6 +293,16 @@ std::map<int, LibGraphic::PlayerMovement *> & LibGraphic::StateInGame::getPlayer
   return this->_playerMap;
 }
 
+// std::map<int, AMonsterMovement *> const &LibGraphic::StateInGame::getMonsterMap() const
+// {
+//   return this->_monsterMap;
+// }
+
+std::map<int, LibGraphic::AMonsterMovement *> &LibGraphic::StateInGame::getMonsterMap()
+{
+  return this->_monsterMap;
+}
+
 eShipColor LibGraphic::StateInGame::getMyId() const
 {
   return this->_myid;
@@ -317,4 +340,7 @@ void LibGraphic::StateInGame::resetInGameState(void)
   this->_lives = 0;
   this->_score = 0;
   gpos = 0;
+  AMonsterMovement *m = new RedEvil(this->_app, this->getSprite("test"));
+  m->setCoord(10, 10);
+  this->_monsterMap[0] = m;
 }
