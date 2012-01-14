@@ -39,18 +39,16 @@ bool Client::actionConnect(void)
 {
   if (!this->cNetwork.isConnected())
     {
-      std::cout << "jessaye" << std::endl;
       if (!this->cNetwork.connect(this->cGraphic.getIp(),
 				  this->cGraphic.getPort()))
 	{
-	  std::cout << "je fail" << std::endl;
 	  this->cGraphic.errorMessage("Can't connect to Server " +
 				      this->cGraphic.getIp() + "\n");
 	  return (false);
 	}
       else
 	{
-	  std::cout << "je reusssi" << std::endl;
+	  this->cGraphic.resetRoomListState();
 	}
     }
   this->actionRefresh();
@@ -177,6 +175,7 @@ bool Client::gereAction(LibGraphic::Event e)
     case LibGraphic::EVENT_ROOM_QUIT :
       {
 	this->actionQuit();
+	this->cGraphic.resetRoomListState();
 	this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
 	break;
       }

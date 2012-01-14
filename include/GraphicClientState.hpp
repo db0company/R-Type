@@ -34,8 +34,9 @@ namespace LibGraphic
     Event getEventFromState(eStates);
     eStates goToNextState(eStates scene);
 
-    // Getter/Setter pour le reseau
   public:
+    void resetInGameState(void);
+    void resetRoomListState(void);
     std::string const &getGameName(void) const;
     std::string const &getGameLvl(void) const;
     void setGameName(std::string const &);

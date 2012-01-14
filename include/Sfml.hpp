@@ -81,6 +81,8 @@ namespace LibGraphic
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
     void setMyPosition(Coord c);
+    void resetInGameState(void);
+    void resetRoomListState(void);
 
   public:
     void errorMessage(std::string const &);

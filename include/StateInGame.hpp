@@ -43,6 +43,7 @@ namespace LibGraphic
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
     void setMyPosition(Coord c);
+    void resetInGameState();
 
   private:
     void setNextState(eState d);
@@ -59,6 +60,7 @@ namespace LibGraphic
     int MapY(int y);
   private:
 
+    int		gpos;
     RecupMap	_rMap;
     eStates _nextState;
     sf::Clock Clock;

@@ -204,6 +204,7 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &client)
       lvl = data.getNextString();
       client.getGraphic().setGameName(name);
       client.getGraphic().setGameLvl(lvl);
+      client.getGraphic().resetInGameState();
       client.getGraphic().setCurrentState(LibGraphic::INGAME);
     }
   else

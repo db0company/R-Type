@@ -41,7 +41,7 @@ namespace LibGraphic
     void setInfoGameMap(std::map<int, InfoGame *> &nmap);
     int getIdGame() const;
     InfoGame *getGamePreview();
-
+    void resetRoomListState();
   private:
     void drawText();
     void drawGames();

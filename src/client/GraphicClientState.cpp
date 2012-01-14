@@ -269,3 +269,13 @@ LibGraphic::eBulletType LibGraphic::GraphicClientState::getLastBullet(void)const
 {
   return reinterpret_cast <StateInGame const *>(getValue(this->_stateInfos, INGAME))->getLastBullet();
 }
+
+void LibGraphic::GraphicClientState::resetInGameState()
+{
+  reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->resetInGameState();
+}
+
+void LibGraphic::GraphicClientState::resetRoomListState()
+{
+  reinterpret_cast <StateRoomList *>(getValue(this->_stateInfos, ROOMLIST))->resetRoomListState();
+}

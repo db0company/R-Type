@@ -628,3 +628,13 @@ InfoGame *LibGraphic::StateRoomList::getGamePreview()
 {
   return (this->_selectedGame);
 }
+
+void	LibGraphic::StateRoomList::resetRoomListState()
+{
+  this->_currentButton = BUTTON_ROOMLIST_GAME;
+  this->_nextState = UNKNOWN_STATE;
+  this->_deepList = 0;
+  this->_nbGame = 1;
+  this->_selectedGame = NULL;
+  this->_infoGameMap.clear();
+}

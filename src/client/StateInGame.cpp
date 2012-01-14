@@ -23,6 +23,8 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_myid = BLUESHIP;
   this->_player = new LibGraphic::PlayerMovement(this->_app,
 					      this->getSprite("PlayerShip"));
+  this->_lives = 0;
+  gpos = 0;
 }
 
 LibGraphic::StateInGame::~StateInGame()
@@ -95,7 +97,7 @@ void LibGraphic::StateInGame::drawStarField()
 
 void LibGraphic::StateInGame::drawMap()
 {
-  static int gpos = 0;
+  // static int gpos = 0;
   sf::Sprite &test = this->getSprite("SpriteMap");
   int i;
   float time = this->_mapClock.GetElapsedTime();
@@ -300,4 +302,18 @@ LibGraphic::eBulletType LibGraphic::StateInGame::getLastBullet() const
 std::list<LibGraphic::BulletMovement *> &LibGraphic::StateInGame::getBulletList(void)
 {
   return (this->_bulletList);
+}
+
+void LibGraphic::StateInGame::resetInGameState(void)
+{
+  this->_nextState = UNKNOWN_STATE;
+  this->_mapClock.Reset();
+  this->Clock.Reset();
+  this->_frontClock.Reset();
+  this->_myid = BLUESHIP;
+  this->_player = new LibGraphic::PlayerMovement(this->_app,
+					      this->getSprite("PlayerShip"));
+  this->_lives = 0;
+  this->_score = 0;
+  gpos = 0;
 }

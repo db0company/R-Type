@@ -453,3 +453,13 @@ std::list<LibGraphic::BulletMovement *> &LibGraphic::Sfml::getBulletList(void)
 {
   return this->_graphicState->getBulletList();
 }
+
+void LibGraphic::Sfml::resetInGameState(void)
+{
+  this->_graphicState->resetInGameState();
+}
+
+void LibGraphic::Sfml::resetRoomListState(void)
+{
+  this->_graphicState->resetRoomListState();
+}
