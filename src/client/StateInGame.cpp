@@ -148,7 +148,6 @@ void LibGraphic::StateInGame::drawBullet()
     {
       (*it)->draw();
     }
-  std::cout << this->_bulletList.size() << std::endl;
 }
 
 void LibGraphic::StateInGame::draw()
