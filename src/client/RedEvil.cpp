@@ -11,3 +11,27 @@ namespace LibGraphic
   {
   }
 }
+
+namespace LibGraphic
+{
+  MasterShip::MasterShip(sf::RenderWindow &app, sf::Sprite &sprite) :
+    AMonsterMovement(app, sprite, MASTER_SHIP_X, MASTER_SHIP_Y, MASTER_SHIP_NB_SPRITE)
+  {
+  }
+
+  MasterShip::~MasterShip()
+  {
+  }
+}
+
+namespace LibGraphic
+{
+  GreenEyes::GreenEyes(sf::RenderWindow &app, sf::Sprite &sprite) :
+    AMonsterMovement(app, sprite, GREEN_EYES_X, GREEN_EYES_Y, GREEN_EYES_NB_SPRITE)
+  {
+  }
+
+  GreenEyes::~GreenEyes()
+  {
+  }
+}
