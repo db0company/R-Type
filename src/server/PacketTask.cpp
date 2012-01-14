@@ -16,30 +16,30 @@ PacketTask::PacketTask(void (Game::*point)(GameParam&), PacketData* d, Game *g, 
 {
   this->netFunc = NULL;
   this->gameFunc = point;
-  if (this->gameFunc == &Game::changePlayerPos)
-    {
-      std::cout << "&Game::changePlayerPos" << std::endl;
-    }
-  if (this->gameFunc == &Game::moveMonster)
-    {
-      std::cout << "&Game::moveMonster" << std::endl;
-    }
-  if (this->gameFunc == &Game::createNewMonster)
-    {
-      std::cout << "&Game::createNewMonster" << std::endl;
-    }
-  if (this->gameFunc == &Game::checkCollision)
-    {
-      std::cout << "&Game::checkCollision" << std::endl;
-    }
-  if (this->gameFunc == &Game::moveBullet)
-    {
-      std::cout << "&Game::moveBullet" << std::endl;
-    }
-  if (this->gameFunc == &Game::fireBullet)
-    {
-      std::cout << "&Game::fireBullet" << std::endl;
-    }
+  // if (this->gameFunc == &Game::changePlayerPos)
+  //   {
+  //     std::cout << "&Game::changePlayerPos" << std::endl;
+  //   }
+  // if (this->gameFunc == &Game::moveMonster)
+  //   {
+  //     std::cout << "&Game::moveMonster" << std::endl;
+  //   }
+  // if (this->gameFunc == &Game::createNewMonster)
+  //   {
+  //     std::cout << "&Game::createNewMonster" << std::endl;
+  //   }
+  // if (this->gameFunc == &Game::checkCollision)
+  //   {
+  //     std::cout << "&Game::checkCollision" << std::endl;
+  //   }
+  // if (this->gameFunc == &Game::moveBullet)
+  //   {
+  //     std::cout << "&Game::moveBullet" << std::endl;
+  //   }
+  // if (this->gameFunc == &Game::fireBullet)
+  //   {
+  //     std::cout << "&Game::fireBullet" << std::endl;
+  //   }
   this->game = g;
   this->param = d;
   this->us = u;
