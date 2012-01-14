@@ -44,20 +44,20 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *user, Server &serv)
     }
   else
     {
-      // int group = PacketFactory::getPacketGroup(packet);
-      // std::cout << "\033[31mGroup\033[00m(";
-      // if (group == THE_GAME)
-      // 	std::cout << "THE_GAME";
-      // else if (group == GAME_DETAILS)
-      // 	std::cout << "GAME_DETAILS";
-      // else if (group == MOVEMENT)
-      // 	std::cout << "MOVEMENT";
-      // else if (group == LOBBY)
-      // 	std::cout << "LOBBY";
-      // else
-      // 	std::cout << "ERROR@@@";
-      // std::cout << ") \033[32mInst\033[00m(" <<
-	// packet->header.instruction << ")" << std::endl;
+       int group = PacketFactory::getPacketGroup(packet);
+       std::cout << "\033[31mGroup\033[00m(";
+       if (group == THE_GAME)
+       	std::cout << "THE_GAME";
+       else if (group == GAME_DETAILS)
+       	std::cout << "GAME_DETAILS";
+       else if (group == MOVEMENT)
+       	std::cout << "MOVEMENT";
+       else if (group == LOBBY)
+       	std::cout << "LOBBY";
+       else
+       	std::cout << "ERROR@@@";
+       std::cout << ") \033[32mInst\033[00m(" <<
+	 packet->header.instruction << ")" << std::endl;
       // uglyPrinter((char *)packet->data, packet->header.size);
       this->groupaction[PacketFactory::getPacketGroup(packet)]->action
       	(PacketFactory::getPacketInstruction(packet), *textData, user, serv);

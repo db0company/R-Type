@@ -41,7 +41,7 @@ class			PacketData
   uchar			getNextUChar(void);
   short			getNextShort(void);
   ushort		getNextUShort(void);
-  UInt32		getNextUint32(void);
+  unsigned int  getNextUint32(void);
   template <typename T>
   T			getData(void);
 
@@ -52,7 +52,7 @@ class			PacketData
   void			addUChar(uchar);
   void			addShort(short);
   void			addUShort(ushort);
-  void			addUint32(UInt32);
+  void			addUint32(short);
   template <typename T>
   void			addData(T d);
 };

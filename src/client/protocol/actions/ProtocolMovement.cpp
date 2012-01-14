@@ -73,8 +73,8 @@ bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &c)
 
   id = data.getNextChar();
   login = data.getNextString();
-  x = data.getNextUint32();
-  y = data.getNextUint32();
+  x = data.getNextShort();
+  y = data.getNextShort();
 
   if (id < 0 || id > 4)
     {
@@ -118,8 +118,8 @@ bool		ProtocolMovement::actionCollision(PacketData &data, Client &c)
 
   id = data.getNextChar();
   login = data.getNextString();
-  x = data.getNextUint32();
-  y = data.getNextUint32();
+  x = data.getNextShort();
+  y = data.getNextShort();
   LibGraphic::Coord coord;
   coord.x = 400;
   coord.y = 400;
@@ -139,24 +139,25 @@ bool		ProtocolMovement::actionCollision(PacketData &data, Client &c)
 
 bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &c)
 {
-  int		i = 0;
-  int		nbBull;
+  unsigned int		i = 0;
+  unsigned int		nbBull;
   std::list<LibGraphic::BulletMovement *> &list = c.getGraphic().getBulletList();
 
   list.clear();
-  nbBull = data.getNextUint32();
+  nbBull = data.getNextShort();
   while (i != nbBull)
     {
-      LibGraphic::BulletMovement *b = new LibGraphic::BulletMovement(c.getGraphic().getWindow(),
-				     c.getGraphic().getSprite("Missile"), LibGraphic::NORMAL_BULLET);
+      LibGraphic::BulletMovement *b = new LibGraphic::BulletMovement(c.getGraphic().getWindow(), c.getGraphic().getSprite("Missile"), LibGraphic::NORMAL_BULLET);
 
       LibGraphic::Coord coord;
-      coord.x = data.getNextUint32();
-      coord.y = data.getNextUint32();
-      b->setCoord(coord);
-      list.push_front(b);
+      coord.x = data.getNextShort();
+      coord.y = data.getNextShort();
+	  std::cout << "pos missil" << coord.x << " " << coord.y << std::endl;
+	  b->setCoord(coord);
+	  list.push_front(b);
       ++i;
     }
+  std::cout << ">i<" <<i << std::endl;
   return (false);
 }
 

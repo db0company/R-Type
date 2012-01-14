@@ -332,6 +332,49 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
       else if (Event.Type == sf::Event::TextEntered &&
 	       (Event.Text.Unicode > 20 && Event.Text.Unicode < 128))
 	readText(Event);
+      else if (Event.Type == sf::Event::JoyButtonReleased)
+	{
+	  switch (Event.JoyButton.Button)
+	    {
+	    case 0:
+	      {
+		if (this->_currentButton == BUTTON_CREATE_NAME)
+		  this->_currentButton = BUTTON_CREATE_CREATE;
+		else if (this->_currentButton == BUTTON_CREATE_BACK)
+		  {
+		    this->_nextState = ROOMLIST;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_CREATE_CREATE)
+		  {
+		    // this->_nextState = ROOM;
+		    // return EVENT_CHANGE_STATE;
+		    return (EVENT_CREATE_CREATE);
+		  }
+		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_1)
+		  this->_teamSize = 1;
+		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_2)
+		  this->_teamSize = 2;
+		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_3)
+		  this->_teamSize = 3;
+		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_4)
+		  this->_teamSize = 4;
+		else if (this->_currentButton == BUTTON_CREATE_SPECTATOR)
+		  this->_isSpectatorChecked = !this->_isSpectatorChecked;
+		break;
+	      }
+	    case 1:
+	      {
+		if (this->_currentButton == BUTTON_CREATE_BACK)
+		  {
+		    this->_nextState = ROOMLIST;
+		    return EVENT_CHANGE_STATE;
+		  }
+		this->_currentButton = BUTTON_CREATE_BACK;
+		break;
+	      }
+	    }
+	}
       cursorMenuPos(Event);
     }
   return EVENT_NONE;

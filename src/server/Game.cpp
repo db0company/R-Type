@@ -9,6 +9,7 @@
 #include "User.hpp"
 #include "eProtocolPacketMovement.hpp"
 #include "eProtocolPacketGame.hpp"
+#include "ScopedLock.hpp"
 #ifdef _WIN32
 #include "MutexWindows.hpp"
 #else
@@ -158,8 +159,8 @@ void	Game::changePlayerPos(GameParam& par)
   Position newPos;
   Position direction;
   PacketData	*data= new PacketData;
-  int		finalx;
-  int		finaly;
+  short		finalx;
+  short		finaly;
 
   ip = par.us->getIp();
   if ((ret = getPlayerByIp(ip)) == "")
@@ -196,8 +197,8 @@ void	Game::changePlayerPos(GameParam& par)
       it->second->setPos(newPos);
       data->addChar(reinterpret_cast<Player *>(it->second)->getId());
       data->addString(it->first);
-      data->addUint32(finalx);
-      data->addUint32(finaly);
+      data->addShort(finalx);
+      data->addShort(finaly);
       sendToAllClient(data, MOVEMENT, COLLISION);
     }
   else
@@ -205,8 +206,8 @@ void	Game::changePlayerPos(GameParam& par)
       it->second->setPos(newPos);
       data->addChar(reinterpret_cast<Player *>(it->second)->getId());
       data->addString(it->first);
-      data->addUint32(finalx);
-      data->addUint32(finaly);
+      data->addShort(finalx);
+      data->addShort(finaly);
       //  std::cout << "jenvoi x " << newPos.x + (newPos.tilex * 112) << " y " << newPos.y + (newPos.tiley * 150) << std::endl;
       // [id du player][nom][int pos X graphic][int pos Y graphic]//    [vecteur x][vercteur y]
       sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
@@ -256,12 +257,12 @@ void	Game::moveMonster(GameParam& par)
   std::map<std::string, AObject *>::iterator it = this->_monster.begin();
   Position p;
   PacketData	*data = new PacketData;
-  int		finalx;
-  int		finaly;
+  short		finalx;
+  short		finaly;
 
   if (this->_monster.size() > 0)
     {
-      data->addUint32(this->_monster.size());
+      data->addShort(this->_monster.size());
       while (it != this->_monster.end())
 	{
 	  reinterpret_cast<Monster *>(it->second)->moveNextPos();
@@ -271,8 +272,8 @@ void	Game::moveMonster(GameParam& par)
 	  data->addString(it->first);
 	  finalx = p.x + (p.tilex * 112);
 	  finaly = p.y + (p.tiley * 150);
-	  data->addUint32(finalx);
-	  data->addUint32(finaly);
+	  data->addShort(finalx);
+	  data->addShort(finaly);
 	  ++it;
 	}
       sendToAllClient(data, MOVEMENT, UPDATEENEMY);
@@ -338,10 +339,11 @@ void	Game::fireBullet(GameParam& par)
   eGroup	g;
   Position	p;
   PacketData *data = new PacketData;
-  int		finalx;
-  int		finaly;
+  short		finalx;
+  short		finaly;
 
   // std::cout << "jenvoi bullet " << std::endl;
+
   if ((ent = reinterpret_cast<Entities *>
        (getEntitiesbyName(par.paDa->getNextString()))) == NULL)
     return ; // error
@@ -354,8 +356,9 @@ void	Game::fireBullet(GameParam& par)
 
   finalx = p.x + (p.tilex * 112);
   finaly = p.y + (p.tiley * 150);
-  data->addUint32(finalx);
-  data->addUint32(finaly);
+  data->addShort(1);
+  data->addShort(finalx);
+  data->addShort(finaly);
   sendToAllClient(data, MOVEMENT, UPDATEBULLET);
 }
 
@@ -364,12 +367,12 @@ void	Game::moveBullet(GameParam&)
   Position p;
   PacketData	*data = new PacketData;
   std::list<Bullet>::iterator it = this->_bullets.begin();
-  int		finalx;
-  int		finaly;
+  short		finalx;
+  short		finaly;
 
   if (this->_bullets.size() > 0)
     {
-      data->addUint32(this->_bullets.size());
+      data->addShort(this->_bullets.size());
       while (it != this->_bullets.end())
 	{
 	  p = (*it).getPos();
@@ -383,8 +386,8 @@ void	Game::moveBullet(GameParam&)
 	  if (finalx < 0 || finalx > 1680 || finaly < 0 || finaly > 1050)
 	    (*it).setDestroy();
 	  (*it).setPos(p);
-	  data->addUint32(finalx);
-	  data->addUint32(finaly);
+	  data->addShort(finalx);
+	  data->addShort(finaly);
 	  ++it;
 	}
       it = this->_bullets.begin();
@@ -521,4 +524,11 @@ eGameStatus	Game::getStatus(void)const
 std::map<std::string, User *> &Game::getUserMap()
 {
   return (this->_userMap);
+}
+
+int Game::nbBullet()
+{
+	ScopedLock sl(this->_mutex);
+
+	return (this->_bullets.size());
 }

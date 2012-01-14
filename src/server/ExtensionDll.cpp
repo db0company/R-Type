@@ -1,5 +1,5 @@
 #include <Windows.h>
-#include <strsafe.h>
+//#include <strsafe.h>
 #include <string>
 #include <iostream>
 #include "IExtension.hpp"
@@ -31,9 +31,8 @@ ExtensionDll&		ExtensionDll::operator=(const ExtensionDll& old)
 
 void            ExtensionDll::openExt(const std::string &name)
 {
-	if ((this->handle = LoadLibrary(name.c_str())) == NULL)
+ if ((this->handle = LoadLibrary(name.c_str())) == NULL)
   {
-	ErrorExit("LoadLibrary");
       CustomError err(name + " not found");
       throw err;
   }
