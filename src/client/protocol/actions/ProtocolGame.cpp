@@ -130,19 +130,16 @@ bool			ProtocolGame::actionGetLevel(PacketData & data, Client &client)
   while (i < nb)
     {
       lvl = data.getNextString();
-      std::cout << "[" << i << "] "<< lvl << std::endl;
       exist = false;
       for (it = list.begin(); it != list.end(); ++it)
 	{
 	  if (*it == lvl)
 	    {
-	      std::cout << lvl << "exist deja" << std::endl;
 	      exist = true;
 	    }
 	}
       if (!exist)
 	{
-	  std::cout << "jajoute " << lvl << std::endl;
 	  list.push_front(lvl);
 	}
       ++i;
@@ -157,8 +154,7 @@ bool			ProtocolGame::actionCreate(PacketData & data, Client &client)
 
   status = data.getNextChar();
   details = data.getNextString();
-  std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
- if (status)
+  if (status)
     {
       client.getGraphic().setCurrentState(LibGraphic::ROOM);
       return (true);
@@ -177,7 +173,6 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &client)
 
   status = data.getNextChar();
   details = data.getNextString();
-  std::cout << "status(" << (int)status << ") details(" << details << ")" << std::endl;
   if (status)
     {
       client.getGraphic().setCurrentState(LibGraphic::ROOM);
@@ -203,8 +198,6 @@ bool			ProtocolGame::actionStart(PacketData & data, Client &client)
   std::string		lvl;
 
   status = data.getNextChar();
-  std::cout << "status(" << (int)status << ") details(" << details
-	    << ")" << std::endl;
   if (status)
     {
       name = data.getNextString();

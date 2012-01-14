@@ -6,6 +6,7 @@
 #include "RecupMap.hpp"
 #include "PlayerMovement.hpp"
 #include "SpriteInfo.hpp"
+#include "BulletMovement.hpp"
 
 namespace LibGraphic
 {
@@ -42,6 +43,7 @@ namespace LibGraphic
 
     std::map<int, PlayerMovement *> const & getPlayerMap() const;
     std::map<int, PlayerMovement *> & getPlayerMap();
+    std::list<BulletMovement *> &getBulletList();
 
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
@@ -49,6 +51,8 @@ namespace LibGraphic
 
   private:
     void setNextState(eState d);
+    void drawBullet();
+    void drawMonsters();
     void drawText();
     void drawConv();
     void drawStarField();
@@ -78,12 +82,12 @@ namespace LibGraphic
     unsigned int _score;
     std::string _gameName;
     std::string _gameLvl;
-    // monsters
+   // monsters
     // players
 
     eShipColor _myid;
+    std::list<BulletMovement *>	_bulletList;
     std::map<int, PlayerMovement *> _playerMap;
-
     PlayerMovement * _player;
   };
 

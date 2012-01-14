@@ -12,10 +12,12 @@
 #include "EGraphicAction.hpp"
 #include "InfoGame.hpp"
 #include "SpriteInfo.hpp"
+//#include "BulletMovement.hpp"
 //#include "PlayerMovement.hpp"
 namespace LibGraphic
 {
-class PlayerMovement;
+  class PlayerMovement;
+  class BulletMovement;
 
   class	GraphicClientState
   {
@@ -52,7 +54,7 @@ class PlayerMovement;
     std::string const & getMessage() const;
     void setMessage(std::string const &);
     RecupMap &getRecupMap(void);
-
+    std::list<BulletMovement *> &getBulletList();
     std::string const & getConversation() const;
     void addToConversation(std::string const &);
     std::string const &getInGameName(void) const;

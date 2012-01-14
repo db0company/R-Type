@@ -245,6 +245,11 @@ std::map<int, PlayerMovement *> & LibGraphic::GraphicClientState::getPlayerMap()
   return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->getPlayerMap();
 }
 
+std::list<BulletMovement *> & LibGraphic::GraphicClientState::getBulletList()
+{
+  return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->getBulletList();
+}
+
 eShipColor LibGraphic::GraphicClientState::getMyId() const
 {
   return reinterpret_cast <StateInGame const *>(getValue(this->_stateInfos, INGAME))->getMyId();
