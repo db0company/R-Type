@@ -7,7 +7,7 @@
 #include "ClientNetwork.hpp"
 #include "Language.hpp"
 #include "SpriteInfo.hpp"
-
+#include "AMonsterMovement.hpp"
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 
@@ -407,6 +407,11 @@ std::list<std::string> &LibGraphic::Sfml::getPlayerNameList(void)
 LibGraphic::eMovement LibGraphic::Sfml::getLastMove() const
 {
   return this->_graphicState->getLastMove();
+}
+
+std::map<int, LibGraphic::AMonsterMovement *> &LibGraphic::Sfml::getMonsterMap()
+{
+  return this->_graphicState->getMonsterMap();
 }
 
 std::map<int, LibGraphic::PlayerMovement *> const & LibGraphic::Sfml::getPlayerMap() const

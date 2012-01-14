@@ -274,7 +274,6 @@ bool Client::run(void)
       if (!this->cNetwork.select())
 	{
 	  std::cerr << "Error: Can't Monitor Sockets" << std::endl;
-	  system("pause");
 	  return (false);
 	}
       if ((this->cNetwork.feedPacketAggregatorTCP() == false ||

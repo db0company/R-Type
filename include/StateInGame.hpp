@@ -7,10 +7,11 @@
 #include "PlayerMovement.hpp"
 #include "SpriteInfo.hpp"
 #include "BulletMovement.hpp"
+//#include "AMonsterMovement.hpp"
 
 namespace LibGraphic
 {
-
+  class AMonsterMovement;
   class StateInGame : public AState
   {
 
@@ -38,6 +39,10 @@ namespace LibGraphic
 
     std::map<int, PlayerMovement *> const & getPlayerMap() const;
     std::map<int, PlayerMovement *> & getPlayerMap();
+
+    std::map<int, AMonsterMovement *> const &getMonsterMap() const;
+    std::map<int, AMonsterMovement *> &getMonsterMap();
+
     std::list<BulletMovement *> &getBulletList();
 
     eShipColor getMyId() const;
@@ -70,13 +75,18 @@ namespace LibGraphic
     unsigned int _score;
     std::string _gameName;
     std::string _gameLvl;
+<<<<<<< HEAD
     bool _mapLoaded;
    // monsters
     // players
+=======
+    // monsters
+>>>>>>> cbd02b2b5f0089e7bd63620f42d9a90839944b1e
 
     eShipColor _myid;
     std::list<BulletMovement *>	_bulletList;
     std::map<int, PlayerMovement *> _playerMap;
+    std::map<int, AMonsterMovement *> _monsterMap;
     PlayerMovement * _player;
   };
 

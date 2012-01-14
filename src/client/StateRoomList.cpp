@@ -364,7 +364,9 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  {
 		    // this->_nextState = ROOM;
 		    // return EVENT_CHANGE_STATE;
-		    return EVENT_ROOMLIST_SPECTATE;
+		    //	    return EVENT_ROOMLIST_SPECTATE; <-- should return this
+		    // but returning: (because no spectate right now)
+		    return EVENT_ROOMLIST_JOIN;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
 		  {

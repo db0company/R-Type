@@ -22,10 +22,10 @@ void LibGraphic::AnnimTest::play()
 {
   if (this->_clock.GetElapsedTime() < this->_clockVal)
     {
-  this->_sprite.SetSubRect(sf::IntRect(33 * this->_currentSprite, 0,
-  				       (33 * this->_currentSprite) + 33, 35));
-  this->_app.Draw(this->_sprite);
-    return;
+      this->_sprite.SetSubRect(sf::IntRect(33 * this->_currentSprite, 0,
+					   (33 * this->_currentSprite) + 33, 35));
+      this->_app.Draw(this->_sprite);
+      return;
     }
   this->_sprite.SetSubRect(sf::IntRect(33 * this->_currentSprite, 0,
   				       (33 * this->_currentSprite) + 33, 35));

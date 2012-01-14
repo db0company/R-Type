@@ -18,7 +18,7 @@ namespace LibGraphic
 {
   class PlayerMovement;
   class BulletMovement;
-
+  class AMonsterMovement;
   class	GraphicClientState
   {
   public:
@@ -69,6 +69,8 @@ namespace LibGraphic
     eBulletType getLastBullet(void) const;
     std::map<int, PlayerMovement *> const & getPlayerMap() const;
     std::map<int, PlayerMovement *> & getPlayerMap();
+    std::map<int, AMonsterMovement *> &getMonsterMap();
+
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
     void setMyPosition(Coord c);

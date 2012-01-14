@@ -2,7 +2,9 @@
 #include "ProtocolMovement.hpp"
 #include "PlayerMovement.hpp"
 #include "BulletMovement.hpp"
+#include "AMonsterMovement.hpp"
 #include "Client.hpp"
+#include "RedEvil.hpp"
 #include "SpriteInfo.hpp"
 
 ProtocolMovement::ProtocolMovement()
@@ -102,9 +104,31 @@ bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &c)
   return (false);
 }
 
-bool		ProtocolMovement::actionUpdateEnemy(PacketData &data, Client &)
+bool		ProtocolMovement::actionUpdateEnemy(PacketData &data, Client &c)
 {
-  (void)data;
+  std::map<int, LibGraphic::AMonsterMovement *> &monsterMap = c.getGraphic().getMonsterMap();
+  std::map<int, LibGraphic::AMonsterMovement *>::iterator it;
+
+  char id;
+  char type;
+  unsigned int x;
+  unsigned int y;
+
+  id = data.getNextChar();
+  type = data.getNextChar();
+  x = data.getNextShort();
+  y = data.getNextShort();
+
+  if (monsterMap.find(id) != monsterMap.end())
+    {
+      monsterMap[id]->setCoord(x, y);
+    }
+  else
+    {
+      LibGraphic::AMonsterMovement *m = new LibGraphic::RedEvil(c.getGraphic().getWindow(), c.getGraphic().getSprite("test"));
+      m->setCoord(x, y);
+      monsterMap[id] = m;
+    }
   return (false);
 }
 

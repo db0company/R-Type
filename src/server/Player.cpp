@@ -19,7 +19,7 @@ Player &Player::operator=(Player const &p)
   return *this;
 }
 
-Player::Player(Player const &p)
+Player::Player(Player const &p) : Entities(p)
 {
   this->group = p.group;
   this->name = p.name;

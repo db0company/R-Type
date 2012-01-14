@@ -22,16 +22,13 @@ namespace LibGraphic
     virtual void stop();
 
   public:
-    Coord const & getCoord() const;
-    void setCoord(Coord const &);
-    void setCoord(unsigned int, unsigned int);
-    void setScale(float, float);
+    virtual Coord const & getCoord() const;
+    virtual void setCoord(Coord const &);
+    virtual void setCoord(unsigned int, unsigned int);
+    virtual void setScale(float, float);
 
-    float getTimer() const;
-    void setTimer(float);
-  private:
-    int MapX(int x);
-    int MapY(int y);
+    virtual float getTimer() const;
+    virtual void setTimer(float);
 
   private:
     sf::RenderWindow & _app;

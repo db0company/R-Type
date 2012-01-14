@@ -3,6 +3,8 @@
 -> General:
   * throw les exeption, les catcher (si on catch ds le serveur ca fait quoi avec les thread?)
   * CP le githug ds le koalagit !
+  * verifier si les destructer bien virtuel
+  * enlever les deg de networktask
 
 -> Client:
    * idriss: quand ya de la merde dans .ressource_img ca doit pas segfault
@@ -10,10 +12,6 @@
 
    * Afficher les info ds une barre en bas (nnombres de vie/score/nom du lvl)
    * Decoupage intensive des autres sprites.
-   * reset des states:
-     	   - Ingame quand change
-	   - RoomList quand change
-
 -> Client/Server/Game
    * Faire Collisions
    * Faire des dll monstres
