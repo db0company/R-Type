@@ -29,7 +29,7 @@ void LibGraphic::AnnimTest::play()
     }
   this->_sprite.SetSubRect(sf::IntRect(33 * this->_currentSprite, 0,
   				       (33 * this->_currentSprite) + 33, 35));
-   this->_sprite.SetScale(2, 2);
+  //   this->_sprite.SetScale(2, 2);
   this->_app.Draw(this->_sprite);
   ++this->_currentSprite;
   if (this->_currentSprite >= this->_nbSprite)
@@ -54,6 +54,14 @@ void LibGraphic::AnnimTest::setCoord(LibGraphic::Coord const & other)
 {
   this->_coord.x = other.x;
   this->_coord.y = other.y;
+  this->_sprite.SetPosition(this->_coord.x, this->_coord.y);
+}
+
+void LibGraphic::AnnimTest::setCoord(unsigned int x, unsigned int y)
+{
+  this->_coord.x = x;
+  this->_coord.y = y;
+  this->_sprite.SetPosition(this->_coord.x, this->_coord.y);
 }
 
 float LibGraphic::AnnimTest::getTimer() const
@@ -66,3 +74,7 @@ void LibGraphic::AnnimTest::setTimer(float other)
   this->_clockVal = other;
 }
 
+void LibGraphic::AnnimTest::setScale(float x, float y)
+{
+  this->_sprite.SetScale(x, y);
+}

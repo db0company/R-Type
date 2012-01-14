@@ -20,8 +20,8 @@ LibGraphic::StateCreateGame::StateCreateGame(std::map<std::string const, Graphic
   this->_isDefaultMap = true;
   this->_previewSelected = "Star";
 
-  //test = new AnnimTest(this->_app, this->getSprite("test"));
-  test = new AnnimLittleExplosion(this->_app, this->getSprite("LittleExplosion"));
+  test = new AnnimTest(this->_app, this->getSprite("test"));
+ // test = new AnnimLittleExplosion(this->_app, this->getSprite("LittleExplosion"));
 }
 
 LibGraphic::StateCreateGame::~StateCreateGame()
@@ -149,7 +149,53 @@ void LibGraphic::StateCreateGame::draw()
 
   this->drawMap();
   this->drawText();
-  //  this->test->play();
+  this->drawCursor();
+  this->test->play();
+}
+
+void LibGraphic::StateCreateGame::drawCursor()
+{
+  switch (this->_currentButton)
+    {
+    case BUTTON_CREATE_MAP :
+      {
+	this->test->setCoord(510, 545);
+	break;
+      }
+    case BUTTON_CREATE_TEAMSIZE_1 :
+      {
+	this->test->setCoord(510, 405);
+	break;
+      }
+    case BUTTON_CREATE_TEAMSIZE_2 :
+      {
+	this->test->setCoord(510, 405);
+	break;
+      }
+    case BUTTON_CREATE_TEAMSIZE_3 :
+      {
+	this->test->setCoord(510, 405);
+	break;
+      }
+    case BUTTON_CREATE_TEAMSIZE_4 :
+      {
+	this->test->setCoord(510, 405);
+	break;
+      }
+    case BUTTON_CREATE_SPECTATOR :
+      {
+	this->test->setCoord(510, 335);
+	break;
+      }
+    case BUTTON_CREATE_NAME :
+      {
+	this->test->setCoord(510, 485);
+	break;
+      }
+    case BUTTON_CREATE_BACK :
+    case BUTTON_CREATE_CREATE :
+    default : break;
+    }
 }
 
 void LibGraphic::StateCreateGame::drawMap()

@@ -55,6 +55,7 @@ namespace LibGraphic
   private:
     void drawText();
     void drawMap();
+    void drawCursor();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
     void incMap();
@@ -71,8 +72,8 @@ namespace LibGraphic
     std::string _previewSelected;
     bool _isDefaultMap;
 
-    //    AnnimTest * test;
-    AnnimLittleExplosion * test;
+    AnnimTest * test;
+    //    AnnimLittleExplosion * test;
   };
 
 }
