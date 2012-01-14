@@ -57,7 +57,7 @@ void LibGraphic::StateInGame::drawStarField()
   float timefront = this->_frontClock.GetElapsedTime();
   static int i = 0;
 
-  if (time < 0.1)
+  if (time < 0.05)
     {
       b.SetPosition(0 - scale, 0);
       this->_app.Draw(b);
@@ -66,7 +66,7 @@ void LibGraphic::StateInGame::drawStarField()
     }
   else
     {
-      scale += 2;
+      scale += 1;
       if (scale >= 1680)
 	scale = 0;
       b.SetPosition(0 - scale, 0);
@@ -75,16 +75,8 @@ void LibGraphic::StateInGame::drawStarField()
       this->_app.Draw(b2);
       this->Clock.Reset();
     }
-  if (timefront < 0.1)
+  if (timefront < 0.03)
     {
-      // if (i == 2)
-      // 	{
-	  scalefront += 3;
-	//   i = 0;
-	// }
-      if (scalefront >= 1680)
-	scalefront = 0;
-      ++i;
       front.SetPosition(0 - scalefront, 0);
       this->_app.Draw(front);
       front2.SetPosition(1680 - scalefront, 0);
@@ -92,6 +84,9 @@ void LibGraphic::StateInGame::drawStarField()
     }
   else
     {
+      scalefront += 1;
+      if (scalefront >= 1680)
+	scalefront = 0;
       front.SetPosition(0 - scalefront, 0);
       this->_app.Draw(front);
       front2.SetPosition(1680 - scalefront, 0);
@@ -107,27 +102,27 @@ void LibGraphic::StateInGame::drawMap()
   int i;
   float time = this->_mapClock.GetElapsedTime();
 
-  if (time < 0.1)
+  if (time < 0.01)
     {
-      gpos -= 1;
       i = 0;
       this->_rMap.recupFromFile("ressources/map/"+ this->_gameLvl + ".map");
       while (i < this->_rMap.size())
-	{
-	  test.SetPosition(MapX(i) + gpos, 0);
-	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
-				      MapX(this->_rMap[i].up + 1), MapY(1)));
-	  this->_app.Draw(test);
-	  test.SetPosition(MapX(i) + gpos, 1050 - MapY(1));
-	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].down), MapY(1),
-				      MapX(this->_rMap[i].down + 1), MapY(2)));
-	  this->_app.Draw(test);
-	  ++i;
-	}
+      	{
+      	  test.SetPosition(MapX(i) + gpos, 0);
+      	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
+      				      MapX(this->_rMap[i].up + 1), MapY(1)));
+      	  this->_app.Draw(test);
+      	  test.SetPosition(MapX(i) + gpos, 1050 - MapY(1));
+      	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].down), MapY(1),
+      				      MapX(this->_rMap[i].down + 1), MapY(2)));
+      	  this->_app.Draw(test);
+      	  ++i;
+      	}
     }
   else
     {
       i = 0;
+      gpos -= 1;
       this->_rMap.recupFromFile("ressources/map/"+ this->_gameLvl + ".map");
       while (i < this->_rMap.size())
 	{
@@ -301,4 +296,9 @@ void LibGraphic::StateInGame::setMyId(eShipColor id)
 void LibGraphic::StateInGame::setMyPosition(Coord c)
 {
   this->_player->setCoord(c);
+}
+
+LibGraphic::eBulletType LibGraphic::StateInGame::getLastBullet() const
+{
+  return this->_player->getLastBullet();
 }

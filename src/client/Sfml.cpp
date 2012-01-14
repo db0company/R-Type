@@ -443,3 +443,8 @@ void LibGraphic::Sfml::setMyPosition(Coord c)
 {
   this->_graphicState->setMyPosition(c);
 }
+
+LibGraphic::eBulletType LibGraphic::Sfml::getLastBullet(void) const
+{
+  return this->_graphicState->getLastBullet();
+}
