@@ -237,7 +237,7 @@ bool ClientNetwork::sendPacketToServer(void)
       	  sizeT = this->paWrite.getSize();
       	  msg = this->paWrite.getMsg();
       	  this->_tcp->SNWrite(msg, sizeT);
-      	  this->paWrite.erase(); //done ? todo
+      	  this->paWrite.erase();
       	}
     }
   nb = this->paWriteUDP.aggregatePacketToChar();
@@ -247,7 +247,7 @@ bool ClientNetwork::sendPacketToServer(void)
       sizeT = this->paWriteUDP.getSize();
       msg = this->paWriteUDP.getMsg();
       this->_udp->SNWrite(msg, sizeT);
-      this->paWriteUDP.erase(); //done ? todo
+      this->paWriteUDP.erase();
     }
   return (true);
 }

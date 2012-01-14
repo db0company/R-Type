@@ -90,27 +90,15 @@ Game&	Game::operator=(const Game& old)
 
 void	Game::sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc)
 {
-  // std::map<std::string, AObject*>::const_iterator it = this->_players.begin();
-  // User	*us;
-
-  // while (it != this->_players.end())
-  //   {
   ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, data);
-  //     us = static_cast<Player *>(it->second)->getUser(); // todo reinterptert ??
-  //   if (us)
-  // 	{
-  // 	  std::cout << "j'envoi a " << us->getIp() << std::endl;
-  // 	  us->addPacketToSendUDP(packet_to_send);
-  // 	}
-  //   ++it;
-  // }
   std::map<std::string , User *>::iterator it2 = this->_userMap.begin();
 
   std::cout << "debut 1" << std::endl;
   for (; it2 != _userMap.end(); ++it2)
     {
       std::cout << "jai " << it2->second->getIp() << std::endl;
-      it2->second->addPacketToSend(packet_to_send);
+      if (it2->second->isSafe())
+	it2->second->addPacketToSend(packet_to_send);
     }
   std::cout << "fin 1" << std::endl;
 }

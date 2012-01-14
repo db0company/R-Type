@@ -58,6 +58,7 @@ bool Server::init(int port)
   if (!(this->_listener->SNCreate(SERV_ADDR, port)))
     {
       std::cerr << "Error: Can't Create Listener Socket on port " << this->_port << std::endl;
+      exit(EXIT_FAILURE);
       return (false);
     }
   if (!(this->_udp->SNCreate(SERV_ADDR, port)))
@@ -147,8 +148,9 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
 	{
 	  if ((game = user->getGame()) != NULL)
 	    {
-	      game->getMutex()->Lock(); //Mserver
+	      //l
 	      maap = game->getUserMap();
+	      game->setStatus(ENDED);
 	      to_send->addShort(0);
 	      to_send->addString(user->getLogin());
 	      for (it = maap.begin(); it != maap.end(); ++it)
@@ -157,8 +159,7 @@ bool Server::removeClient(User *user, ATCPClientSocket *socket)
 	       static_cast<ushort>(QUITGAME), to_send);
 		  it->second->addPacketToSend(packet_to_send);
 		}
-	      game->setStatus(ENDED);
-	      game->getMutex()->Unlock(); //Mserver
+	      //ul
 	    }
 	  this->_quitQueue.push(socket->getIp());
 	}
@@ -218,7 +219,7 @@ bool	Server::cleanClients(void)
       ip = this->_quitQueue.front();
       if (this->_userMap.find(ip) != this->_userMap.end())
 	{
-	  delete this->_userMap[this->_quitQueue.front()];
+	  //	  delete this->_userMap[this->_quitQueue.front()];
 	  this->_userMap.erase(ip);
 	}
       this->_quitQueue.pop();
@@ -285,7 +286,7 @@ bool Server::run(void)
       if (!this->_selector->SNSelect())
 	{
 	  std::cerr << "Error: Select" << std::endl;
-	  return (false);
+	  exit(EXIT_FAILURE);
 	}
       s = this->_selector->getSec();
       us = this->_selector->getUsec();

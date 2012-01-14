@@ -302,7 +302,7 @@ bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
 
   if ((g = user->getGame()) == NULL)
     return (false);
-  ScopedLock s(g->getMutex()); //Mserver
+  //  ScopedLock s(g->getMutex()); //Mserver
   maap = g->getUserMap();
   if (user->getState() == USER_GAME_ROOT)
     {
@@ -358,7 +358,7 @@ bool		ProtocolGame::actionStart(PacketData &, User *user, Server &)
     {
       if (user->getGame()->getStatus() == LOBBYROOM)
 	{
-	  ScopedLock s(user->getGame()->getMutex()); // Mserver
+	  //	  ScopedLock s(user->getGame()->getMutex()); // Mserver
 	  to_send->addChar(1);
 	  to_send->addString(user->getGame()->getName());
 	  to_send->addString(user->getGame()->getLvlName());

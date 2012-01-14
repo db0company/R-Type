@@ -6,9 +6,9 @@ ProtocolMovement::ProtocolMovement()
 {
   this->actionmap[MOVEMENT_ERROR]	= &ProtocolMovement::actionError;
   this->actionmap[MOVE]			= &ProtocolMovement::actionMove ;
-  //  this->actionmap[UPDATEPLAYER]		= &ProtocolMovement::actionError;
-  //  this->actionmap[UPDATEENEMY]		= &ProtocolMovement::actionError;
-  //  this->actionmap[UPDATEBULLET]		= &ProtocolMovement::actionError;
+  this->actionmap[UPDATEPLAYER]		= &ProtocolMovement::actionError;
+  this->actionmap[UPDATEENEMY]		= &ProtocolMovement::actionError;
+  this->actionmap[UPDATEBULLET]		= &ProtocolMovement::actionError;
   this->actionmap[NEWBULLET]		= &ProtocolMovement::actionNewBullet;
 }
 
@@ -59,6 +59,8 @@ bool		ProtocolMovement::actionMove(PacketData &data, User *us, Server &serv)
   PacketData	*newPack = new PacketData(data);
 
   // tmp = serv.getGameByUser(us);
+  if (!us->isSafe())
+    return (false);
   tmp = us->getGame();
   if (tmp != NULL && tmp->getStatus() != ENDED)
     {
@@ -76,7 +78,13 @@ bool		ProtocolMovement::actionNewBullet(PacketData &data, User *us, Server &serv
   Game		*tmp;
   PacketData	*newPack = new PacketData(data);
 
-  tmp = serv.getGameByUser(us);
+  if (!us->isSafe())
+    {
+      std::cout << "titi" << std::endl;
+      return (false);
+    }
+  // tmp = serv.getGameByUser(us);
+  tmp = us->getGame();
   std::cout << "new packet" << std::endl;
   if (tmp != NULL && tmp->getStatus() != ENDED)
     {

@@ -98,25 +98,28 @@ void		GameManager::updateAll(Server& serv)
   /*
   // std::cout << "time to up all" << std::endl;
   while (it != this->_gameMap.end())
-    {
-      // std::cout << "1 ";
-      pt = new PacketTask(&Game::moveMonster, d, it->second, NULL);
-      serv.getTaskQueue().push(pt);
-      serv.getCondVar()->signal();
-      ++it;
-      }*/
+  {
+  // std::cout << "1 ";
+  pt = new PacketTask(&Game::moveMonster, d, it->second, NULL);
+  serv.getTaskQueue().push(pt);
+  serv.getCondVar()->signal();
+  ++it;
+  }*/
   // std::cout << std::endl;
   it = this->_gameMap.begin();
   while (it != this->_gameMap.end())
     {
-      pt = new PacketTask(&Game::moveBullet, d, it->second, NULL);
-      serv.getTaskQueue().push(pt);
-      serv.getCondVar()->signal();
-      ++it;
+      if (it->second->getStatus() == INGAME)
+	{
+	  pt = new PacketTask(&Game::moveBullet, d, it->second, NULL);
+	  serv.getTaskQueue().push(pt);
+	  serv.getCondVar()->signal();
+	}
+	  ++it;
     }
   /*  it = this->_gameMap.begin();
-  while (it != this->_gameMap.end())
-    {
+      while (it != this->_gameMap.end())
+      {
       pt = new PacketTask(&Game::checkCollision, d, it->second, NULL);
       serv.getTaskQueue().push(pt);
       serv.getCondVar()->signal();
