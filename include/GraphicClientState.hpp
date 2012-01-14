@@ -83,7 +83,7 @@ namespace LibGraphic
     std::map<std::string const, MySound *> const & _ressourcesSounds;
     std::map<std::string const, sf::Font *> const & _ressourcesFont;
   private:
-    std::map<eStates, IState *> _stateInfos;
+    std::map<eStates, AState *> _stateInfos;
     sf::RenderWindow & _app;
     sf::Event _catchedEvent;
   };

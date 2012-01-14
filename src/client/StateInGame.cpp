@@ -13,9 +13,8 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
 						   std::map<std::string const, sf::Font *> const & ressourcesFont,
 						   sf::RenderWindow & app):
-  _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
-  _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app), _lives(0), _score(0)
+  AState(ressourcesSprite, ressourcesPlayList, ressourcesSounds,
+	 ressourcesFont, app), _lives(0), _score(0)
 {
   this->_nextState = UNKNOWN_STATE;
   this->_mapClock.Reset();
@@ -154,9 +153,9 @@ void LibGraphic::StateInGame::draw()
   this->drawStarField();
   this->drawMap();
   this->drawText();
-  this->drawPlayers();
   this->drawBullet();
   this->drawMonsters();
+  this->drawPlayers();
 }
 
 void LibGraphic::StateInGame::drawMonsters()
@@ -236,26 +235,6 @@ void LibGraphic::StateInGame::readText(const sf::Event & Event)
 LibGraphic::eStates LibGraphic::StateInGame::getNextState()
 {
   return this->_nextState;
-}
-
-sf::Sprite & LibGraphic::StateInGame::getSprite(std::string const & spriteName) const
-{
-  return ((*this->_ressourcesSprite.find(spriteName)).second->_sprite);
-}
-
-LibGraphic::MyMusic * LibGraphic::StateInGame::getMusic(std::string const & musicName) const
-{
-  return ((*this->_ressourcesPlayList.find(musicName)).second);
-}
-
-sf::Font * LibGraphic::StateInGame::getFont(std::string const & fontName) const
-{
-  return ((*this->_ressourcesFont.find(fontName)).second);
-}
-
-inline sf::String * LibGraphic::StateInGame::getStdToSfString(std::string const & s, sf::Font * daFont)
-{
-  return (new sf::String(s, *daFont));
 }
 
 RecupMap &LibGraphic::StateInGame::getRecupMap(void)

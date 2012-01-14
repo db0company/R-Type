@@ -11,7 +11,7 @@
 namespace LibGraphic
 {
 
-  class StateInGame : public IState
+  class StateInGame : public AState
   {
 
   public:
@@ -26,11 +26,6 @@ namespace LibGraphic
     virtual Event gereEvent();
     virtual eStates getNextState();
 
-  public:
-    sf::Sprite & getSprite(std::string const &) const;
-    MyMusic * getMusic(std::string const &) const;
-    sf::Font * getFont(std::string const &) const;
-    inline sf::String * getStdToSfString(std::string const &, sf::Font *);
     RecupMap &getRecupMap(void);
 
     void setGameName(std::string const &s);
@@ -62,15 +57,6 @@ namespace LibGraphic
     void readText(const sf::Event &);
     int MapX(int x);
     int MapY(int y);
-
-  private:
-    std::map<std::string const, GraphicRessource *>
-    const & _ressourcesSprite;
-    std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
-    std::map<std::string const, MySound *> const & _ressourcesSounds;
-    std::map<std::string const, sf::Font *> const & _ressourcesFont;
-    sf::RenderWindow & _app;
-
   private:
 
     RecupMap	_rMap;

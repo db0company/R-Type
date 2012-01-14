@@ -14,7 +14,7 @@
 namespace LibGraphic
 {
 
-  class StateCreateGame : public IState
+  class StateCreateGame : public AState
   {
 
   private:
@@ -43,12 +43,6 @@ namespace LibGraphic
     virtual Event gereEvent();
     virtual eStates getNextState();
 
- public:
-    sf::Sprite & getSprite(std::string const &) const;
-    MyMusic * getMusic(std::string const &) const;
-    sf::Font * getFont(std::string const &) const;
-    inline sf::String * getStdToSfString(std::string const &, sf::Font *);
-
   public:
     void setNextState(eState d);
     bool getSpectator() const;
@@ -65,14 +59,6 @@ namespace LibGraphic
     void readText(const sf::Event &);
     void incMap();
     void decMap();
-
-  private:
-    std::map<std::string const, GraphicRessource *>
-    const & _ressourcesSprite;
-    std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
-    std::map<std::string const, MySound *> const & _ressourcesSounds;
-    std::map<std::string const, sf::Font *> const & _ressourcesFont;
-    sf::RenderWindow & _app;
 
   private:
     std::list<std::string> _lvlList;

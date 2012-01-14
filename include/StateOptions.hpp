@@ -7,7 +7,7 @@
 namespace LibGraphic
 {
 
-  class StateOptions : public IState
+  class StateOptions : public AState
   {
 
   private:
@@ -38,10 +38,6 @@ namespace LibGraphic
 
  public:
     void setNextState(eState d);
-    sf::Sprite & getSprite(std::string const &) const;
-    MyMusic * getMusic(std::string const &) const;
-    sf::Font * getFont(std::string const &) const;
-   inline sf::String * getStdToSfString(std::string const &, sf::Font *);
 
   public:
     std::string const & getName() const;
@@ -56,14 +52,6 @@ namespace LibGraphic
     void drawText();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
-
-  private:
-    std::map<std::string const, GraphicRessource *>
-    const & _ressourcesSprite;
-    std::map<std::string const, MyMusic *> const & _ressourcesPlayList;
-    std::map<std::string const, MySound *> const & _ressourcesSounds;
-    std::map<std::string const, sf::Font *> const & _ressourcesFont;
-    sf::RenderWindow & _app;
 
   private:
     eStates _nextState;

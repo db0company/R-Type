@@ -10,9 +10,7 @@ LibGraphic::StateStart::StateStart(std::map<std::string const, GraphicRessource 
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
 						   std::map<std::string const, sf::Font *> const & ressourcesFont,
 						   sf::RenderWindow & app):
-  _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
-  _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app)
+  AState(ressourcesSprite, ressourcesPlayList, ressourcesSounds, ressourcesFont, app)
 {
   this->_currentButton = BUTTON_PLAY;
   this->_nextState = UNKNOWN_STATE;
@@ -435,23 +433,4 @@ void LibGraphic::StateStart::cursorMenuPos(const sf::Event & Event)
       }
     }
   this->Clock.Reset();
-}
-
-sf::Sprite & LibGraphic::StateStart::getSprite(std::string const & spriteName) const
-{
-  return ((*this->_ressourcesSprite.find(spriteName)).second->_sprite);}
-
-LibGraphic::MyMusic * LibGraphic::StateStart::getMusic(std::string const & musicName) const
-{
-  return ((*this->_ressourcesPlayList.find(musicName)).second);
-}
-
-sf::Font * LibGraphic::StateStart::getFont(std::string const & fontName) const
-{
-  return ((*this->_ressourcesFont.find(fontName)).second);
-}
-
-inline sf::String * LibGraphic::StateStart::getStdToSfString(std::string const & s, sf::Font * daFont)
-{
-  return (new sf::String(s, *daFont));
 }

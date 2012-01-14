@@ -267,7 +267,7 @@ void	Game::moveMonster(GameParam& par)
 {
   std::map<std::string, AObject *>::iterator it = this->_monster.begin();
   Position p;
-  PacketData	*data = new PacketData;    
+  PacketData	*data = new PacketData;
   int		finalx;
   int		finaly;
 
@@ -359,6 +359,9 @@ void	Game::fireBullet(GameParam& par)
     return ; // error
   g = ent->getGroup();
   p = ent->getPos();
+  p.x += 30;
+  p.y += 20;
+  verifPos(p);
   this->_bullets.push_front(Bullet(p, g));
 
   finalx = p.x + (p.tilex * 112);

@@ -11,9 +11,7 @@ LibGraphic::StateCreateGame::StateCreateGame(std::map<std::string const, Graphic
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
 						   std::map<std::string const, sf::Font *> const & ressourcesFont,
 						   sf::RenderWindow & app):
-  _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
-  _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app)
+  AState(ressourcesSprite, ressourcesPlayList, ressourcesSounds, ressourcesFont, app)
 {
   this->_nextState = UNKNOWN_STATE;
   this->_currentButton = BUTTON_CREATE_SPECTATOR;
@@ -167,11 +165,6 @@ void LibGraphic::StateCreateGame::drawText()
   sf::String *tmp;
   std::list<std::string>::iterator it;
 
-  // std::cout << "avant" << std::endl;
-  // for (it = this->_lvlList.begin(); it != this->_lvlList.end(); ++it)
-  //   {
-  //     std::cout << "elem: " << *it << std::endl;
-  //   }
   if (language == ENGLISH)
     {
       tmp = this->getStdToSfString("Back", this->getFont("StartFontF"));
@@ -538,26 +531,6 @@ void LibGraphic::StateCreateGame::decMap()
 	  break;
 	}
     }
-}
-
-sf::Sprite & LibGraphic::StateCreateGame::getSprite(std::string const & spriteName) const
-{
-  return ((*this->_ressourcesSprite.find(spriteName)).second->_sprite);
-}
-
-LibGraphic::MyMusic * LibGraphic::StateCreateGame::getMusic(std::string const & musicName) const
-{
-  return ((*this->_ressourcesPlayList.find(musicName)).second);
-}
-
-sf::Font * LibGraphic::StateCreateGame::getFont(std::string const & fontName) const
-{
-  return ((*this->_ressourcesFont.find(fontName)).second);
-}
-
-inline sf::String * LibGraphic::StateCreateGame::getStdToSfString(std::string const & s, sf::Font * daFont)
-{
-  return (new sf::String(s, *daFont));
 }
 
 int LibGraphic::StateCreateGame::getSlot() const
