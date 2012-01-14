@@ -336,11 +336,12 @@ void	Game::checkCollision(GameParam&)
 void	Game::moveBullet(GameParam&)
 {
   Position p;
-  std::list<Bullet>::iterator it = this->_bullets.begin();
+  PacketData	*data = new PacketData;
+  
+std::list<Bullet>::iterator it = this->_bullets.begin();
 
   while (it != this->_bullets.end())
     {
-      PacketData	*data = new PacketData;
 
       p = (*it).getPos();
 
@@ -349,10 +350,10 @@ void	Game::moveBullet(GameParam&)
       else
 	p.x++;
       data->addData<Position>(it->getPos());
-      sendToAllClient(data, MOVEMENT, UPDATEBULLET);
       (*it).setPos(p);
       ++it;
     }
+  sendToAllClient(data, MOVEMENT, UPDATEBULLET);
 }
 
 
@@ -380,14 +381,22 @@ void	Game::fireBullet(GameParam& par)
 {
   Entities	*ent;
   eGroup	g;
+  Position	p;
   PacketData *data = new PacketData;
+  int		finalx;
+  int		finaly;
 
   if ((ent = reinterpret_cast<Entities *>
        (getEntitiesbyName(par.paDa->getNextString()))) == NULL)
     return ; // error
   g = ent->getGroup();
-  this->_bullets.push_front(Bullet(ent->getPos(), g));
-  data->addData<Position>(ent->getPos());
+  p = ent->getPos();
+  this->_bullets.push_front(Bullet(p, g));
+
+  finalx = p.x + (p.tilex * 112);
+  finaly = p.y + (p.tiley * 150);
+  data->addUint32(finalx);
+  data->addUint32(finaly);
   sendToAllClient(data, MOVEMENT, UPDATEBULLET);
 }
 
