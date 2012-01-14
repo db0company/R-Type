@@ -5,7 +5,6 @@
 #include "Dll.hpp"
 #include "IExtension.hpp"
 #include "OS.hpp"
-#include "IGraph.hpp"
 
 Dll::Dll(IExtension *handl, const std::string &nameLib)
 {
@@ -60,3 +59,4 @@ void Dll::closeDll()
 {
   this->dll->close();
 }
+

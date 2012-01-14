@@ -28,6 +28,7 @@ const std::string	DirectoryManagerUnix::readNameFile()
   if (!this->rVal)
     return ("");
   fileName += this->dirName;
+  fileName += "/";
   fileName += this->rVal->d_name;
   return (fileName);
 }
@@ -37,7 +38,3 @@ void	DirectoryManagerUnix::closeDirectory()
   closedir(this->directory);
 }
 
-std::string		DirectoryManagerUnix::getPlatChar()const
-{
-	return ("\\");
-}

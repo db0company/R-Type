@@ -1,23 +1,25 @@
 #ifndef _SERVER_RTYPE_HPP_
-#define _SERVER_RTYPE_HPP_
+# define _SERVER_RTYPE_HPP_
 
-#include <map>
-#include <queue>
-#include <string>
-#include "User.hpp"
-#include "GameManager.hpp"
-#include "ATCPServerSocket.h"
-#include "AUDPServerSocket.h"
-#include "ISelector.h"
-#include "PacketManager.hpp"
-#include "TaskManager.hpp"
-#include "ThreadPool.hpp"
-#include "PacketTask.hpp"
-#include "IMutex.hpp"
-#include "ICondVar.hpp"
-#include "ITimer.hpp"
+# include <map>
+# include <queue>
+# include <string>
+# include "User.hpp"
+# include "GameManager.hpp"
+# include "ATCPServerSocket.h"
+# include "AUDPServerSocket.h"
+# include "ISelector.h"
+# include "PacketManager.hpp"
+# include "TaskManager.hpp"
+# include "ThreadPool.hpp"
+# include "PacketTask.hpp"
+# include "IMutex.hpp"
+# include "ICondVar.hpp"
+# include "ITimer.hpp"
+# include "IDirectoryManager.hpp"
+# include "DlLoader.hpp"
 
-#define DEFAULT_PORT 12348
+# define DEFAULT_PORT 12348
 
 class Server
 {
@@ -62,6 +64,8 @@ private:
   PacketManager				_pm;
   int					_port;
   ITimer				*_time;
+  DlLoader				*_dlLoader;
+  IDirectoryManager			*_dirMan;
 };
 
 #endif// _SERVER_RTYPE_HPP_

@@ -164,6 +164,11 @@ SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 add_executable(
 	server
 	./src/server/main.cpp
+	./src/server/DlLoader.cpp
+	./src/server/ExtensionDll.cpp
+	./src/server/DirectoryManagerWindows.cpp
+	./src/server/Dll.cpp
+	./src/client/Error.cpp
 	./src/protocol/PacketData.cpp
 	./src/protocol/PacketFactory.cpp
 	./src/server/protocol/PacketManager.cpp
@@ -202,6 +207,11 @@ SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 add_executable(
 	server
 	./src/server/main.cpp
+	./src/server/DlLoader.cpp
+	./src/server/ExtensionSo.cpp
+	./src/server/DirectoryManagerUnix.cpp
+	./src/server/Dll.cpp
+	./src/client/Error.cpp
 	./src/protocol/PacketData.cpp
 	./src/protocol/PacketFactory.cpp
 	./src/server/protocol/PacketManager.cpp
@@ -238,6 +248,7 @@ target_link_libraries(
 	SNetwork
 	Thread
 	pthread
+	dl
 )
 
 endif(UNIX)
@@ -287,6 +298,8 @@ include_directories(include)
 include_directories(shared)
 
 add_definitions(-DLIBMONSTER_EXPORTS)
+
+SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 add_library(
 	MonsterBase
