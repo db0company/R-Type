@@ -70,7 +70,6 @@ bool			ProtocolGame::actionGet(PacketData &, User *user, Server &server)
   Game *tmp = NULL;
   int nb_game = 0;
 
-  std::cout << "size of map: " << map.size()<< std::endl;
   for (it = map.begin(); it != map.end(); ++it)
     {
       if ((*it).second->getStatus() != ENDED)

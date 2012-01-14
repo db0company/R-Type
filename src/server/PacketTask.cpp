@@ -66,7 +66,7 @@ void	PacketTask::launchTask(ICondVar *)
   if (this->netFunc == NULL && this->gameFunc != NULL && this->game != NULL)
     {
       ScopedLock	sc(this->game->getMutex());
-      std::cout << "#######jai locker " << std::endl;
+      // std::cout << "#######jai locker " << std::endl;
       (this->game->*gameFunc)(gp);
     }
   // else if (this->gameFunc == NULL && this->netFunc != NULL && this->network != NULL)
@@ -75,6 +75,6 @@ void	PacketTask::launchTask(ICondVar *)
 
   //   //   (this->network->*netFunc)(*this->param);
   //   // }
-  std::cout << "#######jai FINI DE LOCKer " << std::endl;
+  // std::cout << "#######jai FINI DE LOCKer " << std::endl;
 }
 

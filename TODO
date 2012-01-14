@@ -1,7 +1,3 @@
-getPlayerMap (StateInGame)
-getWindow (Sfml)
-getSprite (Sfml)
-
 /!\ TODO: /!\
 
 -> General:
@@ -10,16 +6,14 @@ getSprite (Sfml)
 
 -> Client:
    * creer une game avec spectator a faux et pourtant ca laffiche en YES dans rrom list
+
    * idriss: verifi le retour de getStdToSfString qui ret ptr
    * idriss: quand ya de la merde dans .ressource_img ca doit pas segfault
    * idriss: ton getvalu est unsafe + tu ferifi pas si tes map.find() retourne pas un map.end() (getValue + Sfml.cpp)
+
    * Afficher les info ds une barre en bas (nnombres de vie/score/nom du lvl)
-   * Affichage positions des ship par rapport au donnee
-   (et rotation par rapport a vecteur)
    * Affichage des bullet
    * Decoupage intensive des autres sprites.
-   * mutexter es game cote server
-   * add un new packet pour associer id et nom cote client pour la game
 
 -> Client/Server/Game
    * Lier les actions a des packets a envoye au network (Graphic et reseau)
