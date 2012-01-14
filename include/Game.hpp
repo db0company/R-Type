@@ -66,6 +66,7 @@ public:
   eGameStatus	getStatus(void)const;
   void		setStatus(eGameStatus e);
   IMutex	*getMutex();
+  int		nbBullet();
   std::map<std::string, AObject *>& getPlayerList();
   std::map<std::string, User *> &getUserMap();
   AObject	*getEntitiesbyName(const std::string& name);

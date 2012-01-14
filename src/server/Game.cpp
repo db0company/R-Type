@@ -342,6 +342,7 @@ void	Game::fireBullet(GameParam& par)
   int		finaly;
 
   // std::cout << "jenvoi bullet " << std::endl;
+
   if ((ent = reinterpret_cast<Entities *>
        (getEntitiesbyName(par.paDa->getNextString()))) == NULL)
     return ; // error
@@ -354,6 +355,7 @@ void	Game::fireBullet(GameParam& par)
 
   finalx = p.x + (p.tilex * 112);
   finaly = p.y + (p.tiley * 150);
+  data->addUint32(1);
   data->addUint32(finalx);
   data->addUint32(finaly);
   sendToAllClient(data, MOVEMENT, UPDATEBULLET);
@@ -521,4 +523,9 @@ eGameStatus	Game::getStatus(void)const
 std::map<std::string, User *> &Game::getUserMap()
 {
   return (this->_userMap);
+}
+
+int		Game::nbBullet()
+{
+  return (this->_bullets.size());
 }

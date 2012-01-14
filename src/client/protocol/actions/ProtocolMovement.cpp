@@ -147,8 +147,7 @@ bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &c)
   nbBull = data.getNextUint32();
   while (i != nbBull)
     {
-      LibGraphic::BulletMovement *b = new LibGraphic::BulletMovement(c.getGraphic().getWindow(),
-				     c.getGraphic().getSprite("Missile"), LibGraphic::NORMAL_BULLET);
+      LibGraphic::BulletMovement *b = new LibGraphic::BulletMovement(c.getGraphic().getWindow(), c.getGraphic().getSprite("Missile"), LibGraphic::NORMAL_BULLET);
 
       LibGraphic::Coord coord;
       coord.x = data.getNextUint32();
@@ -157,6 +156,7 @@ bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &c)
       list.push_front(b);
       ++i;
     }
+  std::cout << ">i<" <<i << std::endl;
   return (false);
 }
 
