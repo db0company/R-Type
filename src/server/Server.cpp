@@ -276,14 +276,19 @@ bool Server::run(void)
 {
   this->_time->resetTime();
   int	s = 0;
-  int	us = 50;
+   int	selus = 25000;
+#ifdef _WIN32
+  int	us = 15000;
+ #else
+  int	us = 25000;
+#endif
 
   this->_time->initWait(s, us);
   while (true)
     {
       this->resetClientWrite();
       this->_listener->SNAddRead();
-      this->_selector->setTimer(0, 0);
+      this->_selector->setTimer(0, selus);
       if (!this->_selector->SNSelect())
 	{
 	  std::cerr << "Error: Select" << std::endl;
