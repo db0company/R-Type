@@ -77,6 +77,7 @@ namespace LibGraphic
     sf::Sprite & getSprite(std::string const &);
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
+    void setMyPosition(Coord c);
 
   public:
     void errorMessage(std::string const &);

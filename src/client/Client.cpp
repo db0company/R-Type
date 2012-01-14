@@ -84,7 +84,7 @@ bool Client::actionCreate(std::string const &log, std::string const &name,
   data->addString(name);
   data->addString(lvl);
   data->addChar(slot);
-  data->addChar(spec);
+  data->addChar(spec == true ? 1 : 0);
 
   packet = new ProtocolPacket;
   packet->header.size = data->getDataSize();

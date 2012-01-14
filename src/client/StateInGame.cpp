@@ -155,18 +155,14 @@ void LibGraphic::StateInGame::draw()
 
 void LibGraphic::StateInGame::drawPlayers()
 {
-  // std::cout << this->_myid << std::endl;
-  std::cout << "my id:" << this->_myid << std::endl;
   this->_player->setId(this->_myid);
   this->_player->draw();
   std::map<int, PlayerMovement *>::iterator it;
 
   for (it = this->_playerMap.begin(); it != this->_playerMap.end(); ++it)
     {
-      std::cout << "en plus de moi il y a " << (int)it->second->getId() <<std::endl;
       if (it->second->getId() != this->_myid)
 	{
-	  std::cout << "je l'affiche en "<< it->second->getX() << " " << it->second->getY() <<std::endl;
 	  it->second->draw();
 	}
     }
@@ -300,4 +296,9 @@ eShipColor LibGraphic::StateInGame::getMyId() const
 void LibGraphic::StateInGame::setMyId(eShipColor id)
 {
   this->_myid = id;
+}
+
+void LibGraphic::StateInGame::setMyPosition(Coord c)
+{
+  this->_player->setCoord(c);
 }
