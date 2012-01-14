@@ -262,6 +262,7 @@ bool Client::run(void)
 {
   LibGraphic::Event event;
   LibGraphic::eMovement move;
+  LibGraphic::eBulletType bullet;
 
   while (true)
     {
@@ -284,7 +285,9 @@ bool Client::run(void)
       event = this->cGraphic.getEvent();
       this->gereAction(event);
       if ((move = this->cGraphic.getLastMove()) != LibGraphic::NO_MOVE)
-	  actionMove(move);
+	actionMove(move);
+      if ((bullet = this->cGraphic.getLastBullet()) != LibGraphic::NO_BULLET)
+	actionBullet(bullet, this->cGraphic.getLogin());
       this->cGraphic.clean();
       this->cGraphic.draw();
       this->cNetwork.reset();
@@ -295,6 +298,27 @@ bool Client::run(void)
 LibGraphic::Sfml &Client::getGraphic(void)
 {
   return (this->cGraphic);
+}
+
+bool Client::actionBullet(LibGraphic::eBulletType bullet, std::string const &name)
+{
+  ProtocolPacket	*packet;
+  PacketData		*data;
+
+  data = new PacketData;
+  packet = new ProtocolPacket;
+
+  data->addString(name);
+  data->addChar(bullet);
+
+  packet->header.group = MOVEMENT;
+  packet->header.instruction = NEWBULLET;
+  packet->header.magic = PACKET_MAGIC;
+  packet->header.size = data->getDataSize();
+  packet->data = data->getData();
+
+  this->cNetwork.pushTCP(packet);
+  return (true);
 }
 
 bool Client::actionRefresh(void)

@@ -38,6 +38,7 @@ namespace LibGraphic
     std::string const &getGameLvl(void) const;
 
     eMovement getLastMove() const;
+    eBulletType getLastBullet() const;
 
     std::map<int, PlayerMovement *> const & getPlayerMap() const;
     std::map<int, PlayerMovement *> & getPlayerMap();

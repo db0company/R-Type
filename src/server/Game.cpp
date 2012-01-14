@@ -205,7 +205,7 @@ void	Game::changePlayerPos(GameParam& par)
   if (finalx < 0 || finalx > 1680 || finaly < 0 || finaly > 1050)
     {
       initPos(newPos);
-      it->second->setPos(newPos);      
+      it->second->setPos(newPos);
       data->addChar(reinterpret_cast<Player *>(it->second)->getId());
       data->addString(it->first);
       data->addUint32(finalx);
@@ -214,7 +214,7 @@ void	Game::changePlayerPos(GameParam& par)
     }
   else
     {
-      it->second->setPos(newPos);      
+      it->second->setPos(newPos);
       data->addChar(reinterpret_cast<Player *>(it->second)->getId());
       data->addString(it->first);
       data->addUint32(finalx);

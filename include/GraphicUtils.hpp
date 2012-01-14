@@ -32,6 +32,13 @@ namespace LibGraphic
       NO_MOVE
     };
 
+  enum eBulletType
+    {
+      NORMAL_BULLET,
+      CHARGED_BULLET,
+      NO_BULLET
+    };
+
   struct Size
   {
     unsigned int width;

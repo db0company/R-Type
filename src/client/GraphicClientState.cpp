@@ -259,3 +259,8 @@ void LibGraphic::GraphicClientState::setMyPosition(Coord c)
 {
   reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setMyPosition(c);
 }
+
+LibGraphic::eBulletType LibGraphic::GraphicClientState::getLastBullet(void)const
+{
+  return reinterpret_cast <StateInGame const *>(getValue(this->_stateInfos, INGAME))->getLastBullet();
+}

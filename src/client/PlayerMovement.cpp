@@ -11,6 +11,8 @@ LibGraphic::PlayerMovement::PlayerMovement(sf::RenderWindow & app,
   this->_clock.Reset();
   this->_rotate = SHIP_MIDDLE;
   this->_lastMove = NO_MOVE;
+  this->_lastBullet = NO_BULLET;
+  this->_clockBullet.Reset();
 }
 
 LibGraphic::PlayerMovement::~PlayerMovement() {}
@@ -80,6 +82,28 @@ void LibGraphic::PlayerMovement::move(const sf::Event & event)
 	this->_rotate = SHIP_MIDDLE;
       this->_lastMove = NO_MOVE;
     }
+  gereBullet(Input);
+}
+
+void LibGraphic::PlayerMovement::gereBullet(const sf::Input & Input)
+{
+  bool SpaceKeyDown = Input.IsKeyDown(sf::Key::Space);
+  bool PKeyDown = Input.IsKeyDown(sf::Key::S);
+  bool ButtonA = Input.IsJoystickButtonDown(0, 0);
+  bool ButtonB = Input.IsJoystickButtonDown(0, 1);
+
+  if ((SpaceKeyDown || ButtonA) && (this->_clockBullet.GetElapsedTime() >= 0.3))
+    {
+      this->_lastBullet = NORMAL_BULLET;
+      this->_clockBullet.Reset();
+    }
+  else if ((PKeyDown || ButtonB) && (this->_clockBullet.GetElapsedTime() >= 0.8))
+    {
+      this->_lastBullet = CHARGED_BULLET;
+      this->_clockBullet.Reset();
+    }
+  else
+    this->_lastBullet = NO_BULLET;
 }
 
 void LibGraphic::PlayerMovement::UpPlayer(bool LeftKeyDown, bool RightKeyDown, float JoystickX)
@@ -174,6 +198,11 @@ void LibGraphic::PlayerMovement::setId(eShipColor id)
 LibGraphic::eMovement LibGraphic::PlayerMovement::getLastMove() const
 {
   return this->_lastMove;
+}
+
+LibGraphic::eBulletType LibGraphic::PlayerMovement::getLastBullet() const
+{
+  return this->_lastBullet;
 }
 
 int LibGraphic::PlayerMovement::getX(void) const

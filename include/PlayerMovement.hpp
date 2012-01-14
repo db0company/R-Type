@@ -29,20 +29,22 @@ namespace LibGraphic
     void setId(eShipColor id);
 
     eMovement getLastMove() const;
-
+    eBulletType getLastBullet() const;
   private:
     void UpPlayer(bool LeftKeyDown, bool RightKeyDown, float JoystickX);
     void DownPlayer(bool LeftKeyDown, bool RightKeyDown, float JoystickX);
+    void gereBullet(const sf::Input & Input);
 
    private:
     sf::RenderWindow & _app;
     sf::Sprite & _sprite;
     sf::Clock _clock;
+    sf::Clock _clockBullet;
     Coord _coord;
     eShipRotation _rotate;
     eShipColor _id;
     eMovement _lastMove;
-
+    eBulletType _lastBullet;
   };
 
 }

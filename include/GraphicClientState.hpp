@@ -63,6 +63,7 @@ class PlayerMovement;
     InfoGame * getGameForPreviewFromCreate(void);
     std::list<std::string> &getPlayerNameList(void);
     eMovement getLastMove(void) const;
+    eBulletType getLastBullet(void) const;
     std::map<int, PlayerMovement *> const & getPlayerMap() const;
     std::map<int, PlayerMovement *> & getPlayerMap();
     eShipColor getMyId() const;
