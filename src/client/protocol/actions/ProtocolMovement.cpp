@@ -139,7 +139,10 @@ bool		ProtocolMovement::actionUpdateEnemy(PacketData &data, Client &c)
       else if (type == 4)
 	m = new LibGraphic::SpaceCrab(c.getGraphic().getWindow(), c.getGraphic().getSprite("SpaceCrab"));
       else
-	m = new LibGraphic::RedEvil(c.getGraphic().getWindow(), c.getGraphic().getSprite("test"));
+	{
+	  m = new LibGraphic::RedEvil(c.getGraphic().getWindow(), c.getGraphic().getSprite("test"));
+	  m->setScale(2, 2);
+	}
       m->setCoord(x, y);
       monsterMap[id] = m;
     }

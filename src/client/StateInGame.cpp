@@ -32,10 +32,6 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_lives = 0;
   this->_mapLoaded = false;
   gpos = 0;
-  // todo delete: begin test
-  // AMonsterMovement *m = new RedEvil(app, this->getSprite("test"));
-  // m->setCoord(10, 10);
-  // this->_monsterMap[0] = m;
   AMonsterMovement *m = new GreenEyes(this->_app, this->getSprite("GreenEyes"));
   m->setCoord(100, 100);
   this->_monsterMap[100] = m;
@@ -111,7 +107,6 @@ void LibGraphic::StateInGame::drawStarField()
 
 void LibGraphic::StateInGame::drawMap()
 {
-  // static int gpos = 0;
   sf::Sprite &test = this->getSprite("SpriteMap");
   int i;
   float time = this->_mapClock.GetElapsedTime();
@@ -246,7 +241,8 @@ void LibGraphic::StateInGame::drawMonsters()
 void LibGraphic::StateInGame::drawPlayers()
 {
   this->_player->setId(this->_myid);
-  this->_player->draw();
+  if (this->_lives)
+    this->_player->draw();
   std::map<int, PlayerMovement *>::iterator it;
 
   for (it = this->_playerMap.begin(); it != this->_playerMap.end(); ++it)
@@ -416,17 +412,7 @@ void LibGraphic::StateInGame::resetInGameState(void)
   this->_mapLoaded = false;
   this->_gameName = "";
   this->_gameLvl = "Star";
-  // debug a enlever todo
-  AMonsterMovement *m = new GreenEyes(this->_app, this->getSprite("GreenEyes"));
-  m->setCoord(100, 100);
-  this->_monsterMap[100] = m;
-  // AMonsterMovement *n = new GreenEyes(this->_app, this->getSprite("GreenEyes"));
-  // n->setCoord(200, 200);
-  // this->_monsterMap[101] = n;
-  //  AMonsterMovement *o = new EvilRobot(this->_app, this->getSprite("EvilRobot"));
-  // AMonsterMovement *o = new EvilRobot(this->_app, this->getSprite("EvilRobot"));
-  // o->setCoord(300, 300);
-  // this->_monsterMap[102] = o;
+  this->_monsterMap.clear();
 }
 
 void LibGraphic::StateInGame::setScore(unsigned int i)

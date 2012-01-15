@@ -146,7 +146,9 @@ void LibGraphic::StateOptions::draw()
   this->_app.Draw(*Ok);
   this->drawText();
   this->drawCursor();
+  this->test->setScale(1, 1);
   this->test->play();
+  this->test->setScale(2, 2);
 }
 
 void LibGraphic::StateOptions::drawCursor()
@@ -306,6 +308,7 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 {
   sf::Event Event;
 
+  helpToShow = false;
   while (this->_app.GetEvent(Event))
     {
       if (Event.Type == sf::Event::KeyPressed)
@@ -322,14 +325,6 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
-		break;
-	      }
-	    case sf::Key::H :
-	      {
-		if (helpToShow)
-		  helpToShow = false;
-		else
-		  helpToShow = true;
 		break;
 	      }
 	    case sf::Key::Back :

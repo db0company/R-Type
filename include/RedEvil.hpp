@@ -7,7 +7,6 @@
 
 #include "AMonsterMovement.hpp"
 
-
 // Les Monstres :
 
 // RedEvil 0
@@ -15,7 +14,6 @@
 // GreenEyes 2
 // EvilRobot 3
 // SpaceCrab 4
-
 
 // Autre : RedEvil
 
