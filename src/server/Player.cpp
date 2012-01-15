@@ -1,6 +1,7 @@
 #include "enum.h"
 #include "Player.hpp"
 
+
 Player::Player(User *u, const std::string& n)
  : Entities()
 {

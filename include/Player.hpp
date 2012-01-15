@@ -3,6 +3,7 @@
 
 #include "Entities.hpp"
 #include "User.hpp"
+
 class		Player : public Entities
 {
 public:

@@ -198,6 +198,7 @@ void	Game::changePlayerPos(GameParam& par)
   else if (direction.y == 1)
     newPos.y -= 8;
   verifPos(newPos);
+//  std::cout << "ma new pos tx "<< newPos.tilex << " ty " << newPos.tiley << " x "<< newPos.x << " y " << newPos.y << std::endl;
 
   finalx = newPos.x + (newPos.tilex * 112);
   finaly = newPos.y + (newPos.tiley * 150);
@@ -467,6 +468,7 @@ void	Game::sendMonsterDeath(Monster *mob, char killtype)
   data->addChar(killtype);
   data->addShort(finalx);
   data->addShort(finaly);
+//  std::cout << mob->getMId() << std::endl;
   sendToAllClient(data, GAME_DETAILS, MONSTERKILL);
 }
 
@@ -572,10 +574,10 @@ void	Game::checkCollision(GameParam&)
   while (itB != this->_bullets.end())
     {
       if (itB->getDestroy() == true)
-	{
-	  itB = this->_bullets.erase(itB);
-	}
-	  if (itB != this->_bullets.end())
+	    {
+	        itB = this->_bullets.erase(itB);
+	     }
+	 if (itB != this->_bullets.end())
       ++itB;
     }
 }
