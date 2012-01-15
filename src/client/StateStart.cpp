@@ -324,6 +324,12 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		    this->_nextState = CREDITS;
 		    return EVENT_CHANGE_STATE;
 		  }
+		else if (this->_currentButton == BUTTON_INTRO)
+		  {
+		    this->playSound();
+		    this->_nextState = INTRO;
+		    return EVENT_CHANGE_STATE;
+		  }
 		break;
 	      }
 	    default: break;
@@ -365,6 +371,12 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		  {
 		    this->playSound();
 		    this->_nextState = CREDITS;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_INTRO)
+		  {
+		    this->playSound();
+		    this->_nextState = INTRO;
 		    return EVENT_CHANGE_STATE;
 		  }
  		break;
