@@ -5,6 +5,7 @@
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 extern bool errorToPrint;
+extern bool helpToShow;
 
 std::string LibGraphic::StateRanking::stringOfInt(int v)
 {
@@ -161,6 +162,14 @@ LibGraphic::Event LibGraphic::StateRanking::gereEvent()
 		this->playSound();
 		this->_nextState = START;
 		return EVENT_CHANGE_STATE;
+	      }
+	    case 3:
+	      {
+		if (helpToShow)
+		  helpToShow = false;
+		else
+		  helpToShow = true;
+		break;
 	      }
 	    }
 	}

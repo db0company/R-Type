@@ -4,6 +4,7 @@
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 extern bool errorToPrint;
+extern bool helpToShow;
 
 LibGraphic::StateCredits::StateCredits(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 				       std::map<std::string const, MyMusic *> const & ressourcesPlayList,
@@ -71,7 +72,7 @@ void LibGraphic::StateCredits::drawText()
   sf::String *tmp;
   unsigned int test = 1;
 
-  if (this->Clock.GetElapsedTime() < 0.01)
+  if (this->Clock.GetElapsedTime() < 0.1)
     return;
   for (it = this->_list.begin(); it != this->_list.end(); ++it)
     {
@@ -144,6 +145,14 @@ LibGraphic::Event LibGraphic::StateCredits::gereEvent()
 		this->_nextState = START;
 		this->playSound();
 		return EVENT_CHANGE_STATE;
+	      }
+	    case 3:
+	      {
+		if (helpToShow)
+		  helpToShow = false;
+		else
+		  helpToShow = true;
+		break;
 	      }
 	    }
 	}

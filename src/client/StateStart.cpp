@@ -387,6 +387,14 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		this->_currentButton = BUTTON_EXIT;
 		break;
 	      }
+	    case 3:
+	      {
+		if (helpToShow)
+		  helpToShow = false;
+		else
+		  helpToShow = true;
+		break;
+	      }
 	    default: break;
 	    }
 	}
