@@ -72,8 +72,18 @@ void LibGraphic::StateCredits::drawText()
   sf::String *tmp;
   unsigned int test = 1;
 
-  if (this->Clock.GetElapsedTime() < 0.1)
-    return;
+  if (this->Clock.GetElapsedTime() < 0.01)
+    {
+      for (it = this->_list.begin(); it != this->_list.end(); ++it)
+	{
+	  tmp = this->getStdToSfString((*it)->s ,this->getFont("StartFontF"));
+	  tmp->SetPosition(200, (*it)->pos);
+	  tmp->SetScale(0.8, 0.8);
+	  test = (*it)->pos;
+	  this->_app.Draw(*tmp);
+	}
+      return;
+    }
   for (it = this->_list.begin(); it != this->_list.end(); ++it)
     {
       tmp = this->getStdToSfString((*it)->s ,this->getFont("StartFontF"));
