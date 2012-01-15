@@ -41,6 +41,7 @@ Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
   this->_param.sizeCol = 7;
   this->_idPlayers = 0;
   this->_monsterId = 0;
+  this->_nbWave = 15;
   this->_mapDll.insert(std::pair<int, std::string>(0, MONSTERBASE));
   this->_mapDll.insert(std::pair<int, std::string>(1, MONSTERSHIP));
   this->_mapDll.insert(std::pair<int, std::string>(2, MONSTEREYE));
@@ -77,6 +78,7 @@ Game::Game(const Game& old)
   this->_param.sizeCol = old._param.sizeCol;
   this->_mutex = old._mutex;
   this->_monsterId = old._monsterId;
+  this->_nbWave = old._nbWave;
 }
 
 Game&	Game::operator=(const Game& old)
@@ -98,6 +100,7 @@ Game&	Game::operator=(const Game& old)
   this->_param.sizeCol = old._param.sizeCol;
   this->_mutex = old._mutex;
   this->_monsterId = old._monsterId;
+  this->_nbWave = old._nbWave;
   return (*this);
 }
 
@@ -216,6 +219,22 @@ void	Game::changePlayerPos(GameParam& par)
     }
 }
 
+void	Game::sendEndPacketExt()
+{
+  ScopedLock	sl(this->_mutex);
+  PacketData	*data = new PacketData;
+  HighScore hg;
+
+  std::map<std::string, AObject *>::iterator it = this->_players.begin();
+
+  while (it != this->_players.end())
+    {
+      hg.addNewScore(static_cast<Player *>(it->second)->getScore(), it->first);
+      ++it;
+    }
+  sendToAllClient(data, THE_GAME, ENDGAME);
+}
+
 void	Game::sendEndPacket()
 {
   PacketData	*data = new PacketData;
@@ -241,8 +260,8 @@ void	Game::launchWave(GameParam&)
   int		nbMob = 4;
   DlLoader	*dl = DlLoader::getInstance();
   std::string	str;
-  std::cout << "new wave" << std::endl;
 
+  this->_nbWave--;
   while (it != this->_players.end())
     {
       if (static_cast<Entities *>(it->second)->isDie() == false)
@@ -620,6 +639,7 @@ void	Game::moveBullet(GameParam&)
 	  if (finalx < 0 || finalx > 1680 || finaly < 0 || finaly > 1050)
 	    (*it).setDestroy();
 	  (*it).setPos(p);
+	  data->addChar((*it).getGroup());
 	  data->addShort(finalx);
 	  data->addShort(finaly);
 	  ++it;
@@ -774,4 +794,9 @@ int	Game::getNbMonster()
   ScopedLock sl(this->_mutex);
 
   return (this->_monster.size());
+}
+
+int		Game::getNbWave()
+{
+  return(this->_nbWave);
 }
