@@ -8,7 +8,7 @@
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 extern bool errorToPrint;
-
+extern bool helpToShow;
 LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
@@ -223,6 +223,14 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
 		this->_nextState = ROOMLIST;
 		return (EVENT_CHANGE_STATE);
 		// }
+		break;
+	      }
+	    case sf::Key::H :
+	      {
+		if (helpToShow)
+		  helpToShow = false;
+		else
+		  helpToShow = true;
 		break;
 	      }
 	    default : break;

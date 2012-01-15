@@ -5,7 +5,7 @@
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 extern bool errorToPrint;
-
+extern bool helpToShow;
 LibGraphic::StateCreateGame::StateCreateGame(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
@@ -345,6 +345,14 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
+		break;
+	      }
+	    case sf::Key::H :
+	      {
+		if (helpToShow)
+		  helpToShow = false;
+		else
+		  helpToShow = true;
 		break;
 	      }
 	    case sf::Key::Back :
