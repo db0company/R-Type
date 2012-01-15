@@ -99,14 +99,9 @@ void	Game::sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc
   ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, data);
   std::map<std::string , User *>::iterator it2 = this->_userMap.begin();
 
-  // std::cout << "debut 1" << std::endl;
   for (; it2 != _userMap.end(); ++it2)
-    {
-      // std::cout << "jai " << it2->second->getIp() << std::endl;
-      if (it2->second->isSafe())
-	it2->second->addPacketToSend(packet_to_send);
-    }
-  // std::cout << "fin 1" << std::endl;
+    if (it2->second->isSafe())
+      it2->second->addPacketToSend(packet_to_send);
 }
 
 void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player)
@@ -176,7 +171,6 @@ void	Game::changePlayerPos(GameParam& par)
   newPos = it->second->getPos();
   direction.x = par.paDa->getNextChar();
   direction.y = par.paDa->getNextChar();
-  // std::cout << " je bouge " << ret << " de " << direction.x << " " << direction.y << std::endl;
 
   if (direction.x == -1)
     newPos.x -= 8;
@@ -221,7 +215,7 @@ void	Game::launchWave(GameParam&)
   int	rand = 1;
   Position p;
   int		i = 0;
-  int		nbMob = 1;
+  int		nbMob = 4;
   DlLoader	*dl = DlLoader::getInstance();
   std::cout << "new wave" << std::endl;
 
@@ -232,7 +226,7 @@ void	Game::launchWave(GameParam&)
 	mob = dynamic_cast<Monster *>(dl->getDll("bin/libMonsterBase.so").getSymbol<IObject>("getMonsterBase"));
       dl->desactivMut();
       p.x = 1700;
-      p.y = 400 + 100 * i;
+      p.y = 400 + 50 * i;
       verifPos(p);
       createNewMonster(p, mob);
       ++i;
@@ -249,11 +243,9 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   Position	pos;
 
   newPlayer->setId(this->_idPlayers);
-  // std::cout << "my new friend is " << name << " with ip "<< us->getIp() << std::endl;
   pos.x = 400;
-  pos.y = 400;// + (70 * newPlayer->getId());
+  pos.y = 400;
   verifPos(pos);
-  //  std::cout << "FIRST POS pos.x " << pos.x << " pos.y " << pos.y << "pos.tile x " << pos.tilex << " pos.tiley " << pos.tiley << std::endl;
   newPlayer->setPos(pos);
   this->_idPlayers++;
   this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
@@ -305,18 +297,29 @@ void	Game::moveMonster(GameParam& par)
 	  finaly = p.y + (p.tiley * 150);
 	  if (finalx < -10)
 	    {
-	      //static_cast<Entities *>(it->second)-
-	      //	      sendMonsterDeath(dynamic_cast<Monster *>(it->second));
-	      //	      ++it;
+	      static_cast<Entities *>(it->second)->die();
+	      sendMonsterDeath(dynamic_cast<Monster *>(it->second));
+	      ++it;
 	    }	    
 	  data->addChar(mob->getMId());
-	  //	  std::cout << "ID DE MONSTRE " << mob->getMId() << std::endl;
 	  data->addChar(mob->getMType());
 	  data->addShort(finalx);
 	  data->addShort(finaly);
 	  ++it;
 	  sendToAllClient(data, MOVEMENT, UPDATEENEMY);
 	}
+    }
+  it = this->_monster.begin();
+  while (it != this->_monster.end())
+    {
+      if (dynamic_cast<Entities *>(it->second)->isDie() == true)
+	{
+	  sendMonsterDeath(dynamic_cast<Monster *>(it->second));
+	  this->_monster.erase(it);
+	  it = this->_monster.begin();
+	}
+      else
+	++it;
     }
 }
 
