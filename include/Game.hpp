@@ -78,7 +78,7 @@ public:
   bool		checkInTile(AObject *ob1, AObject *ob2);
   void		fireEnnemyBullet(Monster *ent);
   void		sendLooseLife(Player *play, char killtype);
-  void		sendMonsterDeath(Monster *mob);
+  void		sendMonsterDeath(Monster *mob, char killtype);
   void		refreshLivesPlayers();
 private:
   unsigned int _id;
@@ -100,6 +100,7 @@ private:
   IMutex	*_mutex;
   int		_idPlayers;
   int		_monsterId;
+  std::map<int, std::string> _mapDll;
 };
 
 #endif	// GAME_H_

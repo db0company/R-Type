@@ -325,7 +325,6 @@ add_library(
 	./src/server/Monster.cpp
 )
 
-
 add_library(
 	MonsterShip
 	SHARED
@@ -336,4 +335,32 @@ add_library(
 	./src/server/Monster.cpp
 )
 
+add_library(
+	MonsterEye
+	SHARED
+	./shared/MonsterEye.cpp
+	./src/server/Position.cpp
+	./src/server/AObject.cpp
+	./src/server/Entities.cpp
+	./src/server/Monster.cpp
+)
 
+add_library(
+	MonsterRobot
+	SHARED
+	./shared/MonsterRobot.cpp
+	./src/server/Position.cpp
+	./src/server/AObject.cpp
+	./src/server/Entities.cpp
+	./src/server/Monster.cpp
+)
+
+add_library(
+	MonsterCrab
+	SHARED
+	./shared/MonsterCrab.cpp
+	./src/server/Position.cpp
+	./src/server/AObject.cpp
+	./src/server/Entities.cpp
+	./src/server/Monster.cpp
+)

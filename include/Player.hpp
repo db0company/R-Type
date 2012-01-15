@@ -14,9 +14,12 @@ public:
   User		*getUser();
   int		getId()const;
   void		setId(int i);
+  void		AddToScore(int i);
+  int		getScore()const;
 private:
   User		*us;
   int		id;
+  int		score;
 };
 
 #endif		/*__PLAYER_HPP__*/

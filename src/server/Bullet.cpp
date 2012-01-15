@@ -1,7 +1,8 @@
 #include "Bullet.hpp"
 
-Bullet::Bullet(Position p, eGroup g)
+Bullet::Bullet(Position p, eGroup g, const std::string& ow)
 {
+  this->owner = ow;
   this->pos = p;
   this->group = g;
   this->toDestroy = false;
@@ -25,4 +26,14 @@ void	Bullet::setDestroy()
 bool	Bullet::getDestroy()
 {
   return (this->toDestroy);
+}
+
+void	Bullet::setOwner(const std::string& ow)
+{
+  this->owner = ow;
+}
+
+const std::string& Bullet::getOwner()const
+{
+  return (this->owner);
 }

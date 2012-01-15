@@ -13,6 +13,7 @@
 #include "eProtocolPacketGameDetails.hpp"
 #include "ScopedLock.hpp"
 #include "DlLoader.hpp"
+#include "OS.hpp"
 #ifdef _WIN32
 #include "MutexWindows.hpp"
 #else
@@ -39,6 +40,11 @@ Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
   this->_param.sizeCol = 7;
   this->_idPlayers = 0;
   this->_monsterId = 0;
+  this->_mapDll.insert(std::pair<int, std::string>(0, MONSTERBASE));
+  this->_mapDll.insert(std::pair<int, std::string>(1, MONSTERSHIP));
+  this->_mapDll.insert(std::pair<int, std::string>(2, MONSTEREYE));
+  this->_mapDll.insert(std::pair<int, std::string>(3, MONSTERROBOT));
+  this->_mapDll.insert(std::pair<int, std::string>(4, MONSTERCRAB));
 #ifdef _WIN32
   this->_mutex = new MutexWindows;
 #else
@@ -218,21 +224,23 @@ void	Game::launchWave(GameParam&)
   int		i = 0;
   int		nbMob = 4;
   DlLoader	*dl = DlLoader::getInstance();
+  std::string	str;
   std::cout << "new wave" << std::endl;
 
   while (i != nbMob)
     {
-      r = rand() % 2;
+      r = rand() % 5;
       dl->activMut();
-      if (r == 0)
-	mob = dynamic_cast<Monster *>(dl->getDll("bin/libMonsterShip.so").getSymbol<IObject>("getMonsterBase"));
-      else if (r == 1)
-	mob = dynamic_cast<Monster *>(dl->getDll("bin/libMonsterBase.so").getSymbol<IObject>("getMonsterBase"));
-      dl->desactivMut();
-      p.x = 1700;
-      p.y = 400 + 50 * i;
-      verifPos(p);
-      createNewMonster(p, mob);
+      str = this->_mapDll[r];
+      if (str != "")
+	{
+	  mob = dynamic_cast<Monster *>(dl->getDll(str).getSymbol<IObject>(GETMONSTER));
+	  dl->desactivMut();
+	  p.x = 1700;
+	  p.y = 400 + 50 * i;
+	  verifPos(p);
+	  createNewMonster(p, mob);
+	}
       ++i;
     }
 }
@@ -288,7 +296,7 @@ void	Game::moveMonster(GameParam& par)
 	{
 	  PacketData	*data = new PacketData;
 
-	  mob = reinterpret_cast<Monster *>(it->second);
+	  mob = dynamic_cast<Monster *>(it->second);
 	  mob->moveNextPos();
 	  p = mob->getPos();
 	  verifPos(p);
@@ -300,7 +308,7 @@ void	Game::moveMonster(GameParam& par)
 	  if (finalx < -10)
 	    {
 	      static_cast<Entities *>(it->second)->die();
-	      sendMonsterDeath(dynamic_cast<Monster *>(it->second));
+	      sendMonsterDeath(dynamic_cast<Monster *>(it->second), 1);
 	      ++it;
 	    }	    
 	  data->addChar(mob->getMId());
@@ -316,7 +324,7 @@ void	Game::moveMonster(GameParam& par)
     {
       if (dynamic_cast<Entities *>(it->second)->isDie() == true)
 	{
-	  sendMonsterDeath(dynamic_cast<Monster *>(it->second));
+	  sendMonsterDeath(dynamic_cast<Monster *>(it->second), 0);
 	  this->_monster.erase(it);
 	  it = this->_monster.begin();
 	}
@@ -331,7 +339,7 @@ const std::string& Game::getPlayerByIp(const std::string& ip)
 
   while (it != this->_players.end())
     {
-      if (reinterpret_cast<Player *>(it->second)->getIp() == ip)
+      if (dynamic_cast<Player *>(it->second)->getIp() == ip)
 	return (it->second->getName());
       ++it;
     }
@@ -386,7 +394,7 @@ void	Game::sendLooseLife(Player *play, char killtype)
   refreshLivesPlayers();
 }
 
-void	Game::sendMonsterDeath(Monster *mob)
+void	Game::sendMonsterDeath(Monster *mob, char killtype)
 {
   PacketData *data = new PacketData;
   int		finalx;
@@ -396,7 +404,7 @@ void	Game::sendMonsterDeath(Monster *mob)
   finalx = p.x + (p.tilex * 112);
   finaly = p.y + (p.tiley * 150);
   data->addChar(mob->getMId());
-  data->addChar(0);
+  data->addChar(killtype);
   data->addShort(finalx);
   data->addShort(finaly);
   sendToAllClient(data, GAME_DETAILS, MONSTERKILL);
@@ -407,7 +415,7 @@ void	Game::checkCollision(GameParam&)
   std::map<std::string, AObject *>::iterator itP = this->_players.begin();
   std::map<int, AObject *>::iterator itM = this->_monster.begin();
   std::list<Bullet>::iterator itB = this->_bullets.begin();
-
+  std::map<std::string, AObject *>::iterator ret;
   while (itM != this->_monster.end())
     {
       itB = this->_bullets.begin();
@@ -418,6 +426,9 @@ void	Game::checkCollision(GameParam&)
 	    if (checkInTile(&(*itB), itM->second) == true)
 	      {
 		itB->setDestroy();
+		ret = this->_players.find(itB->getOwner());
+		if (ret != this->_players.end())
+		  dynamic_cast<Player *>(ret->second)->AddToScore(10);
 		dynamic_cast<Entities *>(itM->second)->die();
 	      }
 	  ++itB;
@@ -467,7 +478,7 @@ void	Game::checkCollision(GameParam&)
     {
       if (dynamic_cast<Entities *>(itM->second)->isDie() == true)
 	{
-	  sendMonsterDeath(dynamic_cast<Monster *>(itM->second));
+	  sendMonsterDeath(dynamic_cast<Monster *>(itM->second), 0);
 	  this->_monster.erase(itM);
 	  itM = this->_monster.begin();
 	}
@@ -501,7 +512,7 @@ void	Game::fireEnnemyBullet(Monster *ent)
   p = ent->getPos();
   p.x -= 30;
   verifPos(p);
-  this->_bullets.push_front(Bullet(p, g));
+  this->_bullets.push_front(Bullet(p, g, ""));
   finalx = p.x + (p.tilex * 112);
   finaly = p.y + (p.tiley * 150);
   data->addShort(1);
@@ -519,7 +530,7 @@ void	Game::fireBullet(GameParam& par)
   short		finalx;
   short		finaly;
 
-  if ((ent = reinterpret_cast<Entities *>
+  if ((ent = dynamic_cast<Entities *>
        (getEntitiesbyName(par.paDa->getNextString()))) == NULL ||
       ent->isDie() == true)
     return ;
@@ -528,7 +539,7 @@ void	Game::fireBullet(GameParam& par)
   p.x += 30;
   p.y += 20;
   verifPos(p);
-  this->_bullets.push_front(Bullet(p, g));
+  this->_bullets.push_front(Bullet(p, g, ent->getName()));
   finalx = p.x + (p.tilex * 112);
   finaly = p.y + (p.tiley * 150);
   data->addShort(1);

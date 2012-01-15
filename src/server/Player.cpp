@@ -8,6 +8,7 @@ Player::Player(User *u, const std::string& n)
   this->name = n;
   this->us = u;
   this->id = 0;
+  this->score = 0;
 }
 
 Player &Player::operator=(Player const &p)
@@ -16,6 +17,7 @@ Player &Player::operator=(Player const &p)
   this->name = p.name;
   this->us = p.us;
   this->id = p.id;
+  this->score = p.score;
   return *this;
 }
 
@@ -25,6 +27,7 @@ Player::Player(Player const &p) : Entities(p)
   this->name = p.name;
   this->us = p.us;
   this->id = p.id;
+  this->score = p.score;
 }
 
 Player::~Player()
@@ -50,4 +53,14 @@ int		Player::getId()const
 void		Player::setId(int i)
 {
   this->id = i;
+}
+
+void		Player::AddToScore(int i)
+{
+  this->score += i;
+}
+
+int		Player::getScore()const
+{
+  return (this->score);
 }
