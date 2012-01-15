@@ -68,7 +68,7 @@ Dll& DlLoader::getDll(const std::string &name)
   if (this->mapDll.empty())
   {
     throw (err);
-  }
+   }
   if ((it = this->mapDll.find(dirfilename)) == mapDll.end())
   {
     throw (err);
