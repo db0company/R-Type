@@ -11,6 +11,7 @@
 #include "StateRoom.hpp"
 #include "StateInGame.hpp"
 #include "StateRanking.hpp"
+#include "StateCredits.hpp"
 #include "GraphicClientState.hpp"
 #include "EGraphicAction.hpp"
 #include "PlayerMovement.hpp"
@@ -56,27 +57,37 @@ void LibGraphic::GraphicClientState::loadStates(void)
 					    this->_ressourcesSounds,
 					    this->_ressourcesFont,
 					    this->_app);
+
   this->_stateInfos[ROOMLIST] = new StateRoomList(this->_ressourcesSprite,
 						  this->_ressourcesPlayList,
 						  this->_ressourcesSounds,
 						  this->_ressourcesFont,
 						  this->_app);
+
   this->_stateInfos[CREATEGAME] = new StateCreateGame(this->_ressourcesSprite,
 						      this->_ressourcesPlayList,
 						      this->_ressourcesSounds,
 						      this->_ressourcesFont,
 						      this->_app);
+
   this->_stateInfos[ROOM] = new StateRoom(this->_ressourcesSprite,
 					  this->_ressourcesPlayList,
 					  this->_ressourcesSounds,
 					  this->_ressourcesFont,
 					  this->_app);
+
   this->_stateInfos[OPTIONS] = new StateOptions(this->_ressourcesSprite,
 						this->_ressourcesPlayList,
 						this->_ressourcesSounds,
 						this->_ressourcesFont,
 						this->_app);
-  this->_stateInfos[CREDITS] = NULL;
+
+  this->_stateInfos[CREDITS] = new StateCredits(this->_ressourcesSprite,
+						this->_ressourcesPlayList,
+						this->_ressourcesSounds,
+						this->_ressourcesFont,
+						this->_app);
+
   this->_stateInfos[RANKING] = new StateRanking(this->_ressourcesSprite,
 						this->_ressourcesPlayList,
 						this->_ressourcesSounds,

@@ -316,6 +316,11 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		    this->_nextState = RANKING;
 		    return EVENT_CHANGE_STATE;
 		  }
+		else if (this->_currentButton == BUTTON_CREDITS)
+		  {
+		    this->_nextState = CREDITS;
+		    return EVENT_CHANGE_STATE;
+		  }
 		break;
 	      }
 	    default: break;
@@ -342,6 +347,16 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		    this->_nextState = ROOMLIST;
 		    // return EVENT_CHANGE_STATE;
 		    return (EVENT_START_PLAY);
+		  }
+		else if (this->_currentButton == BUTTON_RANKING)
+		  {
+		    this->_nextState = RANKING;
+		    return EVENT_CHANGE_STATE;
+		  }
+		else if (this->_currentButton == BUTTON_CREDITS)
+		  {
+		    this->_nextState = CREDITS;
+		    return EVENT_CHANGE_STATE;
 		  }
  		break;
 	      }
