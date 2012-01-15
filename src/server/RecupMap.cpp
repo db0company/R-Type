@@ -3,23 +3,24 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <cstdlib>
 #include "RecupMap.hpp"
 
 RecupMap::RecupMap()
 {
-  st.insert(std::pair<std::string, eTileName>("TileSize1A", TileSize1A));
-  st.insert(std::pair<std::string, eTileName>("TileSize1B", TileSize1B));
-  st.insert(std::pair<std::string, eTileName>("TileSize1C", TileSize1C));
-  st.insert(std::pair<std::string, eTileName>("TileSize2", TileSize2));
-  st.insert(std::pair<std::string, eTileName>("TileSize3", TileSize3));
-  st.insert(std::pair<std::string, eTileName>("TileSize4BaseLeft", TileSize4BaseLeft));
-  st.insert(std::pair<std::string, eTileName>("TileSize4Left", TileSize4Left));
-  st.insert(std::pair<std::string, eTileName>("TileSize4BaseRight", TileSize4BaseRight));
-  st.insert(std::pair<std::string, eTileName>("TileSize4Right", TileSize4Right));
-  st.insert(std::pair<std::string, eTileName>("TileSize2Diago", TileSize2Diago));
-  st.insert(std::pair<std::string, eTileName>("TileAlien1", TileAlien1));
-  st.insert(std::pair<std::string, eTileName>("TileAlien2", TileAlien2));
-  st.insert(std::pair<std::string, eTileName>("TileAlien3", TileAlien3));
+  st.push_back(TileSize1A);
+  st.push_back(TileSize1B);
+  st.push_back(TileSize1C);
+  st.push_back(TileSize2);
+  st.push_back(TileSize3);
+  st.push_back(TileSize4BaseLeft);
+  st.push_back(TileSize4Left);
+  st.push_back(TileSize4BaseRight);
+  st.push_back(TileSize4Right);
+  st.push_back(TileSize2Diago);
+  st.push_back(TileAlien1);
+  st.push_back(TileAlien2);
+  st.push_back(TileAlien3);
 }
 
 RecupMap::~RecupMap()
@@ -27,40 +28,49 @@ RecupMap::~RecupMap()
 
 }
 
-const eTileName&	RecupMap::getEnumFromString(const std::string& s1)const
+eTileName	RecupMap::getEnumFromInt(unsigned int i)
 {
-  std::map<std::string, eTileName>::const_iterator	tile;
-
-  if ((tile = st.find(s1)) == st.end())
-    {
-      // std::cout << s1 << " faudrait lancer une std::error" << std::endl;
-      // error <- pas throw. faudrai pas quitter. return plutot un (EMPTY_TILE) qui affiche
-      // rien pour cette endroi;
-    }
-  return (tile->second);
+  if (i < st.size())
+    return (st[i]);
+  return (TileEmpty);
 }
 
 void		RecupMap::recupFromFile(const std::string& file)
 {
   std::fstream	os;
-  char		buff1[1024];
-  char		buff2[1024];
+  char		buff1[4];
+  char		buff2[4];
   std::string	tmp;
+  int		nb1;
+  int		nb2;
   int		i = 0;
   size_t	y;
-
-   os.open(file.c_str(), std::fstream::in);
-   while (os.good() == true)
+  std::vector<TileStruct>::iterator it;
+  TileStruct	t;
+  
+  os.open(file.c_str(), std::fstream::in);
+  mapContent.reserve(500);
+  while (os.good() == true)
     {
-      memset(buff1, 0, 1024);
-      memset(buff2, 0, 1024);
-      os.getline(buff1, 1024, ';');
-      os.getline(buff2, 1024, '|');
+      memset(buff1, 0, 4);
+      memset(buff2, 0, 4);
+      os.getline(buff1, 4, ';');
+      nb1 = atoi(buff1);
+      os.getline(buff2, 4, '|');
+      nb2 = atoi(buff2);
       tmp = buff2;
-      if ((y = tmp.find("\n")) != 0)
-	  buff2[y] = '\0';
-      mapContent.insert(std::pair<int, TileStruct>(i, TileStruct(getEnumFromString(buff1), getEnumFromString(buff2))));
+      
+      it = mapContent.end();
+      t = TileStruct(getEnumFromInt(nb1), getEnumFromInt(nb2));
+      mapContent.insert(it, t);
       ++i;
+    }
+  it = mapContent.begin();
+  std::cout << "FINAL @@##" << std::endl;
+  while (it != mapContent.end())
+    {
+      std::cout << (*it).up << " "<< (*it).down << std::endl;
+      ++it;
     }
 }
 

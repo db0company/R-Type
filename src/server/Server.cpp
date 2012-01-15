@@ -296,7 +296,7 @@ bool Server::run(void)
 	}
 	  if (this->_time->isTimeOut() == true)
 	{
-	   std::cout << "Time to Update All" << std::endl;
+	  //	   std::cout << "Time to Update All" << std::endl;
 	  this->_time->resetTime();
 	  this->_time->initWait(s, us);
 	  this->_gameManager.updateAll(*this);
