@@ -82,18 +82,6 @@ bool Server::init(int port)
  std::cout << "Server Listening on port " << this->_port << std::endl;
   this->_listener->SNAddRead();
   this->_udp->SNAddRead();
-  // Game *g = new Game;
-  // g->setName("ti");
-  // g->setLvlName("Sun");
-  // g->setOwnerId("toto");
-  // g->setPlayerMax(1);
-  // this->_gameManager.addGame(g);
-  // Game *f = new Game;
-  // f->setName("starship");
-  // f->setLvlName("Star");
-  // f->setOwnerId("titipr");
-  // f->setPlayerMax(1);
-  // this->_gameManager.addGame(f);
   return (true);
 }
 
@@ -227,10 +215,9 @@ bool	Server::cleanClients(void)
     {
       ip = this->_quitQueue.front();
       if (this->_userMap.find(ip) != this->_userMap.end())
-	{
-	  //	  delete this->_userMap[this->_quitQueue.front()];
-	  //this->_userMap.erase(ip);
-	}
+	      {
+	        this->_userMap.erase(ip);
+	      }
       this->_quitQueue.pop();
     }
   return (true);
@@ -296,11 +283,11 @@ bool Server::run(void)
       this->_listener->SNAddRead();
       this->_selector->setTimer(0, selus);
       if (!this->_selector->SNSelect())
-	{
-	  std::cerr << "Error: Select" << std::endl;
-	  system("pause");
-	  exit(EXIT_FAILURE);
-	}
+	     {
+	       std::cerr << "Error: Select" << std::endl;
+	       system("pause");
+	       exit(EXIT_FAILURE);
+	      }
       if (this->_time->isTimeOut() == true)
 	{
 	  this->_time->resetTime();
