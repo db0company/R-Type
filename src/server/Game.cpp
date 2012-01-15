@@ -14,6 +14,7 @@
 #include "ScopedLock.hpp"
 #include "DlLoader.hpp"
 #include "OS.hpp"
+#include "HighScore.hpp"
 #ifdef _WIN32
 #include "MutexWindows.hpp"
 #else
@@ -218,7 +219,14 @@ void	Game::changePlayerPos(GameParam& par)
 void	Game::sendEndPacket()
 {
   PacketData	*data = new PacketData;
+  HighScore hg;
+  std::map<std::string, AObject *>::iterator it = this->_players.begin();
 
+  while (it != this->_players.end())
+    {
+      hg.addNewScore(static_cast<Player *>(it->second)->getScore(), it->first);
+      ++it;
+    }
   sendToAllClient(data, THE_GAME, ENDGAME);
 }
 

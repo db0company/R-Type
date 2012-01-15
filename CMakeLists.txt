@@ -253,6 +253,7 @@ add_executable(
 	./src/server/Bullet.cpp
 	./src/server/TimerUnix.cpp
 	./src/server/RecupMap.cpp
+	./src/server/HighScore.cpp
 )
 
 
