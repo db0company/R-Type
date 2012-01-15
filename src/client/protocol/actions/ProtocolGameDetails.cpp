@@ -173,6 +173,7 @@ bool ProtocolGameDetails::actionMonsterKill(PacketData &data, Client &c)
   std::map<int, LibGraphic::AMonsterMovement *> &monsters = c.getGraphic().getMonsterMap();
 
   id_monstre = data.getNextChar();
+
   killtype = data.getNextChar(); // ignored pour le moment. ou pas
   posx = data.getNextShort();
   posy = data.getNextShort();

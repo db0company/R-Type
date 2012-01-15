@@ -288,7 +288,7 @@ bool Server::run(void)
   //  int	wave;
 
   this->_time->initWait(s, us);
-  this->_twave->initWait(4, 0);
+  this->_twave->initWait(2, 0);
   while (true)
     {
       this->resetClientWrite();
@@ -308,7 +308,7 @@ bool Server::run(void)
       if (this->_twave->isTimeOut() == true)
 	{
 	  this->_twave->resetTime();
-	  this->_twave->initWait(4, 0);
+	  this->_twave->initWait(2, 0);
 	  this->_gameManager.launchWave(*this);
 	}
       this->getNewClient();
