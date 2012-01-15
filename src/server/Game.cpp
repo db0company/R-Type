@@ -382,14 +382,16 @@ void	Game::moveMonster(GameParam&)
       if (dynamic_cast<Entities *>(it->second)->isDie() == true)
 	{
 	  sendMonsterDeath(dynamic_cast<Monster *>(it->second), 0);
-	  it = this->_monster.erase(it);
-	  //it = this->_monster.begin();
+	  this->_monster.erase(it);
+	  if (!this->_monster.empty())
+	    {
+	      it = this->_monster.begin();
+	      continue;
+	    }
+	  else
+	    break;
 	}
-      else
-	  {
-		  if (it != this->_monster.end())
-	      ++it;
-	  }
+      ++it;
     }
 }
 
@@ -558,27 +560,29 @@ void	Game::checkCollision(GameParam&)
   while (itM != this->_monster.end())
     {
       if (dynamic_cast<Entities *>(itM->second)->isDie() == true)
-	   {
-	      sendMonsterDeath(dynamic_cast<Monster *>(itM->second), 0);
-	      itM = this->_monster.erase(itM);
-    //	  itM = this->_monster.begin();
+	{
+	  sendMonsterDeath(dynamic_cast<Monster *>(itM->second), 0);
+	  this->_monster.erase(itM);
+	  if (!this->_monster.empty())
+	    {
+	      itM = this->_monster.begin();
+	      continue;
 	    }
-      else
-	  {
-		if (itM != this->_monster.end())
-	    ++itM;
-	  }
+	  else
+	    break;
+	}
+      ++itM;
     }
 
   itB = this->_bullets.begin();
   while (itB != this->_bullets.end())
     {
       if (itB->getDestroy() == true)
-	    {
-	        itB = this->_bullets.erase(itB);
-	     }
-	 if (itB != this->_bullets.end())
-      ++itB;
+	{
+	  itB = this->_bullets.erase(itB);
+	}
+      if (itB != this->_bullets.end())
+	++itB;
     }
 }
 
