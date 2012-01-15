@@ -7,6 +7,16 @@
 
 #include "AMonsterMovement.hpp"
 
+
+// Les Monstres :
+
+// RedEvil 0
+// MasterShip 1
+// GreenEyes 2
+// EvilRobot 3
+// SpaceCrab 4
+// Autre : RedEvil
+
 namespace LibGraphic
 {
   class	RedEvil : public AMonsterMovement
@@ -15,7 +25,7 @@ namespace LibGraphic
     RedEvil();
   public:
     RedEvil(sf::RenderWindow &, sf::Sprite &);
-    virtual ~RedEvil(void);
+    virtual ~RedEvil(void){}
 
   private:
 
@@ -34,7 +44,7 @@ namespace LibGraphic
     MasterShip();
   public:
     MasterShip(sf::RenderWindow &, sf::Sprite &);
-    virtual ~MasterShip(void);
+    virtual ~MasterShip(void){}
 
   private:
 
@@ -54,7 +64,45 @@ namespace LibGraphic
     GreenEyes();
   public:
     GreenEyes(sf::RenderWindow &, sf::Sprite &);
-    virtual ~GreenEyes(void);
+    virtual ~GreenEyes(void){}
+
+  private:
+
+  };
+}
+
+#define EVILROBOT_X 33
+#define EVILROBOT_Y 34
+#define EVILROBOT_NB_SPRITE 4
+
+namespace LibGraphic
+{
+  class	EvilRobot : public AMonsterMovement
+  {
+  private:
+    EvilRobot();
+  public:
+    EvilRobot(sf::RenderWindow &, sf::Sprite &);
+    virtual ~EvilRobot(void){}
+
+  private:
+
+  };
+}
+
+#define SPACECRAB_X 33
+#define SPACECRAB_Y 34
+#define SPACECRAB_NB_SPRITE 4
+
+namespace LibGraphic
+{
+  class	SpaceCrab : public AMonsterMovement
+  {
+  private:
+    SpaceCrab();
+  public:
+    SpaceCrab(sf::RenderWindow &, sf::Sprite &);
+    virtual ~SpaceCrab(void){}
 
   private:
 

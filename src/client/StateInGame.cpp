@@ -346,13 +346,14 @@ void LibGraphic::StateInGame::resetInGameState(void)
   gpos = 0;
   this->_mapLoaded = false;
   // debug a enlever todo
-  AMonsterMovement *m = new RedEvil(this->_app, this->getSprite("test"));
-  m->setCoord(100, 100);
-  this->_monsterMap[100] = m;
-  AMonsterMovement *n = new GreenEyes(this->_app, this->getSprite("GreenEyes"));
-  n->setCoord(200, 200);
-  this->_monsterMap[101] = n;
-  AMonsterMovement *o = new MasterShip(this->_app, this->getSprite("MasterShip"));
-  o->setCoord(300, 300);
-  this->_monsterMap[102] = o;
+  // AMonsterMovement *m = new RedEvil(this->_app, this->getSprite("test"));
+  // m->setCoord(100, 100);
+  // this->_monsterMap[100] = m;
+  // AMonsterMovement *n = new GreenEyes(this->_app, this->getSprite("GreenEyes"));
+  // n->setCoord(200, 200);
+  // this->_monsterMap[101] = n;
+  //  AMonsterMovement *o = new EvilRobot(this->_app, this->getSprite("EvilRobot"));
+  // AMonsterMovement *o = new EvilRobot(this->_app, this->getSprite("EvilRobot"));
+  // o->setCoord(300, 300);
+  // this->_monsterMap[102] = o;
 }
