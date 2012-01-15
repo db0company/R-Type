@@ -192,6 +192,9 @@ void	Game::changePlayerPos(GameParam& par)
   finaly = newPos.y + (newPos.tiley * 150);
   if (finalx < 0 || finalx > 1680 || finaly < 0 || finaly > 1050)
     {
+      dynamic_cast<Player *>(it->second)->changeLife(1);
+      sendLooseLife(dynamic_cast<Player *>(it->second), 1);
+      
       initPos(newPos);
       it->second->setPos(newPos);
       data->addChar(reinterpret_cast<Player *>(it->second)->getId());
@@ -349,6 +352,7 @@ void	Game::sendLooseLife(Player *play, char killtype)
   data->addString(play->getName().c_str());
   data->addChar(killtype);
   sendToAllClient(data, GAME_DETAILS, PLAYERKILL);
+  refreshLivesPlayers();
 }
 
 void	Game::sendMonsterDeath(Monster *mob)
@@ -393,6 +397,7 @@ void	Game::checkCollision(GameParam&)
 		if (checkInTile(&(*itB), itP->second) == true)
 		  {
 		    itB->setDestroy();
+		    dynamic_cast<Player *>(itP->second)->changeLife(1);
 		    sendLooseLife(dynamic_cast<Player *>(itP->second), 1);
 		  }
 	      ++itB;
