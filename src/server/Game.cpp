@@ -366,10 +366,17 @@ void	Game::refreshLivesPlayers()
 void	Game::sendLooseLife(Player *play, char killtype)
 {
   PacketData *data = new PacketData;
+  Position	p = play->getPos();
+  int		finalx;
+  int		finaly;
 
+  finalx = p.x + (p.tilex * 112);
+  finaly = p.y + (p.tiley * 150);
   data->addChar(play->getId());
   data->addString(play->getName().c_str());
   data->addChar(killtype);
+  data->addShort(finalx);
+  data->addShort(finaly);
   sendToAllClient(data, GAME_DETAILS, PLAYERKILL);
   refreshLivesPlayers();
 }
@@ -377,9 +384,16 @@ void	Game::sendLooseLife(Player *play, char killtype)
 void	Game::sendMonsterDeath(Monster *mob)
 {
   PacketData *data = new PacketData;
+  int		finalx;
+  int		finaly;
+  Position	p = mob->getPos();
 
+  finalx = p.x + (p.tilex * 112);
+  finaly = p.y + (p.tiley * 150);
   data->addChar(mob->getMId());
   data->addChar(0);
+  data->addShort(finalx);
+  data->addShort(finaly);
   sendToAllClient(data, GAME_DETAILS, MONSTERKILL);
 }
 
