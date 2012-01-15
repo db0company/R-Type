@@ -175,15 +175,15 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 	  switch (Event.Key.Code)
 	    {
 	    case sf::Key::Escape :
-	      //return LibGraphic::__EVENT_QUIT;
 	      {
 		if (errorToPrint)
 		  errorToPrint = false;
-		else
+		else if (this->_currentButton == BUTTON_ROOM_QUIT)
 		  {
-		    this->_app.Close();
-		    exit(EXIT_SUCCESS);
+		    this->_nextState = ROOMLIST;
+		    return EVENT_CHANGE_STATE;
 		  }
+		this->_currentButton = BUTTON_ROOM_QUIT;
 		break;
 	      }
 	    case sf::Key::H :

@@ -116,8 +116,6 @@ LibGraphic::Event LibGraphic::StateCredits::gereEvent()
 		    this->loadCredits();
  		    this->_nextState = START;
 		    return EVENT_CHANGE_STATE;
-		    // this->_app.Close();
-		    // exit(EXIT_SUCCESS);
 		  }
 		break;
 	      }

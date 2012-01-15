@@ -50,6 +50,7 @@ public:
   void	sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc);
   void	sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player);
   void	launchWave(GameParam&);
+  void	sendEndPacketExt();
   // getter // setter
   unsigned int	getId(void) const;
   std::string	&getOwnerLogin(void);
@@ -82,6 +83,7 @@ public:
   void		refreshLivesPlayers();
   void		sendScore();
   void		sendEndPacket();
+  int		getNbWave();
 private:
   unsigned int _id;
   GameParameter        _param;
@@ -102,6 +104,7 @@ private:
   IMutex	*_mutex;
   int		_idPlayers;
   int		_monsterId;
+  int		_nbWave;
   std::map<int, std::string> _mapDll;
 };
 

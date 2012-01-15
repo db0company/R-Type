@@ -279,10 +279,7 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		if (errorToPrint)
 		  errorToPrint = false;
 		else
-		  {
-		    this->_app.Close();
-		    exit(EXIT_SUCCESS);
-		  }
+		  this->_currentButton = BUTTON_EXIT;
 		break;
 	      }
 	    case sf::Key::H :
@@ -364,7 +361,7 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 	      }
 	    case 1:
 	      {
-		std::cout << "button 1" << std::endl;
+		this->_currentButton = BUTTON_EXIT;
 		break;
 	      }
 	    default: break;
@@ -408,7 +405,7 @@ void LibGraphic::StateStart::cursorMenuPos(const sf::Event & Event)
 	if ((JoystickPOV >= 225 && JoystickPOV < 315) ||
 	    Event.Key.Code == sf::Key::Left)
 	  this->_currentButton = BUTTON_CREDITS;
-	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1)) ||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_OPTIONS;
 	break;
@@ -418,7 +415,7 @@ void LibGraphic::StateStart::cursorMenuPos(const sf::Event & Event)
 	if ((JoystickPOV > 45 && JoystickPOV < 135) ||
 	    Event.Key.Code == sf::Key::Right)
 	  this->_currentButton = BUTTON_EXIT;
-	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1)) ||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_PLAY;
 	break;
@@ -431,7 +428,7 @@ void LibGraphic::StateStart::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 Event.Key.Code == sf::Key::Down)
 	  this->_currentButton = BUTTON_EXIT;
-	else if ((JoystickPOV > 315 || JoystickPOV < 45) ||
+	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1)) ||
 		 Event.Key.Code == sf::Key::Up)
 	  this->_currentButton = BUTTON_RANKING;
 	break;
