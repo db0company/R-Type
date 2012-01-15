@@ -61,7 +61,19 @@ bool ProtocolGameDetails::actionError(PacketData &data, Client &)
 
 bool ProtocolGameDetails::actionRankings(PacketData &data, Client &c)
 {
-  // ici le client recoi un packet rankings TODO IDRISS
+  std::list<std::string> & map = c.getGraphic().getRankingList();
+  unsigned int nbRank = data.getNextShort();
+  unsigned int i = 0;
+  map.clear();
+  while (i < nbRank)
+    {
+      map.push_back(data.getNextString());
+      ++i;
+    }
+  // if (!map.empty())
+  //   for (std::list<std::string>::const_iterator it = map.begin();
+  // 	 it != map.end(); ++it)
+  //     std::cout << (*it) << std::endl;
   return (false);
 }
 
