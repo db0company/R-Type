@@ -13,9 +13,14 @@ class		Monster : public Entities
 public:
   Monster();
   ~Monster();
-  void		moveNextPos();
+  virtual void		moveNextPos() = 0;
+  void		setMType(int type);
+  int		getMType()const;
+  void		setMId(int id);
+  int		getMId()const;
 private:
-
+  int		MType;
+  int		MId;
 };
 
 #endif		/*__MONSTER_HPP__*/

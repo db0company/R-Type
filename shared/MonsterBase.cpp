@@ -3,10 +3,11 @@
 #endif
 #include "DefineExportMonster.hpp"
 #include "MonsterBase.hpp"
-
+#include <iostream>
 MonsterBase::MonsterBase()
 {
-  movFlag = 3;
+  movFlag = 15;
+  std::cout << "CONSTRUCTEUR BASE" << std::endl;
   movDir = RIGHTMOV;
 }
 
@@ -19,13 +20,13 @@ void		MonsterBase::moveNextPos()
 {
   if (movDir == RIGHTMOV)
     {
-      if (movFlag == 6)
+      if (movFlag == 30)
 	{
 	  movDir = LEFTMOV;
 	  return ;
 	}
-      pos.x -= 4;
-      pos.y += 4;
+      pos.x -= 5;
+      pos.y += 5;
       movFlag++;
     }
   else
@@ -35,8 +36,8 @@ void		MonsterBase::moveNextPos()
 	  movDir = RIGHTMOV;
 	  return ;
 	}
-      pos.x -= 4;
-      pos.y -= 4;
+      pos.x -= 5;
+      pos.y -= 5;
       movFlag--;
     }
 }
@@ -49,6 +50,7 @@ extern "C"
    IObject	 *getMonsterBase()
 #endif /* _WIN32 */
   {
+  std::cout << "getMONSTERBASE BASE" << std::endl;
     return (new MonsterBase);
   }
 }

@@ -72,12 +72,12 @@ public:
   AObject	*getEntitiesbyName(const std::string& name);
   void		verifPos(Position& pos);
   void		initPos(Position &pos);
-
+  int		getNbMonster();
 private:
   unsigned int _id;
   GameParameter        _param;
   std::map<std::string, AObject *> _players;
-  std::map<std::string, AObject *> _monster;
+  std::map<int, AObject *> _monster;
   std::list<std::list<AObject *> > _map;
   std::list<Bullet>	_bullets;
   static unsigned int _sid;
@@ -92,6 +92,7 @@ private:
   RecupMap	_rMap;
   IMutex	*_mutex;
   int		_idPlayers;
+  int		_monsterId;
 };
 
 #endif	// GAME_H_
