@@ -261,7 +261,9 @@ void	Game::launchWave(GameParam&)
       str = this->_mapDll[r];
       if (str != "")
 	{
-	  mob = dynamic_cast<Monster *>(dl->getDll(str).getSymbol<IObject>(GETMONSTER));
+		 std::cout << "str is " << str << std::endl;
+	 mob = dynamic_cast<Monster *>(dl->getDll(str).getSymbol<IObject>(GETMONSTER));
+	  std::cout << "over" << std::endl;
 	  dl->desactivMut();
 	  p.x = 1700;
 	  p.y = rand() % 800 + 100;
@@ -270,6 +272,8 @@ void	Game::launchWave(GameParam&)
 	}
       ++i;
     }
+   
+
 }
 
 void	Game::createNewPlayer(User *us, const std::string& name)

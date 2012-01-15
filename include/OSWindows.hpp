@@ -7,10 +7,10 @@
 #define DELIM "\\"
 
 const std::string MONSTERBASE = ".\\MonsterBase.dll";
-const std::string MONSTERSHIP = ".\\libMonsterShip.dll";
-const std::string MONSTEREYE = ".\\libMonsterEye.dll";
-const std::string MONSTERROBOT = ".\\libMonsterRobot.dll";
-const std::string MONSTERCRAB = ".\\libMonsterCrab.dll";
+const std::string MONSTERSHIP = ".\\MonsterShip.dll";
+const std::string MONSTEREYE = ".\\MonsterEye.dll";
+const std::string MONSTERROBOT = ".\\MonsterRobot.dll";
+const std::string MONSTERCRAB = ".\\MonsterCrab.dll";
 const std::string GETMONSTER = "getMonsterBase";
 
 #endif /* __OSWINDOWS_HPP__ */
