@@ -26,8 +26,10 @@ void	DlLoader::openDll(std::string const& name)
   std::cout << "its time to open " << name << std::endl;
 
   ext.openExt(name);
-  if (mapDll.find(name) != mapDll.end())
+  if (mapDll.find(name) == mapDll.end())
+    {
     this->mapDll.insert(std::pair<std::string , Dll>(name , Dll(dynamic_cast<IExtension *>(new T(ext)), name)));
+    }
 }
 
 template <typename T>
@@ -43,6 +45,7 @@ void DlLoader::openDllFromDirectory(const std::string &nameDirectory, IDirectory
     {
            if ((i = nameDll.find(EXTENSION)) != std::string::npos && i == nameDll.size() - strlen(EXTENSION))
 	     this->openDll<T>(nameDll);
+
       nameDll = dm->readNameFile();
     }
 }

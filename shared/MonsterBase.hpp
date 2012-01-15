@@ -3,6 +3,7 @@
 
 # include "DefineExportMonster.hpp"
 # include "AObject.hpp"
+# include "Monster.hpp"
 
 enum eMovDir
   {
@@ -13,7 +14,7 @@ enum eMovDir
 # ifdef _WIN32
 class	LIBMONSTER_API MonsterBase : public AObject
 # else
-class	MonsterBase : public AObject
+class	MonsterBase : public Monster
 # endif // _WIN32
 {
  private:
@@ -22,6 +23,6 @@ class	MonsterBase : public AObject
  public:
   MonsterBase();
   virtual ~MonsterBase();
-  void	moveNextPos();
+  virtual void	moveNextPos();
 };
 #endif
