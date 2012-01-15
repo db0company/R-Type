@@ -10,6 +10,7 @@ ProtocolGameDetails::ProtocolGameDetails(void)
   this->actionmap[PLAYERLOGIN]	= &ProtocolGameDetails::actionPlayerLogin;
   this->actionmap[SCORE]	= &ProtocolGameDetails::actionScore;
   this->actionmap[GETMAP]	= &ProtocolGameDetails::actionGetMap;
+  this->actionmap[RANKINGS]	= &ProtocolGameDetails::actionRankings;
   this->actionmap[PLAYERLIFE]	= &ProtocolGameDetails::actionError;
 }
 
@@ -47,7 +48,13 @@ void ProtocolGameDetails::action(ushort instruction, PacketData &data, User *use
 
 bool ProtocolGameDetails::actionError(PacketData &, User *, Server &)
 {
-  return (true);
+  return (false);
+}
+
+bool ProtocolGameDetails::actionRankings(PacketData &, User *user, Server &)
+{
+  // ici le serveur recoi une requette des ranks TODO Vincent
+  return (false);
 }
 
 bool ProtocolGameDetails::actionPlayerLogin(PacketData &, User *user, Server &)

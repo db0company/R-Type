@@ -155,6 +155,7 @@ bool Client::gereAction(LibGraphic::Event e)
       }
     case LibGraphic::EVENT_CREATE_CREATE :
       {
+	std::cout << "level: " << this->cGraphic.getLevel() << std::endl;
 	this->actionCreate(this->cGraphic.getLogin(), this->cGraphic.getGameName(),
 			   this->cGraphic.getLevel(), this->cGraphic.getSlot(),
 			   this->cGraphic.getSpectator());
@@ -178,6 +179,13 @@ bool Client::gereAction(LibGraphic::Event e)
 	this->cGraphic.resetRoomListState();
 	this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
 	break;
+      }
+    case LibGraphic::EVENT_INGAME_QUIT :
+      {
+	this->actionQuit();
+	this->cGraphic.resetRoomListState();
+	this->cGraphic.resetInGameState();
+	this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
       }
     case LibGraphic::EVENT_ROOM_START :
       {

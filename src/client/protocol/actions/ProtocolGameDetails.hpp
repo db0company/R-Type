@@ -23,6 +23,7 @@ public:
 private:
   bool		actionError(PacketData &data, Client &);
   bool		actionPlayerLogin(PacketData &data, Client &);
+  bool		actionRankings(PacketData &data, Client &);
   bool		actionScore(PacketData &data, Client &);
   bool		actionGetMap(PacketData &data, Client &);
   bool		actionPlayerLife(PacketData &data, Client &);

@@ -215,8 +215,16 @@ void	Game::changePlayerPos(GameParam& par)
     }
 }
 
+void	Game::sendEndPacket()
+{
+  PacketData	*data = new PacketData;
+
+  sendToAllClient(data, THE_GAME, ENDGAME);
+}
+
 void	Game::launchWave(GameParam&)
 {
+  std::map<std::string, AObject *>::iterator it = this->_players.begin();
   GameParam gp(NULL, NULL);
   Monster	*mob;
   int	r = 0;
@@ -227,6 +235,17 @@ void	Game::launchWave(GameParam&)
   std::string	str;
   std::cout << "new wave" << std::endl;
 
+  while (it != this->_players.end())
+    {
+      if (static_cast<Entities *>(it->second)->isDie() == false)
+	break;
+      ++it;
+    }
+  if (it == this->_players.end())
+    {
+      this->_status = ENDED;
+      sendEndPacket();
+    }
   while (i != nbMob)
     {
       r = rand() % 5;
@@ -410,6 +429,22 @@ void	Game::sendMonsterDeath(Monster *mob, char killtype)
   sendToAllClient(data, GAME_DETAILS, MONSTERKILL);
 }
 
+void	Game::sendScore()
+{
+  PacketData *data = new PacketData;
+  std::map<std::string, AObject *>::iterator it = this->_players.begin();
+
+  data->addShort(this->_players.size());
+  while (it != this->_players.end())
+    {
+      data->addChar(static_cast<Player *>(it->second)->getId());
+      data->addString(static_cast<Player *>(it->second)->getName());
+      data->addShort(static_cast<Player *>(it->second)->getScore());
+      ++it;
+    }
+  sendToAllClient(data, GAME_DETAILS, SCORE);
+}
+
 void	Game::checkCollision(GameParam&)
 {
   std::map<std::string, AObject *>::iterator itP = this->_players.begin();
@@ -428,7 +463,10 @@ void	Game::checkCollision(GameParam&)
 		itB->setDestroy();
 		ret = this->_players.find(itB->getOwner());
 		if (ret != this->_players.end())
-		  dynamic_cast<Player *>(ret->second)->AddToScore(10);
+		  {
+		    dynamic_cast<Player *>(ret->second)->AddToScore(10);
+		    sendScore();
+		  }
 		dynamic_cast<Entities *>(itM->second)->die();
 	      }
 	  ++itB;

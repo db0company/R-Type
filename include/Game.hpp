@@ -80,6 +80,8 @@ public:
   void		sendLooseLife(Player *play, char killtype);
   void		sendMonsterDeath(Monster *mob, char killtype);
   void		refreshLivesPlayers();
+  void		sendScore();
+  void		sendEndPacket();
 private:
   unsigned int _id;
   GameParameter        _param;

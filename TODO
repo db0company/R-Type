@@ -1,17 +1,31 @@
 /!\ TODO: /!\
 
--> General:
-  * throw les exeption, les catcher (si on catch ds le serveur ca fait quoi avec les thread?)
+-> General
+  * throw les exeption, les catcher
   * CP le githug ds le koalagit !
   * verifier si les destructer bien virtuel
-  * enlever les deg de networktask
+  * Delete
 
--> Client:
-   * idriss: quand ya de la merde dans .ressource_img ca doit pas segfault
-   * idriss: ton getvalu est unsafe + tu ferifi pas si tes map.find() retourne pas un map.end() (getValue + Sfml.cpp)
+-> Divers:
+  * hisgh score
+  * map generator
 
-   * Afficher les info ds une barre en bas (nnombres de vie/score/nom du lvl)
-   * Decoupage intensive des autres sprites.
--> Client/Server/Game
-   * Faire Collisions
-   * Faire des dll monstres
+-> Long
+  * boss:
+    -decouper sprite
+    -comportemant dll
+    -etc
+  * Intro (video)
+
+-> Jeu
+  * Le end game / client et server
+
+-> Client
+  * server: recoi packet quit: envoi a tt le monde que le player est mort lives = 0
+  * client : quand quit la game: envoyer packet quit. quand recoi le packet quit: quit.
+
+  * Reset jeu. envoi packet quit quand quit. cote client
+  * Reset Player: quand recoi packet quit: del le user du packet.
+
+-> Pas Priorite mais cool:
+  * missile non cliognotant

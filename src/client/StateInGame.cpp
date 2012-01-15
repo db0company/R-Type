@@ -33,9 +33,6 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_lives = 0;
   this->_mapLoaded = false;
   gpos = 0;
-  AMonsterMovement *m = new GreenEyes(this->_app, this->getSprite("GreenEyes"));
-  m->setCoord(100, 100);
-  this->_monsterMap[100] = m;
 }
 
 LibGraphic::StateInGame::~StateInGame()
@@ -280,7 +277,7 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
 		// this->_app.Close();
 		// exit(EXIT_SUCCESS);
 		this->_nextState = ROOMLIST;
-		return (EVENT_CHANGE_STATE);
+		return (EVENT_INGAME_QUIT);
 		// }
 		break;
 	      }
@@ -413,8 +410,10 @@ void LibGraphic::StateInGame::resetInGameState(void)
   gpos = 0;
   this->_mapLoaded = false;
   this->_gameName = "";
-  this->_gameLvl = "Star";
+  // this->_gameLvl = "Star";
   this->_monsterMap.clear();
+  this->_playerMap.clear();
+  this->_explosionList.clear();
 }
 
 void LibGraphic::StateInGame::setScore(unsigned int i)

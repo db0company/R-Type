@@ -16,6 +16,7 @@ ProtocolGameDetails::ProtocolGameDetails(void)
 
   this->actionmap[PLAYERKILL]	= &ProtocolGameDetails::actionPlayerKill;
   this->actionmap[MONSTERKILL]	= &ProtocolGameDetails::actionMonsterKill;
+  this->actionmap[RANKINGS]	= &ProtocolGameDetails::actionRankings;
 
   this->actionmap[GAMEDATAIL_ERROR] = &ProtocolGameDetails::actionError;
 }
@@ -55,6 +56,12 @@ bool ProtocolGameDetails::action(ushort instruction, PacketData &data, Client &c
 bool ProtocolGameDetails::actionError(PacketData &data, Client &)
 {
   (void)data;
+  return (false);
+}
+
+bool ProtocolGameDetails::actionRankings(PacketData &data, Client &c)
+{
+  // ici le client recoi un packet rankings TODO IDRISS
   return (false);
 }
 
@@ -142,7 +149,7 @@ bool ProtocolGameDetails::actionPlayerKill(PacketData &data, Client &c)
 bool ProtocolGameDetails::actionMonsterKill(PacketData &data, Client &c)
 {
   char id_monstre;
-  char killtype; // peut que mourrir dun missile... mais au cas ou
+  char killtype; // 0 = missile; 1 = collision ; 2 = sort de la map (fin) // TODO tell vincent
   int posx;
   int posy;
   LibGraphic::IAnnim *e;
@@ -153,10 +160,13 @@ bool ProtocolGameDetails::actionMonsterKill(PacketData &data, Client &c)
   killtype = data.getNextChar(); // ignored pour le moment. ou pas
   posx = data.getNextShort();
   posy = data.getNextShort();
-  e = new LibGraphic::AnnimLittleExplosion(c.getGraphic().getWindow(),
-   c.getGraphic().getSprite("LittleExplosion"));
-  e->setCoord(posx, posy);
-  map.push_front(e);
+  if (killtype == 0)
+    {
+      e = new LibGraphic::AnnimLittleExplosion(c.getGraphic().getWindow(),
+	c.getGraphic().getSprite("LittleExplosion"));
+      e->setCoord(posx, posy);
+      map.push_front(e);
+    }
   if (monsters.find(id_monstre) != monsters.end())
     monsters.erase(id_monstre);
   return (false);

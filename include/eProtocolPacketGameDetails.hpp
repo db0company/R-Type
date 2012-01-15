@@ -10,6 +10,7 @@ enum		eProtocolPacketGameDetails
     GAME_DETAILS_MAX	= 4,
     PLAYERKILL		= 5,
     MONSTERKILL		= 6,
+    RANKINGS		= 7,
     GAMEDATAIL_ERROR	= 99
   };
 

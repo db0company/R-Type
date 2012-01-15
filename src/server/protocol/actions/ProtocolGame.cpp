@@ -315,16 +315,16 @@ bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
 	  for (it = maap.begin(); it != maap.end(); ++it)
 	    {
 	      packetlogin = PacketFactory::createPacket(LOBBY,
-	   static_cast<ushort>(LOBBY_PLAYERS), to_send_log);
+			static_cast<ushort>(LOBBY_PLAYERS), to_send_log);
 	      packet_to_send = PacketFactory::createPacket(THE_GAME,
-	   static_cast<ushort>(QUITGAME), to_send);
+		   static_cast<ushort>(QUITGAME), to_send);
 	      it->second->addPacketToSend(packet_to_send);
 	      it->second->addPacketToSend(packetlogin);
 	    }
 	  g->setStatus(ENDED);
 	  return (false);
 	}
-      g->delUser(log);
+      // g->delUser(log);
     }
   else
     {
@@ -341,7 +341,7 @@ bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
 	  it->second->addPacketToSend(packet_to_send);
 	  it->second->addPacketToSend(packetlogin);
 	}
-      g->delUser(log);
+      // g->delUser(log);
     }
   return (true);
 }
