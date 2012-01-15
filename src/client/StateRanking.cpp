@@ -131,8 +131,8 @@ LibGraphic::Event LibGraphic::StateRanking::gereEvent()
 		  errorToPrint = false;
 		else
 		  {
-		    this->_app.Close();
-		    exit(EXIT_SUCCESS);
+		    this->_nextState = START;
+		    return EVENT_CHANGE_STATE;
 		  }
 		break;
 	      }
@@ -149,6 +149,11 @@ LibGraphic::Event LibGraphic::StateRanking::gereEvent()
 	  switch (Event.JoyButton.Button)
 	    {
 	    case 0:
+	      {
+		this->_nextState = START;
+		return EVENT_CHANGE_STATE;
+	      }
+	    case 1:
 	      {
 		this->_nextState = START;
 		return EVENT_CHANGE_STATE;

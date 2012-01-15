@@ -21,7 +21,6 @@ LibGraphic::StateCreateGame::StateCreateGame(std::map<std::string const, Graphic
   this->_previewSelected = "Star";
 
   test = new AnnimTest(this->_app, this->getSprite("test"));
- // test = new AnnimLittleExplosion(this->_app, this->getSprite("LittleExplosion"));
 }
 
 LibGraphic::StateCreateGame::~StateCreateGame()
@@ -343,10 +342,12 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 	      {
 		if (errorToPrint)
 		  errorToPrint = false;
+		else if (this->_currentButton != BUTTON_CREATE_BACK)
+		  this->_currentButton = BUTTON_CREATE_BACK;
 		else
 		  {
-		    this->_app.Close();
-		    exit(EXIT_SUCCESS);
+		    this->_nextState = ROOMLIST;
+		    return EVENT_CHANGE_STATE;
 		  }
 		break;
 	      }

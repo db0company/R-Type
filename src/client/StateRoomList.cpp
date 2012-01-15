@@ -342,11 +342,12 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 	      {
 		if (errorToPrint)
 		  errorToPrint = false;
-		else
+		else if (this->_currentButton == BUTTON_ROOMLIST_BACK)
 		  {
-		    this->_app.Close();
-		    exit(EXIT_SUCCESS);
+		    this->_nextState = START;
+		    return EVENT_CHANGE_STATE;
 		  }
+		this->_currentButton = BUTTON_ROOMLIST_BACK;
 		break;
 	      }
 	    case sf::Key::H :

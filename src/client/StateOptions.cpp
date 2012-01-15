@@ -316,14 +316,15 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 	  switch (Event.Key.Code)
 	    {
 	    case sf::Key::Escape :
-	      //return LibGraphic::__EVENT_QUIT;
 	      {
 		if (errorToPrint)
 		  errorToPrint = false;
+		else if (this->_currentButton != BUTTON_OPTIONS_BACK)
+		  this->_currentButton = BUTTON_OPTIONS_BACK;
 		else
 		  {
-		    this->_app.Close();
-		    exit(EXIT_SUCCESS);
+		    this->_nextState = START;
+		    return EVENT_CHANGE_STATE;
 		  }
 		break;
 	      }
