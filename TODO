@@ -7,11 +7,15 @@
   * Delete
 
 -> Divers:
-  * hisgh score
-  * map generator
   * bullet addChar(1) gentil (0) mechant avant position
-  * preparre bulelt enemy
   * aff bullet enemy + prepate sprite
+  * Son (missile et explosion)
+  * enlever les io debug
+  * enlever les warning
+  * faire compiler windows
+  * tester
+  * marche windows
+  * fullscreen user
 
 -> Long
   * boss:

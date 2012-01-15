@@ -524,3 +524,8 @@ std::list<LibGraphic::Coord *> & LibGraphic::Sfml::getCoordBulletList()
 {
   return this->_graphicState->getCoordBulletList();
 }
+
+std::list<LibGraphic::Coord *> & LibGraphic::Sfml::getEnnemyCoordBulletList()
+{
+  return this->_graphicState->getEnemyCoordBulletList();
+}
