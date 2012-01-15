@@ -54,6 +54,7 @@ namespace LibGraphic
     void setScore(unsigned int i);
     void setLives(unsigned int i);
     void drawExplosion();
+    void setRunning(bool);
 
   private:
     void setNextState(eState d);
@@ -72,7 +73,7 @@ namespace LibGraphic
     std::string stringOfInt(int);
 
   private:
-
+    bool	_running;
     int		gpos;
     RecupMap	_rMap;
     eStates _nextState;

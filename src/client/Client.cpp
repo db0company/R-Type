@@ -186,6 +186,7 @@ bool Client::gereAction(LibGraphic::Event e)
 	this->cGraphic.resetRoomListState();
 	this->cGraphic.resetInGameState();
 	this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
+	break;
       }
     case LibGraphic::EVENT_ROOM_START :
       {

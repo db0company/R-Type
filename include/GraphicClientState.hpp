@@ -78,6 +78,7 @@ namespace LibGraphic
     void setMyPosition(Coord c);
     void setScore(unsigned int);
     void setLives(unsigned int);
+    void setRunning(bool);
  private:
     Event eventStart(eStates & scene);
     void loadStates();

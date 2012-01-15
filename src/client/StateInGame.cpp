@@ -20,6 +20,7 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   AState(ressourcesSprite, ressourcesPlayList, ressourcesSounds,
 	 ressourcesFont, app), _lives(0), _score(0)
 {
+  this->_running = true;
   this->_gameName = "";
   this->_gameLvl = "Star";
   this->_nextState = UNKNOWN_STATE;
@@ -118,14 +119,20 @@ void LibGraphic::StateInGame::drawMap()
       i = 0;
       while (i < this->_rMap.size())
       	{
-      	  test.SetPosition(MapX(i) + gpos, 30);
-      	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
-      				      MapX(this->_rMap[i].up + 1), MapY(1)));
-      	  this->_app.Draw(test);
-      	  test.SetPosition(MapX(i) + gpos, 1050 - MapY(1));
-      	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].down), MapY(1),
-      				      MapX(this->_rMap[i].down + 1), MapY(2)));
-      	  this->_app.Draw(test);
+	  if (this->_rMap[i].up != TileEmpty)
+	    {
+	      test.SetPosition(MapX(i) + gpos, 30);
+	      test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
+					  MapX(this->_rMap[i].up + 1), MapY(1)));
+	      this->_app.Draw(test);
+	    }
+	  if (this->_rMap[i].down != TileEmpty)
+	    {
+	      test.SetPosition(MapX(i) + gpos, 1050 - MapY(1));
+	      test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].down), MapY(1),
+					  MapX(this->_rMap[i].down + 1), MapY(2)));
+	      this->_app.Draw(test);
+	    }
       	  ++i;
       	}
     }
@@ -135,14 +142,21 @@ void LibGraphic::StateInGame::drawMap()
       gpos -= 1;
       while (i < this->_rMap.size())
 	{
-	  test.SetPosition(MapX(i) + gpos, 30);
-	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
-				      MapX(this->_rMap[i].up + 1), MapY(1)));
-	  this->_app.Draw(test);
-	  test.SetPosition(MapX(i) + gpos, 1050 - MapY(1));
-	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].down), MapY(1),
-				      MapX(this->_rMap[i].down + 1), MapY(2)));
-	  this->_app.Draw(test);
+	  if (this->_rMap[i].up != TileEmpty)
+	    {
+	      test.SetPosition(MapX(i) + gpos, 30);
+	      test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
+					  MapX(this->_rMap[i].up + 1), MapY(1)));
+	      this->_app.Draw(test);
+	    }
+	  if (this->_rMap[i].down != TileEmpty)
+	    {
+
+	      test.SetPosition(MapX(i) + gpos, 1050 - MapY(1));
+	      test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].down), MapY(1),
+					  MapX(this->_rMap[i].down + 1), MapY(2)));
+	      this->_app.Draw(test);
+	    }
 	  ++i;
 	}
       this->_mapClock.Reset();
@@ -217,12 +231,26 @@ void LibGraphic::StateInGame::draw()
 {
   this->drawStarField();
   this->drawMap();
-  this->drawText();
-  this->drawBullet();
-  this->drawMonsters();
-  this->drawPlayers();
+  if (this->_running)
+    {
+      this->drawText();
+      this->drawBullet();
+      this->drawMonsters();
+      this->drawPlayers();
+    }
   this->drawMenu();
-  this->drawExplosion();
+  if (this->_running)
+    this->drawExplosion();
+  if (this->_lives == 0 && this->_playerMap.size() == 0)
+    this->_running = false;
+  if (!this->_running)
+    {
+      sf::String *str = this->getStdToSfString("GAME OVER",
+					       this->getFont("StartFontF"));
+      str->SetPosition(600, 500);
+      str->SetScale(2, 2);
+      this->_app.Draw(*str);
+    }
 }
 
 void LibGraphic::StateInGame::drawMonsters()
@@ -233,6 +261,11 @@ void LibGraphic::StateInGame::drawMonsters()
     {
       it->second->play();
     }
+}
+
+void LibGraphic::StateInGame::setRunning(bool t)
+{
+  this->_running = t;
 }
 
 void LibGraphic::StateInGame::drawPlayers()
@@ -259,6 +292,7 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
 {
   sf::Event Event;
 
+  errorToPrint = false;
   while (this->_app.GetEvent(Event))
     {
       if (Event.Type == sf::Event::KeyPressed)
@@ -268,15 +302,18 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
 	    case sf::Key::Escape :
 	      //return LibGraphic::__EVENT_QUIT;
 	      {
-		// if (errorToPrint)
-		//   errorToPrint = false;
-		// else
-		//   {
-		// this->_app.Close();
-		// exit(EXIT_SUCCESS);
-		this->_nextState = ROOMLIST;
-		return (EVENT_INGAME_QUIT);
-		// }
+		if (this->_running)
+		  {
+		    this->_app.Close();
+		    exit(EXIT_SUCCESS);
+		    // this->_nextState = ROOMLIST;
+		    // return (EVENT_INGAME_QUIT);
+		  }
+		else
+		  {
+		    this->_nextState = ROOMLIST;
+		    return (EVENT_INGAME_QUIT);
+		  }
 		break;
 	      }
 	    case sf::Key::H :
@@ -411,7 +448,9 @@ void LibGraphic::StateInGame::resetInGameState(void)
   // this->_gameLvl = "Star";
   this->_monsterMap.clear();
   this->_playerMap.clear();
+  this->_bulletList.clear();
   this->_explosionList.clear();
+  this->_running = true;
 }
 
 void LibGraphic::StateInGame::setScore(unsigned int i)

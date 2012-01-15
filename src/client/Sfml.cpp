@@ -514,3 +514,8 @@ std::list<LibGraphic::IAnnim *> &LibGraphic::Sfml::getExplosionList()
 {
   return this->_graphicState->getExplosionList();
 }
+
+void LibGraphic::Sfml::setRunning(bool b)
+{
+  this->_graphicState->setRunning(b);
+}

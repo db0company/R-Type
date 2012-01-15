@@ -186,9 +186,9 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &client)
 
 bool			ProtocolGame::actionEnd(PacketData &, Client &c)
 {
-  std::cout << std::endl;
-  c.getGraphic().setCurrentState(LibGraphic::ROOMLIST);
-  c.getGraphic().errorMessage("Game Over. TODO: StateEndGame\n");
+  // c.getGraphic().setCurrentState(LibGraphic::ROOMLIST);
+  c.getGraphic().setRunning(false);
+  // c.getGraphic().errorMessage("Game Over. TODO: StateEndGame\n");
   return (false);
 }
 
@@ -226,7 +226,8 @@ bool			ProtocolGame::actionQuit(PacketData & data, Client &client)
   log = data.getNextString();
   if (quit)
     {
-      client.getGraphic().errorMessage("The Creator "+ log +" deleted this game" + "\n");
+      client.getGraphic().errorMessage("The Creator "+ log
+                           +" deleted this game" + "\n");
       client.getGraphic().setCurrentState(LibGraphic::ROOMLIST);
     }
   else

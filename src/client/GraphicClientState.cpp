@@ -207,6 +207,11 @@ RecupMap &LibGraphic::GraphicClientState::getRecupMap(void)
   return reinterpret_cast <StateInGame *> (getValue(this->_stateInfos, INGAME))->getRecupMap();
 }
 
+void LibGraphic::GraphicClientState::setRunning(bool b)
+{
+  return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setRunning(b);
+}
+
 //
 std::string const &LibGraphic::GraphicClientState::getInGameName(void) const
 {

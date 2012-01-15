@@ -343,6 +343,7 @@ bool		ProtocolGame::actionQuit(PacketData &data, User *user, Server &)
 	}
       // g->delUser(log);
     }
+  std::cout << "ici faut del le user/player de la game" << std::endl;
   return (true);
 }
 
