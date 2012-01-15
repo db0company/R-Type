@@ -118,12 +118,15 @@ void		GameManager::updateAll(Server& serv)
 	}
       ++it;
     }
-  /*  it = this->_gameMap.begin();
-      while (it != this->_gameMap.end())
-      {
-      pt = new PacketTask(&Game::checkCollision, d, it->second, NULL);
-      serv.getTaskQueue().push(pt);
-      serv.getCondVar()->signal();
+  it = this->_gameMap.begin();
+  while (it != this->_gameMap.end())
+    {
+      if (it->second->nbBullet() > 0)
+	{
+	  pt = new PacketTask(&Game::checkCollision, d, it->second, NULL);
+	  serv.getTaskQueue().push(pt);
+	  serv.getCondVar()->signal();
+	}
       ++it;
-      }*/
+    }
 }

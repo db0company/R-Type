@@ -22,6 +22,9 @@ public:
   Entities	&operator=(const Entities& old);
   void		changeLife(int);
   eGroup	getGroup()const;
+  void		die();
+  bool		isDie()const;
+  int		getLife()const;
 };
 
 #endif		/*__ENTITIES_HPP__*/

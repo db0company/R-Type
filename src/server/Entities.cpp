@@ -3,7 +3,7 @@
 Entities::Entities()
   : AObject()
 {
-  this->life = 100;
+  this->life = 3;
   this->power = 1;
 }
 
@@ -34,4 +34,21 @@ void		Entities::changeLife(int ch)
 eGroup		Entities::getGroup()const
 {
   return (this->group);
+}
+
+void		Entities::die()
+{
+  this->life = 0;
+}
+
+bool		Entities::isDie()const
+{
+  if (this->life == 0)
+    return (true);
+  return (false);
+}
+
+int		Entities::getLife()const
+{
+  return (this->life);
 }

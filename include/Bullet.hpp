@@ -3,18 +3,16 @@
 
 # include "Position.hpp"
 # include "enum.h"
+# include "AObject.hpp"
 
-class		Bullet
+class		Bullet : public AObject
 {
 private:
-  Position	pos;
   eGroup	group;
   bool		toDestroy;
 public:
   Bullet(Position p, eGroup g);
   ~Bullet();
-  const Position&	getPos()const;
-  void			setPos(const Position& p);
   eGroup		getGroup()const;
   void	setDestroy();
   bool	getDestroy();
