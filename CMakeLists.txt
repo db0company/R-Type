@@ -326,3 +326,14 @@ add_library(
 )
 
 
+add_library(
+	MonsterShip
+	SHARED
+	./shared/MonsterShip.cpp
+	./src/server/Position.cpp
+	./src/server/AObject.cpp
+	./src/server/Entities.cpp
+	./src/server/Monster.cpp
+)
+
+

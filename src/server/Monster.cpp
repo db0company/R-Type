@@ -5,7 +5,6 @@
 Monster::Monster()
 {
   this->group = ENNEMY;
-  this->MType = 0;
 }
 
 Monster::~Monster()

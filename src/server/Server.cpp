@@ -1,8 +1,10 @@
+#include <cstdlib>
 #include "Server.hpp"
 #include "Selector.hpp"
 #include "PacketManager.hpp"
 #include "eProtocolPacketGame.hpp"
 #ifndef _WIN32
+#include <ctime>
 # include "TCPServerSocketUnix.h"
 # include "UDPServerSocketUnix.h"
 # include "MutexUnix.hpp"
@@ -24,6 +26,7 @@ Server::Server(void) :
 {
   this->_dlLoader = DlLoader::getInstance();
 #ifndef _WIN32
+  srand(time(NULL));
   this->_udpMutex = new MutexUnix;
   this->_selector = new Selector<int>;
   this->_udp = new UDPServerSocketUnix(this->_selector);

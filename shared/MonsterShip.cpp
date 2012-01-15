@@ -7,7 +7,7 @@
 
 MonsterBase::MonsterBase()
 {
-  this->MType = 0;
+  this->MType = 1;
   movFlag = 15;
   movDir = RIGHTMOV;
   this->launchFire = 0;
@@ -27,8 +27,8 @@ void		MonsterBase::moveNextPos()
 	  movDir = LEFTMOV;
 	  return ;
 	}
-      pos.x -= 5;
-      pos.y += 5;
+      pos.x -= 7;
+      pos.y += 3;
       movFlag++;
     }
   else
@@ -38,15 +38,15 @@ void		MonsterBase::moveNextPos()
 	  movDir = RIGHTMOV;
 	  return ;
 	}
-      pos.x -= 5;
-      pos.y -= 5;
+      pos.x -= 7;
+      pos.y -= 3;
       movFlag--;
     }
 }
 
 bool		MonsterBase::wantFire()
 {
-  if (this->launchFire == 24)
+  if (this->launchFire == 27)
     {
       this->launchFire = 0;
       return (true);

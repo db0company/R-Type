@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <cstdlib>
 #include <string>
 #include "Player.hpp"
 #include "Monster.hpp"
@@ -212,7 +213,7 @@ void	Game::launchWave(GameParam&)
 {
   GameParam gp(NULL, NULL);
   Monster	*mob;
-  int	rand = 1;
+  int	r = 0;
   Position p;
   int		i = 0;
   int		nbMob = 4;
@@ -221,8 +222,11 @@ void	Game::launchWave(GameParam&)
 
   while (i != nbMob)
     {
+      r = rand() % 2;
       dl->activMut();
-      if (rand == 1)
+      if (r == 0)
+	mob = dynamic_cast<Monster *>(dl->getDll("bin/libMonsterShip.so").getSymbol<IObject>("getMonsterBase"));
+      else if (r == 1)
 	mob = dynamic_cast<Monster *>(dl->getDll("bin/libMonsterBase.so").getSymbol<IObject>("getMonsterBase"));
       dl->desactivMut();
       p.x = 1700;
@@ -231,7 +235,6 @@ void	Game::launchWave(GameParam&)
       createNewMonster(p, mob);
       ++i;
     }
-
 }
 
 void	Game::createNewPlayer(User *us, const std::string& name)
@@ -260,7 +263,6 @@ void	Game::createNewMonster(const Position& p, Monster *mob)
 
   mob->setPos(p);
   mob->setMId(this->_monsterId);
-  mob->setMType(0);
   finalx = p.x + (p.tilex * 112);
   finaly = p.y + (p.tiley * 150);
   data->addChar(mob->getMId());
