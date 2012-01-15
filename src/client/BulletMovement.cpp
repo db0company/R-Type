@@ -14,9 +14,13 @@ LibGraphic::BulletMovement::BulletMovement(sf::RenderWindow & app,
 void LibGraphic::BulletMovement::draw()
 {
   // subrect ?
-  this->_sprite.SetPosition(this->_coord.x, this->_coord.y);
-  //  this->_sprite.SetScale();
-  this->_app.Draw(this->_sprite);
+  std::list<Coord *>::iterator it;
+  for (it = this->_coordList.begin(); it != this->_coordList.end(); ++it)
+    {
+      this->_sprite.SetPosition((*it)->x, (*it)->y);
+      this->_sprite.SetSubRect(sf::IntRect(0,0,50,50));
+      this->_app.Draw(this->_sprite);
+    }
 }
 
 LibGraphic::Coord const & LibGraphic::BulletMovement::getCoord() const
@@ -38,4 +42,9 @@ int LibGraphic::BulletMovement::getX(void) const
 int LibGraphic::BulletMovement::getY(void) const
 {
   return (this->_coord.y);
+}
+
+std::list<LibGraphic::Coord *> & LibGraphic::BulletMovement::getCoordList()
+{
+  return this->_coordList;
 }

@@ -20,6 +20,7 @@ namespace LibGraphic
 
   public:
     Coord const & getCoord() const;
+    std::list<Coord *> & getCoordList();
     void setCoord(Coord const & coord);
     int getX(void) const;
     int getY(void) const;
@@ -28,6 +29,7 @@ namespace LibGraphic
     sf::RenderWindow & _app;
     sf::Sprite & _sprite;
     Coord _coord;
+    std::list<Coord *> _coordList;
     eBulletType _btype;
   };
 

@@ -514,3 +514,8 @@ std::list<LibGraphic::IAnnim *> &LibGraphic::Sfml::getExplosionList()
 {
   return this->_graphicState->getExplosionList();
 }
+
+std::list<LibGraphic::Coord *> & LibGraphic::Sfml::getCoordBulletList()
+{
+  return this->_graphicState->getCoordBulletList();
+}
