@@ -41,7 +41,7 @@ Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
   this->_param.sizeCol = 7;
   this->_idPlayers = 0;
   this->_monsterId = 0;
-  this->_nbWave = 15;
+  this->_nbWave = 30;
   this->_mapDll.insert(std::pair<int, std::string>(0, MONSTERBASE));
   this->_mapDll.insert(std::pair<int, std::string>(1, MONSTERSHIP));
   this->_mapDll.insert(std::pair<int, std::string>(2, MONSTEREYE));
@@ -280,7 +280,7 @@ void	Game::launchWave(GameParam&)
       str = this->_mapDll[r];
       if (str != "")
 	{
-	 mob = dynamic_cast<Monster *>(dl->getDll(str).getSymbol<IObject>(GETMONSTER));
+	  mob = dynamic_cast<Monster *>(dl->getDll(str).getSymbol<IObject>(GETMONSTER));
 	  dl->desactivMut();
 	  p.x = 1700;
 	  p.y = rand() % 800 + 100;
@@ -456,7 +456,6 @@ void	Game::sendMonsterDeath(Monster *mob, char killtype)
   data->addChar(killtype);
   data->addShort(finalx);
   data->addShort(finaly);
-  std::cout << "packet de mort du monster " << mob->getMId() << std::endl;
   sendToAllClient(data, GAME_DETAILS, MONSTERKILL);
 }
 
