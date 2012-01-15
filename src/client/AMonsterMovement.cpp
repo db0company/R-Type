@@ -26,6 +26,7 @@ namespace LibGraphic
   {
     if (this->_clock.GetElapsedTime() < this->_clockVal)
       {
+	this->setCoord(this->_coord.x, this->_coord.y);
 	this->_sprite.SetSubRect(sf::IntRect(this->_width * this->_currentSprite, 0,
 					     (this->_width * this->_currentSprite) +
 					     this->_width, this->_height));
@@ -35,6 +36,7 @@ namespace LibGraphic
     this->_sprite.SetSubRect(sf::IntRect(this->_width * this->_currentSprite, 0,
 					 (this->_width * this->_currentSprite) +
 					 this->_width, this->_height));
+	this->setCoord(this->_coord.x, this->_coord.y);
     this->_app.Draw(this->_sprite);
     ++this->_currentSprite;
     if (this->_currentSprite >= this->_nbSprite)
