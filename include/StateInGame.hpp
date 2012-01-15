@@ -76,7 +76,7 @@ namespace LibGraphic
     std::string _gameName;
     std::string _gameLvl;
     bool _mapLoaded;
-   // monsters
+    // monsters
     // players
     // monsters
     eShipColor _myid;

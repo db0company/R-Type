@@ -111,21 +111,35 @@ bool		ProtocolMovement::actionUpdateEnemy(PacketData &data, Client &c)
 
   char id;
   char type;
-  unsigned int x;
-  unsigned int y;
+  int x;
+  int y;
 
   id = data.getNextChar();
   type = data.getNextChar();
   x = data.getNextShort();
   y = data.getNextShort();
 
+  if (x < 0)
+    {
+      // can del enemy TODO
+    }
   if (monsterMap.find(id) != monsterMap.end())
     {
       monsterMap[id]->setCoord(x, y);
     }
   else
     {
-      LibGraphic::AMonsterMovement *m = new LibGraphic::RedEvil(c.getGraphic().getWindow(), c.getGraphic().getSprite("test"));
+      LibGraphic::AMonsterMovement *m;
+      if (type == 1)
+	m = new LibGraphic::MasterShip(c.getGraphic().getWindow(), c.getGraphic().getSprite("MasterShip"));
+      else if (type == 2)
+	m = new LibGraphic::GreenEyes(c.getGraphic().getWindow(), c.getGraphic().getSprite("GreenEyes"));
+      else if (type == 3)
+	m = new LibGraphic::EvilRobot(c.getGraphic().getWindow(), c.getGraphic().getSprite("EvilRobot"));
+      else if (type == 4)
+	m = new LibGraphic::SpaceCrab(c.getGraphic().getWindow(), c.getGraphic().getSprite("SpaceCrab"));
+      else
+	m = new LibGraphic::RedEvil(c.getGraphic().getWindow(), c.getGraphic().getSprite("test"));
       m->setCoord(x, y);
       monsterMap[id] = m;
     }

@@ -8,7 +8,7 @@
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 extern bool errorToPrint;
-
+extern bool helpToShow;
 LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
 						   std::map<std::string const, MySound *> const & ressourcesSounds,
@@ -225,6 +225,14 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
 		// }
 		break;
 	      }
+	    case sf::Key::H :
+	      {
+		if (helpToShow)
+		  helpToShow = false;
+		else
+		  helpToShow = true;
+		break;
+	      }
 	    default : break;
 	    }
 	}
@@ -345,7 +353,15 @@ void LibGraphic::StateInGame::resetInGameState(void)
   this->_score = 0;
   gpos = 0;
   this->_mapLoaded = false;
-  AMonsterMovement *m = new RedEvil(this->_app, this->getSprite("test"));
-  m->setCoord(10, 10);
-  this->_monsterMap[0] = m;
+  // debug a enlever todo
+  // AMonsterMovement *m = new RedEvil(this->_app, this->getSprite("test"));
+  // m->setCoord(100, 100);
+  // this->_monsterMap[100] = m;
+  // AMonsterMovement *n = new GreenEyes(this->_app, this->getSprite("GreenEyes"));
+  // n->setCoord(200, 200);
+  // this->_monsterMap[101] = n;
+  //  AMonsterMovement *o = new EvilRobot(this->_app, this->getSprite("EvilRobot"));
+  // AMonsterMovement *o = new EvilRobot(this->_app, this->getSprite("EvilRobot"));
+  // o->setCoord(300, 300);
+  // this->_monsterMap[102] = o;
 }

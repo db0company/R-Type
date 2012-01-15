@@ -12,6 +12,7 @@ extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 
 bool errorToPrint = false;
+bool helpToShow = false;
 
 LibGraphic::Sfml::Sfml(ClientNetwork &cn) :
   _network(cn)
@@ -68,6 +69,7 @@ void LibGraphic::Sfml::clean()
 void LibGraphic::Sfml::draw()
 {
   sf::String tmp;
+  sf::Sprite help;
 
   this->_graphicState->draw(this->_currentState);
   if (errorToPrint)
@@ -77,6 +79,13 @@ void LibGraphic::Sfml::draw()
       //      tmp.SetPosition(300, 300);
       this->_app.Draw(tmp);
    }
+  if (helpToShow)
+    {
+      help = this->getSprite("help");
+      help.SetColor(sf::Color(255,255,255,200));
+      help.SetPosition(350, 80);
+      this->_app.Draw(help);
+    }
   this->_app.Display();
 }
 
