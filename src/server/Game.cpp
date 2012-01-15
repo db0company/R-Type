@@ -26,14 +26,6 @@ unsigned int Game::_sid = 0;
 Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
 	       _observer(true), _status(LOBBYROOM)
 {
-  // On va faire quelques tests.
-
-  // createNewPlayer(NULL, "Player1");
-  // createNewPlayer(NULL, "Player2");
-  // createNewMonster(NULL);
-  // createNewMonster(NULL);
-  // createWall();
-
   //  _rMap.recupFromFile("nom_du_level.txt");
   this->_id = this->_sid;
   ++(this->_sid);
@@ -114,7 +106,7 @@ void	Game::sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc
   ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, data);
   std::map<std::string , User *>::iterator it2;
 
-  for (it2 = this->_userMap.begin(); it2 != _userMap.end(); ++it2)
+  for (it2 = this->_userMap.begin(); it2 != this->_userMap.end(); ++it2)
   {
     if (it2->second->isSafe())
       it2->second->addPacketToSend(packet_to_send);
@@ -239,6 +231,7 @@ void	Game::sendEndPacketExt()
       hg.addNewScore(static_cast<Player *>(it->second)->getScore(), it->first);
       ++it;
     }
+  data->addString("End");
   sendToAllClient(data, THE_GAME, ENDGAME);
 }
 
@@ -699,7 +692,7 @@ AObject		*Game::getEntitiesbyName(const std::string& name)
 	return (it2->second);
       ++it2;
     }*/
-  std::cout << "no PLAYER FOUND" << std::endl;
+  //std::cout << "no PLAYER FOUND" << std::endl;
   return (NULL);
 }
 

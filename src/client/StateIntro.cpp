@@ -4,6 +4,7 @@
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 extern bool errorToPrint;
+extern bool helpToShow;
 
 LibGraphic::StateIntro::StateIntro(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 				   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
@@ -114,6 +115,14 @@ LibGraphic::Event LibGraphic::StateIntro::gereEvent()
 		this->playSound();
 		return EVENT_CHANGE_STATE;
 	      }
+	    case sf::Key::H :
+	      {
+		if (helpToShow)
+		  helpToShow = false;
+		else
+		  helpToShow = true;
+		break;
+	      }
 	    default : break;
 	    }
 	}
@@ -126,6 +135,14 @@ LibGraphic::Event LibGraphic::StateIntro::gereEvent()
 		this->_nextState = START;
 		this->playSound();
 		return EVENT_CHANGE_STATE;
+	      }
+	    case 3:
+	      {
+		if (helpToShow)
+		  helpToShow = false;
+		else
+		  helpToShow = true;
+		break;
 	      }
 	    }
 	}

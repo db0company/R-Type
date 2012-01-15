@@ -187,14 +187,14 @@ LibGraphic::Event LibGraphic::StateRoom::gereEvent()
 		this->_currentButton = BUTTON_ROOM_QUIT;
 		break;
 	      }
-	    case sf::Key::H :
-	      {
-		if (helpToShow)
-		  helpToShow = false;
-		else
-		  helpToShow = true;
-		break;
-	      }
+	    // case sf::Key::H :
+	    //   {
+	    // 	if (helpToShow)
+	    // 	  helpToShow = false;
+	    // 	else
+	    // 	  helpToShow = true;
+	    // 	break;
+	    //   }
 	    case sf::Key::Return :
 	      {
 		if (this->_currentButton == BUTTON_ROOM_QUIT)

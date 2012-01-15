@@ -66,6 +66,9 @@ public:
     if (select(this->_maxFd + 1, &(this->_readFd), &(this->_writeFd),
 	       NULL, &(this->_timeout)) == -1)
       {
+#ifdef _WIN32
+		std::cout << "Fail Error S: " << WSAGetLastError() << std::endl;
+#endif
 	return (false);
       }
     for (it = this->_writeMap.begin(); it != this->_writeMap.end(); ++it)

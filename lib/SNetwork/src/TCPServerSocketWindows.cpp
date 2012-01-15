@@ -147,8 +147,8 @@ TCPClientSocketWindows		*TCPServerSocketWindows::SNAccept(void)
 
 bool				TCPServerSocketWindows::SNClose(void)
 {
-	if (closesocket(this->_socket) == SOCKET_ERROR)
-		return (false);
+//	if (closesocket(this->_socket) == SOCKET_ERROR)
+//		return (false);
 	if (WSACleanup() == SOCKET_ERROR)
 		return (false);
 	return (true);
