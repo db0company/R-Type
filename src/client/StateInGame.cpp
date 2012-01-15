@@ -211,7 +211,15 @@ void LibGraphic::StateInGame::drawExplosion()
 
   for (it = this->_explosionList.begin(); it != this->_explosionList.end(); ++it)
     {
-      (*it)->play();
+      if ((*it)->getNbPlay() >= 0)
+	(*it)->play();
+      else
+	{
+	  LibGraphic::IAnnim * tmp;
+	  tmp = (*it);
+	  delete tmp;
+	  it = this->_explosionList.erase(it);
+	}
     }
 }
 

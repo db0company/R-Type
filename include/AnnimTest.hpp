@@ -29,7 +29,7 @@ namespace LibGraphic
 
     virtual float getTimer() const;
     virtual void setTimer(float);
-
+    virtual int getNbPlay() const;
   private:
     sf::RenderWindow & _app;
     Coord _coord;

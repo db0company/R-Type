@@ -22,6 +22,11 @@ LibGraphic::AnnimCircleExplosion::~AnnimCircleExplosion()
 {
 }
 
+int LibGraphic::AnnimCircleExplosion::getNbPlay() const
+{
+  return this->_nbPlay;
+}
+
 void LibGraphic::AnnimCircleExplosion::play()
 {
   if (this->_nbPlay == -1)

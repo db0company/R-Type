@@ -28,6 +28,7 @@ namespace LibGraphic
     virtual void setScale(float x, float y);
     virtual float getTimer() const;
     virtual void setTimer(float);
+    virtual int getNbPlay() const;
 
   private:
     sf::RenderWindow & _app;

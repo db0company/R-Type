@@ -19,6 +19,7 @@ namespace LibGraphic
 
     virtual float getTimer() const = 0;
     virtual void setTimer(float) = 0;
+    virtual int getNbPlay() const = 0;
   };
 
 }

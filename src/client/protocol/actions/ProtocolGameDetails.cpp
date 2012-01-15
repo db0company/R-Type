@@ -184,6 +184,11 @@ bool ProtocolGameDetails::actionMonsterKill(PacketData &data, Client &c)
       map.push_front(e);
     }
   if (monsters.find(id_monstre) != monsters.end())
-    monsters.erase(id_monstre);
+    {
+      LibGraphic::AMonsterMovement * tmp;
+      tmp = monsters[id_monstre];
+      delete tmp;
+      monsters.erase(id_monstre);
+    }
   return (false);
 }

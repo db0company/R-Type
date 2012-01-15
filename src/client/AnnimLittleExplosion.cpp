@@ -23,6 +23,11 @@ LibGraphic::AnnimLittleExplosion::~AnnimLittleExplosion()
 {
 }
 
+int LibGraphic::AnnimLittleExplosion::getNbPlay() const
+{
+  return this->_nbPlay;
+}
+
 void LibGraphic::AnnimLittleExplosion::play()
 {
   if (this->_nbPlay == -1)

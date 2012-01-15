@@ -18,6 +18,11 @@ LibGraphic::AnnimTest::~AnnimTest()
 {
 }
 
+int LibGraphic::AnnimTest::getNbPlay() const
+{
+  return this->_nbPlay;
+}
+
 void LibGraphic::AnnimTest::play()
 {
   if (this->_clock.GetElapsedTime() < this->_clockVal)

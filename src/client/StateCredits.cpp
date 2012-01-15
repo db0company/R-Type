@@ -57,8 +57,9 @@ void LibGraphic::StateCredits::loadCredits()
   this->_list.push_back(new credit("Lead designer : Moutawakil Idriss", 1650));
   this->_list.push_back(new credit("Graphic rendering : Moutawakil Idriss, Sylvain Noelie", 1700));
   this->_list.push_back(new credit("Graphic creations : Moutawakil Idriss, Sylvain Noelie, Baradel Audrey", 1750));
-  this->_list.push_back(new credit("General conception : Moutawakil Idriss", 1800));
-  this->_list.push_back(new credit("Special Thanks : Baradel Audrey", 1850));
+  this->_list.push_back(new credit("Music and effects : Moutawakil Idriss", 1800));
+  this->_list.push_back(new credit("General conception : Moutawakil Idriss", 1850));
+  this->_list.push_back(new credit("Special Thanks : Baradel Audrey", 2150));
 }
 
 void LibGraphic::StateCredits::drawCredits()
