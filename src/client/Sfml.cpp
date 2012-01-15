@@ -44,6 +44,7 @@ bool LibGraphic::Sfml::init()
     return false;
   this->createStates();
   this->_currentState = START;
+  this->_errorClock.Reset();
   return true;
 }
 
@@ -74,13 +75,19 @@ void LibGraphic::Sfml::draw()
   sf::Sprite help;
 
   this->_graphicState->draw(this->_currentState);
-  if (errorToPrint)
+  if (errorToPrint && this->_errorClock.GetElapsedTime() > 5)
+    {
+      errorToPrint = false;
+      this->_errorClock.Reset();
+    }
+  else if (errorToPrint)
     {
       tmp.SetText(this->_errorMessage);
       tmp.SetColor(sf::Color(255,0,0, 255));
-      //      tmp.SetPosition(300, 300);
       this->_app.Draw(tmp);
-   }
+    }
+  else
+    this->_errorClock.Reset();
   if (helpToShow)
     {
       help = this->getSprite("help");
