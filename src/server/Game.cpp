@@ -33,7 +33,7 @@ Game::Game() : _owner_login(""), _name(""), _lvlname(""), player_max(4),
   this->_param.sizeCol = 7;
   this->_idPlayers = 0;
   this->_monsterId = 0;
-  this->_nbWave = 30;
+  this->_nbWave = 80;
   this->_mapDll.insert(std::pair<int, std::string>(0, MONSTERBASE));
   this->_mapDll.insert(std::pair<int, std::string>(1, MONSTERSHIP));
   this->_mapDll.insert(std::pair<int, std::string>(2, MONSTEREYE));
@@ -258,7 +258,7 @@ void	Game::launchWave(GameParam&)
   int	r = 0;
   Position p;
   int		i = 0;
-  int		nbMob = 1;
+  int		nbMob = 3;
   DlLoader	*dl = DlLoader::getInstance();
   std::string	str;
 

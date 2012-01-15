@@ -368,3 +368,8 @@ add_library(
 	./src/server/Entities.cpp
 	./src/server/Monster.cpp
 )
+
+add_executable(
+	genMap
+	./GenRType/main.cpp
+)
