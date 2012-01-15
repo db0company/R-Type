@@ -322,3 +322,8 @@ std::list<IAnnim *> &LibGraphic::GraphicClientState::getExplosionList()
 {
   return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->getExplosionList();
 }
+
+std::list<LibGraphic::Coord *> & LibGraphic::GraphicClientState::getCoordBulletList()
+{
+  return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->getCoordBulletList();
+}

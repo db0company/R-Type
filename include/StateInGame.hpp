@@ -46,6 +46,7 @@ namespace LibGraphic
     std::list<BulletMovement *> &getBulletList();
 
     std::list<IAnnim *> &getExplosionList();
+    std::list<Coord *> & getCoordBulletList();
 
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
@@ -93,6 +94,7 @@ namespace LibGraphic
     std::map<int, AMonsterMovement *> _monsterMap;
     std::list<IAnnim *>	_explosionList;
     PlayerMovement * _player;
+    BulletMovement * _bulletInst;
   };
 
 }

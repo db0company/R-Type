@@ -80,7 +80,7 @@ namespace LibGraphic
     std::map<int, PlayerMovement *> const & getPlayerMap() const;
     std::map<int, AMonsterMovement *> &getMonsterMap();
     std::map<int, PlayerMovement *> & getPlayerMap();
-
+    std::list<Coord *> & getCoordBulletList();
     sf::RenderWindow & getWindow();
     sf::Sprite & getSprite(std::string const &);
     eShipColor getMyId() const;
