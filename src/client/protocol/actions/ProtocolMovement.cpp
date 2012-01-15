@@ -6,6 +6,7 @@
 #include "Client.hpp"
 #include "RedEvil.hpp"
 #include "SpriteInfo.hpp"
+#include "enum.h"
 
 ProtocolMovement::ProtocolMovement()
 {
@@ -183,16 +184,22 @@ bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &c)
   unsigned int		i = 0;
   unsigned int		nbBull;
   std::list<LibGraphic::Coord *> &listCoord = c.getGraphic().getCoordBulletList();
+  std::list<LibGraphic::Coord *> &listEnnemyCoord = c.getGraphic().getEnnemyCoordBulletList();
 
   listCoord.clear();
+  listEnnemyCoord.clear();
   nbBull = data.getNextShort();
   while (i != nbBull)
     {
       LibGraphic::Coord * coord = new LibGraphic::Coord();
+      char type = data.getNextChar();
       coord->x = data.getNextShort();
       coord->y = data.getNextShort();
-      listCoord.push_front(coord);
-      ++i;
+      if (type == FRIENDS)
+	listCoord.push_front(coord);
+      else
+	listEnnemyCoord.push_front(coord);
+     ++i;
     }
   return (false);
 }

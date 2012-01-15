@@ -57,6 +57,7 @@ namespace LibGraphic
     void setMessage(std::string const &);
     RecupMap &getRecupMap(void);
     std::list<BulletMovement *> &getBulletList();
+    std::list<BulletMovement *> &getEnemyBulletList();
     std::string const & getConversation() const;
     void addToConversation(std::string const &);
     std::string const &getInGameName(void) const;
@@ -69,6 +70,7 @@ namespace LibGraphic
     eMovement getLastMove(void) const;
     eBulletType getLastBullet(void) const;
     std::list<Coord *> & getCoordBulletList();
+    std::list<Coord *> & getEnemyCoordBulletList();
     std::map<int, PlayerMovement *> const & getPlayerMap() const;
     std::map<int, PlayerMovement *> & getPlayerMap();
     std::map<int, AMonsterMovement *> &getMonsterMap();

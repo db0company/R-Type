@@ -31,6 +31,7 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_player = new LibGraphic::PlayerMovement(this->_app,
 					      this->getSprite("PlayerShip"));
   this->_bulletInst = new LibGraphic::BulletMovement(this->_app, this->getSprite("Missile"), LibGraphic::NORMAL_BULLET);
+  this->_enemyBulletInst = new LibGraphic::BulletMovement(this->_app, this->getSprite("MissileEnemy"), LibGraphic::NORMAL_BULLET);
   this->_lives = 0;
   this->_mapLoaded = false;
   gpos = 0;
@@ -173,6 +174,7 @@ void LibGraphic::StateInGame::drawBullet()
   //     (*it)->draw();
   //   }
   this->_bulletInst->draw();
+  this->_enemyBulletInst->draw();
 }
 
 void LibGraphic::StateInGame::drawMenu()
@@ -433,6 +435,11 @@ std::list<LibGraphic::BulletMovement *> &LibGraphic::StateInGame::getBulletList(
   return (this->_bulletList);
 }
 
+// std::list<LibGraphic::Coord *> &LibGraphic::StateInGame::getEnemyBulletList(void)
+// {
+//   return (this->_enemyBulletList);
+// }
+
 void LibGraphic::StateInGame::resetInGameState(void)
 {
   this->_nextState = UNKNOWN_STATE;
@@ -451,6 +458,7 @@ void LibGraphic::StateInGame::resetInGameState(void)
   this->_monsterMap.clear();
   this->_playerMap.clear();
   this->_bulletList.clear();
+  this->_enemyBulletList.clear();
   this->_explosionList.clear();
   this->_running = true;
 }
@@ -473,4 +481,9 @@ std::list<LibGraphic::IAnnim *> &LibGraphic::StateInGame::getExplosionList()
 std::list<LibGraphic::Coord *> & LibGraphic::StateInGame::getCoordBulletList()
 {
   return this->_bulletInst->getCoordList();
+}
+
+std::list<LibGraphic::Coord *> & LibGraphic::StateInGame::getEnemyCoordBulletList()
+{
+  return this->_enemyBulletInst->getCoordList();
 }

@@ -332,3 +332,8 @@ std::list<LibGraphic::Coord *> & LibGraphic::GraphicClientState::getCoordBulletL
 {
   return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->getCoordBulletList();
 }
+
+std::list<LibGraphic::Coord *> & LibGraphic::GraphicClientState::getEnemyCoordBulletList()
+{
+  return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->getEnemyCoordBulletList();
+}

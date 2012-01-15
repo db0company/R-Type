@@ -43,6 +43,7 @@ SecondFieldSun::starfieldTWO1680-1050-little_star.png::0
 Input::inputchat.png::0
 PlayerShip::PlayerShip.png::0
 Missile::missilePlayer.png::0
+MissileEnemy::missileEnemy.png::0
 BigExplosion::BigExplosion.png::0
 CircleExplosion::CircleExplosion.png::0
 LittleExplosion::LittleExplosion.png::0

@@ -82,6 +82,7 @@ namespace LibGraphic
     std::map<int, PlayerMovement *> & getPlayerMap();
     void setRunning(bool);
     std::list<Coord *> & getCoordBulletList();
+    std::list<Coord *> & getEnnemyCoordBulletList();
     sf::RenderWindow & getWindow();
     sf::Sprite & getSprite(std::string const &);
     eShipColor getMyId() const;

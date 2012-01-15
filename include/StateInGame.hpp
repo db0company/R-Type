@@ -44,6 +44,7 @@ namespace LibGraphic
     std::map<int, AMonsterMovement *> &getMonsterMap();
 
     std::list<BulletMovement *> &getBulletList();
+    std::list<Coord *> &getEnemyCoordBulletList();
 
     std::list<IAnnim *> &getExplosionList();
     std::list<Coord *> & getCoordBulletList();
@@ -91,11 +92,13 @@ namespace LibGraphic
     // monsters
     eShipColor _myid;
     std::list<BulletMovement *>	_bulletList;
+    std::list<BulletMovement *>	_enemyBulletList;
     std::map<int, PlayerMovement *> _playerMap;
     std::map<int, AMonsterMovement *> _monsterMap;
     std::list<IAnnim *>	_explosionList;
     PlayerMovement * _player;
     BulletMovement * _bulletInst;
+    BulletMovement * _enemyBulletInst;
   };
 
 }
