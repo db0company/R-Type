@@ -44,7 +44,6 @@ void		RecupMap::recupFromFile(const std::string& file)
   int		nb1;
   int		nb2;
   int		i = 0;
-  size_t	y;
   std::vector<TileStruct>::iterator it;
   TileStruct	t;
   
@@ -72,6 +71,36 @@ void		RecupMap::recupFromFile(const std::string& file)
       std::cout << (*it).up << " "<< (*it).down << std::endl;
       ++it;
     }
+}
+
+void		RecupMap::mstrtab(char const *s)
+{
+  int		i = 0;
+  int		x;
+  int		y;
+  std::vector<TileStruct>::iterator it;
+  TileStruct	t;
+
+  while (s[i] != '\0')
+    {
+      x = atoi(s + i);
+      while (s[i] != ';')
+	++i;
+      ++i;
+      y = atoi(s + i);
+      while (s[i] != '|' && s[i] != '\0')
+	++i;
+      it = mapContent.end();
+      t = TileStruct(getEnumFromInt(x), getEnumFromInt(y));
+      mapContent.insert(it, t);
+      if (s[i] == '|')
+	++i;
+    }
+}
+
+void		RecupMap::recupFromString(const std::string& str)
+{
+  mstrtab(str.c_str());
 }
 
 const TileStruct&	RecupMap::operator[](int i)

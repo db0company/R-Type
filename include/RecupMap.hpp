@@ -17,6 +17,8 @@ public:
   void	recupFromFile(const std::string& file);
   const TileStruct&	operator[](int i);
   int		size()const;
+  void		mstrtab(char const *s);
+  void		recupFromString(const std::string& str);
 };
 
 #endif		/*__RECUPMAP__HPP__*/
