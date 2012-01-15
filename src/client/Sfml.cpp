@@ -468,3 +468,8 @@ void LibGraphic::Sfml::resetRoomListState(void)
 {
   this->_graphicState->resetRoomListState();
 }
+
+std::list<std::string> & LibGraphic::Sfml::getRankingList()
+{
+  return this->_graphicState->getRankingList();
+}

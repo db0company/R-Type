@@ -10,6 +10,7 @@
 #include "StateRoomList.hpp"
 #include "StateRoom.hpp"
 #include "StateInGame.hpp"
+#include "StateRanking.hpp"
 #include "GraphicClientState.hpp"
 #include "EGraphicAction.hpp"
 #include "PlayerMovement.hpp"
@@ -76,7 +77,11 @@ void LibGraphic::GraphicClientState::loadStates(void)
 						this->_ressourcesFont,
 						this->_app);
   this->_stateInfos[CREDITS] = NULL;
-  this->_stateInfos[RANKING] = NULL;
+  this->_stateInfos[RANKING] = new StateRanking(this->_ressourcesSprite,
+						this->_ressourcesPlayList,
+						this->_ressourcesSounds,
+						this->_ressourcesFont,
+						this->_app);
   this->_stateInfos[INTRO] = NULL;
   this->_stateInfos[INGAME] = new StateInGame(this->_ressourcesSprite,
 					      this->_ressourcesPlayList,
@@ -284,4 +289,9 @@ void LibGraphic::GraphicClientState::resetInGameState()
 void LibGraphic::GraphicClientState::resetRoomListState()
 {
   reinterpret_cast <StateRoomList *>(getValue(this->_stateInfos, ROOMLIST))->resetRoomListState();
+}
+
+std::list<std::string> &LibGraphic::GraphicClientState::getRankingList()
+{
+  return reinterpret_cast <StateRanking *>(getValue(this->_stateInfos, RANKING))->getRankingList();
 }
