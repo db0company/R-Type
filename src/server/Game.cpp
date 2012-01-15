@@ -14,6 +14,7 @@
 #include "ScopedLock.hpp"
 #include "DlLoader.hpp"
 #include "OS.hpp"
+#include "HighScore.hpp"
 #ifdef _WIN32
 #include "MutexWindows.hpp"
 #else
@@ -218,7 +219,14 @@ void	Game::changePlayerPos(GameParam& par)
 void	Game::sendEndPacket()
 {
   PacketData	*data = new PacketData;
+  HighScore hg;
+  std::map<std::string, AObject *>::iterator it = this->_players.begin();
 
+  while (it != this->_players.end())
+    {
+      hg.addNewScore(static_cast<Player *>(it->second)->getScore(), it->first);
+      ++it;
+    }
   sendToAllClient(data, THE_GAME, ENDGAME);
 }
 
@@ -253,15 +261,19 @@ void	Game::launchWave(GameParam&)
       str = this->_mapDll[r];
       if (str != "")
 	{
-	  mob = dynamic_cast<Monster *>(dl->getDll(str).getSymbol<IObject>(GETMONSTER));
+		 std::cout << "str is " << str << std::endl;
+	 mob = dynamic_cast<Monster *>(dl->getDll(str).getSymbol<IObject>(GETMONSTER));
+	  std::cout << "over" << std::endl;
 	  dl->desactivMut();
 	  p.x = 1700;
-	  p.y = 400 + 50 * i;
+	  p.y = rand() % 800 + 100;
 	  verifPos(p);
 	  createNewMonster(p, mob);
 	}
       ++i;
     }
+   
+
 }
 
 void	Game::createNewPlayer(User *us, const std::string& name)

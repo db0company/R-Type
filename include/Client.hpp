@@ -26,6 +26,7 @@ public:
   bool actionStart(void);
   bool actionGetLvl(void);
   bool actionQuit(void);
+  bool actionRank(void);
   bool actionBullet(LibGraphic::eBulletType, std::string const &name);
   bool actionMove(LibGraphic::eMovement e);
 

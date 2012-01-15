@@ -313,8 +313,9 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_RANKING)
 		  {
-		    this->_nextState = RANKING;
-		    return EVENT_CHANGE_STATE;
+ 		    // this->_nextState = RANKING;
+		    // return EVENT_CHANGE_STATE;
+		    return (EVENT_START_RANK);
 		  }
 		else if (this->_currentButton == BUTTON_CREDITS)
 		  {
@@ -350,8 +351,9 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		  }
 		else if (this->_currentButton == BUTTON_RANKING)
 		  {
-		    this->_nextState = RANKING;
-		    return EVENT_CHANGE_STATE;
+		    // this->_nextState = RANKING;
+		    // return EVENT_CHANGE_STATE;
+		    return (EVENT_START_RANK);
 		  }
 		else if (this->_currentButton == BUTTON_CREDITS)
 		  {

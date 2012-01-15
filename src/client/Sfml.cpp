@@ -519,3 +519,8 @@ void LibGraphic::Sfml::setRunning(bool b)
 {
   this->_graphicState->setRunning(b);
 }
+
+std::list<LibGraphic::Coord *> & LibGraphic::Sfml::getCoordBulletList()
+{
+  return this->_graphicState->getCoordBulletList();
+}

@@ -15,7 +15,7 @@ HighScore::HighScore()
     {
       while (file.good() == true)
 	{
-	  bzero(buff, 126);
+	  memset(buff, 0, 126);
 	  file.getline(buff, 126);
 	  list.push_back(buff);
 	}

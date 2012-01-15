@@ -199,6 +199,11 @@ bool Client::gereAction(LibGraphic::Event e)
 	this->cGraphic.setCurrentState(LibGraphic::CREATEGAME);
 	break;
       }
+    case LibGraphic::EVENT_START_RANK :
+      {
+	this->actionRank();
+	break;
+      }
     default : break;
     }
   return (true);
@@ -376,9 +381,26 @@ bool Client::actionQuit(void)
   data = new PacketData;
   data->addString(this->cGraphic.getLogin());
   packet = new ProtocolPacket;
-  packet->header.size = 0;
+  packet->header.size = data->getDataSize();
   packet->header.group = THE_GAME;
   packet->header.instruction = QUITGAME;
+  packet->header.magic = PACKET_MAGIC;
+  packet->data = data->getData();
+
+  this->cNetwork.pushTCP(packet);
+  return (true);
+}
+
+bool Client::actionRank(void)
+{
+  ProtocolPacket	*packet;
+  PacketData		*data;
+
+  data = new PacketData;
+  packet = new ProtocolPacket;
+  packet->header.size = 0;
+  packet->header.group = GAME_DETAILS;
+  packet->header.instruction = RANKINGS;
   packet->header.magic = PACKET_MAGIC;
   packet->data = data->getData();
 

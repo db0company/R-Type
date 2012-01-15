@@ -30,6 +30,7 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_myid = BLUESHIP;
   this->_player = new LibGraphic::PlayerMovement(this->_app,
 					      this->getSprite("PlayerShip"));
+  this->_bulletInst = new LibGraphic::BulletMovement(this->_app, this->getSprite("Missile"), LibGraphic::NORMAL_BULLET);
   this->_lives = 0;
   this->_mapLoaded = false;
   gpos = 0;
@@ -165,12 +166,13 @@ void LibGraphic::StateInGame::drawMap()
 
 void LibGraphic::StateInGame::drawBullet()
 {
-  std::list<BulletMovement *>::iterator it;
+  // std::list<BulletMovement *>::iterator it;
 
-  for (it = this->_bulletList.begin(); it != this->_bulletList.end(); ++it)
-    {
-      (*it)->draw();
-    }
+  // for (it = this->_bulletList.begin(); it != this->_bulletList.end(); ++it)
+  //   {
+  //     (*it)->draw();
+  //   }
+  this->_bulletInst->draw();
 }
 
 void LibGraphic::StateInGame::drawMenu()
@@ -466,4 +468,9 @@ void LibGraphic::StateInGame::setLives(unsigned int i)
 std::list<LibGraphic::IAnnim *> &LibGraphic::StateInGame::getExplosionList()
 {
   return (this->_explosionList);
+}
+
+std::list<LibGraphic::Coord *> & LibGraphic::StateInGame::getCoordBulletList()
+{
+  return this->_bulletInst->getCoordList();
 }

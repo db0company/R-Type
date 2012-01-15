@@ -149,7 +149,7 @@ bool ProtocolGameDetails::actionPlayerKill(PacketData &data, Client &c)
 bool ProtocolGameDetails::actionMonsterKill(PacketData &data, Client &c)
 {
   char id_monstre;
-  char killtype; // 0 = missile; 1 = collision ; 2 = sort de la map (fin) // TODO tell vincent
+  char killtype;
   int posx;
   int posy;
   LibGraphic::IAnnim *e;
