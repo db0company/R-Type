@@ -257,7 +257,7 @@ void	Game::launchWave(GameParam&)
   int	r = 0;
   Position p;
   int		i = 0;
-  int		nbMob = 4;
+  int		nbMob = 1;
   DlLoader	*dl = DlLoader::getInstance();
   std::string	str;
 
@@ -456,6 +456,7 @@ void	Game::sendMonsterDeath(Monster *mob, char killtype)
   data->addChar(killtype);
   data->addShort(finalx);
   data->addShort(finaly);
+  std::cout << "packet de mort du monster " << mob->getMId() << std::endl;
   sendToAllClient(data, GAME_DETAILS, MONSTERKILL);
 }
 
