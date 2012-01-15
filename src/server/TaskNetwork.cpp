@@ -41,26 +41,24 @@ TaskNetwork&	TaskNetwork::operator=(const TaskNetwork& old)
   return (*this);
 }
 
-void	TaskNetwork::sendToClient(void *data)
+void	TaskNetwork::sendToClient(sendToClientData const &dataSend)
 {
-  sendToClientData	*dataSend = NULL;
   ScopedLock		sc(this->udpMutex);
   char			*msg_to_send;
   int			size = 0;
 
-  dataSend = reinterpret_cast<sendToClientData *>(data);
-  if (dataSend->packet)
+  if (dataSend.packet)
     {
-      size = dataSend->packet->header.size +
-	sizeof(dataSend->packet->header);
+      size = dataSend.packet->header.size +
+	sizeof(dataSend.packet->header);
       msg_to_send = new char[size];
       memset(msg_to_send, 0, size);
-      memcpy(msg_to_send, &(dataSend->packet->header),
-	     sizeof(dataSend->packet->header));
-      memcpy(msg_to_send + sizeof(dataSend->packet->header),
-	     &(dataSend->packet->data),
-	     dataSend->packet->header.size);
+      memcpy(msg_to_send, &(dataSend.packet->header),
+	     sizeof(dataSend.packet->header));
+      memcpy(msg_to_send + sizeof(dataSend.packet->header),
+	     &(dataSend.packet->data),
+	     dataSend.packet->header.size);
       if (this->udpSock)
-	this->udpSock->SNWriteToClient(msg_to_send, size, dataSend->ip);
+	this->udpSock->SNWriteToClient(msg_to_send, size, dataSend.ip);
     }
 }
