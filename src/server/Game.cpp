@@ -194,7 +194,7 @@ void	Game::changePlayerPos(GameParam& par)
     {
       dynamic_cast<Player *>(it->second)->changeLife(1);
       sendLooseLife(dynamic_cast<Player *>(it->second), 1);
-      
+
       initPos(newPos);
       it->second->setPos(newPos);
       data->addChar(reinterpret_cast<Player *>(it->second)->getId());
@@ -264,7 +264,7 @@ void	Game::createNewMonster(const Position& p, Monster *mob)
 {
   PacketData *data = new PacketData;
   int		finalx;
-  int		finaly;  
+  int		finaly;
 
   mob->setPos(p);
   mob->setMId(this->_monsterId);

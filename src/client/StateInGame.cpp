@@ -1,3 +1,4 @@
+#include <sstream>
 #include <iostream>
 #include "StateInGame.hpp"
 #include "TileInfo.hpp"
@@ -5,6 +6,8 @@
 #include "SpriteInfo.hpp"
 #include "AMonsterMovement.hpp"
 #include "RedEvil.hpp"
+#include "IAnnim.hpp"
+
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 extern bool errorToPrint;
@@ -182,13 +185,11 @@ void LibGraphic::StateInGame::drawMenu()
   sLife->SetPosition(10, 0);
   sLife->Scale(0.6, 0.6);
   this->_app.Draw(*sLife);
-
-  sScore = this->getStdToSfString("Score :", this->getFont("StartFontF"));
+  sScore = this->getStdToSfString("Score : " + this->stringOfInt(this->_score),
+				  this->getFont("StartFontF"));
   sScore->SetPosition(1500, 0);
   sScore->Scale(0.6, 0.6);
-  // aff score here
   this->_app.Draw(*sScore);
-
   s.SetSubRect(sf::IntRect(2 * SPRITE_SHIP_X, 0 * SPRITE_SHIP_Y,
 			   3 * SPRITE_SHIP_X, 1 * SPRITE_SHIP_Y));
   while (i < this->_lives)
@@ -200,6 +201,26 @@ void LibGraphic::StateInGame::drawMenu()
     }
 }
 
+void LibGraphic::StateInGame::drawExplosion()
+{
+  std::list<LibGraphic::IAnnim *>::iterator it;
+
+  for (it = this->_explosionList.begin(); it != this->_explosionList.end(); ++it)
+    {
+      (*it)->play();
+    }
+}
+
+std::string LibGraphic::StateInGame::stringOfInt(int v)
+{
+  std::stringstream ss;
+  std::string s;
+
+  ss << v;
+  ss >> s;
+  return s;
+}
+
 void LibGraphic::StateInGame::draw()
 {
   this->drawStarField();
@@ -209,16 +230,15 @@ void LibGraphic::StateInGame::draw()
   this->drawMonsters();
   this->drawPlayers();
   this->drawMenu();
+  this->drawExplosion();
 }
 
 void LibGraphic::StateInGame::drawMonsters()
 {
   std::map<int, AMonsterMovement *>::iterator it;
 
-  // std::cout << "size:" << this->_monsterMap.size() <<  std::endl;
   for (it = this->_monsterMap.begin(); it != this->_monsterMap.end(); ++it)
     {
-      // std::cout << "un monstre" <<  std::endl;
       it->second->play();
     }
 }
@@ -417,4 +437,9 @@ void LibGraphic::StateInGame::setScore(unsigned int i)
 void LibGraphic::StateInGame::setLives(unsigned int i)
 {
   this->_lives = i;
+}
+
+std::list<LibGraphic::IAnnim *> &LibGraphic::StateInGame::getExplosionList()
+{
+  return (this->_explosionList);
 }

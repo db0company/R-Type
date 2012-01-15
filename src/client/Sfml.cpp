@@ -8,6 +8,8 @@
 #include "Language.hpp"
 #include "SpriteInfo.hpp"
 #include "AMonsterMovement.hpp"
+#include "IAnnim.hpp"
+
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 
@@ -499,4 +501,9 @@ void LibGraphic::Sfml::setLives(unsigned int i)
 std::list<std::string> & LibGraphic::Sfml::getRankingList()
 {
   return this->_graphicState->getRankingList();
+}
+
+std::list<LibGraphic::IAnnim *> &LibGraphic::Sfml::getExplosionList()
+{
+  return this->_graphicState->getExplosionList();
 }

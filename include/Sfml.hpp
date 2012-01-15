@@ -23,6 +23,7 @@ class			ClientNetwork;
 namespace LibGraphic
 {
 
+  class IAnnim;
   class PlayerMovement;
   class AMonsterMovement;
   class	Sfml : public IGraphic
@@ -74,7 +75,7 @@ namespace LibGraphic
     std::list<std::string> &getPlayerNameList(void);
     std::list<BulletMovement *> &getBulletList(void);
     eMovement getLastMove(void) const;
-
+    std::list<IAnnim *> &getExplosionList();
     eBulletType getLastBullet(void) const;
     std::map<int, PlayerMovement *> const & getPlayerMap() const;
     std::map<int, AMonsterMovement *> &getMonsterMap();
