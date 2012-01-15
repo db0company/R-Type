@@ -620,6 +620,7 @@ void	Game::moveBullet(GameParam&)
 	  if (finalx < 0 || finalx > 1680 || finaly < 0 || finaly > 1050)
 	    (*it).setDestroy();
 	  (*it).setPos(p);
+	  data->addChar((*it).getGroup());
 	  data->addShort(finalx);
 	  data->addShort(finaly);
 	  ++it;
