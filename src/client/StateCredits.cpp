@@ -1,5 +1,4 @@
 #include "StateCredits.hpp"
-
 #include "Language.hpp"
 
 extern LibGraphic::Volume gVolume;

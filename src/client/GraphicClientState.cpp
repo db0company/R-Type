@@ -12,6 +12,7 @@
 #include "StateInGame.hpp"
 #include "StateRanking.hpp"
 #include "StateCredits.hpp"
+#include "StateIntro.hpp"
 #include "GraphicClientState.hpp"
 #include "EGraphicAction.hpp"
 #include "PlayerMovement.hpp"
@@ -94,7 +95,12 @@ void LibGraphic::GraphicClientState::loadStates(void)
 						this->_ressourcesSounds,
 						this->_ressourcesFont,
 						this->_app);
-  this->_stateInfos[INTRO] = NULL;
+  this->_stateInfos[INTRO] =  new StateIntro(this->_ressourcesSprite,
+					      this->_ressourcesPlayList,
+					      this->_ressourcesSounds,
+					      this->_ressourcesFont,
+					      this->_app);
+
   this->_stateInfos[INGAME] = new StateInGame(this->_ressourcesSprite,
 					      this->_ressourcesPlayList,
 					      this->_ressourcesSounds,
