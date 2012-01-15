@@ -9,6 +9,7 @@ MonsterBase::MonsterBase()
 {
   movFlag = 15;
   movDir = RIGHTMOV;
+  this->launchFire = 0;
 }
 
 MonsterBase::~MonsterBase()
@@ -40,6 +41,17 @@ void		MonsterBase::moveNextPos()
       pos.y -= 5;
       movFlag--;
     }
+}
+
+bool		MonsterBase::wantFire()
+{
+  if (this->launchFire == 18)
+    {
+      this->launchFire = 0;
+      return (true);
+    }
+  this->launchFire++;
+  return (false);
 }
 
 extern "C"

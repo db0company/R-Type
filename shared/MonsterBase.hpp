@@ -24,5 +24,6 @@ class	MonsterBase : public Monster
   MonsterBase();
   virtual ~MonsterBase();
   virtual void	moveNextPos();
+  virtual bool	wantFire();
 };
 #endif

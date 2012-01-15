@@ -4,6 +4,7 @@
 #include <string>
 #include <list>
 #include <map>
+#include "Monster.hpp"
 #include "GameParameter.hpp"
 #include "User.hpp"
 #include "PacketData.hpp"
@@ -73,6 +74,11 @@ public:
   void		verifPos(Position& pos);
   void		initPos(Position &pos);
   int		getNbMonster();
+  bool		checkInTile(AObject *ob1, AObject *ob2);
+  void		fireEnnemyBullet(Monster *ent);
+  void		sendLooseLife(Player *play, char killtype);
+  void		sendMonsterDeath(Monster *mob);
+  void		refreshLivesPlayers();
 private:
   unsigned int _id;
   GameParameter        _param;

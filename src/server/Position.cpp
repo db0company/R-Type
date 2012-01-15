@@ -41,7 +41,7 @@ int		Position::getY()const
 
 bool		Position::operator==(const Position& old)const
 {
-  if (this->x == old.getX() && this->y == old.getY() && this->tilex == old.tilex && this->tiley == old.tiley)
+  if (this->tilex == old.tilex && this->tiley == old.tiley)
     return (true);
   return (false);
 }
