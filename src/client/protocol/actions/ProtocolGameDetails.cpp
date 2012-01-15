@@ -16,6 +16,7 @@ ProtocolGameDetails::ProtocolGameDetails(void)
 
   this->actionmap[PLAYERKILL]	= &ProtocolGameDetails::actionPlayerKill;
   this->actionmap[MONSTERKILL]	= &ProtocolGameDetails::actionMonsterKill;
+  this->actionmap[RANKINGS]	= &ProtocolGameDetails::actionRankings;
 
   this->actionmap[GAMEDATAIL_ERROR] = &ProtocolGameDetails::actionError;
 }
@@ -55,6 +56,12 @@ bool ProtocolGameDetails::action(ushort instruction, PacketData &data, Client &c
 bool ProtocolGameDetails::actionError(PacketData &data, Client &)
 {
   (void)data;
+  return (false);
+}
+
+bool ProtocolGameDetails::actionRankings(PacketData &data, Client &c)
+{
+  // ici le client recoi un packet rankings TODO IDRISS
   return (false);
 }
 

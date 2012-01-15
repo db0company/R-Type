@@ -17,6 +17,7 @@ namespace LibGraphic
       EVENT_ROOM_CHAT,
       EVENT_ROOM_START,
       EVENT_ROOM_QUIT,
+      EVENT_INGAME_QUIT,
       EVENT_NONE,
       EVENT_QUIT
     };

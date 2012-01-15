@@ -180,6 +180,13 @@ bool Client::gereAction(LibGraphic::Event e)
 	this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
 	break;
       }
+    case LibGraphic::EVENT_INGAME_QUIT :
+      {
+	this->actionQuit();
+	this->cGraphic.resetRoomListState();
+	this->cGraphic.resetInGameState();
+	this->cGraphic.setCurrentState(LibGraphic::ROOMLIST);
+      }
     case LibGraphic::EVENT_ROOM_START :
       {
 	this->actionStart();

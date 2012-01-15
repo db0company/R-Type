@@ -184,8 +184,11 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &client)
   return (false);
 }
 
-bool			ProtocolGame::actionEnd(PacketData &, Client &)
+bool			ProtocolGame::actionEnd(PacketData &, Client &c)
 {
+  std::cout << std::endl;
+  c.getGraphic().setCurrentState(LibGraphic::ROOMLIST);
+  c.getGraphic().errorMessage("Game Over. TODO: StateEndGame\n");
   return (false);
 }
 

@@ -193,12 +193,10 @@ bool		ProtocolMovement::actionUpdateBullet(PacketData &data, Client &c)
       LibGraphic::Coord coord;
       coord.x = data.getNextShort();
       coord.y = data.getNextShort();
-	  std::cout << "pos missil" << coord.x << " " << coord.y << std::endl;
-	  b->setCoord(coord);
-	  list.push_front(b);
+      b->setCoord(coord);
+      list.push_front(b);
       ++i;
     }
-  std::cout << ">i<" <<i << std::endl;
   return (false);
 }
 

@@ -275,7 +275,7 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
 		// this->_app.Close();
 		// exit(EXIT_SUCCESS);
 		this->_nextState = ROOMLIST;
-		return (EVENT_CHANGE_STATE);
+		return (EVENT_INGAME_QUIT);
 		// }
 		break;
 	      }
