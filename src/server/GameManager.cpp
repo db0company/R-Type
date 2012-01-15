@@ -144,6 +144,11 @@ void		GameManager::launchWave(Server& serv)
 	  pt = new PacketTask(&Game::launchWave, d, it->second, NULL);
 	  serv.getTaskQueue().push(pt);
 	  serv.getCondVar()->signal();
+	  if (it->second->getNbWave() < 0)
+	    {
+	      it->second->setStatus(ENDED);
+	      it->second->sendEndPacketExt();
+	    }
 	}
       ++it;
     }
