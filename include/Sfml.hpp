@@ -117,6 +117,9 @@ namespace LibGraphic
     std::map<std::string const, MySound *> _ressourcesSounds;
     std::map<std::string const, sf::Font *> _ressourcesFont;
     ClientNetwork &_network;
+
+    sf::Clock _errorClock;
+
   };
 
 }
