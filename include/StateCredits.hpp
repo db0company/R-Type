@@ -51,6 +51,7 @@ namespace LibGraphic
 
   private:
     std::list<credit *> _list;
+    bool _end;
   };
 
 }

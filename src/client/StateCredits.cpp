@@ -16,7 +16,9 @@ LibGraphic::StateCredits::StateCredits(std::map<std::string const, GraphicRessou
 {
   this->_currentButton = BUTTON_CREDITS_BACK;
   this->_nextState = START;
+  this->Clock.Reset();
   this->loadCredits();
+  this->_end = false;
 }
 
 LibGraphic::StateCredits::~StateCredits()
@@ -67,21 +69,33 @@ void LibGraphic::StateCredits::drawText()
 {
   std::list<credit *>::const_iterator it;
   sf::String *tmp;
+  unsigned int test = 1;
 
+  if (this->Clock.GetElapsedTime() < 0.01)
+    return;
   for (it = this->_list.begin(); it != this->_list.end(); ++it)
     {
       tmp = this->getStdToSfString((*it)->s ,this->getFont("StartFontF"));
       tmp->SetPosition(200, (*it)->pos);
       tmp->SetScale(0.8, 0.8);
       (*it)->pos -= 1;
+      test = (*it)->pos;
       this->_app.Draw(*tmp);
     }
+  this->Clock.Reset();
+  if (test <= 0)
+    this->_end = true;
 }
 
 LibGraphic::Event LibGraphic::StateCredits::gereEvent()
 {
   sf::Event Event;
 
+  if (this->_end)
+    {
+      this->_nextState = START;
+      return EVENT_CHANGE_STATE;
+    }
   while (this->_app.GetEvent(Event))
     {
       if (Event.Type == sf::Event::KeyPressed)
