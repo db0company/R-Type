@@ -31,13 +31,8 @@ bool LibGraphic::StateCredits::init()
 void LibGraphic::StateCredits::draw()
 {
   sf::Sprite &back = this->getSprite("StartMenuBackground");
-  sf::Sprite &Button = this->getSprite("BasicButton");
 
   this->_app.Draw(back);
-  Button.SetPosition(1100, 730);
-  Button.SetRotation(180);
-  // this->_app.Draw(Button);
-  // Button.SetRotation(180);
 
   drawText();
   drawCredits();
@@ -45,27 +40,23 @@ void LibGraphic::StateCredits::draw()
 
 void LibGraphic::StateCredits::loadCredits()
 {
-  this->_list.push_back("Project Leading : Bideaux Sofia");
-  this->_list.push_back("Threading library : Bideaux Sofia, Sylvain Noelie");
-  this->_list.push_back("Dynamic loading library : Bideaux Sofia");
-
-  this->_list.push_back("Game mechanics : Munoz Vincent");
-  this->_list.push_back("Project portabilities : Munoz Vincent");
-  this->_list.push_back("Dynamic monsters library : Munoz Vincent, Bideaux Sofia");
-  this->_list.push_back("Map generator : Munoz Vincent");
-
-  this->_list.push_back("Networking library : Sylvain Noelie");
-  this->_list.push_back("Graphic design : Sylvain Noelie, Moutawakil Idriss");
-  this->_list.push_back("Networking protocol : Sylvain Noelie");
-  this->_list.push_back("Packet design : Lepage Barbara, Sylvain Noelie");
-  this->_list.push_back("Protocol documentation : Sylvain Noelie, Munoz Vincent, Lepage Barbara");
-
-  this->_list.push_back("Lead designer : Moutawakil Idriss");
-  this->_list.push_back("Graphic rendering : Moutawakil Idriss, Sylvain Noelie");
-  this->_list.push_back("Graphic creations : Moutawakil Idriss, Sylvain Noelie, Baradel Audrey");
-  this->_list.push_back("General conception : Moutawakil Idriss");
-
-  this->_list.push_back("Special Thanks : Baradel Audrey and the Frattelo's brothers");
+  this->_list.push_back(new credit("Project Leading : Bideaux Sofia", 1050));
+  this->_list.push_back(new credit("Threading library : Bideaux Sofia, Sylvain Noelie", 1100));
+  this->_list.push_back(new credit("Dynamic loading library : Bideaux Sofia", 1150));
+  this->_list.push_back(new credit("Game mechanics : Munoz Vincent", 1200));
+  this->_list.push_back(new credit("Project portabilities : Munoz Vincent", 1250));
+  this->_list.push_back(new credit("Dynamic monsters library : Munoz Vincent, Bideaux Sofia", 1300));
+  this->_list.push_back(new credit("Map generator : Munoz Vincent", 1350));
+  this->_list.push_back(new credit("Networking library : Sylvain Noelie", 1400));
+  this->_list.push_back(new credit("Graphic design : Sylvain Noelie, Moutawakil Idriss", 1450));
+  this->_list.push_back(new credit("Networking protocol : Sylvain Noelie", 1500));
+  this->_list.push_back(new credit("Packet design : Lepage Barbara, Sylvain Noelie", 1550));
+  this->_list.push_back(new credit("Protocol documentation : Sylvain Noelie, Munoz Vincent, Lepage Barbara", 1600));
+  this->_list.push_back(new credit("Lead designer : Moutawakil Idriss", 1650));
+  this->_list.push_back(new credit("Graphic rendering : Moutawakil Idriss, Sylvain Noelie", 1700));
+  this->_list.push_back(new credit("Graphic creations : Moutawakil Idriss, Sylvain Noelie, Baradel Audrey", 1750));
+  this->_list.push_back(new credit("General conception : Moutawakil Idriss", 1800));
+  this->_list.push_back(new credit("Special Thanks : Baradel Audrey", 1850));
 }
 
 void LibGraphic::StateCredits::drawCredits()
@@ -74,23 +65,17 @@ void LibGraphic::StateCredits::drawCredits()
 
 void LibGraphic::StateCredits::drawText()
 {
+  std::list<credit *>::const_iterator it;
   sf::String *tmp;
 
-  if (language == ENGLISH)
+  for (it = this->_list.begin(); it != this->_list.end(); ++it)
     {
-      tmp = this->getStdToSfString("Back", this->getFont("StartFontF"));
-      tmp->SetPosition(965, 700);
+      tmp = this->getStdToSfString((*it)->s ,this->getFont("StartFontF"));
+      tmp->SetPosition(200, (*it)->pos);
+      tmp->SetScale(0.8, 0.8);
+      (*it)->pos -= 1;
+      this->_app.Draw(*tmp);
     }
-  else
-    {
-      tmp = this->getStdToSfString("Retour", this->getFont("StartFontF"));
-      tmp->SetPosition(945, 700);
-    }
-  tmp->SetScale(0.6, 0.6);
-  tmp->SetColor(sf::Color(255,255,0, 255));
-  if (this->_currentButton != BUTTON_CREDITS_BACK)
-    tmp->SetColor(sf::Color(255,255,255, 205));
-  //  this->_app.Draw(*tmp);
 }
 
 LibGraphic::Event LibGraphic::StateCredits::gereEvent()

@@ -16,6 +16,14 @@ namespace LibGraphic
 	BUTTON_CREDITS_BACK
       };
 
+    struct credit
+    {
+      std::string s;
+      unsigned int pos;
+      credit(std::string const & sP, unsigned int posP):
+	s(sP), pos(posP) {}
+    };
+
   public:
     StateCredits(std::map<std::string const, GraphicRessource *> const &,
 		       std::map<std::string const, MyMusic *> const &,
@@ -42,7 +50,7 @@ namespace LibGraphic
     sf::Clock Clock;
 
   private:
-    std::list<std::string> _list;
+    std::list<credit *> _list;
   };
 
 }
