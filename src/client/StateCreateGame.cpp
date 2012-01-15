@@ -363,6 +363,7 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 		  this->_currentButton = BUTTON_CREATE_CREATE;
 		else if (this->_currentButton == BUTTON_CREATE_BACK)
 		  {
+		    this->playSound();
 		    this->_nextState = ROOMLIST;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -370,6 +371,7 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 		  {
 		    // this->_nextState = ROOM;
 		    // return EVENT_CHANGE_STATE;
+		    this->playSound();
 		    return (EVENT_CREATE_CREATE);
 		  }
 		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_1)
@@ -400,6 +402,7 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 		  this->_currentButton = BUTTON_CREATE_CREATE;
 		else if (this->_currentButton == BUTTON_CREATE_BACK)
 		  {
+		    this->playSound();
 		    this->_nextState = ROOMLIST;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -407,6 +410,7 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 		  {
 		    // this->_nextState = ROOM;
 		    // return EVENT_CHANGE_STATE;
+		    this->playSound();
 		    return (EVENT_CREATE_CREATE);
 		  }
 		else if (this->_currentButton == BUTTON_CREATE_TEAMSIZE_1)
@@ -425,6 +429,7 @@ LibGraphic::Event LibGraphic::StateCreateGame::gereEvent()
 	      {
 		if (this->_currentButton == BUTTON_CREATE_BACK)
 		  {
+		    this->playSound();
 		    this->_nextState = ROOMLIST;
 		    return EVENT_CHANGE_STATE;
 		  }

@@ -144,12 +144,16 @@ bool ProtocolGameDetails::actionPlayerKill(PacketData &data, Client &c)
   if (killtype == 0)
     {
       e = new LibGraphic::AnnimCircleExplosion(c.getGraphic().getWindow(),
-			c.getGraphic().getSprite("CircleExplosion"));
+					       c.getGraphic().getSprite("CircleExplosion"));
+      LibGraphic::MySound * song = c.getGraphic().getSound("PlayerExplo");
+      song->PlaySound();
     }
   else
     {
       e = new LibGraphic::AnnimBigExplosion(c.getGraphic().getWindow(),
-			c.getGraphic().getSprite("BigExplosion"));
+					    c.getGraphic().getSprite("BigExplosion"));
+      LibGraphic::MySound * song = c.getGraphic().getSound("PlayerExplo");
+      song->PlaySound();
     }
   e->setCoord(posx, posy);
   map.push_front(e);

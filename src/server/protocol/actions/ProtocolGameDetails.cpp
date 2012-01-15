@@ -52,7 +52,7 @@ bool ProtocolGameDetails::actionError(PacketData &, User *, Server &)
   return (false);
 }
 
-bool ProtocolGameDetails::actionRankings(PacketData &, User *user, Server &s)
+bool ProtocolGameDetails::actionRankings(PacketData &, User *user, Server &)
 {
   PacketData  *to_send = new PacketData;
   ProtocolPacket *packet_to_send;

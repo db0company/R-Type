@@ -44,10 +44,10 @@ void		RecupMap::recupFromFile(const std::string& file)
   int		nb1;
   int		nb2;
   int		i = 0;
-  size_t	y;
+  //  size_t	y;
   std::vector<TileStruct>::iterator it;
   TileStruct	t;
-  
+
   os.open(file.c_str(), std::fstream::in);
   mapContent.reserve(500);
   while (os.good() == true)
@@ -59,7 +59,7 @@ void		RecupMap::recupFromFile(const std::string& file)
       os.getline(buff2, 4, '|');
       nb2 = atoi(buff2);
       tmp = buff2;
-      
+
       it = mapContent.end();
       t = TileStruct(getEnumFromInt(nb1), getEnumFromInt(nb2));
       mapContent.insert(it, t);

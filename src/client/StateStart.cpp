@@ -294,17 +294,20 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 	      {
 		if (this->_currentButton == BUTTON_OPTIONS)
 		  {
+		    this->playSound();
 		    this->_nextState = OPTIONS;
 		    return EVENT_CHANGE_STATE;
 		  }
 		else if (this->_currentButton == BUTTON_PLAY)
 		  {
+		    this->playSound();
 		    this->_nextState = ROOMLIST;
 		    // return EVENT_CHANGE_STATE;
 		    return (EVENT_START_PLAY);
 		  }
 		else if (this->_currentButton == BUTTON_EXIT)
 		  {
+		    this->playSound();
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
@@ -312,10 +315,12 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		  {
  		    // this->_nextState = RANKING;
 		    // return EVENT_CHANGE_STATE;
+		    this->playSound();
 		    return (EVENT_START_RANK);
 		  }
 		else if (this->_currentButton == BUTTON_CREDITS)
 		  {
+		    this->playSound();
 		    this->_nextState = CREDITS;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -332,28 +337,33 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 	      {
 		if (this->_currentButton == BUTTON_OPTIONS)
 		  {
+		    this->playSound();
 		    this->_nextState = OPTIONS;
 		    return EVENT_CHANGE_STATE;
 		  }
 		else if (this->_currentButton == BUTTON_EXIT)
 		  {
+		    this->playSound();
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
 		else if (this->_currentButton == BUTTON_PLAY)
 		  {
+		    this->playSound();
 		    this->_nextState = ROOMLIST;
 		    // return EVENT_CHANGE_STATE;
 		    return (EVENT_START_PLAY);
 		  }
 		else if (this->_currentButton == BUTTON_RANKING)
 		  {
+		    this->playSound();
 		    // this->_nextState = RANKING;
 		    // return EVENT_CHANGE_STATE;
 		    return (EVENT_START_RANK);
 		  }
 		else if (this->_currentButton == BUTTON_CREDITS)
 		  {
+		    this->playSound();
 		    this->_nextState = CREDITS;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -361,6 +371,7 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 	      }
 	    case 1:
 	      {
+		this->playSound();
 		this->_currentButton = BUTTON_EXIT;
 		break;
 	      }

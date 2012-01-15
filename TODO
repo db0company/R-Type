@@ -7,15 +7,12 @@
   * Delete
 
 -> Divers:
-  * bullet addChar(1) gentil (0) mechant avant position
-  * aff bullet enemy + prepate sprite
   * Son (missile et explosion)
   * enlever les io debug
   * enlever les warning
   * faire compiler windows
   * tester
   * marche windows
-  * fullscreen user
 
 -> Long
   * boss:
@@ -25,14 +22,9 @@
   * Intro (video)
 
 -> Jeu
-  * Le end game / client et server
+  * Le end game server
 
 -> Client
-  * server: recoi packet quit: envoi a tt le monde que le player est mort lives = 0
-  * client : quand quit la game: envoyer packet quit. quand recoi le packet quit: quit.
-
-  * Reset jeu. envoi packet quit quand quit. cote client
-  * Reset Player: quand recoi packet quit: del le user du packet.
 
 -> Pas Priorite mais cool:
   * missile non cliognotant

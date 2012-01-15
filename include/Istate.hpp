@@ -21,7 +21,10 @@ namespace LibGraphic
 	   sf::RenderWindow & app):
   _ressourcesSprite(ressourcesSprite), _ressourcesPlayList(ressourcesPlayList),
   _ressourcesSounds(ressourcesSounds), _ressourcesFont(ressourcesFont),
-  _app(app){}
+  _app(app)
+    {
+      this->_clock.Reset();
+    }
     virtual ~AState(){};
     virtual bool init() = 0;
     virtual void draw() = 0;
@@ -37,6 +40,10 @@ namespace LibGraphic
     {
       return ((*this->_ressourcesPlayList.find(musicName)).second);
     }
+    virtual MySound * getSound(std::string const &soundName) const
+    {
+      return ((*this->_ressourcesSounds.find(soundName)).second);
+    }
     virtual sf::Font * getFont(std::string const &fontName) const
     {
       return ((*this->_ressourcesFont.find(fontName)).second);
@@ -45,6 +52,17 @@ namespace LibGraphic
     {
       return (new sf::String(s, *daFont));
     }
+    virtual void playSound()
+    {
+      if (this->_clock.GetElapsedTime() < 1)
+	return;
+      MySound * songz = this->getSound("LaserSound");
+      songz->StopSound();
+      songz->PlaySound();
+    }
+
+  private:
+    sf::Clock _clock;
 
   protected:
     std::map<std::string const, GraphicRessource *>

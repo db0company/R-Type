@@ -344,6 +344,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  errorToPrint = false;
 		else if (this->_currentButton == BUTTON_ROOMLIST_BACK)
 		  {
+		    this->playSound();
 		    this->_nextState = START;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -362,6 +363,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 	      {
 		if (this->_currentButton == BUTTON_ROOMLIST_BACK)
 		  {
+		    this->playSound();
 		    this->_nextState = START;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -369,6 +371,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  {
 		    //this->_nextState = ROOM;
 		    //return EVENT_CHANGE_STATE;
+		    this->playSound();
 		    return EVENT_ROOMLIST_JOIN;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
@@ -377,16 +380,19 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		    // return EVENT_CHANGE_STATE;
 		    //	    return EVENT_ROOMLIST_SPECTATE; <-- should return this
 		    // but returning: (because no spectate right now)
+		    this->playSound();
 		    return EVENT_ROOMLIST_JOIN;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
 		  {
 		    // this->_nextState = CREATEGAME;
 		    // return EVENT_CHANGE_STATE;
+		    this->playSound();
 		    return (EVENT_ROOMLIST_CREATE);
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_REFRESH)
 		  {
+		    this->playSound();
 		    return (EVENT_ROOMLIST_REFRESH);
 		  }
 		else if (this->_currentButton ==  BUTTON_ROOMLIST_GAME)
@@ -414,6 +420,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 	      {
 		if (this->_currentButton == BUTTON_ROOMLIST_BACK)
 		  {
+		    this->playSound();
 		    this->_nextState = START;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -421,24 +428,28 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		  {
 		    // this->_nextState = ROOM;
 		    // return EVENT_CHANGE_STATE;
+		    this->playSound();
 		    return EVENT_ROOMLIST_JOIN;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_SPECTATE)
 		  {
 		    // this->_nextState = ROOM;
 		    // return EVENT_CHANGE_STATE;
+		    this->playSound();
 		    return EVENT_ROOMLIST_SPECTATE;
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_CREATE)
 		  {
 		    // this->_nextState = CREATEGAME;
 		    // return EVENT_CHANGE_STATE;
+		    this->playSound();
 		    return (EVENT_ROOMLIST_CREATE);
 		  }
 		else if (this->_currentButton == BUTTON_ROOMLIST_REFRESH)
 		  {
 		    if ((this->_nbGame = this->_infoGameMap.size()) > 9)
 		      this->_nbGame = 9;
+		    this->playSound();
 		    return (EVENT_ROOMLIST_REFRESH);
 		  }
 		else if (this->_currentButton ==  BUTTON_ROOMLIST_GAME)
@@ -459,6 +470,7 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 	      {
 		if (this->_currentButton == BUTTON_ROOMLIST_BACK)
 		  {
+		    this->playSound();
 		    this->_nextState = START;
 		    return EVENT_CHANGE_STATE;
 		  }

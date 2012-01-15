@@ -324,6 +324,7 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 		else
 		  {
 		    this->_nextState = START;
+		    this->playSound();
 		    return EVENT_CHANGE_STATE;
 		  }
 		break;
@@ -343,6 +344,7 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 		if (this->_currentButton == BUTTON_OPTIONS_BACK ||
 		    this->_currentButton == BUTTON_OPTIONS_VALIDATE)
 		  {
+		    this->playSound();
 		    this->_nextState = START;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -367,6 +369,7 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 		if (this->_currentButton == BUTTON_OPTIONS_BACK ||
 		    this->_currentButton == BUTTON_OPTIONS_VALIDATE)
 		  {
+		    this->playSound();
 		    this->_nextState = START;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -380,6 +383,7 @@ LibGraphic::Event LibGraphic::StateOptions::gereEvent()
 	      {
 		if (this->_currentButton == BUTTON_OPTIONS_BACK)
 		  {
+		    this->playSound();
 		    this->_nextState = START;
 		    return EVENT_CHANGE_STATE;
 		  }

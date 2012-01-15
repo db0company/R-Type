@@ -85,6 +85,7 @@ namespace LibGraphic
     std::list<Coord *> & getEnnemyCoordBulletList();
     sf::RenderWindow & getWindow();
     sf::Sprite & getSprite(std::string const &);
+    MySound * getSound(std::string const & soundName);
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
     void setMyPosition(Coord c);

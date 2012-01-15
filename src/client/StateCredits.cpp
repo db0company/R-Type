@@ -115,6 +115,7 @@ LibGraphic::Event LibGraphic::StateCredits::gereEvent()
 		    this->_list.clear();
 		    this->loadCredits();
  		    this->_nextState = START;
+		    this->playSound();
 		    return EVENT_CHANGE_STATE;
 		  }
 		break;
@@ -125,6 +126,7 @@ LibGraphic::Event LibGraphic::StateCredits::gereEvent()
 		this->_list.clear();
 		this->loadCredits();
 		this->_nextState = START;
+		this->playSound();
 		return EVENT_CHANGE_STATE;
 	      }
 	    default : break;
@@ -140,6 +142,7 @@ LibGraphic::Event LibGraphic::StateCredits::gereEvent()
 		this->_list.clear();
 		this->loadCredits();
 		this->_nextState = START;
+		this->playSound();
 		return EVENT_CHANGE_STATE;
 	      }
 	    }

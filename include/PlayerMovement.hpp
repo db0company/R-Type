@@ -12,7 +12,7 @@ namespace LibGraphic
   {
 
   public:
-    PlayerMovement(sf::RenderWindow &, sf::Sprite &, eShipColor id = BLUESHIP);
+    PlayerMovement(sf::RenderWindow &, sf::Sprite &, MySound *,eShipColor id = BLUESHIP);
     ~PlayerMovement();
 
   public:
@@ -38,9 +38,11 @@ namespace LibGraphic
    private:
     sf::RenderWindow & _app;
     sf::Sprite & _sprite;
+    MySound * _sound;
     sf::Clock _clock;
     sf::Clock _clockBullet;
-    Coord _coord;
+    sf::Clock _clockSound;
+   Coord _coord;
     eShipRotation _rotate;
     eShipColor _id;
     eMovement _lastMove;

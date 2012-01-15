@@ -285,7 +285,7 @@ bool Server::run(void)
   this->_twave->resetTime();
   int	s = 0;
   int	selus = 25000;
-  int	wave;
+  //  int	wave;
 
   this->_time->initWait(s, us);
   this->_twave->initWait(4, 0);

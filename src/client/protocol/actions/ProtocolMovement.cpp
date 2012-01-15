@@ -91,7 +91,9 @@ bool		ProtocolMovement::actionUpdatePlayer(PacketData &data, Client &c)
   	{
 	  LibGraphic::PlayerMovement *m;
 	  m = new LibGraphic::PlayerMovement(c.getGraphic().getWindow(),
-     c.getGraphic().getSprite("PlayerShip"), static_cast <eShipColor>(id));
+					     c.getGraphic().getSprite("PlayerShip"),
+					     c.getGraphic().getSound("LaserSound"),
+					     static_cast <eShipColor>(id));
 	  playerMap[id] = m;
 	}
       coord.x = x;

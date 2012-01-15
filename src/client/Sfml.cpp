@@ -37,8 +37,8 @@ bool LibGraphic::Sfml::init()
     return false;
   this->_width = sf::VideoMode::GetMode(0).Width;
   this->_height = sf::VideoMode::GetMode(0).Height;
-  gVolume.musicVolume = 5;
-  gVolume.soundVolume = 50;
+  gVolume.musicVolume = 35;
+  gVolume.soundVolume = 35;
   language = ENGLISH;
   if (!this->loadRessources())
     return false;
@@ -102,6 +102,7 @@ bool LibGraphic::Sfml::loadRessources()
 {
   if (this->loadSprite() &&
       this->loadMusic() &&
+      this->loadSound() &&
       this->loadFont())
     return true;
   return false;
@@ -213,7 +214,6 @@ bool LibGraphic::Sfml::loadSound()
 			 this->getNextInfoRessource(s));
       this->_ressourcesSounds[tmp] = song;
     }
-  gVolume.soundVolume = 10;
   return true;
 }
 
@@ -458,6 +458,11 @@ sf::RenderWindow & LibGraphic::Sfml::getWindow()
 sf::Sprite & LibGraphic::Sfml::getSprite(std::string const & spriteName)
 {
   return this->_ressourcesSprite.find(spriteName)->second->_sprite;
+}
+
+LibGraphic::MySound * LibGraphic::Sfml::getSound(std::string const & soundName)
+{
+  return this->_ressourcesSounds.find(soundName)->second;
 }
 
 eShipColor LibGraphic::Sfml::getMyId() const

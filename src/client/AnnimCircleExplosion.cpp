@@ -2,7 +2,7 @@
 #include "SpriteInfo.hpp"
 
 LibGraphic::AnnimCircleExplosion::AnnimCircleExplosion(sf::RenderWindow & app, sf::Sprite & sprite, int nbPlay) :
-  _app(app), _sprite(sprite),_nbPlay(nbPlay)
+  _app(app), _sprite(sprite), _nbPlay(nbPlay)
 {
   this->_coord.x = 200;
   this->_coord.y = 200;
@@ -53,7 +53,9 @@ void LibGraphic::AnnimCircleExplosion::play()
   ++this->_currentSprite;
   if (this->_currentSprite >= this->_nbSprite)
     this->_currentSprite = 0;
-  this->_clock.Reset();
+  // MySound * song = this->_sound;
+  // song->PlaySound();
+ this->_clock.Reset();
 }
 
 void LibGraphic::AnnimCircleExplosion::pause()

@@ -131,6 +131,7 @@ LibGraphic::Event LibGraphic::StateRanking::gereEvent()
 		  errorToPrint = false;
 		else
 		  {
+		    this->playSound();
 		    this->_nextState = START;
 		    return EVENT_CHANGE_STATE;
 		  }
@@ -138,6 +139,7 @@ LibGraphic::Event LibGraphic::StateRanking::gereEvent()
 	      }
 	    case sf::Key::Return :
 	      {
+		this->playSound();
 		this->_nextState = START;
 		return EVENT_CHANGE_STATE;
 	      }
@@ -150,11 +152,13 @@ LibGraphic::Event LibGraphic::StateRanking::gereEvent()
 	    {
 	    case 0:
 	      {
+		this->playSound();
 		this->_nextState = START;
 		return EVENT_CHANGE_STATE;
 	      }
 	    case 1:
 	      {
+		this->playSound();
 		this->_nextState = START;
 		return EVENT_CHANGE_STATE;
 	      }

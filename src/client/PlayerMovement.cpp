@@ -3,8 +3,8 @@
 #include "PlayerMovement.hpp"
 
 LibGraphic::PlayerMovement::PlayerMovement(sf::RenderWindow & app,
-					   sf::Sprite & sprite, eShipColor id):
-  _app(app), _sprite(sprite), _id(id)
+					   sf::Sprite & sprite, MySound * sound, eShipColor id):
+  _app(app), _sprite(sprite), _sound(sound), _id(id)
 {
   this->_coord.x = 400;
   this->_coord.y = 400;// + (70 * this->_id);
@@ -13,6 +13,7 @@ LibGraphic::PlayerMovement::PlayerMovement(sf::RenderWindow & app,
   this->_lastMove = NO_MOVE;
   this->_lastBullet = NO_BULLET;
   this->_clockBullet.Reset();
+  this->_clockSound.Reset();
 }
 
 LibGraphic::PlayerMovement::~PlayerMovement() {}
@@ -95,8 +96,13 @@ void LibGraphic::PlayerMovement::gereBullet(const sf::Input & Input)
   if ((SpaceKeyDown || ButtonA) && (this->_clockBullet.GetElapsedTime() >= 0.3))
     {
       this->_lastBullet = NORMAL_BULLET;
+      if (this->_clockSound.GetElapsedTime() < 0.6)
+	return;
+      MySound * song = this->_sound;
+      song->StopSound();
+      song->PlaySound();
       this->_clockBullet.Reset();
-    }
+   }
   else if ((PKeyDown || ButtonB) && (this->_clockBullet.GetElapsedTime() >= 0.8))
     {
       this->_lastBullet = CHARGED_BULLET;

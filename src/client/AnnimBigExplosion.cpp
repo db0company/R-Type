@@ -2,7 +2,7 @@
 #include "SpriteInfo.hpp"
 
 LibGraphic::AnnimBigExplosion::AnnimBigExplosion(sf::RenderWindow & app, sf::Sprite & sprite, int nbPlay) :
-  _app(app), _sprite(sprite),_nbPlay(nbPlay)
+  _app(app), _sprite(sprite), _nbPlay(nbPlay)
 {
   this->_coord.x = 200;
   this->_coord.y = 200;
@@ -51,6 +51,8 @@ void LibGraphic::AnnimBigExplosion::play()
   ++this->_currentSprite;
   if (this->_currentSprite >= this->_nbSprite)
     this->_currentSprite = 0;
+  // MySound * song = this->_sound;
+  // song->PlaySound();
   this->_clock.Reset();
 }
 

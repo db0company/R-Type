@@ -289,7 +289,7 @@ void	Game::launchWave(GameParam&)
 	}
       ++i;
     }
-   
+
 
 }
 
@@ -298,7 +298,7 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   ScopedLock sl(this->_mutex);
 
   Player	*newPlayer = new Player(us, name);
-  PacketData	*data = new PacketData;
+  //  PacketData	*data = new PacketData;
   Position	pos;
 
   newPlayer->setId(this->_idPlayers);
@@ -329,7 +329,8 @@ void	Game::createNewMonster(const Position& p, Monster *mob)
   this->_monster.insert(std::pair<int, AObject *>(mob->getMId(), mob));
   this->_monsterId++;
 }
-void	Game::moveMonster(GameParam& par)
+
+void	Game::moveMonster(GameParam&)
 {
   std::map<int, AObject *>::iterator it = this->_monster.begin();
   Position p;
@@ -358,7 +359,7 @@ void	Game::moveMonster(GameParam& par)
 	      static_cast<Entities *>(it->second)->die();
 	      sendMonsterDeath(dynamic_cast<Monster *>(it->second), 1);
 	      ++it;
-	    }	    
+	    }
 	  data->addChar(mob->getMId());
 	  data->addChar(mob->getMType());
 	  data->addShort(finalx);

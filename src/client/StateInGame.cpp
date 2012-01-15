@@ -29,7 +29,7 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   this->_frontClock.Reset();
   this->_myid = BLUESHIP;
   this->_player = new LibGraphic::PlayerMovement(this->_app,
-					      this->getSprite("PlayerShip"));
+						 this->getSprite("PlayerShip"), this->getSound("LaserSound"));
   this->_bulletInst = new LibGraphic::BulletMovement(this->_app, this->getSprite("Missile"), LibGraphic::NORMAL_BULLET);
   this->_enemyBulletInst = new LibGraphic::BulletMovement(this->_app, this->getSprite("MissileEnemy"), LibGraphic::NORMAL_BULLET);
   this->_lives = 0;
@@ -167,12 +167,6 @@ void LibGraphic::StateInGame::drawMap()
 
 void LibGraphic::StateInGame::drawBullet()
 {
-  // std::list<BulletMovement *>::iterator it;
-
-  // for (it = this->_bulletList.begin(); it != this->_bulletList.end(); ++it)
-  //   {
-  //     (*it)->draw();
-  //   }
   this->_bulletInst->draw();
   this->_enemyBulletInst->draw();
 }
@@ -255,6 +249,10 @@ void LibGraphic::StateInGame::draw()
       str->SetScale(2, 2);
       this->_app.Draw(*str);
     }
+  MyMusic * song = this->getMusic("StartMusic");
+  if (song->GetMusicState() == sf::Music::Stopped ||
+      song->GetMusicState() == sf::Music::Paused)
+    song->PlayMusic();
 }
 
 void LibGraphic::StateInGame::drawMonsters()
@@ -448,7 +446,8 @@ void LibGraphic::StateInGame::resetInGameState(void)
   this->_frontClock.Reset();
   this->_myid = BLUESHIP;
   this->_player = new LibGraphic::PlayerMovement(this->_app,
-					      this->getSprite("PlayerShip"));
+						 this->getSprite("PlayerShip"),
+						 this->getSound("LaserSound"));
   this->_lives = 3;
   this->_score = 0;
   gpos = 0;

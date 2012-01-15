@@ -99,9 +99,9 @@ DlLoader	*DlLoader::getInstance(void)
 
 const std::string		DlLoader::replaceDelim(const std::string& s)
 {
-  unsigned int	c;
+  //unsigned int	c;
   std::string	good = s;
-  int		i = 0;
+  //int		i = 0;
 
 
   /*  while ((c = good.find("/"), i) != std::string::npos)
