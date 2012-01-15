@@ -33,6 +33,8 @@ namespace LibGraphic
 
   private:
     void drawText();
+    void drawCredits();
+    void loadCredits();
 
   private:
     eStates _nextState;
@@ -40,7 +42,7 @@ namespace LibGraphic
     sf::Clock Clock;
 
   private:
-
+    std::list<std::string> _list;
   };
 
 }

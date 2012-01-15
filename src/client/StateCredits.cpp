@@ -16,6 +16,7 @@ LibGraphic::StateCredits::StateCredits(std::map<std::string const, GraphicRessou
 {
   this->_currentButton = BUTTON_CREDITS_BACK;
   this->_nextState = START;
+  this->loadCredits();
 }
 
 LibGraphic::StateCredits::~StateCredits()
@@ -39,6 +40,36 @@ void LibGraphic::StateCredits::draw()
   // Button.SetRotation(180);
 
   drawText();
+  drawCredits();
+}
+
+void LibGraphic::StateCredits::loadCredits()
+{
+  this->_list.push_back("Project Leading : Bideaux Sofia");
+  this->_list.push_back("Threading library : Bideaux Sofia, Sylvain Noelie");
+  this->_list.push_back("Dynamic loading library : Bideaux Sofia");
+
+  this->_list.push_back("Game mechanics : Munoz Vincent");
+  this->_list.push_back("Project portabilities : Munoz Vincent");
+  this->_list.push_back("Dynamic monsters library : Munoz Vincent, Bideaux Sofia");
+  this->_list.push_back("Map generator : Munoz Vincent");
+
+  this->_list.push_back("Networking library : Sylvain Noelie");
+  this->_list.push_back("Graphic design : Sylvain Noelie, Moutawakil Idriss");
+  this->_list.push_back("Networking protocol : Sylvain Noelie");
+  this->_list.push_back("Packet design : Lepage Barbara, Sylvain Noelie");
+  this->_list.push_back("Protocol documentation : Sylvain Noelie, Munoz Vincent, Lepage Barbara");
+
+  this->_list.push_back("Lead designer : Moutawakil Idriss");
+  this->_list.push_back("Graphic rendering : Moutawakil Idriss, Sylvain Noelie");
+  this->_list.push_back("Graphic creations : Moutawakil Idriss, Sylvain Noelie, Baradel Audrey");
+  this->_list.push_back("General conception : Moutawakil Idriss");
+
+  this->_list.push_back("Special Thanks : Baradel Audrey and the Frattelo's brothers");
+}
+
+void LibGraphic::StateCredits::drawCredits()
+{
 }
 
 void LibGraphic::StateCredits::drawText()
