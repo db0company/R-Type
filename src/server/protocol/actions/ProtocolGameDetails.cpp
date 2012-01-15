@@ -2,6 +2,7 @@
 #include "PacketFactory.hpp"
 #include "ProtocolPacket.h"
 #include "ProtocolGameDetails.hpp"
+#include "HighScore.hpp"
 #include "User.hpp"
 
 ProtocolGameDetails::ProtocolGameDetails(void)
@@ -51,9 +52,24 @@ bool ProtocolGameDetails::actionError(PacketData &, User *, Server &)
   return (false);
 }
 
-bool ProtocolGameDetails::actionRankings(PacketData &, User *user, Server &)
+bool ProtocolGameDetails::actionRankings(PacketData &, User *user, Server &s)
 {
-  // ici le serveur recoi une requette des ranks TODO Vincent
+  PacketData  *to_send = new PacketData;
+  ProtocolPacket *packet_to_send;
+  HighScore		hg;
+  std::vector<std::string> vec;
+  std::vector<std::string>::iterator it;
+
+  vec = hg.getListScore();
+  it = vec.begin();
+  to_send->addShort(vec.size());
+  while (it != vec.end())
+    {
+      to_send->addString(*it);
+      ++it;
+    }
+  packet_to_send = PacketFactory::createPacket(GAME_DETAILS, static_cast<ushort>(RANKINGS), to_send);
+  user->addPacketToSend(packet_to_send);
   return (false);
 }
 
