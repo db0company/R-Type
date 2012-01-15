@@ -87,6 +87,7 @@ namespace LibGraphic
     void setMyPosition(Coord c);
     void resetInGameState(void);
     void resetRoomListState(void);
+    std::list<std::string> & getRankingList();
 
   public:
     void errorMessage(std::string const &);

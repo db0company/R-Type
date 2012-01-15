@@ -495,3 +495,8 @@ void LibGraphic::Sfml::setLives(unsigned int i)
 {
   this->_graphicState->setLives(i);
 }
+
+std::list<std::string> & LibGraphic::Sfml::getRankingList()
+{
+  return this->_graphicState->getRankingList();
+}

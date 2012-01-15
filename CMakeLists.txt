@@ -69,6 +69,7 @@ add_executable(
 	./src/client/StateCreateGame.cpp
 	./src/client/StateRoomList.cpp
 	./src/client/StateRoom.cpp
+	./src/client/StateRanking.cpp
 	./src/client/RedEvil.cpp
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
@@ -145,6 +146,7 @@ add_executable(
 	./src/client/StateCreateGame.cpp
 	./src/client/StateRoomList.cpp
 	./src/client/StateRoom.cpp
+	./src/client/StateRanking.cpp
 	./src/client/RedEvil.cpp
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
@@ -317,6 +319,8 @@ add_library(
 	./shared/MonsterBase.cpp
 	./src/server/Position.cpp
 	./src/server/AObject.cpp
+	./src/server/Entities.cpp
+	./src/server/Monster.cpp
 )
 
 

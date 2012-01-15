@@ -5,6 +5,7 @@
 Monster::Monster()
 {
   this->group = ENNEMY;
+  this->MType = 0;
 }
 
 Monster::~Monster()
@@ -12,6 +13,19 @@ Monster::~Monster()
 
 }
 
+Monster::Monster(const Monster& old)
+	: Entities(old)
+{
+	this->group = old.group;
+	this->MType = old.MType;
+}
+
+Monster& Monster::operator=(const Monster& old)
+{
+	this->group = old.group;
+	this->MType = old.MType;
+	return (*this);
+}
 
 void		Monster::setMType(int type)
 {

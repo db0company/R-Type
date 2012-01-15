@@ -273,12 +273,6 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 	{
 	  switch (Event.Key.Code)
 	    {
-	    // case sf::Key::Q :
-	    //   {
-	    // 	// debug here
-	    // 	this->_app.Close();
-	    // 	exit(EXIT_SUCCESS);
-	    //   }
 	    case sf::Key::Escape :
 	      //return LibGraphic::__EVENT_QUIT;
 	      {
@@ -316,6 +310,11 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		  {
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
+		  }
+		else if (this->_currentButton == BUTTON_RANKING)
+		  {
+		    this->_nextState = RANKING;
+		    return EVENT_CHANGE_STATE;
 		  }
 		break;
 	      }

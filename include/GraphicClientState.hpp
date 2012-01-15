@@ -70,7 +70,7 @@ namespace LibGraphic
     std::map<int, PlayerMovement *> const & getPlayerMap() const;
     std::map<int, PlayerMovement *> & getPlayerMap();
     std::map<int, AMonsterMovement *> &getMonsterMap();
-
+    std::list<std::string> &getRankingList();
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
     void setMyPosition(Coord c);
