@@ -24,6 +24,7 @@ public:
   std::map<int, Game *>&getGames(void);
   Game *getGameFromUser(User *us);
   void		updateAll(Server& serv);
+  void		launchWave(Server& serv);
 private:
   std::map<int, Game *>		_gameMap;
 };

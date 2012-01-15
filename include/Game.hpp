@@ -42,13 +42,14 @@ public:
   void	changePlayerPos(GameParam& par);
   void	moveMonster(GameParam& par);
   void	createNewPlayer(User *us, const std::string& name);
-  void	createNewMonster(GameParam& par);
+  void	createNewMonster(const Position& p, Monster *mob);
   const std::string& getPlayerByIp(const std::string& ip);
   void	checkCollision(GameParam& par);
   void	moveBullet(GameParam& par);
   void	fireBullet(GameParam& par);
   void	sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc);
   void	sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player);
+  void	launchWave(GameParam&);
   // getter // setter
   unsigned int	getId(void) const;
   std::string	&getOwnerLogin(void);

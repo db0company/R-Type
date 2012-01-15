@@ -210,20 +210,43 @@ void	Game::changePlayerPos(GameParam& par)
       data->addString(it->first);
       data->addShort(finalx);
       data->addShort(finaly);
-      //  std::cout << "jenvoi x " << newPos.x + (newPos.tilex * 112) << " y " << newPos.y + (newPos.tiley * 150) << std::endl;
-      // [id du player][nom][int pos X graphic][int pos Y graphic]//    [vecteur x][vercteur y]
       sendToAllClient(data, MOVEMENT, UPDATEPLAYER);
     }
 }
 
+void	Game::launchWave(GameParam&)
+{
+  GameParam gp(NULL, NULL);
+  Monster	*mob;
+  int	rand = 1;
+  Position p;
+  int		i = 0;
+  int		nbMob = 1;
+  DlLoader	*dl = DlLoader::getInstance();
+  std::cout << "new wave" << std::endl;
+
+  while (i != nbMob)
+    {
+      dl->activMut();
+      if (rand == 1)
+	mob = dynamic_cast<Monster *>(dl->getDll("bin/libMonsterBase.so").getSymbol<IObject>("getMonsterBase"));
+      dl->desactivMut();
+      p.x = 1700;
+      p.y = 400 + 100 * i;
+      verifPos(p);
+      createNewMonster(p, mob);
+      ++i;
+    }
+
+}
+
 void	Game::createNewPlayer(User *us, const std::string& name)
 {
-	ScopedLock sl(this->_mutex);
+  ScopedLock sl(this->_mutex);
 
   Player	*newPlayer = new Player(us, name);
   PacketData	*data = new PacketData;
   Position	pos;
-  GameParam gp(NULL, NULL);
 
   newPlayer->setId(this->_idPlayers);
   // std::cout << "my new friend is " << name << " with ip "<< us->getIp() << std::endl;
@@ -231,40 +254,29 @@ void	Game::createNewPlayer(User *us, const std::string& name)
   pos.y = 400;// + (70 * newPlayer->getId());
   verifPos(pos);
   //  std::cout << "FIRST POS pos.x " << pos.x << " pos.y " << pos.y << "pos.tile x " << pos.tilex << " pos.tiley " << pos.tiley << std::endl;
-
-
   newPlayer->setPos(pos);
- createNewMonster(gp);
-
-
   this->_idPlayers++;
   this->_players.insert(std::pair<std::string, AObject *>(name, newPlayer));
 
 }
 
-void	Game::createNewMonster(GameParam&)
+void	Game::createNewMonster(const Position& p, Monster *mob)
 {
-  Monster *mob;
   PacketData *data = new PacketData;
-  Position p;
   int		finalx;
   int		finaly;  
 
-  mob = dynamic_cast<Monster *>(DlLoader::getInstance()->getDll("bin/libMonsterBase.so").getSymbol<IObject>("getMonsterBase"));
-  p.x = 1200 + this->_monsterId * 50;
-  p.y = 400;
-  verifPos(p);
   mob->setPos(p);
   mob->setMId(this->_monsterId);
   mob->setMType(0);
- finalx = p.x + (p.tilex * 112);
+  finalx = p.x + (p.tilex * 112);
   finaly = p.y + (p.tiley * 150);
   data->addChar(mob->getMId());
   data->addChar(mob->getMType());
   data->addShort(finalx);
   data->addShort(finaly);
   sendToAllClient(data, MOVEMENT, UPDATEENEMY);
- this->_monster.insert(std::pair<int, AObject *>(mob->getMId(), mob));
+  this->_monster.insert(std::pair<int, AObject *>(mob->getMId(), mob));
   this->_monsterId++;
 }
 void	Game::moveMonster(GameParam& par)
@@ -291,14 +303,21 @@ void	Game::moveMonster(GameParam& par)
 	    fireEnnemyBullet(mob);
 	  finalx = p.x + (p.tilex * 112);
 	  finaly = p.y + (p.tiley * 150);
+	  if (finalx < -10)
+	    {
+	      //static_cast<Entities *>(it->second)-
+	      //	      sendMonsterDeath(dynamic_cast<Monster *>(it->second));
+	      //	      ++it;
+	    }	    
 	  data->addChar(mob->getMId());
+	  //	  std::cout << "ID DE MONSTRE " << mob->getMId() << std::endl;
 	  data->addChar(mob->getMType());
 	  data->addShort(finalx);
 	  data->addShort(finaly);
 	  ++it;
 	  sendToAllClient(data, MOVEMENT, UPDATEENEMY);
 	}
-  }
+    }
 }
 
 const std::string& Game::getPlayerByIp(const std::string& ip)

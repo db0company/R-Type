@@ -30,8 +30,10 @@ Server::Server(void) :
   this->_listener = new TCPServerSocketUnix(this->_selector);
   this->_condVar = new CondVarUnix;
   this->_time = new TimerUnix;
+  this->_twave = new TimerUnix;
   this->_dirMan = new DirectoryManagerUnix;
   this->_dlLoader->openDllFromDirectory<ExtensionSo>("bin", this->_dirMan);
+  us = 25000;
 #else
   this->_udpMutex = new MutexWindows;
   this->_selector = new Selector<SOCKET>;
@@ -39,8 +41,10 @@ Server::Server(void) :
   this->_listener = new TCPServerSocketWindows(this->_selector);
   this->_condVar = new CondVarWindows;
   this->_time = new TimerWindows;
+  this->_twave = new TimerWindows;
   this->_dirMan = new DirectoryManagerWindows;
   this->_dlLoader->openDllFromDirectory<ExtensionDll>(".", this->_dirMan);
+  us = 15000;
 #endif
 
   this->_taskNet.init(this->_udp, this->_udpMutex);
@@ -275,15 +279,13 @@ void Server::resetClientWrite()
 bool Server::run(void)
 {
   this->_time->resetTime();
+  this->_twave->resetTime();
   int	s = 0;
-   int	selus = 25000;
-#ifdef _WIN32
-  int	us = 15000;
- #else
-  int	us = 25000;
-#endif
+  int	selus = 25000;
+  int	wave;
 
   this->_time->initWait(s, us);
+  this->_twave->initWait(4, 0);
   while (true)
     {
       this->resetClientWrite();
@@ -294,12 +296,18 @@ bool Server::run(void)
 	  std::cerr << "Error: Select" << std::endl;
 	  exit(EXIT_FAILURE);
 	}
-	  if (this->_time->isTimeOut() == true)
+      if (this->_time->isTimeOut() == true)
 	{
 	  //	   std::cout << "Time to Update All" << std::endl;
 	  this->_time->resetTime();
 	  this->_time->initWait(s, us);
 	  this->_gameManager.updateAll(*this);
+	}
+      if (this->_twave->isTimeOut() == true)
+	{
+	  this->_twave->resetTime();
+	  this->_twave->initWait(4, 0);
+	  this->_gameManager.launchWave(*this);
 	}
       this->getNewClient();
       this->readFromClients();

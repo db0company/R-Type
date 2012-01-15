@@ -99,7 +99,7 @@ void		GameManager::updateAll(Server& serv)
   // std::cout << "time to up all" << std::endl;
   while (it != this->_gameMap.end())
     {
-      if (it->second->getNbMonster() > 0)
+      if (it->second->getStatus() == INGAME && it->second->getNbMonster() > 0)
 	{
 	  pt = new PacketTask(&Game::moveMonster, d, it->second, NULL);
 	  serv.getTaskQueue().push(pt);
@@ -121,9 +121,27 @@ void		GameManager::updateAll(Server& serv)
   it = this->_gameMap.begin();
   while (it != this->_gameMap.end())
     {
-      if (it->second->nbBullet() > 0)
+      if (it->second->getStatus() == INGAME && it->second->nbBullet() > 0)
 	{
 	  pt = new PacketTask(&Game::checkCollision, d, it->second, NULL);
+	  serv.getTaskQueue().push(pt);
+	  serv.getCondVar()->signal();
+	}
+      ++it;
+    }
+}
+
+void		GameManager::launchWave(Server& serv)
+{
+  std::map<int, Game *>::iterator it = this->_gameMap.begin();
+  PacketTask *pt;
+  PacketData *d = new PacketData;
+
+  while (it != this->_gameMap.end())
+    {
+      if (it->second->getStatus() == INGAME)
+	{
+	  pt = new PacketTask(&Game::launchWave, d, it->second, NULL);
 	  serv.getTaskQueue().push(pt);
 	  serv.getCondVar()->signal();
 	}

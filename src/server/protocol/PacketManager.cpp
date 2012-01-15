@@ -45,7 +45,7 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *user, Server &serv)
   else
     {
        int group = PacketFactory::getPacketGroup(packet);
-       std::cout << "\033[31mGroup\033[00m(";
+       /*       std::cout << "\033[31mGroup\033[00m(";
        if (group == THE_GAME)
        	std::cout << "THE_GAME";
        else if (group == GAME_DETAILS)
@@ -58,7 +58,8 @@ bool				PacketManager::Process(ProtocolPacket *packet, User *user, Server &serv)
        	std::cout << "ERROR@@@";
        std::cout << ") \033[32mInst\033[00m(" <<
 	 packet->header.instruction << ")" << std::endl;
-      // uglyPrinter((char *)packet->data, packet->header.size);
+	 // uglyPrinter((char *)packet->data, packet->header.size);
+	 */
       this->groupaction[PacketFactory::getPacketGroup(packet)]->action
       	(PacketFactory::getPacketInstruction(packet), *textData, user, serv);
     }

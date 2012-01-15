@@ -33,6 +33,9 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   // AMonsterMovement *m = new RedEvil(app, this->getSprite("test"));
   // m->setCoord(10, 10);
   // this->_monsterMap[0] = m;
+  AMonsterMovement *m = new GreenEyes(this->_app, this->getSprite("GreenEyes"));
+  m->setCoord(100, 100);
+  this->_monsterMap[100] = m;
 }
 
 LibGraphic::StateInGame::~StateInGame()
@@ -394,9 +397,9 @@ void LibGraphic::StateInGame::resetInGameState(void)
   this->_gameName = "";
   this->_gameLvl = "Star";
   // debug a enlever todo
-  // AMonsterMovement *m = new RedEvil(this->_app, this->getSprite("test"));
-  // m->setCoord(100, 100);
-  // this->_monsterMap[100] = m;
+  AMonsterMovement *m = new GreenEyes(this->_app, this->getSprite("GreenEyes"));
+  m->setCoord(100, 100);
+  this->_monsterMap[100] = m;
   // AMonsterMovement *n = new GreenEyes(this->_app, this->getSprite("GreenEyes"));
   // n->setCoord(200, 200);
   // this->_monsterMap[101] = n;

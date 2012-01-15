@@ -45,7 +45,7 @@ void		MonsterBase::moveNextPos()
 
 bool		MonsterBase::wantFire()
 {
-  if (this->launchFire == 18)
+  if (this->launchFire == 24)
     {
       this->launchFire = 0;
       return (true);

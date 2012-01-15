@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include "Dll.hpp"
+#include "IMutex.hpp"
 #include "IDirectoryManager.hpp"
 
 class DlLoader
@@ -11,7 +12,7 @@ class DlLoader
   std::map<std::string, Dll> mapDll;
   DlLoader();
   virtual ~DlLoader();
-
+  IMutex	*_mut;
 public:
   static DlLoader *getInstance();
   Dll& getDll();
@@ -22,6 +23,8 @@ public:
   void openDllFromDirectory(const std::string &nameDirectory, IDirectoryManager *dm);
   void closeDll();
   const std::string		replaceDelim(const std::string& s);
+  void		activMut();
+  void		desactivMut();
 };
 
 #endif		/*__DLLOADER_HPP__*/

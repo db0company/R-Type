@@ -7,11 +7,19 @@
 #include "Dll.hpp"
 #include "DlLoader.hpp"
 #include "IDirectoryManager.hpp"
-
+#ifdef _WIN32
+#include "MutexWindows.hpp"
+#else
+#include "MutexUnix.hpp"
+#endif
 
 DlLoader::DlLoader()
 {
-
+#ifdef _WIN32
+  this->_mut = new MutexWindows;
+#else
+  this->_mut = new MutexUnix;
+#endif
 }
 
 DlLoader::~DlLoader()
@@ -102,6 +110,16 @@ const std::string		DlLoader::replaceDelim(const std::string& s)
       i = c + 1;
       }*/
   return (good);
+}
+
+void		DlLoader::activMut()
+{
+  this->_mut->Lock();
+}
+
+void		DlLoader::desactivMut()
+{
+  this->_mut->Unlock();
 }
 
 #ifdef _WIN32

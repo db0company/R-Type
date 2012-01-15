@@ -64,8 +64,10 @@ private:
   PacketManager				_pm;
   int					_port;
   ITimer				*_time;
+  ITimer				*_twave;
   DlLoader				*_dlLoader;
   IDirectoryManager			*_dirMan;
+  int					us;
 };
 
 #endif// _SERVER_RTYPE_HPP_
