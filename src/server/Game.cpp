@@ -67,6 +67,7 @@ Game::Game(const Game& old)
   this->_param.sizeLine = old._param.sizeLine;
   this->_param.sizeCol = old._param.sizeCol;
   this->_mutex = old._mutex;
+  this->_monsterId = old._monsterId;
 }
 
 Game&	Game::operator=(const Game& old)
@@ -87,6 +88,7 @@ Game&	Game::operator=(const Game& old)
   this->_param.sizeLine = old._param.sizeLine;
   this->_param.sizeCol = old._param.sizeCol;
   this->_mutex = old._mutex;
+  this->_monsterId = old._monsterId;
   return (*this);
 }
 
@@ -218,6 +220,8 @@ void	Game::changePlayerPos(GameParam& par)
 
 void	Game::createNewPlayer(User *us, const std::string& name)
 {
+	ScopedLock sl(this->_mutex);
+
   Player	*newPlayer = new Player(us, name);
   PacketData	*data = new PacketData;
   Position	pos;
@@ -232,7 +236,7 @@ void	Game::createNewPlayer(User *us, const std::string& name)
 
 
   newPlayer->setPos(pos);
-  createNewMonster(gp);
+ createNewMonster(gp);
 
 
   this->_idPlayers++;
@@ -248,21 +252,21 @@ void	Game::createNewMonster(GameParam&)
   int		finalx;
   int		finaly;  
 
-  mob = reinterpret_cast<Monster *>(DlLoader::getInstance()->getDll("bin/libMonsterBase.so").getSymbol<IObject>("getMonsterBase"));
+  mob = reinterpret_cast<Monster *>(DlLoader::getInstance()->getDll(".\\MonsterBase.dll").getSymbol<IObject>("getMonsterBase"));
   p.x = 600 + this->_monsterId * 50;
   p.y = 400;
   verifPos(p);
   mob->setPos(p);
   mob->setMId(this->_monsterId);
   mob->setMType(0);
-  finalx = p.x + (p.tilex * 112);
+ finalx = p.x + (p.tilex * 112);
   finaly = p.y + (p.tiley * 150);
   data->addChar(mob->getMId());
   data->addChar(mob->getMType());
   data->addShort(finalx);
   data->addShort(finaly);
   sendToAllClient(data, MOVEMENT, UPDATEENEMY);
-  this->_monster.insert(std::pair<int, AObject *>(mob->getMId(), mob));
+ this->_monster.insert(std::pair<int, AObject *>(mob->getMId(), mob));
   this->_monsterId++;
 }
 void	Game::moveMonster(GameParam& par)
@@ -294,7 +298,7 @@ void	Game::moveMonster(GameParam& par)
 	  ++it;
 	  sendToAllClient(data, MOVEMENT, UPDATEENEMY);
 	}
-    }
+  }
 }
 
 const std::string& Game::getPlayerByIp(const std::string& ip)
@@ -433,13 +437,14 @@ AObject		*Game::getEntitiesbyName(const std::string& name)
 	return (it->second);
       ++it;
     }
-  it2 = this->_monster.begin();
+/*  it2 = this->_monster.begin();
   while (it2 != this->_monster.end())
     {
       if (it2->first == 0)
 	return (it2->second);
       ++it2;
-    }
+    }*/
+  std::cout << "no PLAYER FOUND" << std::endl;
   return (NULL);
 }
 
