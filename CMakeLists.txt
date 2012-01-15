@@ -319,6 +319,8 @@ add_library(
 	./shared/MonsterBase.cpp
 	./src/server/Position.cpp
 	./src/server/AObject.cpp
+	./src/server/Entities.cpp
+	./src/server/Monster.cpp
 )
 
 

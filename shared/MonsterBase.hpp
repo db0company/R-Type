@@ -12,7 +12,7 @@ enum eMovDir
   };
 
 # ifdef _WIN32
-class	LIBMONSTER_API MonsterBase : public AObject
+class	LIBMONSTER_API MonsterBase : public Monster
 # else
 class	MonsterBase : public Monster
 # endif // _WIN32

@@ -63,10 +63,9 @@ void	PacketTask::launchTask(ICondVar *)
 {
   GameParam	gp(this->param, this->us);
 
-  if (this->netFunc == NULL && this->gameFunc != NULL && this->game != NULL)
+	  if (this->netFunc == NULL && this->gameFunc != NULL && this->game != NULL)
     {
       ScopedLock	sc(this->game->getMutex());
-
       (this->game->*gameFunc)(gp);
     }
   // else if (this->gameFunc == NULL && this->netFunc != NULL && this->network != NULL)

@@ -4,6 +4,7 @@
 
 extern LibGraphic::Language language;
 extern bool errorToPrint;
+extern bool helpToShow;
 
 LibGraphic::StateStart::StateStart(std::map<std::string const, GraphicRessource *> const & ressourcesSprite,
 						   std::map<std::string const, MyMusic *> const & ressourcesPlayList,
@@ -282,6 +283,14 @@ LibGraphic::Event LibGraphic::StateStart::gereEvent()
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
+		break;
+	      }
+	    case sf::Key::H :
+	      {
+		if (helpToShow)
+		  helpToShow = false;
+		else
+		  helpToShow = true;
 		break;
 	      }
 	    case sf::Key::Return :

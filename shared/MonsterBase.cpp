@@ -1,13 +1,13 @@
 #ifdef _WIN32
 # include "stdafx.h"
 #endif
+#include <iostream>
 #include "DefineExportMonster.hpp"
 #include "MonsterBase.hpp"
-#include <iostream>
+
 MonsterBase::MonsterBase()
 {
   movFlag = 15;
-  std::cout << "CONSTRUCTEUR BASE" << std::endl;
   movDir = RIGHTMOV;
 }
 
@@ -50,7 +50,6 @@ extern "C"
    IObject	 *getMonsterBase()
 #endif /* _WIN32 */
   {
-  std::cout << "getMONSTERBASE BASE" << std::endl;
     return (new MonsterBase);
   }
 }

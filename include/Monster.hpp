@@ -13,6 +13,8 @@ class		Monster : public Entities
 public:
   Monster();
   ~Monster();
+  Monster(const Monster& old);
+  Monster& operator=(const Monster& old);
   virtual void		moveNextPos() = 0;
   void		setMType(int type);
   int		getMType()const;

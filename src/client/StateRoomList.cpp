@@ -6,6 +6,7 @@
 extern LibGraphic::Volume gVolume;
 extern LibGraphic::Language language;
 extern bool errorToPrint;
+extern bool helpToShow;
 
 std::string stringOfInt(int v)
 {
@@ -345,6 +346,14 @@ LibGraphic::Event LibGraphic::StateRoomList::gereEvent()
 		    this->_app.Close();
 		    exit(EXIT_SUCCESS);
 		  }
+		break;
+	      }
+	    case sf::Key::H :
+	      {
+		if (helpToShow)
+		  helpToShow = false;
+		else
+		  helpToShow = true;
 		break;
 	      }
 	    case sf::Key::Return :
