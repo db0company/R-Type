@@ -204,4 +204,3 @@ bool		ProtocolMovement::actionNewBullet(PacketData &data, Client &)
   (void)data;
   return (false);
 }
-

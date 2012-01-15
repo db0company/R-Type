@@ -109,6 +109,7 @@ bool LibGraphic::Sfml::loadFont()
   if (!ressourceFile.is_open())
     {
       std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " <<"ressources/.ressources_fonts" << std::endl;
+      exit(EXIT_FAILURE);
       // throw
       return false;
     }
@@ -140,6 +141,7 @@ bool LibGraphic::Sfml::loadSprite()
     {
 
       std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " <<"ressources/.ressources_images" << std::endl;
+      exit(EXIT_FAILURE);
       // throw
       return false;
     }
@@ -155,7 +157,10 @@ bool LibGraphic::Sfml::loadSprite()
 	  std::cerr <<
 	    "[EXEPTION][Sfml.cpp] : Fail to load " <<
 	    tmpImagePath << std::endl;
+
+	  exit(EXIT_FAILURE);
 	  // throw
+	  return (false);
 	}
       img->_sprite.SetImage(img->_image);
       if (isFullscreen(this->getNextInfoRessource(s)))
@@ -186,6 +191,8 @@ bool LibGraphic::Sfml::loadSound()
   if (!ressourceFile.is_open())
     {
       std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " <<"ressources/.ressources_sounds" << std::endl;
+
+      exit(EXIT_FAILURE);
       // throw
       return false;
     }
@@ -212,6 +219,7 @@ bool LibGraphic::Sfml::loadMusic()
   if (!ressourceFile.is_open())
     {
       std::cerr << "[EXEPTION][Sfml.cpp] : fail to open " <<"ressources/.ressources_musics" << std::endl;
+      exit(EXIT_FAILURE);
       // throw
       return false;
     }
@@ -476,4 +484,14 @@ void LibGraphic::Sfml::resetInGameState(void)
 void LibGraphic::Sfml::resetRoomListState(void)
 {
   this->_graphicState->resetRoomListState();
+}
+
+void LibGraphic::Sfml::setScore(unsigned int i)
+{
+    this->_graphicState->setScore(i);
+}
+
+void LibGraphic::Sfml::setLives(unsigned int i)
+{
+  this->_graphicState->setLives(i);
 }

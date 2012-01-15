@@ -17,6 +17,8 @@ LibGraphic::StateInGame::StateInGame(std::map<std::string const, GraphicRessourc
   AState(ressourcesSprite, ressourcesPlayList, ressourcesSounds,
 	 ressourcesFont, app), _lives(0), _score(0)
 {
+  this->_gameName = "";
+  this->_gameLvl = "Star";
   this->_nextState = UNKNOWN_STATE;
   this->_mapClock.Reset();
   this->Clock.Reset();
@@ -113,13 +115,12 @@ void LibGraphic::StateInGame::drawMap()
       this->_rMap.recupFromFile("ressources/map/"+ this->_gameLvl + ".map");
       this->_mapLoaded = true;
     }
-
   if (time < 0.01)
     {
       i = 0;
       while (i < this->_rMap.size())
       	{
-      	  test.SetPosition(MapX(i) + gpos, 0);
+      	  test.SetPosition(MapX(i) + gpos, 30);
       	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
       				      MapX(this->_rMap[i].up + 1), MapY(1)));
       	  this->_app.Draw(test);
@@ -136,7 +137,7 @@ void LibGraphic::StateInGame::drawMap()
       gpos -= 1;
       while (i < this->_rMap.size())
 	{
-	  test.SetPosition(MapX(i) + gpos, 0);
+	  test.SetPosition(MapX(i) + gpos, 30);
 	  test.SetSubRect(sf::IntRect(MapX(this->_rMap[i].up), MapY(0),
 				      MapX(this->_rMap[i].up + 1), MapY(1)));
 	  this->_app.Draw(test);
@@ -160,6 +161,42 @@ void LibGraphic::StateInGame::drawBullet()
     }
 }
 
+void LibGraphic::StateInGame::drawMenu()
+{
+  sf::String *sLife;
+  sf::Sprite &s = this->getSprite("PlayerShip");
+  sf::Sprite &backm = this->getSprite("MenuBack");
+  sf::String *sScore;
+
+  unsigned int i = 0;
+
+  backm.SetPosition(0, 0);
+  this->_app.Draw(backm);
+  if (language == ENGLISH)
+    sLife = this->getStdToSfString("Lives :", this->getFont("StartFontF"));
+  else
+    sLife = this->getStdToSfString("Vies :", this->getFont("StartFontF"));
+  sLife->SetPosition(10, 0);
+  sLife->Scale(0.6, 0.6);
+  this->_app.Draw(*sLife);
+
+  sScore = this->getStdToSfString("Score :", this->getFont("StartFontF"));
+  sScore->SetPosition(1500, 0);
+  sScore->Scale(0.6, 0.6);
+  // aff score here
+  this->_app.Draw(*sScore);
+
+  s.SetSubRect(sf::IntRect(2 * SPRITE_SHIP_X, 0 * SPRITE_SHIP_Y,
+			   3 * SPRITE_SHIP_X, 1 * SPRITE_SHIP_Y));
+  while (i < this->_lives)
+    {
+      s.SetScale(1, 1);
+      s.SetPosition(i * (SPRITE_SHIP_X + 15) + 100, 2);
+      this->_app.Draw(s);
+      ++i;
+    }
+}
+
 void LibGraphic::StateInGame::draw()
 {
   this->drawStarField();
@@ -168,16 +205,17 @@ void LibGraphic::StateInGame::draw()
   this->drawBullet();
   this->drawMonsters();
   this->drawPlayers();
+  this->drawMenu();
 }
 
 void LibGraphic::StateInGame::drawMonsters()
 {
   std::map<int, AMonsterMovement *>::iterator it;
 
-  std::cout << "size:" << this->_monsterMap.size() <<  std::endl;
+  // std::cout << "size:" << this->_monsterMap.size() <<  std::endl;
   for (it = this->_monsterMap.begin(); it != this->_monsterMap.end(); ++it)
     {
-      std::cout << "un monstre" <<  std::endl;
+      // std::cout << "un monstre" <<  std::endl;
       it->second->play();
     }
 }
@@ -349,10 +387,12 @@ void LibGraphic::StateInGame::resetInGameState(void)
   this->_myid = BLUESHIP;
   this->_player = new LibGraphic::PlayerMovement(this->_app,
 					      this->getSprite("PlayerShip"));
-  this->_lives = 0;
+  this->_lives = 3;
   this->_score = 0;
   gpos = 0;
   this->_mapLoaded = false;
+  this->_gameName = "";
+  this->_gameLvl = "Star";
   // debug a enlever todo
   // AMonsterMovement *m = new RedEvil(this->_app, this->getSprite("test"));
   // m->setCoord(100, 100);
@@ -364,4 +404,14 @@ void LibGraphic::StateInGame::resetInGameState(void)
   // AMonsterMovement *o = new EvilRobot(this->_app, this->getSprite("EvilRobot"));
   // o->setCoord(300, 300);
   // this->_monsterMap[102] = o;
+}
+
+void LibGraphic::StateInGame::setScore(unsigned int i)
+{
+  this->_score = i;
+}
+
+void LibGraphic::StateInGame::setLives(unsigned int i)
+{
+  this->_lives = i;
 }

@@ -49,6 +49,8 @@ namespace LibGraphic
     std::string const &getGameLvl(void) const;
     void setGameName(std::string const &);
     void setGameLvl(std::string const &);
+    void setScore(unsigned int);
+    void setLives(unsigned int);
 
     std::list<std::string> &getLvlList(void);
     std::string const & getIp() const;

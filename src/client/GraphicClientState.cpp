@@ -285,3 +285,13 @@ void LibGraphic::GraphicClientState::resetRoomListState()
 {
   reinterpret_cast <StateRoomList *>(getValue(this->_stateInfos, ROOMLIST))->resetRoomListState();
 }
+
+void LibGraphic::GraphicClientState::setScore(unsigned int i)
+{
+  reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setScore(i);
+}
+
+void LibGraphic::GraphicClientState::setLives(unsigned int lives)
+{
+  reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->setLives(lives);
+}

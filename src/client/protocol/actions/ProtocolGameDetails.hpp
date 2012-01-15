@@ -26,6 +26,8 @@ private:
   bool		actionScore(PacketData &data, Client &);
   bool		actionGetMap(PacketData &data, Client &);
   bool		actionPlayerLife(PacketData &data, Client &);
+  bool		actionPlayerKill(PacketData &, Client &);
+  bool		actionMonsterKill(PacketData &, Client &);
 };
 
 #endif			//PROTOCOLGAMEDETAILS_HPP_
