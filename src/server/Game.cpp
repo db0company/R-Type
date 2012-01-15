@@ -264,7 +264,7 @@ void	Game::launchWave(GameParam&)
 	  mob = dynamic_cast<Monster *>(dl->getDll(str).getSymbol<IObject>(GETMONSTER));
 	  dl->desactivMut();
 	  p.x = 1700;
-	  p.y = 400 + 50 * i;
+	  p.y = rand() % 800 + 100;
 	  verifPos(p);
 	  createNewMonster(p, mob);
 	}
