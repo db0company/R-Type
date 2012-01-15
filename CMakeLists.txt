@@ -70,6 +70,7 @@ add_executable(
 	./src/client/StateRoomList.cpp
 	./src/client/StateRoom.cpp
 	./src/client/StateRanking.cpp
+	./src/client/StateCredits.cpp
 	./src/client/RedEvil.cpp
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
@@ -147,6 +148,7 @@ add_executable(
 	./src/client/StateRoomList.cpp
 	./src/client/StateRoom.cpp
 	./src/client/StateRanking.cpp
+	./src/client/StateCredits.cpp
 	./src/client/RedEvil.cpp
 	./src/client/Sfml.cpp
 	./src/client/Error.cpp
