@@ -6,6 +6,14 @@
 #include "IMutex.hpp"
 #include "ProtocolPacket.h"
 
+
+struct sendToClientData
+{
+  ProtocolPacket *packet;
+  std::string     ip;
+  int		  port;
+};
+
 class		TaskNetwork
 {
 private:
@@ -19,14 +27,7 @@ public:
   void setSock(AUDPServerSocket *udp);
   void setMutex(IMutex *mutex);
   ~TaskNetwork(void);
-  void sendToClient(void *data);
-};
-
-struct sendToClientData
-{
-  ProtocolPacket *packet;
-  std::string     ip;
-  int		  port;
+  void sendToClient(sendToClientData const &data);
 };
 
 #endif		/*__TASKNETWORK_HPP__*/

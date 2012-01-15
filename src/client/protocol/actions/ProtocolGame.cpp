@@ -186,7 +186,6 @@ bool			ProtocolGame::actionJoin(PacketData & data, Client &client)
 
 bool			ProtocolGame::actionEnd(PacketData &, Client &)
 {
-  // TODO: la game est fini. clean memoire + go ecran de fin (puis game list)
   return (false);
 }
 

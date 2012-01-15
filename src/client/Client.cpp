@@ -155,6 +155,7 @@ bool Client::gereAction(LibGraphic::Event e)
       }
     case LibGraphic::EVENT_CREATE_CREATE :
       {
+	std::cout << "level: " << this->cGraphic.getLevel() << std::endl;
 	this->actionCreate(this->cGraphic.getLogin(), this->cGraphic.getGameName(),
 			   this->cGraphic.getLevel(), this->cGraphic.getSlot(),
 			   this->cGraphic.getSpectator());
