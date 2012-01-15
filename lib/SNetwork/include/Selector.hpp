@@ -66,6 +66,8 @@ public:
     if (select(this->_maxFd + 1, &(this->_readFd), &(this->_writeFd),
 	       NULL, &(this->_timeout)) == -1)
       {
+		  std::cout << "erreur select = " ;
+		  std::cout << WSAGetLastError() << std::endl;
 	return (false);
       }
     for (it = this->_writeMap.begin(); it != this->_writeMap.end(); ++it)

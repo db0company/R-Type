@@ -61,7 +61,7 @@ bool		UDPServerSocketUnix::SNCreate(std::string const &host, int port)
       return (false);
     }
   server.sin_family = AF_INET;
-  server.sin_addr.s_addr = INADDR_ANY;
+  server.sin_addr.s_addr = INADDR_ANY;//cahnge !!
   server.sin_port = htons(this->_port);
   if (bind(this->_socket, (struct sockaddr *)&server, sizeof(server)) == -1)
     {

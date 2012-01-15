@@ -107,12 +107,18 @@ Game&	Game::operator=(const Game& old)
 
 void	Game::sendToAllClient(PacketData *data, eProtocolPacketGroup g, ushort fonc)
 {
+	if (data == NULL)
+	{
+		return;
+	}
   ProtocolPacket *packet_to_send = PacketFactory::createPacket(g, fonc, data);
-  std::map<std::string , User *>::iterator it2 = this->_userMap.begin();
+  std::map<std::string , User *>::iterator it2;
 
-  for (; it2 != _userMap.end(); ++it2)
+  for (it2 = this->_userMap.begin(); it2 != _userMap.end(); ++it2)
+  {
     if (it2->second->isSafe())
       it2->second->addPacketToSend(packet_to_send);
+  }
 }
 
 void	Game::sendToIp(PacketData *data, eProtocolPacketGroup g, ushort fonc, Player *player)
@@ -241,6 +247,7 @@ void	Game::sendEndPacket()
   HighScore hg;
   std::map<std::string, AObject *>::iterator it = this->_players.begin();
 
+  data->addChar(0);
   while (it != this->_players.end())
     {
       hg.addNewScore(static_cast<Player *>(it->second)->getScore(), it->first);
@@ -374,11 +381,14 @@ void	Game::moveMonster(GameParam&)
       if (dynamic_cast<Entities *>(it->second)->isDie() == true)
 	{
 	  sendMonsterDeath(dynamic_cast<Monster *>(it->second), 0);
-	  this->_monster.erase(it);
-	  it = this->_monster.begin();
+	  it = this->_monster.erase(it);
+	  //it = this->_monster.begin();
 	}
       else
-	++it;
+	  {
+		  if (it != this->_monster.end())
+	      ++it;
+	  }
     }
 }
 
@@ -389,11 +399,12 @@ const std::string& Game::getPlayerByIp(const std::string& ip)
   while (it != this->_players.end())
     {
       if (dynamic_cast<Player *>(it->second)->getIp() == ip)
-	return (it->second->getName());
+	     return (it->second->getName());
       ++it;
     }
   //error
-  return (it->second->getName()); // jai mis sa pour retirer le warning
+  std::string *s = new std::string("");
+  return (*s); // jai mis sa pour retirer le warning
 }
 
 bool	Game::checkInTile(AObject *ob1, AObject *ob2)
@@ -545,13 +556,16 @@ void	Game::checkCollision(GameParam&)
   while (itM != this->_monster.end())
     {
       if (dynamic_cast<Entities *>(itM->second)->isDie() == true)
-	{
-	  sendMonsterDeath(dynamic_cast<Monster *>(itM->second), 0);
-	  this->_monster.erase(itM);
-	  itM = this->_monster.begin();
-	}
+	   {
+	      sendMonsterDeath(dynamic_cast<Monster *>(itM->second), 0);
+	      itM = this->_monster.erase(itM);
+    //	  itM = this->_monster.begin();
+	    }
       else
-	++itM;
+	  {
+		if (itM != this->_monster.end())
+	    ++itM;
+	  }
     }
 
   itB = this->_bullets.begin();
@@ -559,9 +573,9 @@ void	Game::checkCollision(GameParam&)
     {
       if (itB->getDestroy() == true)
 	{
-	  this->_bullets.erase(itB);
-	  itB = this->_bullets.begin();
+	  itB = this->_bullets.erase(itB);
 	}
+	  if (itB != this->_bullets.end())
       ++itB;
     }
 }
@@ -650,10 +664,11 @@ void	Game::moveBullet(GameParam&)
 	{
 	  if (it->getDestroy() == true)
 	    {
-	      this->_bullets.erase(it);
-	      it = this->_bullets.begin();
+	      it = this->_bullets.erase(it);
+	      //it = this->_bullets.begin();
 	    }
-	  ++it;
+	  if (it != this->_bullets.end())
+	   ++it;
 	}
       sendToAllClient(data, MOVEMENT, UPDATEBULLET);
     }

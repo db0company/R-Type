@@ -8,6 +8,8 @@
 #include "ATCPClientSocket.h"
 #include "TCPClientSocketWindows.h"
 
+#define PF_INET AF_INET;
+
 TCPClientSocketWindows::TCPClientSocketWindows(void)
 {
 }

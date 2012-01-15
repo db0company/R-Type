@@ -65,19 +65,21 @@ bool Server::init(int port)
   if (!(this->_listener->SNCreate(SERV_ADDR, port)))
     {
       std::cerr << "Error: Can't Create Listener Socket on port " << this->_port << std::endl;
+	  	  system("pause");
       exit(EXIT_FAILURE);
       return (false);
     }
   if (!(this->_udp->SNCreate(SERV_ADDR, port)))
     {
-      std::cerr << "Error: Can't Create Udp Socket on port " << this->_port << std::endl;
+     std::cerr << "Error: Can't Create Udp Socket on port " << this->_port << std::endl;
       return (false);
     }
-  std::cout << "Server Listening on port " << this->_port << std::endl;
  if (!this->_listener->SNListen())
     {
       std::cerr << "Error: Can't listen on socket" << std::endl;
+	  system("pause");
     }
+ std::cout << "Server Listening on port " << this->_port << std::endl;
   this->_listener->SNAddRead();
   this->_udp->SNAddRead();
   // Game *g = new Game;
@@ -227,7 +229,7 @@ bool	Server::cleanClients(void)
       if (this->_userMap.find(ip) != this->_userMap.end())
 	{
 	  //	  delete this->_userMap[this->_quitQueue.front()];
-	  this->_userMap.erase(ip);
+	  //this->_userMap.erase(ip);
 	}
       this->_quitQueue.pop();
     }
@@ -273,9 +275,8 @@ void Server::resetClientWrite()
 
   for (it = this->_userMap.begin(); it != this->_userMap.end(); ++it)
     {
-      if ((user = it->second) == NULL)
-	continue;
-      user->resetWrite();
+      if ((user = it->second) != NULL && user->isSafe())
+         user->resetWrite();
     }
 }
 
@@ -297,6 +298,7 @@ bool Server::run(void)
       if (!this->_selector->SNSelect())
 	{
 	  std::cerr << "Error: Select" << std::endl;
+	  system("pause");
 	  exit(EXIT_FAILURE);
 	}
       if (this->_time->isTimeOut() == true)

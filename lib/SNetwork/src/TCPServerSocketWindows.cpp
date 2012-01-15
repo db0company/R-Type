@@ -10,6 +10,8 @@
 #include "TCPClientSocketWindows.h"
 #include "TCPServerSocketWindows.h"
 
+//#define PF_INET AF_INET;
+
 //typedef int socklent_t;
 
 TCPServerSocketWindows::TCPServerSocketWindows(void)
@@ -61,14 +63,17 @@ bool				TCPServerSocketWindows::SNCreate(std::string const &host, int port)
 	if ((this->_socket = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP,
 		NULL, 0, WSA_FLAG_OVERLAPPED)) == INVALID_SOCKET)
 	{
+//		std::cout << "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
 		this->_error = SOCKETCREAT;
 		return (false);
 	}
 	s.sin_family = AF_INET;
-    s.sin_addr.s_addr = inet_addr(this->_host.c_str());
+    s.sin_addr.s_addr = INADDR_ANY;
     s.sin_port = htons(this->_port);
 	if (bind(this->_socket, (const sockaddr *)&s, sizeof(s)) == SOCKET_ERROR)
 	{
+//		std::cout << "WWWWWWprout cacaWWWWWWWWWWWWWWWWWWWWWWWWWWW" << std::endl;
+//		std::cout << "bind error" << WSAGetLastError() << std::endl;
 		this->_error = ALREADYBIND;
 		return (false);
 	}
@@ -127,7 +132,9 @@ TCPClientSocketWindows		*TCPServerSocketWindows::SNAccept(void)
   socklen_t addrlen;
 
   addrlen = sizeof(addr);
-  if ((client_socket = accept(this->_socket, (sockaddr *)&addr, &addrlen)) == INVALID_SOCKET)
+  //if ((client_socket = accept(this->_socket, (sockaddr *)&addr, &addrlen)) == INVALID_SOCKET)
+    if ((client_socket = WSAAccept(this->_socket, (SOCKADDR*) &addr, &addrlen, 
+        NULL, NULL)) == INVALID_SOCKET)
     {
       this->_error = CANTACCEPT;
       return (NULL);

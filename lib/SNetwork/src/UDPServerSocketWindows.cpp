@@ -62,7 +62,7 @@ bool		UDPServerSocketWindows::SNCreate(std::string const &host, int port)
 		return (false);
 	}
 	server.sin_family = AF_INET;
-    server.sin_addr.s_addr = inet_addr(this->_host.c_str());
+    server.sin_addr.s_addr = INADDR_ANY;
     server.sin_port = htons(this->_port);
 	if (bind(this->_socket, (const sockaddr *)&server, sizeof(server)) == SOCKET_ERROR)
 	{

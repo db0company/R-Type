@@ -42,6 +42,10 @@ ProtocolPacket *		PacketFactory::createPacket(eProtocolPacketGroup group,
 							    ushort instruction,
 							    PacketData * data)
 {
+	if (data == NULL)
+	{
+	return (PacketFactory::createPacket(group, instruction, data->getData(), 0));
+	}
   return (PacketFactory::createPacket(group, instruction, data->getData(), data->getDataSize()));
 }
 

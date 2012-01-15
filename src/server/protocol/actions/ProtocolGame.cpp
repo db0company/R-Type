@@ -135,8 +135,8 @@ bool			ProtocolGame::actionCreate(PacketData & received, User *user,
       user->addPacketToSend(packet_to_send);
       return (false);
     }
-  if (server.getGameManager().getGameFromName(game_name) != NULL &&
-      server.getGameManager().getGameFromName(game_name)->getStatus() != ENDED)
+  if (server.getGameManager().getGameFromName(game_name) != NULL)// &&
+      //server.getGameManager().getGameFromName(game_name)->getStatus() != ENDED)
     {
       to_send->addChar(0);
       to_send->addString("This name already exist");
