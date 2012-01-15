@@ -14,7 +14,8 @@ LibGraphic::PlayerMovement::PlayerMovement(sf::RenderWindow & app,
   this->_lastBullet = NO_BULLET;
   this->_clockBullet.Reset();
   this->_clockSound.Reset();
-}
+  this->_clockMv.Reset();
+  }
 
 LibGraphic::PlayerMovement::~PlayerMovement() {}
 
@@ -29,60 +30,67 @@ void LibGraphic::PlayerMovement::move(const sf::Event &)
   bool RightKeyDown = Input.IsKeyDown(sf::Key::Right);
   bool DownKeyDown = Input.IsKeyDown(sf::Key::Down);
 
-  if (UpKeyDown || (JoystickY < -50))
-    UpPlayer(LeftKeyDown, RightKeyDown, JoystickX);
-  else if (DownKeyDown || (JoystickY > 50))
-    DownPlayer(LeftKeyDown, RightKeyDown, JoystickX);
-  else if (LeftKeyDown || (JoystickX < -50))
-    {
-      if (this->_rotate == SHIP_UP)
-	{
-	  this->_rotate = SHIP_MIDDLE_UP;
-	  this->_clock.Reset();
-	}
-      else if (this->_rotate == SHIP_DOWN)
-	{
-	  this->_rotate = SHIP_MIDDLE_DOWN;
-	  this->_clock.Reset();
-	}
-      else if (this->_clock.GetElapsedTime() >= 0.3)
-	this->_rotate = SHIP_MIDDLE;
-      this->_coord.x -= SHIPSPEED;
-      this->_lastMove = LEFT;
-    }
-  else if (RightKeyDown || (JoystickX > 50))
-    {
-      if (this->_rotate == SHIP_UP)
-	{
-	  this->_rotate = SHIP_MIDDLE_UP;
-	  this->_clock.Reset();
-	}
-      else if (this->_rotate == SHIP_DOWN)
-	{
-	  this->_rotate = SHIP_MIDDLE_DOWN;
-	  this->_clock.Reset();
-	}
-      else if (this->_clock.GetElapsedTime() >= 0.3)
-	this->_rotate = SHIP_MIDDLE;
-      this->_coord.x += SHIPSPEED;
-      this->_lastMove = RIGHT;
-    }
-  else
-    {
-      if (this->_rotate == SHIP_UP)
-	{
-	  this->_rotate = SHIP_MIDDLE_UP;
-	  this->_clock.Reset();
-	}
-      else if (this->_rotate == SHIP_DOWN)
-	{
-	  this->_rotate = SHIP_MIDDLE_DOWN;
-	  this->_clock.Reset();
-	}
-      else if (this->_clock.GetElapsedTime() >= 0.3)
-	this->_rotate = SHIP_MIDDLE;
-      this->_lastMove = NO_MOVE;
-    }
+  if (this->_clockMv.GetElapsedTime() > 0.02)
+  {
+	if (UpKeyDown || (JoystickY < -50))
+		UpPlayer(LeftKeyDown, RightKeyDown, JoystickX);
+	else if (DownKeyDown || (JoystickY > 50))
+		DownPlayer(LeftKeyDown, RightKeyDown, JoystickX);
+	else if (LeftKeyDown || (JoystickX < -50))
+		{
+			if (this->_rotate == SHIP_UP)
+			{
+				this->_rotate = SHIP_MIDDLE_UP;
+				this->_clock.Reset();
+			}
+			else if (this->_rotate == SHIP_DOWN)
+			{
+				this->_rotate = SHIP_MIDDLE_DOWN;
+				this->_clock.Reset();
+			}
+			else if (this->_clock.GetElapsedTime() >= 0.3)
+				this->_rotate = SHIP_MIDDLE;
+			this->_coord.x -= SHIPSPEED;
+			this->_lastMove = LEFT;
+		}
+	else if (RightKeyDown || (JoystickX > 50))
+		{
+			if (this->_rotate == SHIP_UP)
+			{
+				this->_rotate = SHIP_MIDDLE_UP;
+				this->_clock.Reset();
+			}
+			else if (this->_rotate == SHIP_DOWN)
+			{
+				this->_rotate = SHIP_MIDDLE_DOWN;
+				this->_clock.Reset();
+			}
+			else if (this->_clock.GetElapsedTime() >= 0.3)
+				this->_rotate = SHIP_MIDDLE;
+			this->_coord.x += SHIPSPEED;
+			this->_lastMove = RIGHT;
+		}
+	else
+		{
+			if (this->_rotate == SHIP_UP)
+			{
+				this->_rotate = SHIP_MIDDLE_UP;
+				this->_clock.Reset();
+			}
+			else if (this->_rotate == SHIP_DOWN)
+			{
+				this->_rotate = SHIP_MIDDLE_DOWN;
+				this->_clock.Reset();
+			}
+			else if (this->_clock.GetElapsedTime() >= 0.3)
+				this->_rotate = SHIP_MIDDLE;
+			this->_lastMove = NO_MOVE;
+		}
+
+	this->_clockMv.Reset();
+  }
+    else
+	  this->_lastMove = NO_MOVE;
   gereBullet(Input);
 }
 

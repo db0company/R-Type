@@ -40,6 +40,7 @@ namespace LibGraphic
     sf::Sprite & _sprite;
     MySound * _sound;
     sf::Clock _clock;
+	sf::Clock _clockMv;
     sf::Clock _clockBullet;
     sf::Clock _clockSound;
    Coord _coord;
