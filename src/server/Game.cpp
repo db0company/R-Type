@@ -261,9 +261,7 @@ void	Game::launchWave(GameParam&)
       str = this->_mapDll[r];
       if (str != "")
 	{
-		 std::cout << "str is " << str << std::endl;
 	 mob = dynamic_cast<Monster *>(dl->getDll(str).getSymbol<IObject>(GETMONSTER));
-	  std::cout << "over" << std::endl;
 	  dl->desactivMut();
 	  p.x = 1700;
 	  p.y = rand() % 800 + 100;
@@ -497,7 +495,7 @@ void	Game::checkCollision(GameParam&)
 		  {
 		    itB->setDestroy();
 		    dynamic_cast<Player *>(itP->second)->changeLife(1);
-		    sendLooseLife(dynamic_cast<Player *>(itP->second), 1);
+		    sendLooseLife(dynamic_cast<Player *>(itP->second), 0);
 		  }
 	      ++itB;
 	    }
