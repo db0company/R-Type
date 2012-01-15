@@ -314,8 +314,8 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
 	      {
 		if (this->_running)
 		  {
-		    this->_app.Close();
-		    exit(EXIT_SUCCESS);
+		    // this->_app.Close();
+		    // exit(EXIT_SUCCESS);
 		    // this->_nextState = ROOMLIST;
 		    // return (EVENT_INGAME_QUIT);
 		  }
@@ -349,8 +349,8 @@ LibGraphic::Event LibGraphic::StateInGame::gereEvent()
       	      {
 		if (this->_running)
 		  {
-		    this->_app.Close();
-		    exit(EXIT_SUCCESS);
+		    // this->_app.Close();
+		    // exit(EXIT_SUCCESS);
 		    // this->_nextState = ROOMLIST;
 		    // return (EVENT_INGAME_QUIT);
 		  }
