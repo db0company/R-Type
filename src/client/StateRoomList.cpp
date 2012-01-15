@@ -25,7 +25,7 @@ LibGraphic::StateRoomList::StateRoomList(std::map<std::string const, GraphicRess
 						   sf::RenderWindow & app):
   AState(ressourcesSprite, ressourcesPlayList, ressourcesSounds, ressourcesFont, app)
 {
-  this->_currentButton = BUTTON_ROOMLIST_GAME;
+  this->_currentButton = BUTTON_ROOMLIST_REFRESH;
   this->_nextState = UNKNOWN_STATE;
   this->_deepList = 0;
   this->_nbGame = 1;
@@ -124,7 +124,8 @@ void LibGraphic::StateRoomList::draw()
 	}
     }
   Cursor.SetPosition(293, 345 + (50 * this->_deepList));
-  this->_app.Draw(Cursor);
+  if (this->_currentButton == BUTTON_ROOMLIST_GAME)
+    this->_app.Draw(Cursor);
 
   Button.SetPosition(470, 870);
   Button.SetRotation(180);
@@ -515,12 +516,16 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down))
 	  {
+	    if (this->_infoGameMap.empty())
+	      break;
 	    this->_deepList = 0;
 	    this->_currentButton = BUTTON_ROOMLIST_GAME;
 	  }
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  {
+	    if (this->_infoGameMap.empty())
+	      break;
 	    this->_currentButton = BUTTON_ROOMLIST_GAME;
 	    this->_deepList = this->_nbGame - 1;
 	  }
@@ -537,12 +542,16 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down))
 	  {
+	    if (this->_infoGameMap.empty())
+	      break;
 	    this->_deepList = 0;
 	    this->_currentButton = BUTTON_ROOMLIST_GAME;
 	  }
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  {
+	    if (this->_infoGameMap.empty())
+	      break;
 	    this->_currentButton = BUTTON_ROOMLIST_GAME;
 	    this->_deepList = this->_nbGame - 1;
 	  }
@@ -559,12 +568,16 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down))
 	  {
+	    if (this->_infoGameMap.empty())
+	      break;
 	    this->_deepList = 0;
 	    this->_currentButton = BUTTON_ROOMLIST_GAME;
 	  }
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  {
+	    if (this->_infoGameMap.empty())
+	      break;
 	    this->_currentButton = BUTTON_ROOMLIST_GAME;
 	    this->_deepList = this->_nbGame - 1;
 	  }
@@ -581,12 +594,16 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down))
 	  {
+	    if (this->_infoGameMap.empty())
+	      break;
 	    this->_deepList = 0;
 	    this->_currentButton = BUTTON_ROOMLIST_GAME;
 	  }
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  {
+	    if (this->_infoGameMap.empty())
+	      break;
 	    this->_currentButton = BUTTON_ROOMLIST_GAME;
 	    this->_deepList = this->_nbGame - 1;
 	  }
@@ -603,12 +620,16 @@ void LibGraphic::StateRoomList::cursorMenuPos(const sf::Event & Event)
 	else if ((JoystickPOV > 135 && JoystickPOV < 225) ||
 		 (Event.Key.Code == sf::Key::Down))
 	  {
+	    if (this->_infoGameMap.empty())
+	      break;
 	    this->_deepList = 0;
 	    this->_currentButton = BUTTON_ROOMLIST_GAME;
 	  }
 	else if ((JoystickPOV > 315 || (JoystickPOV < 45 && JoystickPOV != -1))||
 		 Event.Key.Code == sf::Key::Up)
 	  {
+	    if (this->_infoGameMap.empty())
+	      break;
 	    this->_currentButton = BUTTON_ROOMLIST_GAME;
 	    this->_deepList = this->_nbGame - 1;
 	  }
@@ -643,7 +664,7 @@ InfoGame *LibGraphic::StateRoomList::getGamePreview()
 
 void	LibGraphic::StateRoomList::resetRoomListState()
 {
-  this->_currentButton = BUTTON_ROOMLIST_GAME;
+  this->_currentButton = BUTTON_ROOMLIST_REFRESH;
   this->_nextState = UNKNOWN_STATE;
   this->_deepList = 0;
   this->_nbGame = 1;

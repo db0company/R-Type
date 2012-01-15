@@ -393,18 +393,32 @@ bool Client::actionQuit(void)
 
 bool Client::actionRank(void)
 {
-  ProtocolPacket	*packet;
-  PacketData		*data;
+  if (!this->cNetwork.isConnected())
+    {
+      if (!this->cNetwork.connect(this->cGraphic.getIp(),
+				  this->cGraphic.getPort()))
+	{
+	  this->cGraphic.errorMessage("Can't connect to Server " +
+				      this->cGraphic.getIp() + "\n");
+	  return (false);
+	}
+    }
+  if (this->cNetwork.isConnected())
+    {
+      ProtocolPacket	*packet;
+      PacketData	*data;
 
-  data = new PacketData;
-  packet = new ProtocolPacket;
-  packet->header.size = 0;
-  packet->header.group = GAME_DETAILS;
-  packet->header.instruction = RANKINGS;
-  packet->header.magic = PACKET_MAGIC;
-  packet->data = data->getData();
+      data = new PacketData;
+      packet = new ProtocolPacket;
+      packet->header.size = 0;
+      packet->header.group = GAME_DETAILS;
+      packet->header.instruction = RANKINGS;
+      packet->header.magic = PACKET_MAGIC;
+      packet->data = data->getData();
 
-  this->cNetwork.pushTCP(packet);
+      this->cNetwork.pushTCP(packet);
+      this->cGraphic.setCurrentState(LibGraphic::RANKING);
+    }
   return (true);
 }
 

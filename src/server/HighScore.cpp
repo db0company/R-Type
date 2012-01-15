@@ -59,7 +59,7 @@ bool	HighScore::addNewScore(int newScore, const std::string& newName)
     {
       if (atoi((*it).c_str()) < newScore)
 	{
-	  os << newScore << " " << newName;
+	  os << newName << " " << newScore;
 	  list.insert(it, os.str());
 	  it = list.end();
 	  --it;
