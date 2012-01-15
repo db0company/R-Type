@@ -49,6 +49,8 @@ namespace LibGraphic
     void setMyId(eShipColor id);
     void setMyPosition(Coord c);
     void resetInGameState();
+    void setScore(unsigned int i);
+    void setLives(unsigned int i);
 
   private:
     void setNextState(eState d);
@@ -59,6 +61,7 @@ namespace LibGraphic
     void drawStarField();
     void drawMap();
     void drawPlayers();
+    void drawMenu();
     void cursorMenuPos(const sf::Event&);
     void readText(const sf::Event &);
     int MapX(int x);

@@ -74,8 +74,9 @@ namespace LibGraphic
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
     void setMyPosition(Coord c);
-
-  private:
+    void setScore(unsigned int);
+    void setLives(unsigned int);
+ private:
     Event eventStart(eStates & scene);
     void loadStates();
 

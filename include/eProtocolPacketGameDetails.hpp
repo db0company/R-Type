@@ -8,6 +8,8 @@ enum		eProtocolPacketGameDetails
     GETMAP		= 2,
     PLAYERLIFE		= 3,
     GAME_DETAILS_MAX	= 4,
+    PLAYERKILL		= 5,
+    MONSTERKILL		= 6,
     GAMEDATAIL_ERROR	= 99
   };
 
