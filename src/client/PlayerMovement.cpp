@@ -18,7 +18,7 @@ LibGraphic::PlayerMovement::PlayerMovement(sf::RenderWindow & app,
 LibGraphic::PlayerMovement::~PlayerMovement() {}
 
 
-void LibGraphic::PlayerMovement::move(const sf::Event & event)
+void LibGraphic::PlayerMovement::move(const sf::Event &)
 {
   const sf::Input & Input = this->_app.GetInput();
   float JoystickX = Input.GetJoystickAxis(0, sf::Joy::AxisX);

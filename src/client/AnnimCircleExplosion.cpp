@@ -15,8 +15,7 @@ LibGraphic::AnnimCircleExplosion::AnnimCircleExplosion(sf::RenderWindow & app, s
   this->_sprite.SetPosition(200, 200);
 
 
-  //  this->_nbPlay = 0;
-
+  this->_nbPlay = 1 * CIRCLE_EXPLOSION_SIZE;
 }
 
 LibGraphic::AnnimCircleExplosion::~AnnimCircleExplosion()
@@ -28,6 +27,18 @@ void LibGraphic::AnnimCircleExplosion::play()
   if (this->_nbPlay == -1)
     return;
 
+  if (this->_clock.GetElapsedTime() < this->_clockVal)
+    {
+      this->_sprite.SetSubRect(sf::IntRect(CIRCLE_EXPLOSION_X * this->_currentSprite, 0,
+					   (CIRCLE_EXPLOSION_X * this->_currentSprite) +
+					   CIRCLE_EXPLOSION_X, CIRCLE_EXPLOSION_Y));
+      this->_sprite.SetPosition(this->_coord.x, this->_coord.y);
+      this->_app.Draw(this->_sprite);
+      return;
+    }
+  this->_sprite.SetSubRect(sf::IntRect(CIRCLE_EXPLOSION_X * this->_currentSprite, 0,
+				       (CIRCLE_EXPLOSION_X * this->_currentSprite) +
+				       CIRCLE_EXPLOSION_X, CIRCLE_EXPLOSION_Y));
   if (this->_nbPlay)
     {
       if (this->_nbPlay == 1)
@@ -37,17 +48,7 @@ void LibGraphic::AnnimCircleExplosion::play()
       else
 	--this->_nbPlay;
     }
-  if (this->_clock.GetElapsedTime() < this->_clockVal)
-    {
-      this->_sprite.SetSubRect(sf::IntRect(CIRCLE_EXPLOSION_X * this->_currentSprite, 0,
-					   (CIRCLE_EXPLOSION_X * this->_currentSprite) +
-					   CIRCLE_EXPLOSION_X, CIRCLE_EXPLOSION_Y));
-      this->_app.Draw(this->_sprite);
-      return;
-    }
-  this->_sprite.SetSubRect(sf::IntRect(CIRCLE_EXPLOSION_X * this->_currentSprite, 0,
-				       (CIRCLE_EXPLOSION_X * this->_currentSprite) +
-				       CIRCLE_EXPLOSION_X, CIRCLE_EXPLOSION_Y));
+  this->_sprite.SetPosition(this->_coord.x, this->_coord.y);
   this->_app.Draw(this->_sprite);
   ++this->_currentSprite;
   if (this->_currentSprite >= this->_nbSprite)
