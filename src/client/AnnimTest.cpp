@@ -57,7 +57,7 @@ void LibGraphic::AnnimTest::setCoord(LibGraphic::Coord const & other)
   this->_sprite.SetPosition(this->_coord.x, this->_coord.y);
 }
 
-void LibGraphic::AnnimTest::setCoord(unsigned int x, unsigned int y)
+void LibGraphic::AnnimTest::setCoord(int x, int y)
 {
   this->_coord.x = x;
   this->_coord.y = y;

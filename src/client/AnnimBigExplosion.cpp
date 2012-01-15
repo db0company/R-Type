@@ -84,3 +84,14 @@ void LibGraphic::AnnimBigExplosion::setTimer(float other)
 {
   this->_clockVal = other;
 }
+
+void LibGraphic::AnnimBigExplosion::setCoord(int x, int y)
+{
+  this->_coord.x = x;
+  this->_coord.y = y;
+}
+
+void LibGraphic::AnnimBigExplosion::setScale(float x, float y)
+{
+  this->_sprite.SetScale(x, y);
+}

@@ -83,3 +83,14 @@ void LibGraphic::AnnimCircleExplosion::setTimer(float other)
 {
   this->_clockVal = other;
 }
+
+void LibGraphic::AnnimCircleExplosion::setCoord(int x, int y)
+{
+  this->_coord.x = x;
+  this->_coord.y = y;
+}
+
+void LibGraphic::AnnimCircleExplosion::setScale(float x, float y)
+{
+  this->_sprite.SetScale(x, y);
+}

@@ -19,6 +19,7 @@ namespace LibGraphic
   class PlayerMovement;
   class BulletMovement;
   class AMonsterMovement;
+  class IAnnim;
   class	GraphicClientState
   {
   public:
@@ -71,6 +72,7 @@ namespace LibGraphic
     std::map<int, PlayerMovement *> & getPlayerMap();
     std::map<int, AMonsterMovement *> &getMonsterMap();
     std::list<std::string> &getRankingList();
+    std::list<IAnnim *> &getExplosionList();
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
     void setMyPosition(Coord c);

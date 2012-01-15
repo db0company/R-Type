@@ -250,9 +250,9 @@ void	Game::createNewMonster(GameParam&)
   PacketData *data = new PacketData;
   Position p;
   int		finalx;
-  int		finaly;  
+  int		finaly;
 
-  mob = reinterpret_cast<Monster *>(DlLoader::getInstance()->getDll(".\\MonsterBase.dll").getSymbol<IObject>("getMonsterBase"));
+  mob = reinterpret_cast<Monster *>(DlLoader::getInstance()->getDll("bin/libMonsterBase.so").getSymbol<IObject>("getMonsterBase"));
   p.x = 600 + this->_monsterId * 50;
   p.y = 400;
   verifPos(p);

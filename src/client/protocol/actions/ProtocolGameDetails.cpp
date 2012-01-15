@@ -1,5 +1,11 @@
 #include "ProtocolGameDetails.hpp"
 #include "Client.hpp"
+#include "IAnnim.hpp"
+#include "AnnimCircleExplosion.hpp"
+#include "AnnimBigExplosion.hpp"
+#include "AnnimLittleExplosion.hpp"
+#include "AMonsterMovement.hpp"
+#include "PlayerMovement.hpp"
 
 ProtocolGameDetails::ProtocolGameDetails(void)
 {
@@ -100,32 +106,58 @@ bool ProtocolGameDetails::actionPlayerLife(PacketData &data, Client &c)
   return (false);
 }
 
-bool ProtocolGameDetails::actionPlayerKill(PacketData &data, Client &)
+bool ProtocolGameDetails::actionPlayerKill(PacketData &data, Client &c)
 {
   char id_player;
   std::string login;
   char killtype; // 0 = missile kill // 1 = collision kill
-
+  int posx;
+  int posy;
+  LibGraphic::IAnnim *e;
+  std::list<LibGraphic::IAnnim *> &map = c.getGraphic().getExplosionList();
+  std::map<int, LibGraphic::PlayerMovement *> &playerMap = c.getGraphic().getPlayerMap();
   id_player = data.getNextChar();
   login = data.getNextString();
   killtype = data.getNextChar();
+  posx = data.getNextShort();
+  posy = data.getNextShort();
 
-  // idriss todo -> ici il faut afficher une explosion a lendroit
-  // ou se trouve le id_player
-  // killtype: 1= explosion big. 0= explostion circle
+  if (killtype == 0)
+    {
+      e = new LibGraphic::AnnimCircleExplosion(c.getGraphic().getWindow(),
+			c.getGraphic().getSprite("CircleExplosion"));
+    }
+  else
+    {
+      e = new LibGraphic::AnnimBigExplosion(c.getGraphic().getWindow(),
+			c.getGraphic().getSprite("BigExplosion"));
+    }
+  e->setCoord(posx, posy);
+  map.push_front(e);
+  if (playerMap.find(id_player) != playerMap.end())
+    playerMap.erase(id_player);
   return (false);
 }
 
-bool ProtocolGameDetails::actionMonsterKill(PacketData &data, Client &)
+bool ProtocolGameDetails::actionMonsterKill(PacketData &data, Client &c)
 {
   char id_monstre;
   char killtype; // peut que mourrir dun missile... mais au cas ou
+  int posx;
+  int posy;
+  LibGraphic::IAnnim *e;
+  std::list<LibGraphic::IAnnim *> &map = c.getGraphic().getExplosionList();
+  std::map<int, LibGraphic::AMonsterMovement *> &monsters = c.getGraphic().getMonsterMap();
 
   id_monstre = data.getNextChar();
-  killtype = data.getNextChar();
-
-  // idriss todo -> ici il faut afficher une explosion a lendroit
-  // ou se trouve le id_monstre
-  // explostion : little_explostion
+  killtype = data.getNextChar(); // ignored pour le moment. ou pas
+  posx = data.getNextShort();
+  posy = data.getNextShort();
+  e = new LibGraphic::AnnimLittleExplosion(c.getGraphic().getWindow(),
+   c.getGraphic().getSprite("LittleExplosion"));
+  e->setCoord(posx, posy);
+  map.push_front(e);
+  if (monsters.find(id_monstre) != monsters.end())
+    monsters.erase(id_monstre);
   return (false);
 }

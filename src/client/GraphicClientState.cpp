@@ -17,6 +17,7 @@
 #include "PlayerMovement.hpp"
 #include "AMonsterMovement.hpp"
 #include "SpriteInfo.hpp"
+#include "IAnnim.hpp"
 
 using namespace LibGraphic;
 
@@ -315,4 +316,9 @@ void LibGraphic::GraphicClientState::setLives(unsigned int lives)
 std::list<std::string> &LibGraphic::GraphicClientState::getRankingList()
 {
   return reinterpret_cast <StateRanking *>(getValue(this->_stateInfos, RANKING))->getRankingList();
+}
+
+std::list<IAnnim *> &LibGraphic::GraphicClientState::getExplosionList()
+{
+  return reinterpret_cast <StateInGame *>(getValue(this->_stateInfos, INGAME))->getExplosionList();
 }

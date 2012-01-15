@@ -24,7 +24,7 @@ namespace LibGraphic
   public:
     virtual Coord const & getCoord() const;
     virtual void setCoord(Coord const &);
-    virtual void setCoord(unsigned int, unsigned int);
+    virtual void setCoord(int, int);
     virtual void setScale(float, float);
 
     virtual float getTimer() const;

@@ -7,7 +7,7 @@
 #include "PlayerMovement.hpp"
 #include "SpriteInfo.hpp"
 #include "BulletMovement.hpp"
-//#include "AMonsterMovement.hpp"
+#include "IAnnim.hpp"
 
 namespace LibGraphic
 {
@@ -45,12 +45,15 @@ namespace LibGraphic
 
     std::list<BulletMovement *> &getBulletList();
 
+    std::list<IAnnim *> &getExplosionList();
+
     eShipColor getMyId() const;
     void setMyId(eShipColor id);
     void setMyPosition(Coord c);
     void resetInGameState();
     void setScore(unsigned int i);
     void setLives(unsigned int i);
+    void drawExplosion();
 
   private:
     void setNextState(eState d);
@@ -66,6 +69,8 @@ namespace LibGraphic
     void readText(const sf::Event &);
     int MapX(int x);
     int MapY(int y);
+    std::string stringOfInt(int);
+
   private:
 
     int		gpos;
@@ -86,6 +91,7 @@ namespace LibGraphic
     std::list<BulletMovement *>	_bulletList;
     std::map<int, PlayerMovement *> _playerMap;
     std::map<int, AMonsterMovement *> _monsterMap;
+    std::list<IAnnim *>	_explosionList;
     PlayerMovement * _player;
   };
 

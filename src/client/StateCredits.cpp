@@ -93,6 +93,9 @@ LibGraphic::Event LibGraphic::StateCredits::gereEvent()
 
   if (this->_end)
     {
+      this->_end = false;
+      this->_list.clear();
+      this->loadCredits();
       this->_nextState = START;
       return EVENT_CHANGE_STATE;
     }
@@ -108,13 +111,21 @@ LibGraphic::Event LibGraphic::StateCredits::gereEvent()
 		  errorToPrint = false;
 		else
 		  {
-		    this->_app.Close();
-		    exit(EXIT_SUCCESS);
+		    this->_end = false;
+		    this->_list.clear();
+		    this->loadCredits();
+ 		    this->_nextState = START;
+		    return EVENT_CHANGE_STATE;
+		    // this->_app.Close();
+		    // exit(EXIT_SUCCESS);
 		  }
 		break;
 	      }
 	    case sf::Key::Return :
 	      {
+		this->_end = false;
+		this->_list.clear();
+		this->loadCredits();
 		this->_nextState = START;
 		return EVENT_CHANGE_STATE;
 	      }
@@ -127,6 +138,9 @@ LibGraphic::Event LibGraphic::StateCredits::gereEvent()
 	    {
 	    case 1:
 	      {
+		this->_end = false;
+		this->_list.clear();
+		this->loadCredits();
 		this->_nextState = START;
 		return EVENT_CHANGE_STATE;
 	      }
